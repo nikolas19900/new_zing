@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 8961fb38a2921dd4a95664dae5464684
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:none;stroke:#fff;stroke-linecap:round;stroke-miterlimit:10;stroke-width:30px;}</style></defs><g
+    id="Layer_2" data-name="Layer 2"><path class="cls-1" d="M250,0C111.93,0,0,111.93,0,250S111.93,500,250,500,500,388.07,500,250,388.07,0,250,0Zm1,467C133.36,467,38,371.64,38,254S133.36,41,251,41s213,95.36,213,213S368.64,467,251,467Z"/></g><g
+    id="Layer_3" data-name="Layer 3"><path class="cls-1" d="M249.5,65A84.5,84.5,0,1,0,334,149.5,84.5,84.5,0,0,0,249.5,65Zm.5,142a58,58,0,1,1,58-58A58,58,0,0,1,250,207Z"/><path
+    class="cls-2" d="M159,226s-21,14-25,41-6,89,0,96,13,9,25,8,184,7,200,0,21-7,21-19V292"/><line
+    class="cls-2" x1="376" y1="181" x2="376" y2="250"/><line class="cls-2" x1="340"
+    y1="216" x2="406" y2="216"/></g></svg>
+  assetBundleName: 
+  assetBundleVariant: 

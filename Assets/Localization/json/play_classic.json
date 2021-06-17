@@ -1,0 +1,75 @@
+{
+  "play_classic": [
+    { "english": "PLAY CLASSIC" },
+    { "spanish": "JUEGO CLÁSICO" },
+    { "portuguese": "JUEGO CLÁSICO" },
+    { "russian": "IGRAT' V KLASSICHESKUYU" }
+  ],
+  "play_special": [
+    {"english": "PLAY SPECIAL"},
+    {"spanish": "JUEGO ESPECIAL"},
+    {"portuguese": "JUEGO ESPECIAL"},
+    {"russian": "IGRAT' SPETSIAL'NO"}
+  ],
+  "leaderboard": [
+    { "english": "LEADERBOARD" },
+    { "spanish": "TABLA DE LIDERAZGO" },
+    { "portuguese": "TABLA DE LIDERAZG" },
+    { "russian": "LIDERBORD" }
+  ],
+  "private_game": [
+    { "english": "PRIVATE GAME" },
+    { "spanish": "JUEGO PRIVADO" },
+    {"portuguese": "JUEGO PRIVADO"},
+    { "russian": "CHASTNAYA IGRA" }
+  ],
+  "notice": [
+    { "english": "Notice" },
+    { "spanish": "Darse cuenta" },
+    { "portuguese": "Perceber" },
+    { "russian": "Uvedomleniye" }
+  ],
+  "tutorial": [
+    { "english": "Tutorial" },
+    { "spanish": "Tutorial" },
+    { "portuguese": "Tutorial" },
+    { "russian": "Rukovodstvo" }
+  ],
+  "help": [
+    { "english": "Help" },
+    { "spanish": "Ayudar" },
+    { "portuguese": "Ajuda" },
+    { "russian": "Pomoshch" }
+  ],
+  "vip_pack": [
+    { "english": "VIP PACK" },
+    { "spanish": "PAQUETE VIP" },
+    { "portuguese": "VIP PACK" },
+    { "russian": "VIP PAKET" }
+  ],
+  "invites": [
+    { "english": "INVITE" },
+    { "spanish": "INVITAR" },
+    { "portuguese": "CONVIDAR" },
+    { "russian": "PRIGLASHAT" }
+  ],
+  "gifts": [
+    { "english": "GIFTS" },
+    { "spanish": "REGALOS" },
+    { "portuguese": "PRESENTES" },
+    { "russian": "PODARKI" }
+  ],
+  "friends": [
+    { "english": "FRIENDS" },
+    { "spanish": "AMIGOS" },
+    { "portuguese": "AMIGOS" },
+    { "russian": "DRUZ'YA" }
+  ],
+  "special_offers": [
+    { "english": "Special Offers" },
+    { "spanish": "Ofertas especiales" },
+    { "portuguese": "Ofertas especiais" },
+    { "russian": "Spetsial'nyye predlozheniya" }
+  ]
+  
+}

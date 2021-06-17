@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 9b073d60cf179ea4daec63a3c871d176
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><g id="Layer_1"
+    data-name="Layer 1"><rect x="91" y="145" width="317" height="212"/><path d="M247.5,138.5A34.85,34.85,0,0,0,216,120c-23,0-108,15-108,15V346s82-18,109-17c25,.93,30,20,30,20Z"/><path
+    d="M247.5,138.5a33.73,33.73,0,0,1,31-19c23,0,108,15,108,15v211s-82-18-109-17c-25,.93-30,20-30,20Z"/></g><g
+    id="Layer_2" data-name="Layer 2"><path d="M250,0C111.93,0,0,111.93,0,250S111.93,500,250,500,500,388.07,500,250,388.07,0,250,0Zm1,467C133.36,467,38,371.64,38,254S133.36,41,251,41s213,95.36,213,213S368.64,467,251,467Z"/></g></svg>
+  assetBundleName: 
+  assetBundleVariant: 

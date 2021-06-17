@@ -1,0 +1,33 @@
+fileFormatVersion: 2
+guid: e6d9bd8d999f38149b0e062faa91cc38
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    viewBox="0 0 720 1008"><defs><symbol id="SD3" data-name="SD3" viewBox="0 0 17.85
+    22.31"><path d="M0,11.15c1.12,0,8.92,10,8.92,11.16,0-1.12,7.81-11.16,8.93-11.16-1.12,0-8.93-10-8.93-11.15C8.92,1.12,1.12,11.15,0,11.15Z"
+    style="fill:red"/></symbol></defs><g id="Layer_2" data-name="Layer 2"><rect x="1.5"
+    y="1.5" width="717" height="1005" rx="48.5" style="fill:#fff"/><path d="M670,3a47,47,0,0,1,47,47V958a47,47,0,0,1-47,47H50A47,47,0,0,1,3,958V50A47,47,0,0,1,50,3H670m0-3H50A50,50,0,0,0,0,50V958a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50V50A50,50,0,0,0,670,0Z"
+    style="fill:#333"/><use width="17.85" height="22.31" transform="matrix(2.98,
+    0, 0, -3.12, 44.76, 218.13)" xlink:href="#SD3"/><use width="17.85" height="22.31"
+    transform="matrix(6.57, 0, 0, -6.88, 125.87, 283.86)" xlink:href="#SD3"/><use
+    width="17.85" height="22.31" transform="matrix(6.57, 0, 0, -6.88, 125.87, 910.73)"
+    xlink:href="#SD3"/><use width="17.85" height="22.31" transform="matrix(6.57,
+    0, 0, -6.88, 125.87, 707.26)" xlink:href="#SD3"/><use width="17.85" height="22.31"
+    transform="matrix(6.57, 0, 0, -6.88, 125.87, 499.85)" xlink:href="#SD3"/><use
+    width="17.85" height="22.31" transform="matrix(6.57, 0, 0, -6.88, 487.54, 285.5)"
+    xlink:href="#SD3"/><use width="17.85" height="22.31" transform="matrix(6.57,
+    0, 0, -6.88, 487.54, 912.37)" xlink:href="#SD3"/><use width="17.85" height="22.31"
+    transform="matrix(6.57, 0, 0, -6.88, 487.54, 708.9)" xlink:href="#SD3"/><use
+    width="17.85" height="22.31" transform="matrix(6.57, 0, 0, -6.88, 301.86, 798.03)"
+    xlink:href="#SD3"/><use width="17.85" height="22.31" transform="matrix(6.57,
+    0, 0, -6.88, 487.54, 501.49)" xlink:href="#SD3"/><use width="17.85" height="22.31"
+    transform="matrix(6.57, 0, 0, -6.88, 299.06, 390.02)" xlink:href="#SD3"/><use
+    width="17.85" height="22.31" transform="matrix(2.98, 0, 0, -3.12, 623.4, 854.78)"
+    xlink:href="#SD3"/><path d="M65,134H41V121h9V55H41V42H56v79h9Z" style="fill:red"/><path
+    d="M72,103.75V71.32q0-12.66,4.07-21.84T86,40.31q5.85,0,9.93,9.17T100,71.32v32.43q0,12.66-4.07,22T86,135.08q-5.85,0-9.93-9.33T72,103.75Zm6-32.24v32.05a32.26,32.26,0,0,0,2.34,12.79q2.34,5.45,5.66,5.44t5.66-5.5A32.3,32.3,0,0,0,94,103.56v-32A30.69,30.69,0,0,0,91.66,59q-2.34-5.3-5.66-5.29T80.34,59A30.69,30.69,0,0,0,78,71.51Z"
+    style="fill:red"/><path d="M656,866.31h24v13h-9v66h9v13H665v-79h-9Z" style="fill:red"/><path
+    d="M649,896.57V929q0,12.68-4.07,21.84T635,960q-5.85,0-9.93-9.17T621,929V896.57q0-12.68,4.07-22t9.93-9.34q5.85,0,9.93,9.34T649,896.57Zm-6,32.23v-32A32.18,32.18,0,0,0,640.66,884c-1.56-3.64-3.45-5.45-5.66-5.45s-4.1,1.83-5.66,5.5A32.3,32.3,0,0,0,627,896.75v32a30.78,30.78,0,0,0,2.34,12.52q2.34,5.28,5.66,5.28t5.66-5.28A30.78,30.78,0,0,0,643,928.8Z"
+    style="fill:red"/></g></svg>
+  assetBundleName: 
+  assetBundleVariant: 

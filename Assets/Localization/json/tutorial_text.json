@@ -1,0 +1,70 @@
+{
+
+  "_1": [
+    { "english": "On left side of window is result window with necessary data. Current picture represent the dealer and cards below picture present last card of dealer and team where belongs." },
+    { "spanish": "JUEGO CLÁSICO 1" },
+    { "portuguese": "JUEGO CLÁSICO" },
+    { "russian": "IGRAT' V KLASSICHESKUYU" }
+  ],
+  "_2": [
+    { "english": "Cards field represent how many cards the player picked up on current round. \n Points represent current point of player. \n Zing represent additional point for the player." },
+    { "spanish": "JUEGO CLÁSICO 2" },
+    { "portuguese": "JUEGO CLÁSICO" },
+    { "russian": "IGRAT' V KLASSICHESKUYU" }
+  ],
+  "_3": [
+    { "english": "Cards on bottom of screen are cards of current player. Top to them are cards which is droped on desk." },
+    { "spanish": "JUEGO CLÁSICO 3" },
+    { "portuguese": "JUEGO CLÁSICO" },
+    { "russian": "IGRAT' V KLASSICHESKUYU" }
+  ],
+  "_4": [
+    { "english": "To pick up cards from desk drop 6 or J." },
+    { "spanish": "JUEGO CLÁSICO 4" },
+    { "portuguese": "JUEGO CLÁSICO" },
+    { "russian": "IGRAT' V KLASSICHESKUYU" }
+  ],
+  "_5": [
+    { "english": "The oposite player droped 8 on deck. \n Drop 8 to make ZING. You will earn 10 aditional point. In case you make ZING with J (trumps) you will earn 20 points." },
+    { "spanish": "JUEGO CLÁSICO 5" },
+    { "portuguese": "JUEGO CLÁSICO" },
+    { "russian": "IGRAT' V KLASSICHESKUYU" }
+  ],
+  "_6": [
+    { "english": "The opposite player droped 9. \n To pick up again drop the J. The trump is picking everything." },
+    { "spanish": "JUEGO CLÁSICO 6" },
+    { "portuguese": "JUEGO CLÁSICO" },
+    { "russian": "IGRAT' V KLASSICHESKUYU" }
+  ],
+  "_7": [
+    { "english": "Congratulations! You finished the tutorial now you can freely play the game." },
+    { "spanish": "JUEGO CLÁSICO 7" },
+    { "portuguese": "JUEGO CLÁSICO" },
+    { "russian": "IGRAT' V KLASSICHESKUYU" }
+  ],
+  "_8": [
+    { "english": "The oposite player droped 8 on deck. \n Drop 8 to make ZING. You will earn 10 aditional point. In case you make ZING with J (trumps) you will earn 20 points." },
+    { "spanish": "JUEGO CLÁSICO 8" },
+    { "portuguese": "JUEGO CLÁSICO" },
+    { "russian": "IGRAT' V KLASSICHESKUYU" }
+  ],
+  "_9": [
+    { "english": "The opposite player drop 9. Drop 6 on desk." },
+    { "spanish": "JUEGO CLÁSICO 9" },
+    { "portuguese": "JUEGO CLÁSICO" },
+    { "russian": "IGRAT' V KLASSICHESKUYU" }
+  ],
+  "_10": [
+    { "english": "The opposite player drop 7. Drop 7 to picked up all." },
+    { "spanish": "JUEGO CLÁSICO 10" },
+    { "portuguese": "JUEGO CLÁSICO" },
+    { "russian": "IGRAT' V KLASSICHESKUYU" }
+  ],
+  "_11": [
+    { "english": "Congratulations! You finished the tutorial now you can freely play the game." },
+    { "spanish": "JUEGO CLÁSICO 11" },
+    { "portuguese": "JUEGO CLÁSICO" },
+    { "russian": "IGRAT' V KLASSICHESKUYU" }
+  ]
+
+}

@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 591692129d018a444bfba7115f989e0e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><defs><style>.cls-1{fill:#fff;}</style></defs><g
+    id="Layer_2" data-name="Layer 2"><path class="cls-1" d="M250,0C111.93,0,0,111.93,0,250S111.93,500,250,500,500,388.07,500,250,388.07,0,250,0Zm1,467C133.36,467,38,371.64,38,254S133.36,41,251,41s213,95.36,213,213S368.64,467,251,467Z"/></g><g
+    id="Layer_3" data-name="Layer 3"><path class="cls-1" d="M116,122c-8,0-10,5-10,8s0,8,5,8,32.5-.5,32.5-.5l36,178h141c11,0,20,9,21,13s10,3,13,0,4-7,0-13-16-18-30-19-128,1-128,1l-38-177Z"/><path
+    class="cls-1" d="M352.5,164.5c5,0,6,3,5,8s-17,100-18,102-2,3-6,3-140.44,4-140.44,4l-3-13.95,138.43-4,15-86-173.44-3.14L167,160.09Z"/><polygon
+    class="cls-1" points="176 199.13 339.85 199.13 338.17 208.08 177.3 208.08 176
+    199.13"/><polygon class="cls-1" points="182.57 232.64 333.88 232.64 332.03 243.25
+    184.85 243.25 182.57 232.64"/><polygon class="cls-1" points="229.5 266.5 239.44
+    266.34 232.5 175.49 222.61 175.49 229.5 266.5"/><polygon class="cls-1" points="280.5
+    264.9 290.71 264.6 296.95 176.66 285.78 176.46 280.5 264.9"/><circle class="cls-1"
+    cx="196" cy="360" r="25"/><circle class="cls-1" cx="309" cy="360" r="25"/></g></svg>
+  assetBundleName: 
+  assetBundleVariant: 

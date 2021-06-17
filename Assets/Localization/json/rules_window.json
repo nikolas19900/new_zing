@@ -1,0 +1,36 @@
+{
+  "ruleswindow": {
+    "title": {
+      "english": "Rules",
+      "spanish": "Reglas",
+      "portuguese": "Regras",
+      "russian": "Pravila"
+    },
+    "tutorialbutton": {
+      "english": "Tutorial",
+      "spanish": "De Tutoría",
+      "portuguese": "Tutório",
+      "russian": "Rukovodstvo"
+    },
+    "text": {
+      "english": {
+        "height": "1185",
+        "content": ""
+      },
+      "spanish": {
+        "height": "600",
+        "content": ""
+      },
+
+      "portuguese": {
+        "heighr": "600",
+        "content": ""
+      },
+
+      "russian": {
+        "heighe": "600",
+        "content": ""
+      }
+    }
+  }
+}

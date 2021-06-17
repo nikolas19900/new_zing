@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 720 1008">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        fill: #333;
+      }
+    </style>
+    <symbol id="SC8" data-name="SC8" viewBox="0 0 20.82 22.24">
+      <path d="M11.08,7.81C11.19,2.57,12.3,2.23,13.31,0H7.51c1,2.23,2.12,2.57,2.23,7.81A.22.22,0,0,1,9.52,8a.22.22,0,0,1-.23-.22,4.68,4.68,0,1,0-3.75,5.45,4.6,4.6,0,0,0,2.1-1,.22.22,0,0,1,.31.05.21.21,0,0,1,0,.26,5.12,5.12,0,1,0,4.91,0,.23.23,0,0,1,.05-.31.21.21,0,0,1,.26,0A4.69,4.69,0,1,0,12.5,5.7a4.76,4.76,0,0,0-1,2.11.22.22,0,1,1-.44,0Z"/>
+    </symbol>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <g>
+      <rect class="cls-1" x="1.5" y="1.5" width="717" height="1005" rx="48.5"/>
+      <path class="cls-2" d="M670,3a47,47,0,0,1,47,47V958a47,47,0,0,1-47,47H50A47,47,0,0,1,3,958V50A47,47,0,0,1,50,3H670m0-3H50A50,50,0,0,0,0,50V958a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50V50A50,50,0,0,0,670,0Z"/>
+    </g>
+    <use width="20.81" height="22.24" transform="matrix(-8.66, 0, 0, 8.61, 306.13, 707.24)" xlink:href="#SC8"/>
+    <use width="20.81" height="22.24" transform="matrix(-8.66, 0, 0, 8.61, 604.83, 707.24)" xlink:href="#SC8"/>
+    <use width="20.81" height="22.24" transform="matrix(8.66, 0, 0, -8.61, 420.74, 281.8)" xlink:href="#SC8"/>
+    <use width="20.81" height="22.24" transform="matrix(8.66, 0, 0, -8.61, 127.94, 281.8)" xlink:href="#SC8"/>
+    <use width="20.81" height="22.24" transform="matrix(-2.81, 0, 0, 2.78, 680, 785.07)" xlink:href="#SC8"/>
+    <use width="20.81" height="22.24" transform="matrix(2.88, 0, 0, -2.86, 42.25, 216.56)" xlink:href="#SC8"/>
+    <path d="M72,122h7V112H42v-9.56L80.67,42H91v58h11v12H91v10h6v12H72ZM58.25,100H79V67.12Z"/>
+    <path d="M650,880h-7v10h37v9.56L641.33,960H631V902H620V890h11V880h-6V868h25Zm13.75,22H643v32.88Z"/>
+  </g>
+</svg>
