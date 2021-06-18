@@ -84,6 +84,7 @@ MonoBehaviour:
   - SendMsg
   - StartGame
   - UpdatePlayersName
+  - ReadLine
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

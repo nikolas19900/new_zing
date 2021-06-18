@@ -57,10 +57,6 @@ public class GameScript : MonoBehaviourPunCallbacks
         
         _currentPhotonView.RPC("UpdatePlayersName", RpcTarget.All);
 
-        if (PhotonNetwork.IsMasterClient && SideOfTeam.CurrentPlayerSide ==1)
-        {
-            FB.API("/me/picture?type=square&height=64&width=64", HttpMethod.GET, DisplayProfilePic);
-        }
         if (PhotonNetwork.CurrentRoom.PlayerCount == 4) {
           
            
@@ -77,11 +73,19 @@ public class GameScript : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        try { 
-        if(PhotonNetwork.PlayerList[1].IsInactive)
-        {
-            
-        }
+        try {
+
+            var players = PhotonNetwork.CurrentRoom.Players;
+            foreach(var current in players)
+            {
+                if (!players[current.Key].IsInactive)
+                {
+                    Debug.Log("radi");
+                    _currentPhotonView.RPC("ReadLine", players[current.Key]);
+                }
+            }
+        
+        
         }catch(Exception ex)
         {
             //Debug.Log("tacno");
@@ -89,6 +93,13 @@ public class GameScript : MonoBehaviourPunCallbacks
 
        
 
+    }
+
+
+    [PunRPC]
+    public void ReadLine()
+    {
+        Debug.Log("radi 2 igrac");
     }
 
     [PunRPC]
@@ -116,29 +127,7 @@ public class GameScript : MonoBehaviourPunCallbacks
         }
 
 
-        if (SideOfTeam.CurrentPlayerSide == 1)
-        {
-            DealerName.text = PhotonNetwork.CurrentRoom.GetPlayer(1).NickName;
-
-            
-        }
-        else
-        {
-            var fff  = value.Keys;
-            foreach(var temp in fff)
-            {
-                if (temp == 2)
-                {
-                    DealerName.text = PhotonNetwork.CurrentRoom.GetPlayer(2).NickName;
-                }
-                else
-                {
-                    DealerName.text = PhotonNetwork.CurrentRoom.GetPlayer(temp).NickName;
-                }
-            }
-            
-
-        }
+       
         
     }
 
@@ -180,8 +169,30 @@ public class GameScript : MonoBehaviourPunCallbacks
     public void StartGame(bool state)
     {
         isGameStarted = state;
-        
-       
+        Dictionary<int, Player> value = PhotonNetwork.CurrentRoom.Players;
+        if (SideOfTeam.CurrentPlayerSide == 1)
+        {
+            DealerName.text = PhotonNetwork.CurrentRoom.GetPlayer(1).NickName;
+        }
+        else
+        {
+            var fff = value.Keys;
+            foreach (var temp in fff)
+            {
+                if (temp == 2)
+                {
+                    DealerName.text = PhotonNetwork.CurrentRoom.GetPlayer(2).NickName;
+                }
+                else
+                {
+                    DealerName.text = PhotonNetwork.CurrentRoom.GetPlayer(temp).NickName;
+                }
+            }
+
+
+        }
+
+        FB.API("/me/picture?type=square&height=64&width=64", HttpMethod.GET, DisplayProfilePic);
         if (SideOfTeam.CurrentPlayerSide == 1 && isGameStarted)
         {
             _zingDealer = new ZingDealer();
