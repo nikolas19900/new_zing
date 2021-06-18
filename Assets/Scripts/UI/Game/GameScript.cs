@@ -73,23 +73,23 @@ public class GameScript : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        try {
+        //try {
 
-            var players = PhotonNetwork.CurrentRoom.Players;
-            foreach(var current in players)
-            {
-                if (!players[current.Key].IsInactive)
-                {
-                    Debug.Log("radi");
-                    _currentPhotonView.RPC("ReadLine", players[current.Key]);
-                }
-            }
+        //    //var players = PhotonNetwork.CurrentRoom.Players;
+        //    //foreach(var current in players)
+        //    //{
+        //    //    if (!players[current.Key].IsInactive)
+        //    //    {
+        //    //        Debug.Log("radi");
+        //    //        _currentPhotonView.RPC("ReadLine", players[current.Key]);
+        //    //    }
+        //    //}
         
         
-        }catch(Exception ex)
-        {
-            //Debug.Log("tacno");
-        }
+        //}catch(Exception ex)
+        //{
+        //    //Debug.Log("tacno");
+        //}
 
        
 
