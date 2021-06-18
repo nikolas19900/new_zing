@@ -3874,6 +3874,8 @@ MonoBehaviour:
   _currentPhotonView: {fileID: 914850045}
   BluePlayerNameValue: {fileID: 1321844409}
   RedPlayerNameValue: {fileID: 405517020}
+  DealerName: {fileID: 1230401515}
+  DealerImage: {fileID: 918462240}
 --- !u!114 &914850045
 MonoBehaviour:
   m_ObjectHideFlags: 0

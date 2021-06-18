@@ -8,6 +8,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using ExitGames.Client.Photon;
+using Assets.Scripts.UI.Game;
+using Facebook.Unity;
+using Assets.Scripts.UI.Game.CheckCards;
 
 public class GameScript : MonoBehaviourPunCallbacks
 {
@@ -20,14 +23,23 @@ public class GameScript : MonoBehaviourPunCallbacks
     [SerializeField]
     private Text RedPlayerNameValue;
 
+    [SerializeField]
+    private Text DealerName;
+    [SerializeField]
+    private GameObject DealerImage;
+
     private List<RoomListing> _roomListings;
 
     private RoomListingMenu _roomListingMenu;
 
 
     private bool isGameStarted = false;
-    private List<int> playerList = new List<int>();
-  
+   
+
+    private ZingDealer _zingDealer;
+
+    private List<string> RemainingCardsList;
+
 
     void Awake()
     {
@@ -42,32 +54,7 @@ public class GameScript : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-
-
-        //Dictionary<int, Player> value = PhotonNetwork.CurrentRoom.Players;
-
-
-
-        //Debug.Log("mine:" + PhotonNetwork.LocalPlayer.CustomProperties["Team"]);
-
-
-        //foreach (var vv in value)
-        //{
-           
-        //    if (PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Team"].Equals("Blue"))
-        //    {
-        //        BluePlayerNameValue.text += PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
-
-        //    }
-        //    else
-        //    {
-        //        RedPlayerNameValue.text += PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
-        //    }
-
-        //    playerList.Add(vv.Key);
-
-        //}
-
+        
         _currentPhotonView.RPC("UpdatePlayersName", RpcTarget.All);
 
 
@@ -122,60 +109,92 @@ public class GameScript : MonoBehaviourPunCallbacks
                 RedPlayerNameValue.text += PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
             }
 
-          
+            
 
         }
+
+
+        if (SideOfTeam.CurrentPlayerSide == 1)
+        {
+            DealerName.text = PhotonNetwork.CurrentRoom.GetPlayer(1).NickName;
+
+            FB.API("/me/picture?type=square&height=64&width=64", HttpMethod.GET, DisplayProfilePic);
+        }
+        else
+        {
+            var fff  = value.Keys;
+            foreach(var temp in fff)
+            {
+                if (temp == 2)
+                {
+                    DealerName.text = PhotonNetwork.CurrentRoom.GetPlayer(2).NickName;
+                }
+                else
+                {
+                    DealerName.text = PhotonNetwork.CurrentRoom.GetPlayer(temp).NickName;
+                }
+            }
+            
+
+        }
+        
     }
-  
+
+
+    void DisplayProfilePic(IGraphResult result)
+    {
+
+        if (result.Texture != null)
+        {
+
+            UnityEngine.UI.Image ProfilePic = DealerImage.GetComponent<UnityEngine.UI.Image>();
+            ProfilePic.sprite = Sprite.Create(result.Texture, new Rect(0, 0, 64, 64), new Vector2());
+            Texture2D tempTex = result.Texture;
+
+            byte[] value = tempTex.EncodeToPNG();
+            if(_currentPhotonView.IsMine)
+             _currentPhotonView.RPC("SetPictureDealer", RpcTarget.Others, value, DealerName.text);
+        }
+
+    }
+
+    [PunRPC]
+    public void SetPictureDealer(byte[] value, string NickName)
+    {
+        Texture2D tex = new Texture2D(64, 64);
+
+        tex.LoadImage(value);
+        // Assign texture to renderer's material.
+        //GetComponent<Renderer>().material.mainTexture = tex;
+        UnityEngine.UI.Image ProfilePic = DealerImage.GetComponent<UnityEngine.UI.Image>();
+        ProfilePic.sprite = Sprite.Create(tex, new Rect(0, 0, 64, 64), new Vector2());
+
+        DealerName.text = NickName;
+    }
+
 
 
     [PunRPC]
-public void StartGame(bool state)
-{
-    isGameStarted = state;
-
-    var team = PunTeams.Team.blue;
-    var teamRed = PunTeams.Team.red;
-        //Dictionary<int, Player> value = PhotonNetwork.CurrentRoom.Players;
-
-        ////PhotonNetwork.CurrentRoom.
-        //int i = 0;
-        //foreach (var vv in value)
-        //{
-        //    if (i % 2 == 0)
-        //    {
-        //        playerList.Add(vv.Value);
-        //        vv.Value.SetTeam(team);
-        //    }
-        //    else
-        //    {
-        //        playerList.Add(vv.Value);
-        //        vv.Value.SetTeam(teamRed);
-        //    }
-        //    i++;
-
-        //    // Debug.Log(vv.Value.NickName);
-        //}
-        PhotonNetwork.CurrentRoom.GetPlayer(1).SetTeam(team);
-        PhotonNetwork.CurrentRoom.GetPlayer(2).SetTeam(teamRed);
-        PhotonNetwork.CurrentRoom.GetPlayer(3).SetTeam(team);
-        PhotonNetwork.CurrentRoom.GetPlayer(4).SetTeam(teamRed);
-
-        if (PhotonNetwork.CurrentRoom.GetPlayer(1).GetTeam() == PunTeams.Team.blue && PhotonNetwork.CurrentRoom.GetPlayer(3).GetTeam() == PunTeams.Team.blue)
+    public void StartGame(bool state)
+    {
+        isGameStarted = state;
+        
+       
+        if (SideOfTeam.CurrentPlayerSide == 1 && isGameStarted)
         {
-            BluePlayerNameValue.text = PhotonNetwork.CurrentRoom.GetPlayer(1).NickName + PhotonNetwork.CurrentRoom.GetPlayer(3).NickName;
-        }
-        if (PhotonNetwork.CurrentRoom.GetPlayer(2).GetTeam() == PunTeams.Team.red && PhotonNetwork.CurrentRoom.GetPlayer(4).GetTeam() == PunTeams.Team.red)
-        {
-            RedPlayerNameValue.text = PhotonNetwork.CurrentRoom.GetPlayer(2).NickName + PhotonNetwork.CurrentRoom.GetPlayer(4).NickName;
-        }
+            _zingDealer = new ZingDealer();
+            string[] remaingCardArray = new string[_zingDealer.RemainingCards.Count];
+            int intValue = 0;
+            RemainingCardsList = new List<string>();
+            foreach (var obj in _zingDealer.RemainingCards)
+            {
 
-
-        Debug.Log("team igrac:" + PhotonNetwork.CurrentRoom.GetPlayer(1).GetTeam());
-        if (PhotonNetwork.IsMasterClient && isGameStarted)
-        {
-
+                remaingCardArray[intValue] = obj.name;
+                Debug.Log("a:" + obj.name);
+                RemainingCardsList.Add(obj.name);
+                intValue++;
+            }
         }
-}
+    }
    
 }
