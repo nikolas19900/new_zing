@@ -158,6 +158,8 @@ public class StartAction : MonoBehaviourPunCallbacks
             hash.Add("Team", "Red");
         }
 
+        hash.Add("State", "active");
+
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
     }
 
