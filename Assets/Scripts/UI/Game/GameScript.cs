@@ -57,14 +57,16 @@ public class GameScript : MonoBehaviourPunCallbacks
         
         _currentPhotonView.RPC("UpdatePlayersName", RpcTarget.All);
 
-
+        if (PhotonNetwork.IsMasterClient && SideOfTeam.CurrentPlayerSide ==1)
+        {
+            FB.API("/me/picture?type=square&height=64&width=64", HttpMethod.GET, DisplayProfilePic);
+        }
         if (PhotonNetwork.CurrentRoom.PlayerCount == 4) {
           
            
             isGameStarted = true;
-            photonView.RPC("StartGame", RpcTarget.All, isGameStarted);
+            photonView.RPC("StartGame", PhotonNetwork.CurrentRoom.GetPlayer(1), isGameStarted);
          
-        
         }
     }
 
@@ -118,7 +120,7 @@ public class GameScript : MonoBehaviourPunCallbacks
         {
             DealerName.text = PhotonNetwork.CurrentRoom.GetPlayer(1).NickName;
 
-            FB.API("/me/picture?type=square&height=64&width=64", HttpMethod.GET, DisplayProfilePic);
+            
         }
         else
         {
