@@ -154,8 +154,8 @@ public class GameScript : MonoBehaviourPunCallbacks
             Texture2D tempTex = result.Texture;
 
             byte[] value = tempTex.EncodeToPNG();
-            if(_currentPhotonView.IsMine)
-             _currentPhotonView.RPC("SetPictureDealer", RpcTarget.Others, value, DealerName.text);
+
+            _currentPhotonView.RPC("SetPictureDealer", RpcTarget.Others, value, DealerName.text);
         }
 
     }
