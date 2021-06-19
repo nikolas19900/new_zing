@@ -94,5 +94,25 @@ namespace Assets.Scripts.Infastructure.PARSER
                 return start;
             }
         }
+
+        public GameRoot DeserializeGame()
+        {
+            string path = Application.dataPath + "/Localization/json/game_scene.json";
+            var jsonString = File.ReadAllText(path);
+
+            using (StreamReader r = new StreamReader(path))
+            {
+                string json = r.ReadToEnd();
+                //Root classic = JsonUtility.FromJson<Root>(json);
+                GameRoot start = JsonConvert.DeserializeObject<GameRoot>(json);
+
+                //Debug.Log("qqqq:" + start._1[0].english);
+                //Debug.Log("aaaa:" + start._1[1].spanish);
+
+
+                return start;
+            }
+            
+        }
     }
 }

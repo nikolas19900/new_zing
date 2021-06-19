@@ -1255,7 +1255,7 @@ GameObject:
   - component: {fileID: 336188723}
   - component: {fileID: 336188722}
   m_Layer: 0
-  m_Name: ZingText
+  m_Name: ZingBlueText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3876,6 +3876,16 @@ MonoBehaviour:
   RedPlayerNameValue: {fileID: 405517020}
   DealerName: {fileID: 1230401515}
   DealerImage: {fileID: 918462240}
+  CardsBlueText: {fileID: 1655045080}
+  PointsBlueText: {fileID: 1925325108}
+  ZingBlueText: {fileID: 336188722}
+  TotalBlueText: {fileID: 1312227076}
+  CardsRedText: {fileID: 1862147528}
+  PointsRedText: {fileID: 1349787694}
+  ZingRedText: {fileID: 1600709019}
+  TotalRedText: {fileID: 1845709508}
+  Text: {fileID: 332112787}
+  LeaveGameText: {fileID: 1902891097}
 --- !u!114 &914850045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5973,7 +5983,7 @@ GameObject:
   - component: {fileID: 1600709020}
   - component: {fileID: 1600709019}
   m_Layer: 0
-  m_Name: ZingText
+  m_Name: ZingRedText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7519,7 +7529,7 @@ GameObject:
   - component: {fileID: 1902891098}
   - component: {fileID: 1902891097}
   m_Layer: 0
-  m_Name: Text
+  m_Name: LeaveGameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

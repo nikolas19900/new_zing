@@ -1,0 +1,41 @@
+{
+
+  "cards": [
+    { "english": "Cards:" },
+    { "spanish": "Tarjetas:" },
+    { "portuguese": "Cartas:" },
+    { "russian": "Otkrytki:" }
+  ],
+  "points": [
+    { "english": "Points:" },
+    { "spanish": "Puntos:" },
+    { "portuguese": "Pontos:" },
+    { "russian": "Tochki:" }
+  ],
+  "zings": [
+    { "english": "Zings:" },
+    { "spanish": "Zings:" },
+    { "portuguese": "Zings:" },
+    { "russian": "Zings:" }
+  ],
+  "total": [
+    { "english": "Total:" },
+    { "spanish": "Total:" },
+    { "portuguese": "Total:" },
+    { "russian": "Obshcheye:" }
+  ],
+  "dealer": [
+    { "english": "Dealer" },
+    { "spanish": "Distribuidor" },
+    { "portuguese": "Distribuidor" },
+    { "russian": "Diler" }
+  ],
+  "leave": [
+    { "english": "Leave game" },
+    { "spanish": "Dejó el juego" },
+    { "portuguese": "Deixar o jogo" },
+    { "russian": "Vyyti iz igry" }
+  ]
+ 
+
+}

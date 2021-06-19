@@ -11,6 +11,7 @@ using ExitGames.Client.Photon;
 using Assets.Scripts.UI.Game;
 using Facebook.Unity;
 using Assets.Scripts.UI.Game.CheckCards;
+using Assets.Scripts.Infastructure.PARSER;
 
 public class GameScript : MonoBehaviourPunCallbacks
 {
@@ -27,6 +28,33 @@ public class GameScript : MonoBehaviourPunCallbacks
     private Text DealerName;
     [SerializeField]
     private GameObject DealerImage;
+
+    [SerializeField]
+    private Text CardsBlueText;
+
+    [SerializeField]
+    private Text PointsBlueText;
+    [SerializeField]
+    private Text ZingBlueText;
+
+    [SerializeField]
+    private Text TotalBlueText;
+
+    [SerializeField]
+    private Text CardsRedText;
+
+    [SerializeField]
+    private Text PointsRedText;
+    [SerializeField]
+    private Text ZingRedText;
+
+    [SerializeField]
+    private Text TotalRedText;
+    [SerializeField]
+    private Text Text;
+
+    [SerializeField]
+    private Text LeaveGameText;
 
     private List<RoomListing> _roomListings;
 
@@ -54,8 +82,74 @@ public class GameScript : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        
-        _currentPhotonView.RPC("UpdatePlayersName", RpcTarget.All);
+
+        ParseJson json = new ParseJson();
+        var root = json.DeserializeGame();
+
+        if (MasterManager.GameSettings.DefaultLanguage == "English")
+        {
+            CardsBlueText.text = root.cards[0].english;
+            PointsBlueText.text = root.points[0].english;
+            ZingBlueText.text = root.zings[0].english;
+            TotalBlueText.text = root.total[0].english;
+
+            CardsRedText.text = root.cards[0].english;
+            PointsRedText.text = root.points[0].english;
+            ZingRedText.text = root.zings[0].english;
+            TotalRedText.text = root.total[0].english;
+
+            Text.text = root.dealer[0].english;
+
+            LeaveGameText.text = root.leave[0].english;
+        }
+        if (MasterManager.GameSettings.DefaultLanguage == "Spanish")
+        {
+            CardsBlueText.text = root.cards[1].spanish;
+            PointsBlueText.text = root.points[1].spanish;
+            ZingBlueText.text = root.zings[1].spanish;
+            TotalBlueText.text = root.total[1].spanish;
+
+            CardsRedText.text = root.cards[1].spanish;
+            PointsRedText.text = root.points[1].spanish;
+            ZingRedText.text = root.zings[1].spanish;
+            TotalRedText.text = root.total[1].spanish;
+
+            Text.text = root.dealer[1].spanish;
+
+            LeaveGameText.text = root.leave[1].spanish;
+        }
+        if (MasterManager.GameSettings.DefaultLanguage == "Portugales")
+        {
+            CardsBlueText.text = root.cards[2].portuguese;
+            PointsBlueText.text = root.points[2].portuguese;
+            ZingBlueText.text = root.zings[2].portuguese;
+            TotalBlueText.text = root.total[2].portuguese;
+
+            CardsRedText.text = root.cards[2].portuguese;
+            PointsRedText.text = root.points[2].portuguese;
+            ZingRedText.text = root.zings[2].portuguese;
+            TotalRedText.text = root.total[2].portuguese;
+
+            Text.text = root.dealer[2].portuguese;
+
+            LeaveGameText.text = root.leave[2].portuguese;
+        }
+        if (MasterManager.GameSettings.DefaultLanguage == "Russian")
+        {
+            CardsBlueText.text = root.cards[3].russian;
+            PointsBlueText.text = root.points[3].russian;
+            ZingBlueText.text = root.zings[3].russian;
+            TotalBlueText.text = root.total[3].russian;
+
+            CardsRedText.text = root.cards[3].russian;
+            PointsRedText.text = root.points[3].russian;
+            ZingRedText.text = root.zings[3].russian;
+            TotalRedText.text = root.total[3].russian;
+
+            Text.text = root.dealer[3].russian;
+            LeaveGameText.text = root.leave[3].russian;
+        }
+            _currentPhotonView.RPC("UpdatePlayersName", RpcTarget.All);
 
         if (PhotonNetwork.CurrentRoom.PlayerCount == 4) {
           
