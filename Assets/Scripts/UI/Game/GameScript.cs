@@ -12,6 +12,7 @@ using Assets.Scripts.UI.Game;
 using Facebook.Unity;
 using Assets.Scripts.UI.Game.CheckCards;
 using Assets.Scripts.Infastructure.PARSER;
+using System.Linq;
 
 public class GameScript : MonoBehaviourPunCallbacks
 {
@@ -85,9 +86,12 @@ public class GameScript : MonoBehaviourPunCallbacks
     private float _positionTolerance = -1.5f;
     private List<float> _tolerances;
 
+    private bool isArrangeCard = false;
+
+
     void Awake()
     {
-       
+        isArrangeCard = false;
     }
 
      void OnEnable()
@@ -205,7 +209,8 @@ public class GameScript : MonoBehaviourPunCallbacks
         {
             //Debug.Log("tacno");
         }
-
+        if (!isArrangeCard)
+            ArrangeCards();
 
 
     }
@@ -241,6 +246,96 @@ public class GameScript : MonoBehaviourPunCallbacks
 
     }
 
+
+    public void ArrangeCards()
+    {
+
+        int i = 0;
+        Vector3[] arrayVectors = new Vector3[4];
+
+        try
+        {
+            float startPosition = 1000f;
+            foreach (var val in listTalon)
+            {
+              
+
+                var card = canvacesOfFirstDeck.transform.Find($"{val}(Clone)").gameObject;
+
+
+                float x = -Time.deltaTime * (card.transform.position.x + (float)_tolerances.ToArray().GetValue(i)) * 0.25f;
+               
+                Vector3 position = new Vector3(x,
+                    Time.deltaTime * (-card.transform.position.y + (float)_tolerances.ToArray().GetValue(i)) * 0.25f);
+
+                card.transform.position += position;
+                float x2 = -Time.deltaTime * (startPosition + (float)_tolerances.ToArray().GetValue(i)) * 0.25f;
+              
+                Vector3 position2 = new Vector3(x2,
+                    Time.deltaTime * (-1000f + (float)_tolerances.ToArray().GetValue(i)) * 0.25f);
+
+               
+
+                arrayVectors[i] = position;
+                startPosition += 100f;
+               
+
+                card.transform.SetParent(canvacesOfFirstDeck.transform);
+                i++;
+
+            }
+
+            photonView.RPC("InformCardPosition", RpcTarget.Others, arrayVectors, listTalon.ToArray());
+            Invoke("InvokeMethod", 3f);
+        }
+        catch (Exception ex)
+        {
+            //Debug.Log("uhvatio gresku tolerancije:" + ex.Message);
+            Invoke("InvokeMethod", 3f);
+        }
+    }
+
+
+    private void InvokeMethod()
+    {
+        isArrangeCard = true;
+    }
+
+
+    [PunRPC]
+    public void InformCardPosition(Vector3[] newPosition, string[] arrayTalon)
+    {
+
+
+        int i = 0;
+        if (listTalon == null)
+        {
+            listTalon = arrayTalon.ToList();
+        }
+
+
+        if (canvacesOfFirstDeck.transform.childCount == 0)
+        {
+            SendTalon(arrayTalon);
+        }
+
+        
+
+        foreach (var val in listTalon)
+        {
+
+            var card = canvacesOfFirstDeck.transform.Find($"{val}(Clone)").gameObject;
+
+            card.transform.position += newPosition[i];
+
+            var components = card.GetComponents<Component>();
+
+            card.transform.SetParent(canvacesOfFirstDeck.transform);
+
+            i++;
+        }
+    }
+
     [PunRPC]
     public void SendInitTalon(string[] Array)
     {
@@ -268,6 +363,39 @@ public class GameScript : MonoBehaviourPunCallbacks
             //multiplier -= 5f;
            
         }
+    }
+
+    [PunRPC]
+    public void SendTalon(string[] talonList)
+    {
+        listTalon = talonList.ToList<string>();
+        //float startPosition = 0.5f;
+        //float multiplier = 1.15f;
+        float startPosition = 1000f;
+
+
+        //talonCards = new List<GameObject>();
+        foreach (var obj in listTalon)
+        {
+            var prefab = Resources.Load("Prefabs/CardPrefabsStartSVG/" + obj);
+
+            var go = prefab as GameObject;
+            if (go.name == obj)
+            {
+                GameObject gameObj = (GameObject)go;
+                Vector3 position = new Vector3(startPosition, 1000f);
+                gameObj.transform.localPosition = position;
+                GameObject firstDeck = (GameObject)Instantiate(gameObj, new Vector3(startPosition, 1000f, 0), Quaternion.identity);
+
+                firstDeck.transform.SetParent(canvacesOfFirstDeck.transform);
+                startPosition += 100f;
+                _listOfCards.Add(obj);
+                //multiplier -= 5f;
+
+            }
+        }
+
+
     }
 
     [PunRPC]
