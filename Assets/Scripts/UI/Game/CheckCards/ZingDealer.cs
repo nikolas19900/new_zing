@@ -23,9 +23,9 @@ namespace Assets.Scripts.UI.Game.CheckCards
 
         private readonly Random _random;
 
-        //public List<Card> ListOfCardsOfFirstPlayers { get; private set; }
+        public List<Card> ListOfCardsOfFirstPlayers { get; private set; }
 
-        //public List<Card> ListOfCardsOfSecondPlayers { get; private set; }
+        public List<Card> ListOfCardsOfSecondPlayers { get; private set; }
 
         public ZingDealer()
         {
@@ -60,9 +60,9 @@ namespace Assets.Scripts.UI.Game.CheckCards
                 go.transform.position = new Vector3(0f,0f);
                 go.transform.localPosition = new Vector3(0f, 0f);
                 // Init all cards
-                //VisualCard visualCard = go.GetComponent<VisualCard>() as VisualCard;
-                //Card card = new Card(visualCard.CardSignType, visualCard.CardValueType, go);
-                //visualCard.BaseCard = card;
+                VisualCard visualCard = go.GetComponent<VisualCard>() as VisualCard;
+                Card card = new Card(visualCard.CardSignType, visualCard.CardValueType, go);
+                visualCard.BaseCard = card;
 
                 RemainingCards.Add(go);
             }
@@ -102,7 +102,7 @@ namespace Assets.Scripts.UI.Game.CheckCards
             TalonCards.Add(RemainingCards.ToArray().GetValue(RemainingCards.Count - 5) as GameObject);
 
             //List<Card> cards = new List<Card>();
-            
+
             //foreach (var go in TalonCards)
             //{
             //    cards.Add((go.GetComponent<VisualCard>() as VisualCard).BaseCard);
@@ -143,49 +143,49 @@ namespace Assets.Scripts.UI.Game.CheckCards
             CardsOfFirstPlayers.Add(RemainingCards.ToArray().GetValue(6) as GameObject);
             CardsOfFirstPlayers.Add(RemainingCards.ToArray().GetValue(7) as GameObject);
 
-            //List<Card> cardsFirst = new List<Card>();
-            //List<Card> cardsSecond = new List<Card>();
+            List<Card> cardsFirst = new List<Card>();
+            List<Card> cardsSecond = new List<Card>();
 
-            //cardsFirst.Clear();
-            //cardsSecond.Clear();
+            cardsFirst.Clear();
+            cardsSecond.Clear();
 
-            //ListOfCardsOfFirstPlayers = new List<Card>();
-            //ListOfCardsOfSecondPlayers = new List<Card>();
+            ListOfCardsOfFirstPlayers = new List<Card>();
+            ListOfCardsOfSecondPlayers = new List<Card>();
 
-            //ListOfCardsOfFirstPlayers.Clear();
-            //ListOfCardsOfFirstPlayers.Clear();
+            ListOfCardsOfFirstPlayers.Clear();
+            ListOfCardsOfFirstPlayers.Clear();
 
-            //foreach (var go1 in CardsOfFirstPlayers)
-            //{
-            //    cardsFirst.Add((go1.GetComponent<VisualCard>() as VisualCard).BaseCard);
+            foreach (var go1 in CardsOfFirstPlayers)
+            {
+                cardsFirst.Add((go1.GetComponent<VisualCard>() as VisualCard).BaseCard);
 
-            //}
+            }
 
-            //foreach (var go in CardsOfSecondPlayers)
-            //{
-            //    cardsSecond.Add((go.GetComponent<VisualCard>() as VisualCard).BaseCard);
+            foreach (var go in CardsOfSecondPlayers)
+            {
+                cardsSecond.Add((go.GetComponent<VisualCard>() as VisualCard).BaseCard);
 
-            //}
+            }
 
-            //cardsFirst = CardsSorter.SortCards(cardsFirst);
+            cardsFirst = CardsSorter.SortCards(cardsFirst);
 
-            //cardsSecond = CardsSorter.SortCards(cardsSecond);
+            cardsSecond = CardsSorter.SortCards(cardsSecond);
 
-            //CardsOfSecondPlayers = new List<GameObject>();
-            //CardsOfFirstPlayers = new List<GameObject>();
+            CardsOfSecondPlayers = new List<GameObject>();
+            CardsOfFirstPlayers = new List<GameObject>();
 
-            //foreach (var card in cardsFirst)
-            //{
-            //    CardsOfFirstPlayers.Add(card.Owner);
-            //    ListOfCardsOfFirstPlayers.Add(card);
-            //}
+            foreach (var card in cardsFirst)
+            {
+                CardsOfFirstPlayers.Add(card.Owner);
+                ListOfCardsOfFirstPlayers.Add(card);
+            }
 
 
-            //foreach (var card in cardsSecond)
-            //{
-            //    CardsOfSecondPlayers.Add(card.Owner);
-            //    ListOfCardsOfSecondPlayers.Add(card);
-            //}
+            foreach (var card in cardsSecond)
+            {
+                CardsOfSecondPlayers.Add(card.Owner);
+                ListOfCardsOfSecondPlayers.Add(card);
+            }
 
             //Debug.Log("vv:" + ListOfCardsOfPlayers.Count);
         }

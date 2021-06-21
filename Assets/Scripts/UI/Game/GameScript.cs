@@ -56,10 +56,6 @@ public class GameScript : MonoBehaviourPunCallbacks
     [SerializeField]
     private Text LeaveGameText;
 
-    private List<RoomListing> _roomListings;
-
-    private RoomListingMenu _roomListingMenu;
-
 
     private bool isGameStarted = false;
    
@@ -68,6 +64,20 @@ public class GameScript : MonoBehaviourPunCallbacks
 
     private List<string> RemainingCardsList;
 
+
+    private List<string> listTalon;
+   
+    private List<string> _listOfCards = new List<string>();
+
+    private string _lastCardOfDealerPlayer;
+
+    private List<string> _cardsOfFirstPlayer;
+
+    private List<string> _cardsOfSecondPlayer;
+    private System.Random _random;
+
+    private float _positionTolerance = -1.5f;
+    private List<float> _tolerances;
 
     void Awake()
     {
@@ -302,7 +312,66 @@ public class GameScript : MonoBehaviourPunCallbacks
                 RemainingCardsList.Add(obj.name);
                 intValue++;
             }
+
+            string[] array = new string[_zingDealer.TalonCards.Count];
+            int i = 0;
+            listTalon = new List<string>();
+            _listOfCards = new List<string>();
+            foreach (var obj in _zingDealer.TalonCards)
+            {
+
+                array[i] = obj.name;
+                listTalon.Add(obj.name);
+                _listOfCards.Add(obj.name);
+                i++;
+            }
+
+            var objLastCard = _zingDealer.LastCard as GameObject;
+
+            string[] cardsOfSecondPlayer = new string[_zingDealer.CardsOfSecondPlayers.Count];
+
+            int count = 0;
+            foreach (var obj in _zingDealer.CardsOfSecondPlayers)
+            {
+
+                cardsOfSecondPlayer[count] = obj.name;
+                count++;
+            }
+
+
+            _lastCardOfDealerPlayer = objLastCard.name;
+
+            _cardsOfFirstPlayer = new List<string>();
+            foreach (var obj in _zingDealer.CardsOfFirstPlayers)
+            {
+                _cardsOfFirstPlayer.Add(obj.name);
+            }
+
+
+            _random = new System.Random();
+
+            _tolerances = new List<float>();
+
+            for (int j = 0; j < 4; j++)
+            {
+                //float tol = (float)  _random.Next(1, 2) * _positionTolerance;
+                float tol = (float)_random.NextDouble() * _positionTolerance;
+                _tolerances.Add(tol);
+            }
+
+            DeleteLastFourTalonCards();
+
         }
     }
-   
+
+    public void DeleteLastFourTalonCards()
+    {
+      
+
+        int start = RemainingCardsList.Count - 5;
+        RemainingCardsList.RemoveRange(start, 4);
+
+
+    }
+
 }
