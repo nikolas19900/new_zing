@@ -69,6 +69,9 @@ public class GameScript : MonoBehaviourPunCallbacks
 
 
     private List<string> listTalon;
+
+
+    private string[] talonArray;
    
     private List<string> _listOfCards = new List<string>();
 
@@ -231,11 +234,39 @@ public class GameScript : MonoBehaviourPunCallbacks
             i++;
             startPosition += 100f;
             //multiplier -= 5f;
-
+            _currentPhotonView.RPC("SendInitTalon",RpcTarget.Others, talonArray);
         }
 
     }
 
+    [PunRPC]
+    public void SendInitTalon(string[] Array)
+    {
+        float startPosition = 1000f;
+
+        int i = 0;
+        Vector3[] arrayPosition = new Vector3[4];
+        string[] arrayCards = { "", "", "", "" };
+        foreach (var obj in Array)
+        {
+            var prefabs = Resources.Load("Prefabs/CardPrefabsStartSVG/"+obj);
+            GameObject gameObj = (GameObject)prefabs;
+
+            Vector3 position = new Vector3(startPosition, 1000f);
+            gameObj.transform.localPosition = position;
+
+            GameObject firstDeck = (GameObject)Instantiate(gameObj, new Vector3(startPosition, 1000f, 0), Quaternion.identity);
+
+            arrayPosition[i] = position;
+            arrayCards[i] = "" + gameObj.name;
+            firstDeck.transform.SetParent(canvacesOfFirstDeck.transform);
+
+            i++;
+            startPosition += 100f;
+            //multiplier -= 5f;
+           
+        }
+    }
 
     [PunRPC]
     public void UpdatePlayersName()
@@ -338,7 +369,7 @@ public class GameScript : MonoBehaviourPunCallbacks
             {
 
                 remaingCardArray[intValue] = obj.name;
-                Debug.Log("a:" + obj.name);
+                ///Debug.Log("a:" + obj.name);
                 RemainingCardsList.Add(obj.name);
                 intValue++;
             }
@@ -355,6 +386,8 @@ public class GameScript : MonoBehaviourPunCallbacks
                 _listOfCards.Add(obj.name);
                 i++;
             }
+
+            talonArray = listTalon.ToArray();
 
             var objLastCard = _zingDealer.LastCard as GameObject;
 
