@@ -247,8 +247,9 @@ public class GameScript : MonoBehaviourPunCallbacks
         _currentPhotonView.RPC("SendInitTalon", RpcTarget.Others, talonArray);
 
 
-        Invoke("InvokeMethod", 3f);
- 
+        isArrangeCard = false;
+
+
 
     }
 
@@ -259,7 +260,8 @@ public class GameScript : MonoBehaviourPunCallbacks
         int i = 0;
         Vector3[] arrayVectors = new Vector3[4];
 
-       
+        try
+        {
             float startPosition = 1000f;
             foreach (var val in listTalon)
             {
@@ -290,7 +292,15 @@ public class GameScript : MonoBehaviourPunCallbacks
 
             }
 
-            photonView.RPC("InformCardPosition", RpcTarget.Others, arrayVectors, listTalon.ToArray());
+            Invoke("InvokeMethod", 3f);
+        }
+        catch (Exception ex)
+        {
+            
+            Invoke("InvokeMethod", 3f);
+        }
+
+        photonView.RPC("InformCardPosition", RpcTarget.Others, arrayVectors, listTalon.ToArray());
           
     }
 
