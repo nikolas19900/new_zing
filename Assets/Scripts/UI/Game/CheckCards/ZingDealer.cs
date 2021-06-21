@@ -53,7 +53,7 @@ namespace Assets.Scripts.UI.Game.CheckCards
             // Load all Card prefabs
             // NOTE: All prefabs must be in Resources folder. In this case cards are in Assets/Resources/Prefabs/CardPrefabs.
             //var prefabs = Resources.LoadAll("Prefabs/CardPrefabs");
-            var prefabs = Resources.LoadAll("Prefabs/CardPrefabsSvg");
+            var prefabs = Resources.LoadAll("Prefabs/CardPrefabsStartSVG");
             foreach (var prefab in prefabs)
             {
                 var go = prefab as GameObject;
