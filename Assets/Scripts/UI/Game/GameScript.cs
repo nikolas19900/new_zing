@@ -56,6 +56,9 @@ public class GameScript : MonoBehaviourPunCallbacks
     [SerializeField]
     private Text LeaveGameText;
 
+    [SerializeField]
+    private Canvas canvacesOfFirstDeck;
+
 
     private bool isGameStarted = false;
    
@@ -204,8 +207,35 @@ public class GameScript : MonoBehaviourPunCallbacks
 
     }
 
+    private void InitTalonCards()
+    {
+        //float startPosition = 0.5f;
+        float startPosition = 1000f;
 
-  
+        int i = 0;
+        Vector3[] arrayPosition = new Vector3[4];
+        string[] arrayCards = { "", "", "", "" };
+        foreach (var obj in _zingDealer.TalonCards)
+        {
+            GameObject gameObj = (GameObject)obj;
+
+            Vector3 position = new Vector3(startPosition, 1000f);
+            gameObj.transform.localPosition = position;
+
+            GameObject firstDeck = (GameObject)Instantiate(gameObj, new Vector3(startPosition, 1000f, 0), Quaternion.identity);
+
+            arrayPosition[i] = position;
+            arrayCards[i] = "" + gameObj.name;
+            firstDeck.transform.SetParent(canvacesOfFirstDeck.transform);
+
+            i++;
+            startPosition += 100f;
+            //multiplier -= 5f;
+
+        }
+
+    }
+
 
     [PunRPC]
     public void UpdatePlayersName()
@@ -358,7 +388,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                 float tol = (float)_random.NextDouble() * _positionTolerance;
                 _tolerances.Add(tol);
             }
-
+            InitTalonCards();
             DeleteLastFourTalonCards();
 
         }
