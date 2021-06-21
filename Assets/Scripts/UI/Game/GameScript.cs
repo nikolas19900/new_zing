@@ -234,8 +234,10 @@ public class GameScript : MonoBehaviourPunCallbacks
             i++;
             startPosition += 100f;
             //multiplier -= 5f;
-            _currentPhotonView.RPC("SendInitTalon",RpcTarget.Others, talonArray);
+           
         }
+
+        _currentPhotonView.RPC("SendInitTalon", RpcTarget.Others, talonArray);
 
     }
 
