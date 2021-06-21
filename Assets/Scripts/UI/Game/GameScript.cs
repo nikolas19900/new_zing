@@ -291,7 +291,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                 i++;
 
             }
-
+            photonView.RPC("InformCardPosition", RpcTarget.Others, arrayVectors, listTalon.ToArray());
             Invoke("InvokeMethod", 3f);
         }
         catch (Exception ex)
@@ -300,7 +300,7 @@ public class GameScript : MonoBehaviourPunCallbacks
             Invoke("InvokeMethod", 3f);
         }
 
-        photonView.RPC("InformCardPosition", RpcTarget.Others, arrayVectors, listTalon.ToArray());
+       
           
     }
 
