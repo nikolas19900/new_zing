@@ -43,9 +43,9 @@ public class ChatManager : MonoBehaviourPun, IPunObservable
                 
                 ChatText.text = PhotonNetwork.LocalPlayer.NickName+":" + ChatInputField.text;
                 //GameObject newGO = new GameObject("myTextGO");
-                GameObject vv = Instantiate(ChatText.gameObject, new Vector3(0, 0, 0), Quaternion.identity);
-                vv.transform.localScale = new Vector3(0.789f, 0.789f, 0);
-                vv.transform.SetParent(Content.transform);
+                //GameObject vv = Instantiate(ChatText.gameObject, new Vector3(0, 0, 0), Quaternion.identity);
+                //vv.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+                //vv.transform.SetParent(Content.transform);
                 photonView.RPC("SendMsg", RpcTarget.All, ChatText.text);
                 if ( Content.transform.childCount == 40)
                 {
