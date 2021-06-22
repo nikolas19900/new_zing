@@ -227,11 +227,14 @@ public class GameScript : MonoBehaviourPunCallbacks
         {
             GameObject gameObj = (GameObject)obj;
 
+            
+
             Vector3 position = new Vector3(startPosition, 700f);
             gameObj.transform.localPosition = position;
-
+            gameObj.transform.localScale = new Vector3(0.789f, 0.789f, 0);
             GameObject firstDeck = (GameObject)Instantiate(gameObj, new Vector3(startPosition, 700f, 0), Quaternion.identity);
 
+            firstDeck.transform.localScale = new Vector3(0.789f, 0.789f, 0);
             arrayPosition[i] = position;
             arrayCards[i] = "" + gameObj.name;
             firstDeck.transform.SetParent(canvacesOfFirstDeck.transform);
@@ -360,9 +363,9 @@ public class GameScript : MonoBehaviourPunCallbacks
 
             Vector3 position = new Vector3(startPosition, 700f);
             gameObj.transform.localPosition = position;
-
+            gameObj.transform.localScale = new Vector3(0.789f, 0.789f, 0);
             GameObject firstDeck = (GameObject)Instantiate(gameObj, new Vector3(startPosition, 700f, 0), Quaternion.identity);
-
+            firstDeck.transform.localScale = new Vector3(0.789f, 0.789f, 0);
             arrayPosition[i] = position;
             arrayCards[i] = "" + gameObj.name;
             firstDeck.transform.SetParent(canvacesOfFirstDeck.transform);
