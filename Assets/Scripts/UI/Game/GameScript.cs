@@ -209,8 +209,8 @@ public class GameScript : MonoBehaviourPunCallbacks
         {
             //Debug.Log("tacno");
         }
-        if (!isArrangeCard)
-            ArrangeCards();
+        //if (!isArrangeCard)
+           // ArrangeCards();
 
 
     }
@@ -218,7 +218,7 @@ public class GameScript : MonoBehaviourPunCallbacks
     private void InitTalonCards()
     {
         //float startPosition = 0.5f;
-        float startPosition = 1000f;
+        float startPosition = 1200f;
 
         int i = 0;
         Vector3[] arrayPosition = new Vector3[4];
@@ -228,11 +228,10 @@ public class GameScript : MonoBehaviourPunCallbacks
             GameObject gameObj = (GameObject)obj;
 
             
-
             Vector3 position = new Vector3(startPosition, 700f);
             gameObj.transform.localPosition = position;
             gameObj.transform.localScale = new Vector3(0.789f, 0.789f, 0);
-            GameObject firstDeck = (GameObject)Instantiate(gameObj, new Vector3(startPosition, 700f, 0), Quaternion.identity);
+            GameObject firstDeck = (GameObject) PhotonNetwork.Instantiate(gameObj.name, new Vector3(startPosition, 700f, 0), Quaternion.identity);
 
             firstDeck.transform.localScale = new Vector3(0.789f, 0.789f, 0);
             arrayPosition[i] = position;
@@ -247,7 +246,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
         
 
-        _currentPhotonView.RPC("SendInitTalon", RpcTarget.Others, talonArray);
+        //_currentPhotonView.RPC("SendInitTalon", RpcTarget.Others, talonArray);
 
 
         isArrangeCard = false;
@@ -351,7 +350,7 @@ public class GameScript : MonoBehaviourPunCallbacks
     [PunRPC]
     public void SendInitTalon(string[] Array)
     {
-        float startPosition = 1000f;
+        float startPosition = 1200f;
 
         int i = 0;
         Vector3[] arrayPosition = new Vector3[4];
@@ -383,7 +382,7 @@ public class GameScript : MonoBehaviourPunCallbacks
         listTalon = talonList.ToList<string>();
         //float startPosition = 0.5f;
         //float multiplier = 1.15f;
-        float startPosition = 1000f;
+        float startPosition = 1200f;
 
 
         //talonCards = new List<GameObject>();
@@ -395,9 +394,9 @@ public class GameScript : MonoBehaviourPunCallbacks
             if (go.name == obj)
             {
                 GameObject gameObj = (GameObject)go;
-                Vector3 position = new Vector3(startPosition, 1000f);
+                Vector3 position = new Vector3(startPosition, 700f);
                 gameObj.transform.localPosition = position;
-                GameObject firstDeck = (GameObject)Instantiate(gameObj, new Vector3(startPosition, 1000f, 0), Quaternion.identity);
+                GameObject firstDeck = (GameObject)Instantiate(gameObj, new Vector3(startPosition, 700f, 0), Quaternion.identity);
 
                 firstDeck.transform.SetParent(canvacesOfFirstDeck.transform);
                 startPosition += 100f;

@@ -59,7 +59,7 @@ namespace Assets.Scripts.UI.Game.CheckCards
                 var go = prefab as GameObject;
                 go.transform.position = new Vector3(0f,0f);
                 go.transform.localPosition = new Vector3(0f, 0f);
-                go.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+               // go.transform.localScale = new Vector3(0.789f, 0.789f, 0);
                 // Init all cards
                 VisualCard visualCard = go.GetComponent<VisualCard>() as VisualCard;
                 Card card = new Card(visualCard.CardSignType, visualCard.CardValueType, go);
