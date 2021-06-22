@@ -209,8 +209,8 @@ public class GameScript : MonoBehaviourPunCallbacks
         {
             //Debug.Log("tacno");
         }
-        //if (!isArrangeCard)
-           // ArrangeCards();
+        if (!isArrangeCard)
+            ArrangeCards();
 
 
     }
@@ -287,14 +287,14 @@ public class GameScript : MonoBehaviourPunCallbacks
                
 
                 arrayVectors[i] = position;
-                startPosition += 100f;
+                startPosition += 50f;
                
 
                 card.transform.SetParent(canvacesOfFirstDeck.transform);
                 i++;
 
             }
-            _currentPhotonView.RPC("InformCardPosition", RpcTarget.Others, arrayVectors, listTalon.ToArray());
+           // _currentPhotonView.RPC("InformCardPosition", RpcTarget.Others, arrayVectors, listTalon.ToArray());
             Invoke("InvokeMethod", 3f);
         }
         catch (Exception ex)
