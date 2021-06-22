@@ -47,15 +47,15 @@ public class ChatManager : MonoBehaviourPun, IPunObservable
                 //vv.transform.localScale = new Vector3(0.789f, 0.789f, 0);
                 //vv.transform.SetParent(Content.transform);
                 photonView.RPC("SendMsg", RpcTarget.All, ChatText.text);
-                if ( Content.transform.childCount == 40)
-                {
-                    for (int i = 0; i < 10;i++)
-                    {
+                //if ( Content.transform.childCount == 40)
+                //{
+                //    for (int i = 0; i < 10;i++)
+                //    {
                        
-                        Destroy(Content.transform.GetChild(i).gameObject);
-                    }
+                //        Destroy(Content.transform.GetChild(i).gameObject);
+                //    }
                     
-                }
+                //}
             }
         }
 
