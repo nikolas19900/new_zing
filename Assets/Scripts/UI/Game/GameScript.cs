@@ -227,10 +227,10 @@ public class GameScript : MonoBehaviourPunCallbacks
         {
             GameObject gameObj = (GameObject)obj;
 
-            Vector3 position = new Vector3(startPosition, 900f);
+            Vector3 position = new Vector3(startPosition, 700f);
             gameObj.transform.localPosition = position;
 
-            GameObject firstDeck = (GameObject)Instantiate(gameObj, new Vector3(startPosition, 900f, 0), Quaternion.identity);
+            GameObject firstDeck = (GameObject)Instantiate(gameObj, new Vector3(startPosition, 700f, 0), Quaternion.identity);
 
             arrayPosition[i] = position;
             arrayCards[i] = "" + gameObj.name;
@@ -358,10 +358,10 @@ public class GameScript : MonoBehaviourPunCallbacks
             var prefabs = Resources.Load("Prefabs/CardPrefabsStartSVG/"+obj);
             GameObject gameObj = (GameObject)prefabs;
 
-            Vector3 position = new Vector3(startPosition, 900f);
+            Vector3 position = new Vector3(startPosition, 700f);
             gameObj.transform.localPosition = position;
 
-            GameObject firstDeck = (GameObject)Instantiate(gameObj, new Vector3(startPosition, 900f, 0), Quaternion.identity);
+            GameObject firstDeck = (GameObject)Instantiate(gameObj, new Vector3(startPosition, 700f, 0), Quaternion.identity);
 
             arrayPosition[i] = position;
             arrayCards[i] = "" + gameObj.name;
