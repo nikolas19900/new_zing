@@ -231,15 +231,16 @@ public class GameScript : MonoBehaviourPunCallbacks
             Vector3 position = new Vector3(startPosition, 700f);
             gameObj.transform.localPosition = position;
             gameObj.transform.localScale = new Vector3(0.789f, 0.789f, 0);
-            GameObject firstDeck = (GameObject) PhotonNetwork.Instantiate("Prefabs/CardPrefabsStartSVG/"+gameObj.name, new Vector3(startPosition, 700f, 0), Quaternion.identity);
+            PhotonNetwork.Instantiate("Prefabs/CardPrefabsStartSVG/" + gameObj.name, new Vector3(startPosition, 700f, 0), Quaternion.identity).transform.SetParent(canvacesOfFirstDeck.transform);
+            //GameObject firstDeck = (GameObject) PhotonNetwork.Instantiate("Prefabs/CardPrefabsStartSVG/"+gameObj.name, new Vector3(startPosition, 700f, 0), Quaternion.identity);
 
-            firstDeck.transform.localScale = new Vector3(0.789f, 0.789f, 0);
-            arrayPosition[i] = position;
-            arrayCards[i] = "" + gameObj.name;
-            firstDeck.transform.SetParent(canvacesOfFirstDeck.transform);
+            //firstDeck.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+            //arrayPosition[i] = position;
+            //arrayCards[i] = "" + gameObj.name;
+            //firstDeck.transform.SetParent(canvacesOfFirstDeck.transform);
 
             i++;
-            startPosition += 100f;
+            startPosition += 50f;
             //multiplier -= 5f;
            
         }
