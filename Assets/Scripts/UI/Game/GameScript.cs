@@ -356,13 +356,21 @@ public class GameScript : MonoBehaviourPunCallbacks
         int i = 0;
         Vector3[] arrayPosition = new Vector3[4];
         string[] arrayCards = { "", "", "", "" };
+
+        var gameobjects = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
+        foreach(var temp in gameobjects)
+        {
+            Debug.Log("root:" +temp.name);
+        }
+
         foreach (var obj in Array)
         {
+           
             Debug.Log("karta:" + canvacesOfFirstDeck.transform.parent.name);
             Debug.Log("karta:" + canvacesOfFirstDeck.transform.parent.parent.name);
             Debug.Log("karta:" + canvacesOfFirstDeck.transform.parent.parent.parent.name);
             Debug.Log("karta 4:" + canvacesOfFirstDeck.transform.parent.parent.parent.parent.name);
-            Debug.Log("root:" + transform.root.name);
+            
            // Debug.Log("karta:" + canvacesOfFirstDeck.transform.parent.parent.parent.parent.parent.parent.name);
             var card =  canvacesOfFirstDeck.transform.root.parent.Find($"{obj}(Clone)").gameObject;
             Debug.Log("card:" + card.name);
