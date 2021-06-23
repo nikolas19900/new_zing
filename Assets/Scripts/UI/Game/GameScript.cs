@@ -357,23 +357,23 @@ public class GameScript : MonoBehaviourPunCallbacks
         Vector3[] arrayPosition = new Vector3[4];
         string[] arrayCards = { "", "", "", "" };
 
-        var gameobjects = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
-        foreach(var temp in gameobjects)
+        var root = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
+        foreach(var temp in root)
         {
-            Debug.Log("root:" +temp.name);
-        }
+            if (temp.name.Contains("(Clone)")) {
+                var card = temp.gameObject;
 
-        foreach (var obj in Array)
-        {
-           
-            Debug.Log("karta:" + canvacesOfFirstDeck.transform.parent.name);
-            Debug.Log("karta:" + canvacesOfFirstDeck.transform.parent.parent.name);
-            Debug.Log("karta:" + canvacesOfFirstDeck.transform.parent.parent.parent.name);
-            Debug.Log("karta 4:" + canvacesOfFirstDeck.transform.parent.parent.parent.parent.name);
+                card.transform.SetParent(canvacesOfFirstDeck.transform);
+                Destroy(temp.gameObject);
+            }
+          
+        }
+        
+      
             
            // Debug.Log("karta:" + canvacesOfFirstDeck.transform.parent.parent.parent.parent.parent.parent.name);
-            var card =  canvacesOfFirstDeck.transform.root.parent.Find($"{obj}(Clone)").gameObject;
-            Debug.Log("card:" + card.name);
+           
+         
             //var prefabs = Resources.Load("Prefabs/CardPrefabsStartSVG/"+obj);
             //GameObject gameObj = (GameObject)prefabs;
 
@@ -390,9 +390,9 @@ public class GameScript : MonoBehaviourPunCallbacks
             //startPosition += 100f;
             //multiplier -= 5f;
 
-            card.transform.SetParent(canvacesOfFirstDeck.transform);
+            
 
-        }
+        
     }
 
     [PunRPC]
