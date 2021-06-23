@@ -231,13 +231,13 @@ public class GameScript : MonoBehaviourPunCallbacks
             Vector3 position = new Vector3(startPosition, 700f);
             gameObj.transform.localPosition = position;
             gameObj.transform.localScale = new Vector3(0.789f, 0.789f, 0);
-            PhotonNetwork.Instantiate("Prefabs/CardPrefabsStartSVG/" + gameObj.name, new Vector3(startPosition, 700f, 0), Quaternion.identity).transform.SetParent(canvacesOfFirstDeck.transform);
-            //GameObject firstDeck = (GameObject) PhotonNetwork.Instantiate("Prefabs/CardPrefabsStartSVG/"+gameObj.name, new Vector3(startPosition, 700f, 0), Quaternion.identity);
-
-            //firstDeck.transform.localScale = new Vector3(0.789f, 0.789f, 0);
-            //arrayPosition[i] = position;
-            //arrayCards[i] = "" + gameObj.name;
-            //firstDeck.transform.SetParent(canvacesOfFirstDeck.transform);
+            //PhotonNetwork.Instantiate("Prefabs/CardPrefabsStartSVG/" + gameObj.name, new Vector3(startPosition, 700f, 0), Quaternion.identity).transform.SetParent(canvacesOfFirstDeck.transform);
+            GameObject firstDeck = (GameObject) PhotonNetwork.Instantiate("Prefabs/CardPrefabsStartSVG/"+gameObj.name, new Vector3(startPosition, 700f, 0), Quaternion.identity);
+            
+            firstDeck.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+            arrayPosition[i] = position;
+            arrayCards[i] = "" + gameObj.name;
+            firstDeck.transform.SetParent(canvacesOfFirstDeck.transform);
 
             i++;
             startPosition += 50f;
@@ -247,7 +247,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
         
 
-        //_currentPhotonView.RPC("SendInitTalon", RpcTarget.Others, talonArray);
+        _currentPhotonView.RPC("SendInitTalon", RpcTarget.Others, arrayCards);
 
 
         isArrangeCard = false;
@@ -358,22 +358,26 @@ public class GameScript : MonoBehaviourPunCallbacks
         string[] arrayCards = { "", "", "", "" };
         foreach (var obj in Array)
         {
-            var prefabs = Resources.Load("Prefabs/CardPrefabsStartSVG/"+obj);
-            GameObject gameObj = (GameObject)prefabs;
 
-            Vector3 position = new Vector3(startPosition, 700f);
-            gameObj.transform.localPosition = position;
-            gameObj.transform.localScale = new Vector3(0.789f, 0.789f, 0);
-            GameObject firstDeck = (GameObject)Instantiate(gameObj, new Vector3(startPosition, 700f, 0), Quaternion.identity);
-            firstDeck.transform.localScale = new Vector3(0.789f, 0.789f, 0);
-            arrayPosition[i] = position;
-            arrayCards[i] = "" + gameObj.name;
-            firstDeck.transform.SetParent(canvacesOfFirstDeck.transform);
+            var card = transform.Find($"{obj}(Clone)").gameObject;
+            //var prefabs = Resources.Load("Prefabs/CardPrefabsStartSVG/"+obj);
+            //GameObject gameObj = (GameObject)prefabs;
 
-            i++;
-            startPosition += 100f;
+            //Vector3 position = new Vector3(startPosition, 700f);
+            //gameObj.transform.localPosition = position;
+            //gameObj.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+            //GameObject firstDeck = (GameObject)Instantiate(gameObj, new Vector3(startPosition, 700f, 0), Quaternion.identity);
+            //firstDeck.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+            //arrayPosition[i] = position;
+            //arrayCards[i] = "" + gameObj.name;
+            //firstDeck.transform.SetParent(canvacesOfFirstDeck.transform);
+
+            //i++;
+            //startPosition += 100f;
             //multiplier -= 5f;
-           
+
+            card.transform.SetParent(canvacesOfFirstDeck.transform);
+
         }
     }
 
