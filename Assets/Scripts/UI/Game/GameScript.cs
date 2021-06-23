@@ -358,7 +358,7 @@ public class GameScript : MonoBehaviourPunCallbacks
         string[] arrayCards = { "", "", "", "" };
         foreach (var obj in Array)
         {
-
+            Debug.Log("karta:" + obj);
             var card =  canvacesOfFirstDeck.transform.parent.parent.parent.parent.parent.Find($"{obj}(Clone)").gameObject;
             Debug.Log("card:" + card.name);
             //var prefabs = Resources.Load("Prefabs/CardPrefabsStartSVG/"+obj);
