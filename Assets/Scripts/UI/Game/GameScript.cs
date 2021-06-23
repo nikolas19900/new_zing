@@ -364,7 +364,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                 var card = temp.gameObject;
 
                 card.transform.SetParent(canvacesOfFirstDeck.transform);
-                Destroy(temp.gameObject);
+               // Destroy(temp.gameObject);
             }
           
         }
