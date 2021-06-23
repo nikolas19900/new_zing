@@ -363,6 +363,7 @@ public class GameScript : MonoBehaviourPunCallbacks
             Debug.Log("karta:" + canvacesOfFirstDeck.transform.parent.parent.parent.name);
             Debug.Log("karta:" + canvacesOfFirstDeck.transform.parent.parent.parent.parent.name);
             Debug.Log("karta:" + canvacesOfFirstDeck.transform.parent.parent.parent.parent.parent.name);
+            Debug.Log("karta:" + canvacesOfFirstDeck.transform.parent.parent.parent.parent.parent.parent.name);
             var card =  canvacesOfFirstDeck.transform.parent.parent.parent.parent.parent.parent.Find($"{obj}(Clone)").gameObject;
             Debug.Log("card:" + card.name);
             //var prefabs = Resources.Load("Prefabs/CardPrefabsStartSVG/"+obj);
