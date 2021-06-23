@@ -362,7 +362,7 @@ public class GameScript : MonoBehaviourPunCallbacks
         {
             if (temp.name.Contains("(Clone)")) {
                 var card = temp.gameObject;
-
+                card.transform.localScale = new Vector3(0.789f, 0.789f, 0);
                 card.transform.SetParent(canvacesOfFirstDeck.transform);
                // Destroy(temp.gameObject);
             }
