@@ -4002,6 +4002,15 @@ MonoBehaviour:
   Text: {fileID: 332112787}
   LeaveGameText: {fileID: 1902891097}
   canvacesOfFirstDeck: {fileID: 1758883092}
+  FirstPlayerBorder: {fileID: 496062717}
+  FirstPlayerImage: {fileID: 1713034995}
+  SecondPlayerBorder: {fileID: 1657875936}
+  SecondPlayerImage: {fileID: 979976137}
+  ThirdPlayerBorder: {fileID: 2075267673}
+  ThirdPlayerImage: {fileID: 2077270641}
+  FirstPlayerName: {fileID: 1923630039}
+  SecondPlayerName: {fileID: 861569860}
+  ThirdPlayerName: {fileID: 1879840646}
 --- !u!114 &914850045
 MonoBehaviour:
   m_ObjectHideFlags: 0

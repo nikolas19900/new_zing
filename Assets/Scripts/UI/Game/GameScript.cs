@@ -373,21 +373,29 @@ public class GameScript : MonoBehaviourPunCallbacks
     public void SetSideOfBorderImages()
     {
         Dictionary<int, Player> value = PhotonNetwork.CurrentRoom.Players;
+
+        if (PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Blue"))
+        {
+            ThirdPlayerBorder.sprite = Resources.Load<Sprite>("game_page/PictureBlueBorderSmall");
+            FirstPlayerBorder.sprite = Resources.Load<Sprite>("game_page/PictureRedBorderSmall");
+            SecondPlayerBorder.sprite = Resources.Load<Sprite>("game_page/PictureRedBorderSmall");
+        }else
+        {
+            ThirdPlayerBorder.sprite = Resources.Load<Sprite>("game_page/PictureRedBorderSmall");
+            FirstPlayerBorder.sprite = Resources.Load<Sprite>("game_page/PictureBlueBorderSmall");
+            SecondPlayerBorder.sprite = Resources.Load<Sprite>("game_page/PictureBlueBorderSmall");
+        }
         foreach (var vv in value)
         {
             if (!PhotonNetwork.LocalPlayer.NickName.Equals(PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName))
             {
-                if (PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Team"].Equals("Blue") && PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Blue"))
+                if (PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Team"].Equals("Blue"))
                 {
-                    ThirdPlayerBorder.sprite = Resources.Load<Sprite>("game_page/PictureBlueBorderSmall");
-                    FirstPlayerBorder.sprite = Resources.Load<Sprite>("game_page/PictureRedBorderSmall");
-                    SecondPlayerBorder.sprite = Resources.Load<Sprite>("game_page/PictureRedBorderSmall");
+                    
                 }
-                else if (PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Team"].Equals("Red") && PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Red"))
+                else if (PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Team"].Equals("Red"))
                 {
-                    ThirdPlayerBorder.sprite = Resources.Load<Sprite>("game_page/PictureRedBorderSmall");
-                    FirstPlayerBorder.sprite = Resources.Load<Sprite>("game_page/PictureBlueBorderSmall");
-                    SecondPlayerBorder.sprite = Resources.Load<Sprite>("game_page/PictureBlueBorderSmall");
+                    
                 }
             }
         }
