@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using ExitGames.Client.Photon;
+using Facebook.Unity;
 
 public class StartAction : MonoBehaviourPunCallbacks
 {
@@ -20,6 +21,7 @@ public class StartAction : MonoBehaviourPunCallbacks
     private List<RoomListing> _roomListings;
 
     private RoomListingMenu _roomListingMenu;
+    private byte[] tempPicture;
 
      void Awake()
     {
@@ -30,6 +32,7 @@ public class StartAction : MonoBehaviourPunCallbacks
         }
         PhotonNetwork.JoinLobby();
         Debug.Log("pokrenuo je join lobby");
+        FB.API("/me/picture?type=square&height=90&width=85", HttpMethod.GET, DisplayCurrentPlayerPic);
     }
     // Start is called before the first frame update
     void Start()
@@ -43,6 +46,17 @@ public class StartAction : MonoBehaviourPunCallbacks
     void Update()
     {
         
+    }
+
+    void DisplayCurrentPlayerPic(IGraphResult result)
+    {
+        if (result.Texture != null)
+        {
+
+            Texture2D tempTex = result.Texture;
+            byte[] tempPicture = tempTex.EncodeToPNG();
+ 
+        }
     }
 
     public void OnPointerOver()
@@ -151,13 +165,15 @@ public class StartAction : MonoBehaviourPunCallbacks
         {
             
             hash.Add("Team", "Blue");
+            
         }
         else
         {
             // hash.Add("Team", 1);
             hash.Add("Team", "Red");
+           
         }
-
+        hash.Add("Picture", tempPicture);
         hash.Add("State", "active");
 
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
