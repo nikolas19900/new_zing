@@ -32,7 +32,7 @@ public class StartAction : MonoBehaviourPunCallbacks
         }
         PhotonNetwork.JoinLobby();
         Debug.Log("pokrenuo je join lobby");
-        FB.API("/me/picture?type=square&height=90&width=85", HttpMethod.GET, DisplayCurrentPlayerPic);
+        FB.API("/me/picture?type=square&height=87&width=83", HttpMethod.GET, DisplayCurrentPlayerPic);
     }
     // Start is called before the first frame update
     void Start()
