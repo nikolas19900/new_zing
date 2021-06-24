@@ -61,6 +61,33 @@ public class GameScript : MonoBehaviourPunCallbacks
     private Canvas canvacesOfFirstDeck;
 
 
+    [SerializeField]
+    private Image FirstPlayerBorder;
+
+    [SerializeField]
+    private Image FirstPlayerImage;
+
+    [SerializeField]
+    private Image SecondPlayerBorder;
+
+    [SerializeField]
+    private Image SecondPlayerImage;
+
+    [SerializeField]
+    private Image ThirdPlayerBorder;
+
+    [SerializeField]
+    private Image ThirdPlayerImage;
+
+    [SerializeField]
+    private Text FirstPlayerName;
+
+    [SerializeField]
+    private Text SecondPlayerName;
+
+    [SerializeField]
+    private Text ThirdPlayerName;
+
     private bool isGameStarted = false;
    
 
@@ -87,6 +114,8 @@ public class GameScript : MonoBehaviourPunCallbacks
     private List<float> _tolerances;
 
     private bool isArrangeCard = false;
+
+
 
 
     void Awake()
@@ -210,8 +239,11 @@ public class GameScript : MonoBehaviourPunCallbacks
             //Debug.Log("tacno");
         }
         if (!isArrangeCard)
-            ArrangeCards();
+        {
 
+            SetSideOfBorderImages();
+            ArrangeCards();
+        }
 
     }
 
@@ -294,7 +326,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                 i++;
 
             }
-           // _currentPhotonView.RPC("InformCardPosition", RpcTarget.Others, arrayVectors, listTalon.ToArray());
+          
             Invoke("InvokeMethod", 3f);
         }
         catch (Exception ex)
@@ -314,39 +346,7 @@ public class GameScript : MonoBehaviourPunCallbacks
     }
 
 
-    [PunRPC]
-    public void InformCardPosition(Vector3[] newPosition, string[] arrayTalon)
-    {
-
-
-        int i = 0;
-        if (listTalon == null)
-        {
-            listTalon = arrayTalon.ToList();
-        }
-
-
-        if (canvacesOfFirstDeck.transform.childCount == 0)
-        {
-            SendTalon(arrayTalon);
-        }
-
-        
-
-        foreach (var val in listTalon)
-        {
-
-            var card = canvacesOfFirstDeck.transform.Find($"{val}(Clone)").gameObject;
-
-            card.transform.position += newPosition[i];
-
-            var components = card.GetComponents<Component>();
-
-            card.transform.SetParent(canvacesOfFirstDeck.transform);
-
-            i++;
-        }
-    }
+   
 
     [PunRPC]
     public void SendInitTalon(string[] Array)
@@ -364,68 +364,33 @@ public class GameScript : MonoBehaviourPunCallbacks
                 var card = temp.gameObject;
                 card.transform.localScale = new Vector3(0.789f, 0.789f, 0);
                 card.transform.SetParent(canvacesOfFirstDeck.transform);
-               // Destroy(temp.gameObject);
             }
           
         }
         
-      
-            
-           // Debug.Log("karta:" + canvacesOfFirstDeck.transform.parent.parent.parent.parent.parent.parent.name);
-           
-         
-            //var prefabs = Resources.Load("Prefabs/CardPrefabsStartSVG/"+obj);
-            //GameObject gameObj = (GameObject)prefabs;
-
-            //Vector3 position = new Vector3(startPosition, 700f);
-            //gameObj.transform.localPosition = position;
-            //gameObj.transform.localScale = new Vector3(0.789f, 0.789f, 0);
-            //GameObject firstDeck = (GameObject)Instantiate(gameObj, new Vector3(startPosition, 700f, 0), Quaternion.identity);
-            //firstDeck.transform.localScale = new Vector3(0.789f, 0.789f, 0);
-            //arrayPosition[i] = position;
-            //arrayCards[i] = "" + gameObj.name;
-            //firstDeck.transform.SetParent(canvacesOfFirstDeck.transform);
-
-            //i++;
-            //startPosition += 100f;
-            //multiplier -= 5f;
-
-            
-
-        
     }
 
-    [PunRPC]
-    public void SendTalon(string[] talonList)
+    public void SetSideOfBorderImages()
     {
-        listTalon = talonList.ToList<string>();
-        //float startPosition = 0.5f;
-        //float multiplier = 1.15f;
-        float startPosition = 1200f;
-
-
-        //talonCards = new List<GameObject>();
-        foreach (var obj in listTalon)
+        Dictionary<int, Player> value = PhotonNetwork.CurrentRoom.Players;
+        foreach (var vv in value)
         {
-            var prefab = Resources.Load("Prefabs/CardPrefabsStartSVG/" + obj);
-
-            var go = prefab as GameObject;
-            if (go.name == obj)
+            if (!PhotonNetwork.LocalPlayer.NickName.Equals(PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName))
             {
-                GameObject gameObj = (GameObject)go;
-                Vector3 position = new Vector3(startPosition, 700f);
-                gameObj.transform.localPosition = position;
-                GameObject firstDeck = (GameObject)Instantiate(gameObj, new Vector3(startPosition, 700f, 0), Quaternion.identity);
-
-                firstDeck.transform.SetParent(canvacesOfFirstDeck.transform);
-                startPosition += 100f;
-                _listOfCards.Add(obj);
-                //multiplier -= 5f;
-
+                if (PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Team"].Equals("Blue") && PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Blue"))
+                {
+                    ThirdPlayerBorder.sprite = Resources.Load<Sprite>("game_page/PictureBlueBorderSmall");
+                    FirstPlayerBorder.sprite = Resources.Load<Sprite>("game_page/PictureRedBorderSmall");
+                    SecondPlayerBorder.sprite = Resources.Load<Sprite>("game_page/PictureRedBorderSmall");
+                }
+                else if (PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Team"].Equals("Red") && PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Red"))
+                {
+                    ThirdPlayerBorder.sprite = Resources.Load<Sprite>("game_page/PictureRedBorderSmall");
+                    FirstPlayerBorder.sprite = Resources.Load<Sprite>("game_page/PictureBlueBorderSmall");
+                    SecondPlayerBorder.sprite = Resources.Load<Sprite>("game_page/PictureBlueBorderSmall");
+                }
             }
         }
-
-
     }
 
     [PunRPC]
@@ -448,13 +413,11 @@ public class GameScript : MonoBehaviourPunCallbacks
                 RedPlayerNameValue.text += PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
             }
 
-            
+          
 
         }
 
 
-       
-        
     }
 
 
