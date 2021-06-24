@@ -207,6 +207,8 @@ public class GameScript : MonoBehaviourPunCallbacks
             photonView.RPC("StartGame", PhotonNetwork.CurrentRoom.GetPlayer(1), isGameStarted);
          
         }
+
+        SetSideOfBorderImages();
     }
 
     
@@ -241,7 +243,7 @@ public class GameScript : MonoBehaviourPunCallbacks
         if (!isArrangeCard)
         {
 
-            SetSideOfBorderImages();
+            
             ArrangeCards();
         }
 
