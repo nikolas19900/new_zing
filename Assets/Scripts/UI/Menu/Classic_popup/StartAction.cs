@@ -54,7 +54,7 @@ public class StartAction : MonoBehaviourPunCallbacks
         {
 
             Texture2D tempTex = result.Texture;
-            byte[] tempPicture = tempTex.EncodeToPNG();
+            tempPicture = tempTex.EncodeToPNG();
  
         }
     }
