@@ -436,8 +436,8 @@ public class GameScript : MonoBehaviourPunCallbacks
                         int interation = 0;
                         foreach(var player in valuePlayers)
                         {
-                            if (!PhotonNetwork.LocalPlayer.NickName.Equals(PhotonNetwork.CurrentRoom.GetPlayer(player.Key).NickName))
-                            {
+                            //if (!PhotonNetwork.LocalPlayer.NickName.Equals(PhotonNetwork.CurrentRoom.GetPlayer(player.Key).NickName))
+                            //{
                                 if (!PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).Equals(PhotonNetwork.CurrentRoom.GetPlayer(player.Key)))
                                 {
                                     if (interation == 0)
@@ -467,7 +467,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                                     interation++;
                                 }
-                            }
+                            //}
                         }
                     }
 
