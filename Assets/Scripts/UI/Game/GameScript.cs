@@ -410,7 +410,7 @@ public class GameScript : MonoBehaviourPunCallbacks
             {
                 if (PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Team"].Equals("Blue"))
                 {
-
+                    if (PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Blue")) { 
                     Texture2D tex = new Texture2D(83, 87);
                     byte[] valuePicture = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Picture"];
                     tex.LoadImage(valuePicture);
@@ -419,7 +419,18 @@ public class GameScript : MonoBehaviourPunCallbacks
                     ProfilePic.sprite = Sprite.Create(tex, new Rect(0, 0, 83, 87), new Vector2());
 
                     ThirdPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName+"1";
+                    }
+                    else if (PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Red"))
+                    {
+                        Texture2D tex3 = new Texture2D(83, 87);
+                        byte[] valuePicture3 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Picture"];
+                        tex3.LoadImage(valuePicture3);
 
+                        UnityEngine.UI.Image ProfilePic3 = SecondPlayerImage.GetComponent<UnityEngine.UI.Image>();
+                        ProfilePic3.sprite = Sprite.Create(tex3, new Rect(0, 0, 83, 87), new Vector2());
+
+                        SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName + "4";
+                    }
 
                 }
                 else if(PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Team"].Equals("Red"))
