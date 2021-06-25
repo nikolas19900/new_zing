@@ -445,7 +445,9 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                         SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
                     }
-                   
+                    tempI++;
+
+
                 }
 
 
