@@ -438,7 +438,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                         {
                             if (!PhotonNetwork.LocalPlayer.NickName.Equals(PhotonNetwork.CurrentRoom.GetPlayer(player.Key).NickName))
                             {
-                                if (PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).Equals(PhotonNetwork.CurrentRoom.GetPlayer(player.Key)))
+                                if (!PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).Equals(PhotonNetwork.CurrentRoom.GetPlayer(player.Key)))
                                 {
                                     if (interation == 0)
                                     {
