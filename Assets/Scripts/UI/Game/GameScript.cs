@@ -422,6 +422,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                     }
                     else if (PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Red"))
                     {
+                        Debug.Log("preklopi 2x");
                         Texture2D tex3 = new Texture2D(83, 87);
                         byte[] valuePicture3 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Picture"];
                         tex3.LoadImage(valuePicture3);
