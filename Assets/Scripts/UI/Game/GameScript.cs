@@ -418,7 +418,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                     UnityEngine.UI.Image ProfilePic = ThirdPlayerImage.GetComponent<UnityEngine.UI.Image>();
                     ProfilePic.sprite = Sprite.Create(tex, new Rect(0, 0, 83, 87), new Vector2());
 
-                    ThirdPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
+                    ThirdPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName+"1";
 
 
                 }
@@ -433,7 +433,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                         UnityEngine.UI.Image ProfilePic2 = FirstPlayerImage.GetComponent<UnityEngine.UI.Image>();
                         ProfilePic2.sprite = Sprite.Create(tex2, new Rect(0, 0, 83, 87), new Vector2());
 
-                        FirstPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
+                        FirstPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName + "2";
                     }else
                     {
                         Texture2D tex3 = new Texture2D(83, 87);
@@ -443,7 +443,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                         UnityEngine.UI.Image ProfilePic3 = SecondPlayerImage.GetComponent<UnityEngine.UI.Image>();
                         ProfilePic3.sprite = Sprite.Create(tex3, new Rect(0, 0, 83, 87), new Vector2());
 
-                        SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
+                        SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName + "3";
                     }
                     tempI++;
 
