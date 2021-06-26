@@ -490,14 +490,16 @@ public class GameScript : MonoBehaviourPunCallbacks
                         }
                         else
                         {
-                            Texture2D tex3 = new Texture2D(83, 87);
-                            byte[] valuePicture3 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Picture"];
-                            tex3.LoadImage(valuePicture3);
+                            if (!FirstPlayerName.text.Equals(PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName)) { 
+                                Texture2D tex3 = new Texture2D(83, 87);
+                                byte[] valuePicture3 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Picture"];
+                                tex3.LoadImage(valuePicture3);
 
-                            UnityEngine.UI.Image ProfilePic3 = SecondPlayerImage.GetComponent<UnityEngine.UI.Image>();
-                            ProfilePic3.sprite = Sprite.Create(tex3, new Rect(0, 0, 83, 87), new Vector2());
+                                UnityEngine.UI.Image ProfilePic3 = SecondPlayerImage.GetComponent<UnityEngine.UI.Image>();
+                                ProfilePic3.sprite = Sprite.Create(tex3, new Rect(0, 0, 83, 87), new Vector2());
 
-                            SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName + "3";
+                                SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName + "3";
+                            }
                         }
                     }
                     else if (PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Red"))
