@@ -418,7 +418,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                         UnityEngine.UI.Image ProfilePic = ThirdPlayerImage.GetComponent<UnityEngine.UI.Image>();
                         ProfilePic.sprite = Sprite.Create(tex, new Rect(0, 0, 83, 87), new Vector2());
 
-                        ThirdPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName+"1";
+                        ThirdPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
                     }
                     else if (PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Red"))
                     {
@@ -431,7 +431,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                             UnityEngine.UI.Image ProfilePic4 = SecondPlayerImage.GetComponent<UnityEngine.UI.Image>();
                             ProfilePic4.sprite = Sprite.Create(tex4, new Rect(0, 0, 83, 87), new Vector2());
 
-                            SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName + "4";
+                            SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName ;
                             //Dictionary<int, Player> valuePlayers2 = PhotonNetwork.CurrentRoom.Players;
 
                             //    foreach (var player2 in valuePlayers2)
@@ -464,7 +464,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                                         UnityEngine.UI.Image ProfilePic5 = FirstPlayerImage.GetComponent<UnityEngine.UI.Image>();
                                         ProfilePic5.sprite = Sprite.Create(tex5, new Rect(0, 0, 83, 87), new Vector2());
 
-                                        FirstPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(player3.Key).NickName + "5";
+                                        FirstPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(player3.Key).NickName ;
                                     }
                                 }
                             }
@@ -486,11 +486,12 @@ public class GameScript : MonoBehaviourPunCallbacks
                             UnityEngine.UI.Image ProfilePic2 = FirstPlayerImage.GetComponent<UnityEngine.UI.Image>();
                             ProfilePic2.sprite = Sprite.Create(tex2, new Rect(0, 0, 83, 87), new Vector2());
 
-                            FirstPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName + "2";
+                            FirstPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
                         }
                         else
                         {
-                            if (!FirstPlayerName.text.Equals(PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName+"2")) { 
+                            if (!FirstPlayerName.text.Equals(PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName))
+                            {
                                 Texture2D tex3 = new Texture2D(83, 87);
                                 byte[] valuePicture3 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Picture"];
                                 tex3.LoadImage(valuePicture3);
@@ -498,7 +499,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                                 UnityEngine.UI.Image ProfilePic3 = SecondPlayerImage.GetComponent<UnityEngine.UI.Image>();
                                 ProfilePic3.sprite = Sprite.Create(tex3, new Rect(0, 0, 83, 87), new Vector2());
 
-                                SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName + "3";
+                                SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
                             }
                         }
                     }
@@ -511,18 +512,11 @@ public class GameScript : MonoBehaviourPunCallbacks
                         UnityEngine.UI.Image ProfilePic = ThirdPlayerImage.GetComponent<UnityEngine.UI.Image>();
                         ProfilePic.sprite = Sprite.Create(tex, new Rect(0, 0, 83, 87), new Vector2());
 
-                        ThirdPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName + "1";
+                        ThirdPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
 
                     }
-
-
-
-
-
                 }
-
-
-
+                
             }
         }
     }
