@@ -423,8 +423,8 @@ public class GameScript : MonoBehaviourPunCallbacks
                     else if (PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Red"))
                     {
                         if(FirstPlayerName.text != "") {
-
-                            Texture2D tex4 = new Texture2D(83, 87);
+                            if (!FirstPlayerName.text.Equals(PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName)) { 
+                                Texture2D tex4 = new Texture2D(83, 87);
                             byte[] valuePicture4 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Picture"];
                             tex4.LoadImage(valuePicture4);
 
@@ -432,6 +432,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                             ProfilePic4.sprite = Sprite.Create(tex4, new Rect(0, 0, 83, 87), new Vector2());
 
                             SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName ;
+                            }
                             //Dictionary<int, Player> valuePlayers2 = PhotonNetwork.CurrentRoom.Players;
 
                             //    foreach (var player2 in valuePlayers2)
