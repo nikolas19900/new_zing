@@ -422,27 +422,29 @@ public class GameScript : MonoBehaviourPunCallbacks
                     }
                     else if (PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Red"))
                     {
-                        if(FirstPlayerName.text != "") { 
-                        Dictionary<int, Player> valuePlayers2 = PhotonNetwork.CurrentRoom.Players;
+                        if(FirstPlayerName.text != "") {
 
-                        foreach (var player2 in valuePlayers2)
-                        {
-                            if (PhotonNetwork.CurrentRoom.GetPlayer(player2.Key).CustomProperties["Team"].Equals("Blue"))
-                            {
-                                if (!PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).Equals(PhotonNetwork.CurrentRoom.GetPlayer(player2.Key)))
-                                {
+                            Texture2D tex4 = new Texture2D(83, 87);
+                            byte[] valuePicture4 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Picture"];
+                            tex4.LoadImage(valuePicture4);
 
-                                    Texture2D tex4 = new Texture2D(83, 87);
-                                    byte[] valuePicture4 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(player2.Key).CustomProperties["Picture"];
-                                    tex4.LoadImage(valuePicture4);
+                            UnityEngine.UI.Image ProfilePic4 = SecondPlayerImage.GetComponent<UnityEngine.UI.Image>();
+                            ProfilePic4.sprite = Sprite.Create(tex4, new Rect(0, 0, 83, 87), new Vector2());
 
-                                    UnityEngine.UI.Image ProfilePic4 = SecondPlayerImage.GetComponent<UnityEngine.UI.Image>();
-                                    ProfilePic4.sprite = Sprite.Create(tex4, new Rect(0, 0, 83, 87), new Vector2());
+                            SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName + "4";
+                            //Dictionary<int, Player> valuePlayers2 = PhotonNetwork.CurrentRoom.Players;
 
-                                    SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(player2.Key).NickName + "4";
-                                }
-                            }
-                        }
+                            //    foreach (var player2 in valuePlayers2)
+                            //    {
+                            //        if (PhotonNetwork.CurrentRoom.GetPlayer(player2.Key).CustomProperties["Team"].Equals("Blue"))
+                            //        {
+                            //            if (!PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).Equals(PhotonNetwork.CurrentRoom.GetPlayer(player2.Key)))
+                            //            {
+
+
+                            //            }
+                            //        }
+                            //    }
                         }
                         else {
 
