@@ -490,7 +490,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                         }
                         else
                         {
-                            if (!FirstPlayerName.text.Equals(PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName)) { 
+                            if (!FirstPlayerName.text.Equals(PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName+"2")) { 
                                 Texture2D tex3 = new Texture2D(83, 87);
                                 byte[] valuePicture3 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Picture"];
                                 tex3.LoadImage(valuePicture3);
