@@ -443,16 +443,30 @@ public class GameScript : MonoBehaviourPunCallbacks
                                 }
                             }
                         }
-                        }else
-                        {
-                            Texture2D tex4 = new Texture2D(83, 87);
-                            byte[] valuePicture4 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Picture"];
-                            tex4.LoadImage(valuePicture4);
+                        }
+                        else {
 
-                            UnityEngine.UI.Image ProfilePic4 = FirstPlayerImage.GetComponent<UnityEngine.UI.Image>();
-                            ProfilePic4.sprite = Sprite.Create(tex4, new Rect(0, 0, 83, 87), new Vector2());
+                            Dictionary<int, Player> valuePlayers3= PhotonNetwork.CurrentRoom.Players;
 
-                            FirstPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName + "4";
+                            foreach (var player3 in valuePlayers3)
+                            {
+                                if (PhotonNetwork.CurrentRoom.GetPlayer(player3.Key).CustomProperties["Team"].Equals("Blue"))
+                                {
+                                    if (!PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).Equals(PhotonNetwork.CurrentRoom.GetPlayer(player3.Key)))
+                                    {
+
+                                        Texture2D tex5 = new Texture2D(83, 87);
+                                        byte[] valuePicture5 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(player3.Key).CustomProperties["Picture"];
+                                        tex5.LoadImage(valuePicture5);
+
+                                        UnityEngine.UI.Image ProfilePic5 = FirstPlayerImage.GetComponent<UnityEngine.UI.Image>();
+                                        ProfilePic5.sprite = Sprite.Create(tex5, new Rect(0, 0, 83, 87), new Vector2());
+
+                                        FirstPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(player3.Key).NickName + "5";
+                                    }
+                                }
+                            }
+                          
                         }
                     }
 
