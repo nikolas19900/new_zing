@@ -564,8 +564,9 @@ public class GameScript : MonoBehaviourPunCallbacks
                     else if (PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Red"))
                     {
                         Texture2D tex = new Texture2D(83, 87);
-                        byte[] valuePicture = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Picture"];
-                        tex.LoadImage(valuePicture);
+                        byte[] valuePicture10 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Picture"];
+                        Debug.Log("byte:" + valuePicture10);
+                        tex.LoadImage(valuePicture10);
 
                         UnityEngine.UI.Image ProfilePic = ThirdPlayerImage.GetComponent<UnityEngine.UI.Image>();
                         ProfilePic.sprite = Sprite.Create(tex, new Rect(0, 0, 83, 87), new Vector2());
