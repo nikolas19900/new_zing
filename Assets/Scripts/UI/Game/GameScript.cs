@@ -430,6 +430,9 @@ public class GameScript : MonoBehaviourPunCallbacks
                                 {
                                     if (!PhotonNetwork.CurrentRoom.GetPlayer(kk.Key).NickName.Equals(FirstPlayerName.text))
                                     {
+                                        SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(kk.Key).NickName;
+                                        Debug.Log("igrac postoji:" + SecondPlayerName.text);
+                                        //ovdje fali byte nije dobar
                                         Texture2D tex3 = new Texture2D(83, 87);
                                         byte[] valuePicture3 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(kk.Key).CustomProperties["Picture"];
                                         tex3.LoadImage(valuePicture3);
@@ -438,7 +441,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                                         UnityEngine.UI.Image ProfilePic3 = SecondPlayerImage.GetComponent<UnityEngine.UI.Image>();
                                         ProfilePic3.sprite = Sprite.Create(tex3, new Rect(0, 0, 83, 87), new Vector2());
 
-                                        SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(kk.Key).NickName;
+                                      
                                     }
                                 }
                             }
