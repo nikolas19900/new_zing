@@ -506,8 +506,8 @@ public class GameScript : MonoBehaviourPunCallbacks
                                 {
                                     if (!FirstPlayerName.text.Equals(PhotonNetwork.CurrentRoom.GetPlayer(q.Key).NickName))
                                     {
-                                        if (PhotonNetwork.CurrentRoom.GetPlayer(q.Key).CustomProperties["Team"].Equals("Red") &&
-                                            !PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName.Equals(PhotonNetwork.CurrentRoom.GetPlayer(q.Key).NickName))
+                                        if (PhotonNetwork.CurrentRoom.GetPlayer(q.Key).CustomProperties["Team"].Equals("Red") 
+                                            )
                                         {
                                             Texture2D tex2 = new Texture2D(83, 87);
                                             byte[] valuePicture2 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(q.Key).CustomProperties["Picture"];
