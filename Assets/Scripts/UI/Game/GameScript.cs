@@ -544,7 +544,7 @@ public class GameScript : MonoBehaviourPunCallbacks
             FirstPlayerBorder.sprite = Resources.Load<Sprite>("game_page/PictureBlueBorderSmall");
             SecondPlayerBorder.sprite = Resources.Load<Sprite>("game_page/PictureBlueBorderSmall");
         }
-        int tempI = 0;
+        
         foreach (var vv in value)
         {
 
@@ -557,7 +557,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                 {
                     if (PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Red"))
                     {
-                        if (tempI == 0)
+                        if (FirstPlayerName.text == "")
                         {
                             Texture2D tex2 = new Texture2D(83, 87);
                             byte[] valuePicture2 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Picture"];
@@ -640,7 +640,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                 {
                     if (PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Blue"))
                     {
-                        if (tempI == 0)
+                        if (FirstPlayerName.text == "")
                         {
                             Texture2D tex2 = new Texture2D(83, 87);
                             byte[] valuePicture2 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Picture"];
@@ -676,7 +676,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                     }
                 }
-                tempI++;
+                
             }
 
         }
