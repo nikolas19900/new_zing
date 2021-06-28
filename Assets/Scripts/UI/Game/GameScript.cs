@@ -431,6 +431,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                                     if (!PhotonNetwork.CurrentRoom.GetPlayer(kk.Key).NickName.Equals(FirstPlayerName.text))
                                     {
                                         SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(kk.Key).NickName;
+                                        Debug.Log("igrac postoji:" + FirstPlayerName.text);
                                         Debug.Log("igrac postoji:" + SecondPlayerName.text);
                                         //ovdje fali byte nije dobar
                                         Texture2D tex3 = new Texture2D(83, 87);
@@ -543,15 +544,30 @@ public class GameScript : MonoBehaviourPunCallbacks
                                         if (PhotonNetwork.CurrentRoom.GetPlayer(q.Key).CustomProperties["Team"].Equals("Red") 
                                             )
                                         {
+                                            //ovdje pojavljuje dva ista igraca
+                                            if (!PhotonNetwork.CurrentRoom.GetPlayer(q.Key).NickName.Equals(SecondPlayerName.text))
+                                            {
+
+                                            
                                             Texture2D tex2 = new Texture2D(83, 87);
                                             byte[] valuePicture2 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(q.Key).CustomProperties["Picture"];
                                             tex2.LoadImage(valuePicture2);
 
                                             UnityEngine.UI.Image ProfilePic2 = FirstPlayerImage.GetComponent<UnityEngine.UI.Image>();
-                                            ProfilePic2.sprite = Sprite.Create(tex2, new Rect(0, 0, 83, 87), new Vector2());
+                                            try
+                                            {
+                                                ProfilePic2.sprite = Sprite.Create(tex2, new Rect(0, 0, 83, 87), new Vector2());
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                Texture2D tex4 = new Texture2D(8, 8);
+                                                ProfilePic2.sprite = Sprite.Create(tex4, new Rect(0, 0, 8, 8), new Vector2());
+                                            }
+                                           
 
-                                            FirstPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(q.Key).NickName;
+                                            FirstPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(q.Key).NickName+"2";
                                             checkPlayer = true;
+                                            }
                                         }
                                     }
 

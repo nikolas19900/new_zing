@@ -33,12 +33,16 @@ public class LeaveGame : MonoBehaviour
             {
                 ExitGames.Client.Photon.Hashtable hash = PhotonNetwork.CurrentRoom.Players[vv.Key].CustomProperties;
                 hash["State"] = "inactive";
+                
                 PhotonNetwork.CurrentRoom.Players[vv.Key].SetCustomProperties(hash);
             }
         }
         if(GameScript.isGameStarted == false)
         {
             PhotonNetwork.LeaveRoom();
+            ExitGames.Client.Photon.Hashtable hash = PhotonNetwork.LocalPlayer.CustomProperties;
+            hash["Picture"] = null;
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
         }
            // if (PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Team"].Equals("Blue"))
             PhotonNetwork.LeaveLobby();
