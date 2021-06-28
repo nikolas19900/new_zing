@@ -431,8 +431,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                                     if (!PhotonNetwork.CurrentRoom.GetPlayer(kk.Key).NickName.Equals(FirstPlayerName.text))
                                     {
                                         SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(kk.Key).NickName;
-                                        Debug.Log("igrac postoji:" + FirstPlayerName.text);
-                                        Debug.Log("igrac postoji:" + SecondPlayerName.text);
+                                      
                                         //ovdje fali byte nije dobar
                                         Texture2D tex3 = new Texture2D(83, 87);
                                         byte[] valuePicture3 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(kk.Key).CustomProperties["Picture"];
@@ -565,7 +564,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                                             }
                                            
 
-                                            FirstPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(q.Key).NickName+"2";
+                                            FirstPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(q.Key).NickName;
                                             checkPlayer = true;
                                             }
                                         }
