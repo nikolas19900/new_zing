@@ -36,7 +36,10 @@ public class LeaveGame : MonoBehaviour
                 PhotonNetwork.CurrentRoom.Players[vv.Key].SetCustomProperties(hash);
             }
         }
-
+        if(GameScript.isGameStarted == false)
+        {
+            PhotonNetwork.LeaveRoom();
+        }
            // if (PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Team"].Equals("Blue"))
             PhotonNetwork.LeaveLobby();
         //DontDestroyOnLoad(GameManagerSingleton.Instance.gameObject);

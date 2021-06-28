@@ -88,7 +88,7 @@ public class GameScript : MonoBehaviourPunCallbacks
     [SerializeField]
     private Text ThirdPlayerName;
 
-    private bool isGameStarted = false;
+    public static bool isGameStarted = false;
    
 
     private ZingDealer _zingDealer;
