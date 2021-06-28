@@ -439,9 +439,15 @@ public class GameScript : MonoBehaviourPunCallbacks
                                         // Assign texture to renderer's material.
                                         //GetComponent<Renderer>().material.mainTexture = tex;
                                         UnityEngine.UI.Image ProfilePic3 = SecondPlayerImage.GetComponent<UnityEngine.UI.Image>();
+                                        try { 
                                         ProfilePic3.sprite = Sprite.Create(tex3, new Rect(0, 0, 83, 87), new Vector2());
+                                        }catch(Exception ex)
+                                        {
+                                            Texture2D tex4= new Texture2D(8, 8);
+                                            ProfilePic3.sprite = Sprite.Create(tex4, new Rect(0, 0, 8, 8), new Vector2());
+                                        }
 
-                                      
+
                                     }
                                 }
                             }
@@ -572,7 +578,16 @@ public class GameScript : MonoBehaviourPunCallbacks
                         tex.LoadImage(valuePicture10);
 
                         UnityEngine.UI.Image ProfilePic = ThirdPlayerImage.GetComponent<UnityEngine.UI.Image>();
-                        ProfilePic.sprite = Sprite.Create(tex, new Rect(0, 0, 83, 87), new Vector2());
+                        try
+                        {
+                            ProfilePic.sprite = Sprite.Create(tex, new Rect(0, 0, 83, 87), new Vector2());
+                        }
+                        catch (Exception ex)
+                        {
+                            Texture2D tex4 = new Texture2D(8, 8);
+                            ProfilePic.sprite = Sprite.Create(tex4, new Rect(0, 0, 8, 8), new Vector2());
+                        }
+                       
 
                         ThirdPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
 
