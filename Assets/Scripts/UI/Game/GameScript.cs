@@ -500,14 +500,39 @@ public class GameScript : MonoBehaviourPunCallbacks
                         {
                             if (!FirstPlayerName.text.Equals(PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName))
                             {
-                                Texture2D tex3 = new Texture2D(83, 87);
-                                byte[] valuePicture3 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Picture"];
-                                tex3.LoadImage(valuePicture3);
+                                var qq = PhotonNetwork.CurrentRoom.Players;
+                                bool checkPlayer = false;
+                                foreach(var q in qq)
+                                {
+                                    if (!FirstPlayerName.text.Equals(PhotonNetwork.CurrentRoom.GetPlayer(q.Key).NickName))
+                                    {
+                                        if (PhotonNetwork.CurrentRoom.GetPlayer(q.Key).CustomProperties["Team"].Equals("Red") &&
+                                            !PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName.Equals(PhotonNetwork.CurrentRoom.GetPlayer(q.Key).NickName))
+                                        {
+                                            Texture2D tex2 = new Texture2D(83, 87);
+                                            byte[] valuePicture2 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(q.Key).CustomProperties["Picture"];
+                                            tex2.LoadImage(valuePicture2);
 
-                                UnityEngine.UI.Image ProfilePic3 = SecondPlayerImage.GetComponent<UnityEngine.UI.Image>();
-                                ProfilePic3.sprite = Sprite.Create(tex3, new Rect(0, 0, 83, 87), new Vector2());
+                                            UnityEngine.UI.Image ProfilePic2 = FirstPlayerImage.GetComponent<UnityEngine.UI.Image>();
+                                            ProfilePic2.sprite = Sprite.Create(tex2, new Rect(0, 0, 83, 87), new Vector2());
 
-                                SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
+                                            FirstPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(q.Key).NickName;
+                                            checkPlayer = true;
+                                        }
+                                    }
+
+                                }
+
+                                if (!checkPlayer) { 
+                                    Texture2D tex3 = new Texture2D(83, 87);
+                                    byte[] valuePicture3 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Picture"];
+                                    tex3.LoadImage(valuePicture3);
+
+                                    UnityEngine.UI.Image ProfilePic3 = SecondPlayerImage.GetComponent<UnityEngine.UI.Image>();
+                                    ProfilePic3.sprite = Sprite.Create(tex3, new Rect(0, 0, 83, 87), new Vector2());
+
+                                    SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
+                                }
                             }
                         }
                     }
@@ -594,45 +619,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                         ThirdPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
                         Dictionary<int, Player> valuePlayers = PhotonNetwork.CurrentRoom.Players;
-                        //int interation = 0;
-                        //foreach (var player in valuePlayers)
-                        //{
-                        //    //if (!PhotonNetwork.LocalPlayer.NickName.Equals(PhotonNetwork.CurrentRoom.GetPlayer(player.Key).NickName))
-                        //    //{
-                        //    if (PhotonNetwork.CurrentRoom.GetPlayer(player.Key).CustomProperties["Team"].Equals("Red"))
-                        //    {
-                        //        if (!PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).Equals(PhotonNetwork.CurrentRoom.GetPlayer(player.Key)))
-                        //        {
-                        //            if (FirstPlayerName.text == "")
-                        //            {
-                        //                Texture2D tex2 = new Texture2D(83, 87);
-                        //                byte[] valuePicture2 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(player.Key).CustomProperties["Picture"];
-                        //                tex2.LoadImage(valuePicture2);
-                        //                // Assign texture to renderer's material.
-                        //                //GetComponent<Renderer>().material.mainTexture = tex;
-                        //                UnityEngine.UI.Image ProfilePic2 = FirstPlayerImage.GetComponent<UnityEngine.UI.Image>();
-                        //                ProfilePic2.sprite = Sprite.Create(tex2, new Rect(0, 0, 83, 87), new Vector2());
-
-                        //                FirstPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(player.Key).NickName;
-                        //            }
-                        //            else
-                        //            {
-                        //                Texture2D tex3 = new Texture2D(83, 87);
-                        //                byte[] valuePicture3 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(player.Key).CustomProperties["Picture"];
-                        //                tex3.LoadImage(valuePicture3);
-                        //                // Assign texture to renderer's material.
-                        //                //GetComponent<Renderer>().material.mainTexture = tex;
-                        //                UnityEngine.UI.Image ProfilePic3 = SecondPlayerImage.GetComponent<UnityEngine.UI.Image>();
-                        //                ProfilePic3.sprite = Sprite.Create(tex3, new Rect(0, 0, 83, 87), new Vector2());
-
-                        //                SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(player.Key).NickName;
-                        //            }
-
-                        //            interation++;
-                        //        }
-                        //    }
-                            //}
-                        //}
+                       
                     }
 
                 }
