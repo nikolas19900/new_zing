@@ -603,7 +603,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                             {
                                 if (!PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).Equals(PhotonNetwork.CurrentRoom.GetPlayer(player.Key)))
                                 {
-                                    if (interation == 0)
+                                    if (FirstPlayerName.text == "")
                                     {
                                         Texture2D tex2 = new Texture2D(83, 87);
                                         byte[] valuePicture2 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(player.Key).CustomProperties["Picture"];
