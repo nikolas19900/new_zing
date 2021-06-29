@@ -88,6 +88,9 @@ public class GameScript : MonoBehaviourPunCallbacks
     [SerializeField]
     private Text ThirdPlayerName;
 
+    [SerializeField]
+    private Canvas LastCardCanvas;
+
     public static bool isGameStarted = false;
    
 
@@ -103,7 +106,6 @@ public class GameScript : MonoBehaviourPunCallbacks
    
     private List<string> _listOfCards = new List<string>();
 
-    private string _lastCardOfDealerPlayer;
 
     private List<string> _cardsOfFirstPlayer;
 
@@ -375,30 +377,7 @@ public class GameScript : MonoBehaviourPunCallbacks
     [PunRPC]
     public void setOtherImagesofPlayers()
     {
-        //if(PhotonNetwork.CurrentRoom.PlayerCount == 3)
-        //{
-        //    Dictionary<int, Player> cc = PhotonNetwork.CurrentRoom.Players;
-        //    int interationSec = 0;
-        //    foreach (var c in cc)
-        //    {
-        //        if (PhotonNetwork.CurrentRoom.GetPlayer(c.Key).CustomProperties["Team"].Equals("Blue"))
-        //        {
-        //            if (!PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).Equals(PhotonNetwork.CurrentRoom.GetPlayer(c.Key)))
-        //            {
-
-        //                Texture2D tex3 = new Texture2D(83, 87);
-        //                byte[] valuePicture3 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(c.Key).CustomProperties["Picture"];
-        //                tex3.LoadImage(valuePicture3);
-        //                // Assign texture to renderer's material.
-        //                //GetComponent<Renderer>().material.mainTexture = tex;
-        //                UnityEngine.UI.Image ProfilePic3 = SecondPlayerImage.GetComponent<UnityEngine.UI.Image>();
-        //                ProfilePic3.sprite = Sprite.Create(tex3, new Rect(0, 0, 83, 87), new Vector2());
-
-        //                SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(c.Key).NickName;
-        //            }
-        //        }
-        //    }
-        //}
+        
 
         Dictionary<int, Player> value = PhotonNetwork.CurrentRoom.Players;
 
@@ -474,19 +453,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                             SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName ;
                             }
-                            //Dictionary<int, Player> valuePlayers2 = PhotonNetwork.CurrentRoom.Players;
-
-                            //    foreach (var player2 in valuePlayers2)
-                            //    {
-                            //        if (PhotonNetwork.CurrentRoom.GetPlayer(player2.Key).CustomProperties["Team"].Equals("Blue"))
-                            //        {
-                            //            if (!PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).Equals(PhotonNetwork.CurrentRoom.GetPlayer(player2.Key)))
-                            //            {
-
-
-                            //            }
-                            //        }
-                            //    }
+                            
                         }
                         else {
 
@@ -883,7 +850,22 @@ public class GameScript : MonoBehaviourPunCallbacks
             }
 
 
-            _lastCardOfDealerPlayer = objLastCard.name;
+            string ttt = objLastCard.name.Split('_')[1];
+            //Debug.Log("value2:" + ttt);
+            var LastCardValue = LastCardCanvas.transform.GetChild(0);
+
+            var components = LastCardValue.GetComponents<Component>();
+            foreach (var com in components)
+            {
+                //Debug.Log("komponente");
+                var vv = com.GetType();
+                if (typeof(SVGImporter.SVGImage).IsAssignableFrom(vv))
+                {
+
+                    var image2 = (SVGImporter.SVGImage)com;
+                    image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/CARDS_" + ttt + "/" + objLastCard.name);
+                }
+            }
 
             _cardsOfFirstPlayer = new List<string>();
             foreach (var obj in _zingDealer.CardsOfFirstPlayers)
