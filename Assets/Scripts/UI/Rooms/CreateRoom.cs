@@ -100,6 +100,7 @@ public class CreateRoom : MonoBehaviourPun
         {
             FB.ActivateApp();
             //
+            FB.API("me?fields=id,name,email", HttpMethod.POST, OnDataReceived, new WWWForm());
             FB.API("/me/picture?type=square&height=72&width=74", HttpMethod.GET, DisplayCurrentPlayerPic);
         }
 
@@ -149,6 +150,7 @@ public class CreateRoom : MonoBehaviourPun
 
     private void OnHideUnity(bool isGameShown)
     {
+        Debug.Log("ne radi kako treba");
         if (!isGameShown)
         {
             // Pause the game - we will need to hide
