@@ -91,6 +91,9 @@ public class GameScript : MonoBehaviourPunCallbacks
     [SerializeField]
     private Canvas LastCardCanvas;
 
+    [SerializeField]
+    private GameObject CardImageValueLastCard;
+
     public static bool isGameStarted = false;
    
 
@@ -601,7 +604,6 @@ public class GameScript : MonoBehaviourPunCallbacks
 
 
 
-
             if (!PhotonNetwork.LocalPlayer.NickName.Equals(PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName))
             {
                 if (PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Team"].Equals("Blue"))
@@ -852,9 +854,8 @@ public class GameScript : MonoBehaviourPunCallbacks
 
             string ttt = objLastCard.name.Split('_')[1];
             //Debug.Log("value2:" + ttt);
-            var LastCardValue = LastCardCanvas.transform.GetChild(0);
-
-            var components = LastCardValue.GetComponents<Component>();
+           
+            var components = CardImageValueLastCard.GetComponents<Component>();
             foreach (var com in components)
             {
                 //Debug.Log("komponente");
@@ -866,7 +867,8 @@ public class GameScript : MonoBehaviourPunCallbacks
                     image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/CARDS_" + ttt + "/" + objLastCard.name);
                 }
             }
-
+            
+            CardImageValueLastCard.transform.SetParent(LastCardCanvas.transform);
             _cardsOfFirstPlayer = new List<string>();
             foreach (var obj in _zingDealer.CardsOfFirstPlayers)
             {
