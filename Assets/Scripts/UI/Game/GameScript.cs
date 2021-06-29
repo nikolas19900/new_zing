@@ -816,6 +816,7 @@ public class GameScript : MonoBehaviourPunCallbacks
     {
         isGameStarted = state;
         Dictionary<int, Player> value = PhotonNetwork.CurrentRoom.Players;
+        PhotonNetwork.CurrentRoom.IsOpen = false;
         if (SideOfTeam.CurrentPlayerSide == 1)
         {
             DealerName.text = PhotonNetwork.CurrentRoom.GetPlayer(1).NickName;
