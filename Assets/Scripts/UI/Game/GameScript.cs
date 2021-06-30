@@ -94,6 +94,9 @@ public class GameScript : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject CardImageValueLastCard;
 
+    [SerializeField]
+    private GameObject TeamImageLastCard;
+
     public static bool isGameStarted = false;
    
 
@@ -876,7 +879,40 @@ public class GameScript : MonoBehaviourPunCallbacks
                     image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/CARDS_" + ttt + "/" + objLastCard.name);
                 }
             }
-            _currentPhotonView.RPC("SetInitDealerConfig", RpcTarget.Others, objLastCard.name);
+            string strana = "";
+            if (PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Red"))
+            {
+                var component = TeamImageLastCard.GetComponents<Component>();
+                foreach (var com in component)
+                {
+                    //Debug.Log("komponente");
+                    var vv = com.GetType();
+                    if (typeof(SVGImporter.SVGImage).IsAssignableFrom(vv))
+                    {
+
+                        var image2 = (SVGImporter.SVGImage)com;
+                        image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/BACK_SIDE/BackREDSide");
+                    }
+                }
+                strana = "Red";
+
+            }else
+            {
+                var component = TeamImageLastCard.GetComponents<Component>();
+                foreach (var com in component)
+                {
+                    //Debug.Log("komponente");
+                    var vv = com.GetType();
+                    if (typeof(SVGImporter.SVGImage).IsAssignableFrom(vv))
+                    {
+
+                        var image2 = (SVGImporter.SVGImage)com;
+                        image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/BACK_SIDE/BackBlueSide");
+                    }
+                }
+                strana = "Blue";
+            }
+            _currentPhotonView.RPC("SetInitDealerConfig", RpcTarget.Others, objLastCard.name,strana);
             _cardsOfFirstPlayer = new List<string>();
             foreach (var obj in _zingDealer.CardsOfFirstPlayers)
             {
@@ -901,7 +937,7 @@ public class GameScript : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void SetInitDealerConfig(string name)
+    public void SetInitDealerConfig(string name,string strana)
     {
         isGameStarted = true;
         string ttt = name.Split('_')[1];
@@ -919,6 +955,27 @@ public class GameScript : MonoBehaviourPunCallbacks
                 image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/CARDS_" + ttt + "/" + name);
             }
         }
+
+        var component = TeamImageLastCard.GetComponents<Component>();
+        foreach (var com in component)
+        {
+            //Debug.Log("komponente");
+            var vv = com.GetType();
+            if (typeof(SVGImporter.SVGImage).IsAssignableFrom(vv))
+            {
+
+                var image2 = (SVGImporter.SVGImage)com;
+                if (strana.Equals("Blue"))
+                {
+                    image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/BACK_SIDE/BackBlueSide");
+                }else
+                {
+                    image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/BACK_SIDE/BackREDSide");
+                }
+               
+            }
+        }
+       
     }
 
     public void DeleteLastFourTalonCards()

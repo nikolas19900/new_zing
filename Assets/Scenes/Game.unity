@@ -4013,6 +4013,7 @@ MonoBehaviour:
   ThirdPlayerName: {fileID: 1879840646}
   LastCardCanvas: {fileID: 1236037727}
   CardImageValueLastCard: {fileID: 8237273060647570607}
+  TeamImageLastCard: {fileID: 1702702870}
 --- !u!114 &914850045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6800,7 +6801,7 @@ GameObject:
   - component: {fileID: 1702702873}
   - component: {fileID: 1702702872}
   m_Layer: 0
-  m_Name: TeamImage
+  m_Name: TeamImageLastCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6844,7 +6845,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  _vectorGraphics: {fileID: 11400000, guid: 861516cb23486094b83dd9fffe331955, type: 2}
+  _vectorGraphics: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_UsePivot: 0
