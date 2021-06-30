@@ -102,6 +102,7 @@ public class CreateRoom : MonoBehaviourPun
             //
             FB.API("me?fields=id,name,email", HttpMethod.POST, OnDataReceived, new WWWForm());
             FB.API("/me/picture?type=square&height=72&width=74", HttpMethod.GET, DisplayCurrentPlayerPic);
+            FB.API("/me/picture?type=square&height=90&width=85", HttpMethod.GET, DisplayCurrentPlayerPic2);
         }
 
        
@@ -125,11 +126,22 @@ public class CreateRoom : MonoBehaviourPun
             Texture2D tex = new Texture2D(74, 72);
 
             tex.LoadImage(value);
-            MasterManager.GameSettings.PlayerImage = value;
+            
             // Assign texture to renderer's material.
             //GetComponent<Renderer>().material.mainTexture = tex;
             UnityEngine.UI.Image ProfilePic = PlayerImage.GetComponent<UnityEngine.UI.Image>();
             ProfilePic.sprite = Sprite.Create(tex, new Rect(0, 0, 74, 72), new Vector2());
+        }
+    }
+
+    void DisplayCurrentPlayerPic2(IGraphResult result)
+    {
+        if (result.Texture != null)
+        {
+
+            Texture2D tempTex = result.Texture;
+            MasterManager.GameSettings.PlayerImage = tempTex.EncodeToPNG();
+
         }
     }
 
@@ -176,6 +188,7 @@ public class CreateRoom : MonoBehaviourPun
             
             //&height=100&width=100
             FB.API("/me/picture?type=square&height=72&width=74", HttpMethod.GET, DisplayCurrentPlayerPic);
+            FB.API("/me/picture?type=square&height=90&width=85", HttpMethod.GET, DisplayCurrentPlayerPic2);
         }
         else
         {

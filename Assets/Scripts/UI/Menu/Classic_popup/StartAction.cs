@@ -32,6 +32,7 @@ public class StartAction : MonoBehaviourPunCallbacks
         }
         PhotonNetwork.JoinLobby();
         Debug.Log("pokrenuo je join lobby");
+       
     }
     // Start is called before the first frame update
     void Start()
