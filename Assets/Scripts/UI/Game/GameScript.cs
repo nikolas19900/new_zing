@@ -237,7 +237,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                 
                 if (players[current.Key].CustomProperties["State"].Equals("inactive"))
                 {
-                    if (players[current.Key].IsMasterClient)
+                    if (players[current.Key].IsMasterClient && isGameStarted == false)
                     {
                         _currentPhotonView.RPC("SwitchAllSceneAndLeave", RpcTarget.Others);
                     }
