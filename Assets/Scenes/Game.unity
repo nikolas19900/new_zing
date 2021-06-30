@@ -8833,7 +8833,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  _vectorGraphics: {fileID: 11400000, guid: 1b236951b8322aa499b2334da4f373af, type: 2}
+  _vectorGraphics: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_UsePivot: 0

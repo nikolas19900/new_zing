@@ -876,7 +876,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                     image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/CARDS_" + ttt + "/" + objLastCard.name);
                 }
             }
-           
+            _currentPhotonView.RPC("SetInitDealerConfig", RpcTarget.Others, objLastCard.name);
             _cardsOfFirstPlayer = new List<string>();
             foreach (var obj in _zingDealer.CardsOfFirstPlayers)
             {
@@ -897,6 +897,27 @@ public class GameScript : MonoBehaviourPunCallbacks
             InitTalonCards();
             DeleteLastFourTalonCards();
 
+        }
+    }
+
+    [PunRPC]
+    public void SetInitDealerConfig(string name)
+    {
+        isGameStarted = true;
+        string ttt = name.Split('_')[1];
+       
+
+        var components = CardImageValueLastCard.GetComponents<Component>();
+        foreach (var com in components)
+        {
+            
+            var vv = com.GetType();
+            if (typeof(SVGImporter.SVGImage).IsAssignableFrom(vv))
+            {
+
+                var image2 = (SVGImporter.SVGImage)com;
+                image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/CARDS_" + ttt + "/" + name);
+            }
         }
     }
 
