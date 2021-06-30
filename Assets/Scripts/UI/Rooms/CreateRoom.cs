@@ -125,6 +125,7 @@ public class CreateRoom : MonoBehaviourPun
             Texture2D tex = new Texture2D(74, 72);
 
             tex.LoadImage(value);
+            MasterManager.GameSettings.PlayerImage = value;
             // Assign texture to renderer's material.
             //GetComponent<Renderer>().material.mainTexture = tex;
             UnityEngine.UI.Image ProfilePic = PlayerImage.GetComponent<UnityEngine.UI.Image>();

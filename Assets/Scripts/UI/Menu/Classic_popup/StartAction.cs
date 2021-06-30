@@ -32,7 +32,6 @@ public class StartAction : MonoBehaviourPunCallbacks
         }
         PhotonNetwork.JoinLobby();
         Debug.Log("pokrenuo je join lobby");
-        FB.API("/me/picture?type=square&height=90&width=85", HttpMethod.GET, DisplayCurrentPlayerPic);
     }
     // Start is called before the first frame update
     void Start()
@@ -48,16 +47,7 @@ public class StartAction : MonoBehaviourPunCallbacks
         
     }
 
-    void DisplayCurrentPlayerPic(IGraphResult result)
-    {
-        if (result.Texture != null)
-        {
-
-            Texture2D tempTex = result.Texture;
-            tempPicture = tempTex.EncodeToPNG();
- 
-        }
-    }
+   
 
     public void OnPointerOver()
     {
@@ -173,7 +163,7 @@ public class StartAction : MonoBehaviourPunCallbacks
             hash.Add("Team", "Red");
            
         }
-        hash.Add("Picture", tempPicture);
+        hash.Add("Picture", MasterManager.GameSettings.PlayerImage);
         hash.Add("State", "active");
 
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);

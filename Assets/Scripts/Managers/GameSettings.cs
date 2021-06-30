@@ -22,12 +22,23 @@ namespace Assets.Scripts.Managers
 
         private string _playerId = "";
 
+        private byte[] _playerImage;
+
         public string GameVersion
         {
             get { return _gameVersion; }
             set
             {
                 _gameVersion = value;
+            }
+        }
+
+        public byte[] PlayerImage
+        {
+            get { return _playerImage; }
+            set
+            {
+                _playerImage = value;
             }
         }
 
@@ -59,7 +70,7 @@ namespace Assets.Scripts.Managers
             }
         }
 
-        [SerializeField] private string _nickName = "PunFish";
+        [SerializeField] private string _nickName = "zing";
 
         public string RoomName
         {
