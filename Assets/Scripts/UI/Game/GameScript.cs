@@ -237,10 +237,16 @@ public class GameScript : MonoBehaviourPunCallbacks
                 
                 if (players[current.Key].CustomProperties["State"].Equals("inactive"))
                 {
+                    if (players[current.Key].IsMasterClient)
+                    {
+                        _currentPhotonView.RPC("SwitchAllSceneAndLeave", RpcTarget.Others);
+                    }
                     //ako jedan od igraca nije aktivan aktivirace se ova linija koda
-                   // Debug.Log("radi");
+                    // Debug.Log("radi");
                     //_currentPhotonView.RPC("ReadLine", players[current.Key]);
                 }
+
+                
             }
 
 
@@ -256,6 +262,20 @@ public class GameScript : MonoBehaviourPunCallbacks
             ArrangeCards();
         }
 
+    }
+
+    [PunRPC]
+    public void SwitchAllSceneAndLeave()
+    {
+        PhotonNetwork.LeaveRoom();
+        ExitGames.Client.Photon.Hashtable hash = PhotonNetwork.LocalPlayer.CustomProperties;
+        hash["Picture"] = null;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+
+        PhotonNetwork.LeaveLobby();
+        //DontDestroyOnLoad(GameManagerSingleton.Instance.gameObject);
+        //PhotonNetwork.LoadLevel(0);
+        NetworkManager.instance.ChangeScene("Menu");
     }
 
     private void InitTalonCards()
