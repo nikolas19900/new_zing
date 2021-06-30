@@ -876,10 +876,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                     image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/CARDS_" + ttt + "/" + objLastCard.name);
                 }
             }
-            CardImageValueLastCard.transform.localScale = new Vector3(0.789f, 0.789f, 0);
-            GameObject objectCard = PhotonNetwork.Instantiate("game/"+CardImageValueLastCard.name, new Vector2(0,0), Quaternion.identity);
-            objectCard.transform.localScale = new Vector3(0.789f, 0.789f, 0);
-            objectCard.transform.SetParent(LastCardCanvas.transform);
+           
             _cardsOfFirstPlayer = new List<string>();
             foreach (var obj in _zingDealer.CardsOfFirstPlayers)
             {
