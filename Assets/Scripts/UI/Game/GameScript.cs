@@ -97,6 +97,9 @@ public class GameScript : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject TeamImageLastCard;
 
+    [SerializeField]
+    private Canvas canvacesOfCurrentPlayer;
+
     public static bool isGameStarted = false;
    
 
@@ -873,6 +876,12 @@ public class GameScript : MonoBehaviourPunCallbacks
 
             var objLastCard = _zingDealer.LastCard as GameObject;
 
+            _cardsOfFirstPlayer = new List<string>();
+            foreach (var obj in _zingDealer.CardsOfFirstPlayers)
+            {
+                _cardsOfFirstPlayer.Add(obj.name);
+            }
+
             string[] cardsOfSecondPlayer = new string[_zingDealer.CardsOfSecondPlayers.Count];
 
             int count = 0;
@@ -883,7 +892,27 @@ public class GameScript : MonoBehaviourPunCallbacks
                 count++;
             }
 
+            string[] cardsOfThirdPlayer = new string[_zingDealer.CardsOfThirdPlayers.Count];
 
+            int countThird = 0;
+            foreach (var obj in _zingDealer.CardsOfThirdPlayers)
+            {
+
+                cardsOfThirdPlayer[countThird] = obj.name;
+                countThird++;
+            }
+
+            string[] cardsOfFourthPlayer = new string[_zingDealer.CardsOfFourthPlayers.Count];
+
+            int countFourth = 0;
+            foreach (var obj in _zingDealer.CardsOfFourthPlayers)
+            {
+
+                cardsOfFourthPlayer[countFourth] = obj.name;
+                countFourth++;
+            }
+
+            InitBoard();
             string ttt = objLastCard.name.Split('_')[1];
             //Debug.Log("value2:" + ttt);
            
@@ -996,6 +1025,34 @@ public class GameScript : MonoBehaviourPunCallbacks
             }
         }
        
+    }
+
+
+    private void InitBoard()
+    {
+        float multiplier = 1.2f;
+        foreach (var obj in _cardsOfFirstPlayer)
+        {
+            //Debug.Log("vrijednost:" + obj);
+            var tt = Resources.Load("Prefabs/PlayerCards/" + obj);
+
+            GameObject FirstCardObject = (GameObject)tt;
+
+            FirstCardObject.transform.localScale = new Vector3(0.23f, 0.23f);
+
+            //float value = -200.8f;
+            //float valueY = -2.6f;
+            //GameObject myBrick = Instantiate(FirstCardObject, new Vector3(value + multiplier, valueY, 0), Quaternion.identity) as GameObject;
+            //myBrick.transform.SetParent(canvacesOfCurrentPlayer.transform);
+            //multiplier += 135f;
+            float value = -3.6f;
+            float valueY = -2.6f;
+            GameObject myBrick = Instantiate(FirstCardObject, new Vector3(value + multiplier, valueY, 0), Quaternion.identity) as GameObject;
+            myBrick.transform.SetParent(canvacesOfCurrentPlayer.transform);
+            multiplier += 1.75f;
+
+        }
+
     }
 
     public void DeleteLastFourTalonCards()

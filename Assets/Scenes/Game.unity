@@ -4014,6 +4014,7 @@ MonoBehaviour:
   LastCardCanvas: {fileID: 1236037727}
   CardImageValueLastCard: {fileID: 8237273060647570607}
   TeamImageLastCard: {fileID: 1702702870}
+  canvacesOfCurrentPlayer: {fileID: 455719830}
 --- !u!114 &914850045
 MonoBehaviour:
   m_ObjectHideFlags: 0
