@@ -100,6 +100,9 @@ public class GameScript : MonoBehaviourPunCallbacks
     [SerializeField]
     private Canvas canvacesOfCurrentPlayer;
 
+    [SerializeField]
+    private GameObject DealerBoard;
+
     public static GameScript player;
 
     public static bool isGameStarted = false;
@@ -847,6 +850,11 @@ public class GameScript : MonoBehaviourPunCallbacks
         }
 
         FB.API("/me/picture?type=square&height=64&width=64", HttpMethod.GET, DisplayProfilePic);
+
+        
+        
+
+
         if (SideOfTeam.CurrentPlayerSide == 1 && isGameStarted)
         {
             _zingDealer = new ZingDealer();
@@ -946,6 +954,21 @@ public class GameScript : MonoBehaviourPunCallbacks
                         image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/BACK_SIDE/BackREDSide");
                     }
                 }
+
+                var componentsDealerBoard = DealerBoard.GetComponents<Component>();
+
+                //var image = gameObject.GetComponent<SVGImage>();
+                // Debug.Log("fff");
+                foreach (var com in componentsDealerBoard)
+                {
+                    var vv = com.GetType();
+                    if (typeof(Image).IsAssignableFrom(vv))
+                    {
+                        var image2 = (Image)com;
+                        image2.sprite = Resources.Load<Sprite>("game_page/PictureRedBorderSmall");
+                    }
+                }
+
                 strana = "Red";
 
             }else
@@ -962,6 +985,22 @@ public class GameScript : MonoBehaviourPunCallbacks
                         image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/BACK_SIDE/BackBlueSide");
                     }
                 }
+
+                var componentsDealerBoard = DealerBoard.GetComponents<Component>();
+
+                //var image = gameObject.GetComponent<SVGImage>();
+                // Debug.Log("fff");
+                foreach (var com in componentsDealerBoard)
+                {
+                    var vv = com.GetType();
+                    if (typeof(Image).IsAssignableFrom(vv))
+                    {
+                        var image2 = (Image)com;
+                        image2.sprite = Resources.Load<Sprite>("game_page/PictureBlueBorderSmall");
+                    }
+                }
+
+
                 strana = "Blue";
             }
             _currentPhotonView.RPC("SetInitDealerConfig", RpcTarget.Others, objLastCard.name,strana);
@@ -1008,6 +1047,8 @@ public class GameScript : MonoBehaviourPunCallbacks
             }
         }
 
+
+
         var component = TeamImageLastCard.GetComponents<Component>();
         foreach (var com in component)
         {
@@ -1019,9 +1060,37 @@ public class GameScript : MonoBehaviourPunCallbacks
                 var image2 = (SVGImporter.SVGImage)com;
                 if (strana.Equals("Blue"))
                 {
+                    var componentDealer = DealerBoard.GetComponents<Component>();
+
+                    //var image = gameObject.GetComponent<SVGImage>();
+                    // Debug.Log("fff");
+                    foreach (var com2 in componentDealer)
+                    {
+                        var vv2 = com2.GetType();
+                        if (typeof(Image).IsAssignableFrom(vv))
+                        {
+                            var image3 = (Image)com;
+                            image3.sprite = Resources.Load<Sprite>("game_page/PictureBlueBorderSmall");
+                        }
+                    }
+
                     image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/BACK_SIDE/BackBlueSide");
                 }else
                 {
+
+                    var componentDealer = DealerBoard.GetComponents<Component>();
+
+                    //var image = gameObject.GetComponent<SVGImage>();
+                    // Debug.Log("fff");
+                    foreach (var com2 in componentDealer)
+                    {
+                        var vv2 = com2.GetType();
+                        if (typeof(Image).IsAssignableFrom(vv))
+                        {
+                            var image3 = (Image)com;
+                            image3.sprite = Resources.Load<Sprite>("game_page/PictureRedBorderSmall");
+                        }
+                    }
                     image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/BACK_SIDE/BackREDSide");
                 }
                
@@ -1037,7 +1106,7 @@ public class GameScript : MonoBehaviourPunCallbacks
         foreach (var obj in _cardsOfFirstPlayer)
         {
             //Debug.Log("vrijednost:" + obj);
-            var tt = Resources.Load("Prefabs/PlayerCards2/" + obj);
+            var tt = Resources.Load("Prefabs/PlayerCards/" + obj);
 
             GameObject FirstCardObject = (GameObject)tt;
 
@@ -1052,7 +1121,7 @@ public class GameScript : MonoBehaviourPunCallbacks
             //multiplier += 135f;
             float value = -3.6f;
             float valueY = -2.6f;
-            GameObject myBrick = Instantiate(FirstCardObject, new Vector3(340 + multiplier, 300, 0), Quaternion.identity) as GameObject;
+            GameObject myBrick = Instantiate(FirstCardObject, new Vector3(340 + multiplier, 100, 0), Quaternion.identity) as GameObject;
             //myBrick.transform.position = new Vector2(multiplier, 0);
            
 
