@@ -9,7 +9,8 @@ using UnityEngine.EventSystems;
 
 public  class FirstCardObject : MonoBehaviour
 {
-    
+    [SerializeField]
+    private GameObject FirstCardSelected;
 
     private GameObject _currentCard;
     private Vector2 _endPoint;
@@ -30,7 +31,7 @@ public  class FirstCardObject : MonoBehaviour
         _random = new System.Random();
         _landingToleranceRadius = 1.3f;
         _currentCard = null;
-        SizeOfCanvas = BeginningOfGame.player.GetFirstDeck();
+        SizeOfCanvas = GameScript.player.GetFirstDeck();
 
       //  Debug.Log("ime:" + value.name);
 
@@ -47,8 +48,8 @@ public  class FirstCardObject : MonoBehaviour
     void Update()
     {
 
-        SizeOfCanvas = BeginningOfGame.player.GetFirstDeck();
-        countClick = SizeOfCanvas.transform.childCount;
+        //SizeOfCanvas = GameScript.player.GetFirstDeck();
+        //countClick = SizeOfCanvas.transform.childCount;
         
         
     }
@@ -56,30 +57,32 @@ public  class FirstCardObject : MonoBehaviour
 
   
     
-    private void OnMouseExit()
-    {
-        //Debug.Log("Mouse is exit from GameObject.");
-        //gameObject.active = false;
-        var components = gameObject.GetComponents<Component>();
+    //private void OnMouseExit()
+    //{
+    //    //Debug.Log("Mouse is exit from GameObject.");
+    //    //gameObject.active = false;
+    //    var components = gameObject.GetComponents<Component>();
 
-        //var image = gameObject.GetComponent<SVGImage>();
+    //    //var image = gameObject.GetComponent<SVGImage>();
 
-        foreach (var com in components)
-        {
-            var vv = com.GetType();
-            if (typeof(SVGImporter.SVGRenderer).IsAssignableFrom(vv))
-            {
-                var image2 = (SVGImporter.SVGRenderer)com;
-                image2.vectorGraphics = null;
-                //Debug.Log("exit");
-            }
-        }
+    //    foreach (var com in components)
+    //    {
+    //        var vv = com.GetType();
+    //        if (typeof(SVGImporter.SVGRenderer).IsAssignableFrom(vv))
+    //        {
+    //            var image2 = (SVGImporter.SVGRenderer)com;
+    //            image2.vectorGraphics = null;
+    //            //Debug.Log("exit");
+    //        }
+    //    }
 
-    }
+    //}
 
     public void MouseExitEvent()
     {
-        var components = gameObject.GetComponents<Component>();
+        FirstCardSelected.SetActive(false);
+
+        var components = FirstCardSelected.GetComponents<Component>();
 
         
         foreach (var com in components)
@@ -94,92 +97,92 @@ public  class FirstCardObject : MonoBehaviour
         }
     }
 
-    private void OnMouseUp()
-    {
-        if (BeginningOfGame.isAviableToMove == false)
-            return;
-        //Debug.Log("click:"+countClick);
+    //private void OnMouseUp()
+    //{
+    //    if (BeginningOfGame.isAviableToMove == false)
+    //        return;
+    //    //Debug.Log("click:"+countClick);
 
-         //Debug.Log("ime objekta:" + transform.parent.name);
-        float startPosition = 1.5f;
-        float multiplier = 1.15f;
+    //     //Debug.Log("ime objekta:" + transform.parent.name);
+    //    float startPosition = 1.5f;
+    //    float multiplier = 1.15f;
         
-        string CardNameClone = transform.parent.name;
-        var cc = transform.parent.gameObject;
-       // Debug.Log("cc:" + cc);
+    //    string CardNameClone = transform.parent.name;
+    //    var cc = transform.parent.gameObject;
+    //   // Debug.Log("cc:" + cc);
 
-        var index = CardNameClone.IndexOf("(");
-        string CardName = CardNameClone.Substring(0, index);
-        var tt = Resources.Load("Prefabs/CardPrefabsSvg/" + CardName);
+    //    var index = CardNameClone.IndexOf("(");
+    //    string CardName = CardNameClone.Substring(0, index);
+    //    var tt = Resources.Load("Prefabs/CardPrefabsSvg/" + CardName);
         
-        _currentCard = (GameObject) tt;
+    //    _currentCard = (GameObject) tt;
 
-        //za current card objekat je neophodno setovati svgrender order na 1
-        //_currentCard.transform.localScale = new Vector3(0.23f, 0.23f);
+    //    //za current card objekat je neophodno setovati svgrender order na 1
+    //    //_currentCard.transform.localScale = new Vector3(0.23f, 0.23f);
 
-        _random = new System.Random();
-        var valueX = 400 * (1 - (-0.6)) + (-0.6);
-        //float x = (float)(_endPoint.x + valueX  * _random.NextDouble() );
-        float toleranceX = 2.3f;
-        float x = (float)( valueX + _random.Next(-20,20) * toleranceX);
-        var value = 340 * (1.5 - 0.6) + 0.6;
-        float y = (float)(_endPoint.y + _random.Next(100,150) * _landingToleranceRadius + value);
+    //    _random = new System.Random();
+    //    var valueX = 400 * (1 - (-0.6)) + (-0.6);
+    //    //float x = (float)(_endPoint.x + valueX  * _random.NextDouble() );
+    //    float toleranceX = 2.3f;
+    //    float x = (float)( valueX + _random.Next(-20,20) * toleranceX);
+    //    var value = 340 * (1.5 - 0.6) + 0.6;
+    //    float y = (float)(_endPoint.y + _random.Next(100,150) * _landingToleranceRadius + value);
         
         
-        _currentCard.transform.position = new Vector3(x, y);
+    //    _currentCard.transform.position = new Vector3(x, y);
        
-        Vector3 positionOfCurrentCard = new Vector3(x, y);
-        //GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabsSvg/" + CardName, _currentCard.transform.position, Quaternion.identity);
+    //    Vector3 positionOfCurrentCard = new Vector3(x, y);
+    //    //GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabsSvg/" + CardName, _currentCard.transform.position, Quaternion.identity);
         
-        GameObject myBrick = (GameObject) Instantiate(_currentCard, new Vector3(x, y, 0), Quaternion.identity) ;
+    //    GameObject myBrick = (GameObject) Instantiate(_currentCard, new Vector3(x, y, 0), Quaternion.identity) ;
         
-        //var components = myBrick.GetComponents<Component>();
+    //    //var components = myBrick.GetComponents<Component>();
 
-        ////var image = gameObject.GetComponent<SVGImage>();
-        //// Debug.Log("vvv");
-        //foreach (var com in components)
-        //{
-        //    var vv = com.GetType();
-        //    if (typeof(SVGImporter.SVGRenderer).IsAssignableFrom(vv))
-        //    {
-        //        var order = (SVGImporter.SVGRenderer) com;
-        //        //SVGImporter.SVGRenderer
-        //        order.sortingOrder = countClick;
-        //    }
-        //}
-        var tv = (Canvas) BeginningOfGame.player.GetCurrentPlayerCanvas();
+    //    ////var image = gameObject.GetComponent<SVGImage>();
+    //    //// Debug.Log("vvv");
+    //    //foreach (var com in components)
+    //    //{
+    //    //    var vv = com.GetType();
+    //    //    if (typeof(SVGImporter.SVGRenderer).IsAssignableFrom(vv))
+    //    //    {
+    //    //        var order = (SVGImporter.SVGRenderer) com;
+    //    //        //SVGImporter.SVGRenderer
+    //    //        order.sortingOrder = countClick;
+    //    //    }
+    //    //}
+    //    var tv = (Canvas) BeginningOfGame.player.GetCurrentPlayerCanvas();
 
-        // Debug.Log("first card object:" + tv.transform.childCount);
+    //    // Debug.Log("first card object:" + tv.transform.childCount);
         
-        myBrick.transform.SetParent(SizeOfCanvas.transform);
+    //    myBrick.transform.SetParent(SizeOfCanvas.transform);
 
-        cc.active = false;
-        Destroy(transform.parent.gameObject);
+    //    cc.active = false;
+    //    Destroy(transform.parent.gameObject);
         
-        // player._listOfCards.Add(NameOfPrefab);
-        var list = BeginningOfGame.player.GetOfListOfCards();
-        list.Add(CardName);
+    //    // player._listOfCards.Add(NameOfPrefab);
+    //    var list = BeginningOfGame.player.GetOfListOfCards();
+    //    list.Add(CardName);
         
         
-            // Debug.Log("prosla karta:" + list.Count);
-        BeginningOfGame.player.SetListOfCards(list);
-        BeginningOfGame.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, positionOfCurrentCard, countClick);
-        TimeOfMoveObject.DeactiveGameObject();
+    //        // Debug.Log("prosla karta:" + list.Count);
+    //    BeginningOfGame.player.SetListOfCards(list);
+    //    BeginningOfGame.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, positionOfCurrentCard, countClick);
+    //    TimeOfMoveObject.DeactiveGameObject();
        
-        countClick++;
+    //    countClick++;
         
-        //Debug.Log("protivnicka strana" + tv.transform.childCount);
+    //    //Debug.Log("protivnicka strana" + tv.transform.childCount);
         
-        foreach(Transform element in tv.transform)
-        {
-            // Debug.Log(i++);
+    //    foreach(Transform element in tv.transform)
+    //    {
+    //        // Debug.Log(i++);
             
-            var firstCard = element.Find("FirstCardSelected").gameObject;
-            firstCard.active = false;
+    //        var firstCard = element.Find("FirstCardSelected").gameObject;
+    //        firstCard.active = false;
             
-        }
+    //    }
 
-    }
+    //}
 
     public void MouseClickEvent()
     {
@@ -266,37 +269,11 @@ public  class FirstCardObject : MonoBehaviour
 
     public void  MouseOverEvent()
     {
-        if (BeginningOfGame.isAviableToMove == false)
-            return;
-        gameObject.active = true;
-        var PlayerName = PhotonNetwork.LocalPlayer.UserId;
+        FirstCardSelected.SetActive(true);
 
-        string playerPhoton = PhotonNetwork.CurrentRoom.GetPlayer(1).UserId;
-        if (PlayerName == playerPhoton)
+        if (PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Red"))
         {
-
-            //Color color;
-            //ColorUtility.TryParseHtmlString("#0a2c6a", out color);
-            var components = gameObject.GetComponents<Component>();
-
-            //var image = gameObject.GetComponent<SVGImage>();
-            // Debug.Log("vvv");
-            foreach (var com in components)
-            {
-                var vv = com.GetType();
-                if (typeof(SVGImporter.SVGImage).IsAssignableFrom(vv))
-                {
-                    var image2 = (SVGImporter.SVGImage)com;
-                    image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_sprites/box_card_pl_blue_2");
-                }
-            }
-            //Debug.Log("prvi");
-        }
-        else
-        {
-            //Color color1;
-            // ColorUtility.TryParseHtmlString("#b5252a", out color1);
-            var components = gameObject.GetComponents<Component>();
+            var components = FirstCardSelected.GetComponents<Component>();
 
             //var image = gameObject.GetComponent<SVGImage>();
             // Debug.Log("fff");
@@ -309,70 +286,167 @@ public  class FirstCardObject : MonoBehaviour
                     image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_sprites/box_card_pl_red_2");
                 }
             }
-            //var image2 =(SVGImporter.SVGImage) component[2];
-            //image.color = color1;
-            //image2.color = color1;
-
-            //image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_sprites/box_card_pl_red");
-            //Debug.Log("drugi");
         }
-    }
-
-    private void OnMouseOver()
-    {
-        if (BeginningOfGame.isAviableToMove == false)
-            return;
-        gameObject.active = true;
-        var PlayerName = PhotonNetwork.LocalPlayer.UserId;
-
-        string playerPhoton = PhotonNetwork.CurrentRoom.GetPlayer(1).UserId;
-        if (PlayerName == playerPhoton)
+        if (PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Blue"))
         {
-
-            //Color color;
-            //ColorUtility.TryParseHtmlString("#0a2c6a", out color);
-            var components = gameObject.GetComponents<Component>();
+            var components = FirstCardSelected.GetComponents<Component>();
 
             //var image = gameObject.GetComponent<SVGImage>();
             // Debug.Log("vvv");
             foreach (var com in components)
             {
                 var vv = com.GetType();
-                if (typeof(SVGImporter.SVGRenderer).IsAssignableFrom(vv))
+                if (typeof(SVGImporter.SVGImage).IsAssignableFrom(vv))
                 {
-                    var image2 = (SVGImporter.SVGRenderer)com;
+                    var image2 = (SVGImporter.SVGImage)com;
                     image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_sprites/box_card_pl_blue_2");
                 }
             }
-            //Debug.Log("prvi");
         }
-        else
-        {
-            if (BeginningOfGame.isAviableToMove == false)
-                return;
-            //Color color1;
-            // ColorUtility.TryParseHtmlString("#b5252a", out color1);
-            var components = gameObject.GetComponents<Component>();
 
-            //var image = gameObject.GetComponent<SVGImage>();
-            // Debug.Log("fff");
-            foreach (var com in components)
-            {
-                var vv = com.GetType();
-                if (typeof(SVGImporter.SVGRenderer).IsAssignableFrom(vv))
-                {
-                    var image2 = (SVGImporter.SVGRenderer)com;
-                    image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_sprites/box_card_pl_red_2");
-                }
-            }
-            //var image2 =(SVGImporter.SVGImage) component[2];
-            //image.color = color1;
-            //image2.color = color1;
 
-            //image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_sprites/box_card_pl_red");
-            //Debug.Log("drugi");
-        }
+        //if (BeginningOfGame.isAviableToMove == false)
+        //    return;
+        //gameObject.active = true;
+        //var PlayerName = PhotonNetwork.LocalPlayer.UserId;
+
+        //string playerPhoton = PhotonNetwork.CurrentRoom.GetPlayer(1).UserId;
+
+
+        //if (PlayerName == playerPhoton)
+        //{
+
+        //    //Color color;
+        //    //ColorUtility.TryParseHtmlString("#0a2c6a", out color);
+        //    var components = gameObject.GetComponents<Component>();
+
+        //    //var image = gameObject.GetComponent<SVGImage>();
+        //    // Debug.Log("vvv");
+        //    foreach (var com in components)
+        //    {
+        //        var vv = com.GetType();
+        //        if (typeof(SVGImporter.SVGImage).IsAssignableFrom(vv))
+        //        {
+        //            var image2 = (SVGImporter.SVGImage)com;
+        //            image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_sprites/box_card_pl_blue_2");
+        //        }
+        //    }
+        //    //Debug.Log("prvi");
+        //}
+        //else
+        //{
+        //    //Color color1;
+        //    // ColorUtility.TryParseHtmlString("#b5252a", out color1);
+        //    var components = gameObject.GetComponents<Component>();
+
+        //    //var image = gameObject.GetComponent<SVGImage>();
+        //    // Debug.Log("fff");
+        //    foreach (var com in components)
+        //    {
+        //        var vv = com.GetType();
+        //        if (typeof(SVGImporter.SVGImage).IsAssignableFrom(vv))
+        //        {
+        //            var image2 = (SVGImporter.SVGImage)com;
+        //            image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_sprites/box_card_pl_red_2");
+        //        }
+        //    }
+        //    //var image2 =(SVGImporter.SVGImage) component[2];
+        //    //image.color = color1;
+        //    //image2.color = color1;
+
+        //    //image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_sprites/box_card_pl_red");
+        //    //Debug.Log("drugi");
+        //}
     }
+
+    //private void OnMouseOver()
+    //{
+    //    //if (BeginningOfGame.isAviableToMove == false)
+    //    //    return;
+    //    //gameObject.active = true;
+    //    //var PlayerName = PhotonNetwork.LocalPlayer.UserId;
+
+    //    //string playerPhoton = PhotonNetwork.CurrentRoom.GetPlayer(1).UserId;
+
+    //    if(PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Red"))
+    //    {
+    //        var components = gameObject.GetComponents<Component>();
+
+    //        //var image = gameObject.GetComponent<SVGImage>();
+    //        // Debug.Log("fff");
+    //        foreach (var com in components)
+    //        {
+    //            var vv = com.GetType();
+    //            if (typeof(SVGImporter.SVGRenderer).IsAssignableFrom(vv))
+    //            {
+    //                var image2 = (SVGImporter.SVGRenderer)com;
+    //                image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_sprites/box_card_pl_red_2");
+    //            }
+    //        }
+    //    }
+    //    if (PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Blue"))
+    //    {
+    //        var components = gameObject.GetComponents<Component>();
+
+    //        //var image = gameObject.GetComponent<SVGImage>();
+    //        // Debug.Log("vvv");
+    //        foreach (var com in components)
+    //        {
+    //            var vv = com.GetType();
+    //            if (typeof(SVGImporter.SVGRenderer).IsAssignableFrom(vv))
+    //            {
+    //                var image2 = (SVGImporter.SVGRenderer)com;
+    //                image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_sprites/box_card_pl_blue_2");
+    //            }
+    //        }
+    //    }
+    //    //if (PlayerName == playerPhoton)
+    //    //{
+
+    //    //    //Color color;
+    //    //    //ColorUtility.TryParseHtmlString("#0a2c6a", out color);
+    //    //    var components = gameObject.GetComponents<Component>();
+
+    //    //    //var image = gameObject.GetComponent<SVGImage>();
+    //    //    // Debug.Log("vvv");
+    //    //    foreach (var com in components)
+    //    //    {
+    //    //        var vv = com.GetType();
+    //    //        if (typeof(SVGImporter.SVGRenderer).IsAssignableFrom(vv))
+    //    //        {
+    //    //            var image2 = (SVGImporter.SVGRenderer)com;
+    //    //            image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_sprites/box_card_pl_blue_2");
+    //    //        }
+    //    //    }
+    //    //    //Debug.Log("prvi");
+    //    //}
+    //    //else
+    //    //{
+    //    //    if (BeginningOfGame.isAviableToMove == false)
+    //    //        return;
+    //    //    //Color color1;
+    //    //    // ColorUtility.TryParseHtmlString("#b5252a", out color1);
+    //    //    var components = gameObject.GetComponents<Component>();
+
+    //    //    //var image = gameObject.GetComponent<SVGImage>();
+    //    //    // Debug.Log("fff");
+    //    //    foreach (var com in components)
+    //    //    {
+    //    //        var vv = com.GetType();
+    //    //        if (typeof(SVGImporter.SVGRenderer).IsAssignableFrom(vv))
+    //    //        {
+    //    //            var image2 = (SVGImporter.SVGRenderer)com;
+    //    //            image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_sprites/box_card_pl_red_2");
+    //    //        }
+    //    //    }
+    //    //    //var image2 =(SVGImporter.SVGImage) component[2];
+    //    //    //image.color = color1;
+    //    //    //image2.color = color1;
+
+    //    //    //image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_sprites/box_card_pl_red");
+    //    //    //Debug.Log("drugi");
+    //    //}
+    //}
 
    
 }

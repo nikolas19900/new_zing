@@ -100,6 +100,8 @@ public class GameScript : MonoBehaviourPunCallbacks
     [SerializeField]
     private Canvas canvacesOfCurrentPlayer;
 
+    public static GameScript player;
+
     public static bool isGameStarted = false;
    
 
@@ -132,6 +134,7 @@ public class GameScript : MonoBehaviourPunCallbacks
     void Awake()
     {
         isArrangeCard = false;
+        player = this;
     }
 
      void OnEnable()
@@ -1034,11 +1037,13 @@ public class GameScript : MonoBehaviourPunCallbacks
         foreach (var obj in _cardsOfFirstPlayer)
         {
             //Debug.Log("vrijednost:" + obj);
-            var tt = Resources.Load("Prefabs/PlayerCards/" + obj);
+            var tt = Resources.Load("Prefabs/PlayerCards2/" + obj);
 
             GameObject FirstCardObject = (GameObject)tt;
 
-            FirstCardObject.transform.localScale = new Vector3(0.23f, 0.23f);
+            //FirstCardObject.transform.localScale = new Vector3(0.23f, 0.23f);
+           
+            FirstCardObject.transform.localScale = new Vector3(0.789f, 0.789f, 0);
 
             //float value = -200.8f;
             //float valueY = -2.6f;
@@ -1047,9 +1052,13 @@ public class GameScript : MonoBehaviourPunCallbacks
             //multiplier += 135f;
             float value = -3.6f;
             float valueY = -2.6f;
-            GameObject myBrick = Instantiate(FirstCardObject, new Vector3(value + multiplier, valueY, 0), Quaternion.identity) as GameObject;
+            GameObject myBrick = Instantiate(FirstCardObject, new Vector3(340 + multiplier, 300, 0), Quaternion.identity) as GameObject;
+            //myBrick.transform.position = new Vector2(multiplier, 0);
+           
+
+            myBrick.transform.localScale = new Vector3(0.789f, 0.789f, 0);
             myBrick.transform.SetParent(canvacesOfCurrentPlayer.transform);
-            multiplier += 1.75f;
+            multiplier += 90;
 
         }
 
@@ -1058,11 +1067,14 @@ public class GameScript : MonoBehaviourPunCallbacks
     public void DeleteLastFourTalonCards()
     {
       
-
         int start = RemainingCardsList.Count - 5;
         RemainingCardsList.RemoveRange(start, 4);
 
+    }
 
+    public Canvas GetFirstDeck()
+    {
+        return canvacesOfFirstDeck;
     }
 
 }
