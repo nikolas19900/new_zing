@@ -1046,10 +1046,40 @@ public class GameScript : MonoBehaviourPunCallbacks
                 image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/CARDS_" + ttt + "/" + name);
             }
         }
+        if (strana.Equals("Blue"))
+        {
+            var componentDealer = DealerBoard.GetComponents<Component>();
+
+            //var image = gameObject.GetComponent<SVGImage>();
+            // Debug.Log("fff");
+            foreach (var com2 in componentDealer)
+            {
+                var vv2 = com2.GetType();
+                if (typeof(Image).IsAssignableFrom(vv2))
+                {
+                    var image3 = (Image)com2;
+                    image3.sprite = Resources.Load<Sprite>("game_page/PictureBlueBorderSmall");
+                }
+            }
+        }else
+        {
+            var componentDealer = DealerBoard.GetComponents<Component>();
+
+            //var image = gameObject.GetComponent<SVGImage>();
+            // Debug.Log("fff");
+            foreach (var com2 in componentDealer)
+            {
+                var vv2 = com2.GetType();
+                if (typeof(Image).IsAssignableFrom(vv2))
+                {
+                    var image3 = (Image)com2;
+                    image3.sprite = Resources.Load<Sprite>("game_page/PictureRedBorderSmall");
+                }
+            }
+        }
 
 
-
-        var component = TeamImageLastCard.GetComponents<Component>();
+            var component = TeamImageLastCard.GetComponents<Component>();
         foreach (var com in component)
         {
             //Debug.Log("komponente");
@@ -1060,37 +1090,13 @@ public class GameScript : MonoBehaviourPunCallbacks
                 var image2 = (SVGImporter.SVGImage)com;
                 if (strana.Equals("Blue"))
                 {
-                    var componentDealer = DealerBoard.GetComponents<Component>();
-
-                    //var image = gameObject.GetComponent<SVGImage>();
-                    // Debug.Log("fff");
-                    foreach (var com2 in componentDealer)
-                    {
-                        var vv2 = com2.GetType();
-                        if (typeof(Image).IsAssignableFrom(vv))
-                        {
-                            var image3 = (Image)com;
-                            image3.sprite = Resources.Load<Sprite>("game_page/PictureBlueBorderSmall");
-                        }
-                    }
+                  
 
                     image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/BACK_SIDE/BackBlueSide");
                 }else
                 {
 
-                    var componentDealer = DealerBoard.GetComponents<Component>();
-
-                    //var image = gameObject.GetComponent<SVGImage>();
-                    // Debug.Log("fff");
-                    foreach (var com2 in componentDealer)
-                    {
-                        var vv2 = com2.GetType();
-                        if (typeof(Image).IsAssignableFrom(vv))
-                        {
-                            var image3 = (Image)com;
-                            image3.sprite = Resources.Load<Sprite>("game_page/PictureRedBorderSmall");
-                        }
-                    }
+                   
                     image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/BACK_SIDE/BackREDSide");
                 }
                
