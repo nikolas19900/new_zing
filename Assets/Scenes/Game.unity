@@ -842,7 +842,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 879855f2d153c5b4496124eacd83d8bd, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4015,6 +4015,7 @@ MonoBehaviour:
   CardImageValueLastCard: {fileID: 8237273060647570607}
   TeamImageLastCard: {fileID: 1702702870}
   canvacesOfCurrentPlayer: {fileID: 455719830}
+  DealerBoard: {fileID: 180154077}
 --- !u!114 &914850045
 MonoBehaviour:
   m_ObjectHideFlags: 0
