@@ -4016,6 +4016,7 @@ MonoBehaviour:
   TeamImageLastCard: {fileID: 1702702870}
   canvacesOfCurrentPlayer: {fileID: 455719830}
   DealerBoard: {fileID: 180154077}
+  TimeOfMove: {fileID: 1783207545}
 --- !u!114 &914850045
 MonoBehaviour:
   m_ObjectHideFlags: 0
