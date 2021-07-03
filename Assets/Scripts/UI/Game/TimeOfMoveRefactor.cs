@@ -27,7 +27,7 @@ public class TimeOfMoveRefactor : MonoBehaviour
 
     public void ConfigureDroppedCard()
     {
-        var tv = (Canvas)BeginningOfGame.player.GetCurrentPlayerCanvas();
+        var tv = (Canvas)GameScript.player.GetCurrentPlayerCanvas();
 
         
         int valueCard = _random.Next(0, tv.transform.childCount);

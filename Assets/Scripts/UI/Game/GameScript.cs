@@ -103,6 +103,9 @@ public class GameScript : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject DealerBoard;
 
+    [SerializeField]
+    private GameObject TimeOfMove;
+
     public static GameScript player;
 
     public static bool isGameStarted = false;
@@ -1023,7 +1026,7 @@ public class GameScript : MonoBehaviourPunCallbacks
             }
             InitTalonCards();
             DeleteLastFourTalonCards();
-
+            TimeOfMove.active = true;
         }
     }
 
@@ -1150,6 +1153,11 @@ public class GameScript : MonoBehaviourPunCallbacks
     public Canvas GetFirstDeck()
     {
         return canvacesOfFirstDeck;
+    }
+
+    public Canvas GetCurrentPlayerCanvas()
+    {
+        return canvacesOfCurrentPlayer;
     }
 
 }

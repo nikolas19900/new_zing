@@ -2,12 +2,14 @@
 using UnityEngine;
 using Photon.Pun;
 using TMPro;
+using UnityEngine.UI;
+
 public class TimeOfMoveObject : MonoBehaviour
 {
     
     
     [SerializeField]
-    private TMP_Text timeValue;
+    private Text timeValue;
     static float tempTimer = 0.0f;
     bool isTimerGone = false;
     public static TimeOfMoveObject _instance;
@@ -18,7 +20,7 @@ public class TimeOfMoveObject : MonoBehaviour
     void Start()
     {
         
-        SizeOfCanvas = BeginningOfGame.player.GetFirstDeck();
+        SizeOfCanvas = GameScript.player.GetFirstDeck();
         countClick = SizeOfCanvas.transform.childCount;
         if (_instance == null)
         {
@@ -26,10 +28,7 @@ public class TimeOfMoveObject : MonoBehaviour
         }
 
         tempTimer = 10;
-        var PlayerName = PhotonNetwork.LocalPlayer.UserId;
-        
-        string playerPhoton = PhotonNetwork.CurrentRoom.GetPlayer(1).UserId;
-        if (PlayerName == playerPhoton)
+        if (PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Blue"))
         {
 
             //Color color;
