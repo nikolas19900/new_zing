@@ -1153,7 +1153,7 @@ public class GameScript : MonoBehaviourPunCallbacks
             int tempValue = 1;
             foreach(var temp in players)
             {
-                _currentPhotonView.RPC("SendToSecondPlayer",temp.Value,tempValue, _cardsOfFirstPlayer.ToArray(), cardsOfSecondPlayer.ToArray(),
+                _currentPhotonView.RPC("SetInstanceOfCurrentPlayer", temp.Value,tempValue, _cardsOfFirstPlayer.ToArray(), cardsOfSecondPlayer.ToArray(),
                     cardsOfThirdPlayer.ToArray(),cardsOfFourthPlayer.ToArray());
                 tempValue++;
 
