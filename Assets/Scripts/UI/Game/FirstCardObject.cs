@@ -29,7 +29,7 @@ public  class FirstCardObject : MonoBehaviour
         //Debug.Log("ime:");
         _endPoint = Vector2.zero;
         _random = new System.Random();
-        _landingToleranceRadius = 1.3f;
+        _landingToleranceRadius = 0.3f;
         _currentCard = null;
         SizeOfCanvas = GameScript.player.GetFirstDeck();
 
@@ -195,9 +195,9 @@ public  class FirstCardObject : MonoBehaviour
         float startPosition = 1.5f;
         float multiplier = 1.15f;
 
-        string CardNameClone = transform.parent.name;
+        string CardNameClone = transform.name;
         var cc = transform.parent.gameObject;
-        // Debug.Log("cc:" + cc);
+         Debug.Log("cc:" + CardNameClone);
 
         var index = CardNameClone.IndexOf("(");
         string CardName = CardNameClone.Substring(0, index);
@@ -209,10 +209,17 @@ public  class FirstCardObject : MonoBehaviour
         //_currentCard.transform.localScale = new Vector3(0.23f, 0.23f);
 
         _random = new System.Random();
-        var valueX = _random.NextDouble() * (1 - (-0.6)) + (-0.6);
-        float x = (float)(_endPoint.x + valueX * _landingToleranceRadius);
-        var value = _random.NextDouble() * (1.5 - 0.6) + 0.6;
-        float y = (float)(_endPoint.y + _random.Next(1, 2) * _landingToleranceRadius + value);
+        //var valueX = _random.NextDouble() * (1 - (-0.6)) + (-0.6);
+        //float x = (float)(_endPoint.x + valueX * _landingToleranceRadius);
+        //var value = _random.NextDouble() * (1 - 0.6) + 0.6;
+        //float y = (float)(_endPoint.y + _random.Next(0, 1) * _landingToleranceRadius + value);
+
+        var valueX = 300 * (1 - (-0.6)) + (-0.6);
+        //float x = (float)(_endPoint.x + valueX  * _random.NextDouble() );
+        float toleranceX = 2.3f;
+        float x = (float)(valueX + _random.Next(-20, 0) * toleranceX);
+        var value = 340 * (1.5 - 0.6) + 0.6;
+        float y = (float)(_endPoint.y + _random.Next(100, 150) * _landingToleranceRadius + value);
 
         _currentCard.transform.position = new Vector3(x, y);
         Vector3 positionOfCurrentCard = new Vector3(x, y);

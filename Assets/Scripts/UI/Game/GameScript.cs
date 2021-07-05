@@ -129,6 +129,9 @@ public class GameScript : MonoBehaviourPunCallbacks
     private List<string> _cardsOfFirstPlayer;
 
     private List<string> _cardsOfSecondPlayer;
+
+    private List<string> _cardsOfThirdPlayer;
+    private List<string> _cardsOfFourthPlayer;
     private System.Random _random;
 
     private float _positionTolerance = -1.5f;
@@ -136,7 +139,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
     private bool isArrangeCard = false;
 
-
+    private int currentInstance = 0;
 
 
     void Awake()
@@ -295,7 +298,7 @@ public class GameScript : MonoBehaviourPunCallbacks
     private void InitTalonCards()
     {
         //float startPosition = 0.5f;
-        float startPosition = 1200f;
+        float startPosition = 1000f;
 
         int i = 0;
         Vector3[] arrayPosition = new Vector3[4];
@@ -305,7 +308,7 @@ public class GameScript : MonoBehaviourPunCallbacks
             GameObject gameObj = (GameObject)obj;
 
             
-            Vector3 position = new Vector3(startPosition, 700f);
+            Vector3 position = new Vector3(startPosition, 800f);
             gameObj.transform.localPosition = position;
             gameObj.transform.localScale = new Vector3(0.789f, 0.789f, 0);
             //PhotonNetwork.Instantiate("Prefabs/CardPrefabsStartSVG/" + gameObj.name, new Vector3(startPosition, 700f, 0), Quaternion.identity).transform.SetParent(canvacesOfFirstDeck.transform);
@@ -396,7 +399,7 @@ public class GameScript : MonoBehaviourPunCallbacks
     [PunRPC]
     public void SendInitTalon(string[] Array)
     {
-        float startPosition = 1200f;
+        float startPosition = 1000f;
 
         int i = 0;
         Vector3[] arrayPosition = new Vector3[4];
@@ -773,8 +776,8 @@ public class GameScript : MonoBehaviourPunCallbacks
         RedPlayerNameValue.text = "";
         foreach (var vv in value)
         {
-           
-            
+
+
             if (PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Team"].Equals("Blue"))
             {
                 BluePlayerNameValue.text += PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
@@ -785,11 +788,127 @@ public class GameScript : MonoBehaviourPunCallbacks
                 RedPlayerNameValue.text += PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
             }
 
-          
+
 
         }
 
 
+    }
+
+    [PunRPC]
+    public void SetInstanceOfCurrentPlayer(int value,string[] cardsOfFirstPlayer, 
+        string[] cardsOfSecondPlayer, string[] cardsOfThirdPlayer,string[] cardsOfFourthPlayer)
+    {
+        currentInstance = value;
+        if(currentInstance == 1)
+        {
+            _cardsOfFirstPlayer = cardsOfFirstPlayer.ToList();
+
+            float multiplier = 1.2f;
+
+            foreach (var obj in _cardsOfFirstPlayer)
+            {
+                //Debug.Log("vrijednost:" + obj);
+                var tt = Resources.Load("Prefabs/PlayerCards/" + obj);
+
+                GameObject FirstCardObject = (GameObject)tt;
+
+                //FirstCardObject.transform.localScale = new Vector3(0.23f, 0.23f);
+
+                FirstCardObject.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+
+                GameObject myBrick = Instantiate(FirstCardObject, new Vector3(340 + multiplier, 100, 0), Quaternion.identity) as GameObject;
+                //myBrick.transform.position = new Vector2(multiplier, 0);
+
+
+                myBrick.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+                myBrick.transform.SetParent(canvacesOfCurrentPlayer.transform);
+                multiplier += 90;
+
+            }
+
+
+        }
+        if(currentInstance == 2)
+        {
+            _cardsOfSecondPlayer = cardsOfSecondPlayer.ToList();
+            float multiplier = 1.2f;
+
+            foreach (var obj in _cardsOfSecondPlayer)
+            {
+                //Debug.Log("vrijednost:" + obj);
+                var tt = Resources.Load("Prefabs/PlayerCards/" + obj);
+
+                GameObject FirstCardObject = (GameObject)tt;
+
+                //FirstCardObject.transform.localScale = new Vector3(0.23f, 0.23f);
+
+                FirstCardObject.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+
+                GameObject myBrick = Instantiate(FirstCardObject, new Vector3(340 + multiplier, 100, 0), Quaternion.identity) as GameObject;
+                //myBrick.transform.position = new Vector2(multiplier, 0);
+
+
+                myBrick.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+                myBrick.transform.SetParent(canvacesOfCurrentPlayer.transform);
+                multiplier += 90;
+
+            }
+        }
+        if(currentInstance == 3)
+        {
+            _cardsOfThirdPlayer = cardsOfThirdPlayer.ToList();
+
+            float multiplier = 1.2f;
+
+            foreach (var obj in _cardsOfThirdPlayer)
+            {
+                //Debug.Log("vrijednost:" + obj);
+                var tt = Resources.Load("Prefabs/PlayerCards/" + obj);
+
+                GameObject FirstCardObject = (GameObject)tt;
+
+                //FirstCardObject.transform.localScale = new Vector3(0.23f, 0.23f);
+
+                FirstCardObject.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+
+                GameObject myBrick = Instantiate(FirstCardObject, new Vector3(340 + multiplier, 100, 0), Quaternion.identity) as GameObject;
+                //myBrick.transform.position = new Vector2(multiplier, 0);
+
+
+                myBrick.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+                myBrick.transform.SetParent(canvacesOfCurrentPlayer.transform);
+                multiplier += 90;
+
+            }
+        }
+        if(currentInstance == 4)
+        {
+            _cardsOfFourthPlayer = cardsOfFourthPlayer.ToList();
+
+            float multiplier = 1.2f;
+
+            foreach (var obj in _cardsOfFourthPlayer)
+            {
+                //Debug.Log("vrijednost:" + obj);
+                var tt = Resources.Load("Prefabs/PlayerCards/" + obj);
+
+                GameObject FirstCardObject = (GameObject)tt;
+
+                //FirstCardObject.transform.localScale = new Vector3(0.23f, 0.23f);
+
+                FirstCardObject.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+
+                GameObject myBrick = Instantiate(FirstCardObject, new Vector3(340 + multiplier, 100, 0), Quaternion.identity) as GameObject;
+                //myBrick.transform.position = new Vector2(multiplier, 0);
+
+
+                myBrick.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+                myBrick.transform.SetParent(canvacesOfCurrentPlayer.transform);
+                multiplier += 90;
+
+            }
+        }
     }
 
 
@@ -1029,6 +1148,17 @@ public class GameScript : MonoBehaviourPunCallbacks
             InitTalonCards();
             DeleteLastFourTalonCards();
             TimeOfMove.active = true;
+            isAviableToMove = true;
+            var players = PhotonNetwork.CurrentRoom.Players;
+            int tempValue = 1;
+            foreach(var temp in players)
+            {
+                _currentPhotonView.RPC("SendToSecondPlayer",temp.Value,tempValue, _cardsOfFirstPlayer.ToArray(), cardsOfSecondPlayer.ToArray(),
+                    cardsOfThirdPlayer.ToArray(),cardsOfFourthPlayer.ToArray());
+                tempValue++;
+
+            }
+            
         }
     }
 

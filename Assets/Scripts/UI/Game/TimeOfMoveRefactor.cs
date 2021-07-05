@@ -21,7 +21,7 @@ public class TimeOfMoveRefactor : MonoBehaviour
 
         _random = new System.Random();
         _endPoint = Vector2.zero;
-        _landingToleranceRadius = 1.3f;
+        _landingToleranceRadius = 0.3f;
     }
     
 
