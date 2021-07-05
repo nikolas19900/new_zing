@@ -187,7 +187,7 @@ public  class FirstCardObject : MonoBehaviour
     public void MouseClickEvent()
     {
         
-        if (BeginningOfGame.isAviableToMove == false)
+        if (GameScript.isAviableToMove == false)
             return;
         //Debug.Log("click:"+countClick);
 
@@ -201,7 +201,7 @@ public  class FirstCardObject : MonoBehaviour
 
         var index = CardNameClone.IndexOf("(");
         string CardName = CardNameClone.Substring(0, index);
-        var tt = Resources.Load("Prefabs/CardPrefabsSvg/" + CardName);
+        var tt = Resources.Load("Prefabs/CardPrefabsStartSvg/" + CardName);
 
         _currentCard = (GameObject) tt;
 
@@ -218,8 +218,8 @@ public  class FirstCardObject : MonoBehaviour
         Vector3 positionOfCurrentCard = new Vector3(x, y);
         //GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabs/" + CardName, _currentCard.transform.position, Quaternion.identity);
 
-        GameObject myBrick = Instantiate(_currentCard, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
-
+        // GameObject myBrick = Instantiate(_currentCard, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
+        GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabsStartSvg/"+_currentCard.name, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
         //var components = myBrick.GetComponents<Component>();
 
         ////var image = gameObject.GetComponent<SVGImage>();
@@ -234,7 +234,7 @@ public  class FirstCardObject : MonoBehaviour
         //        order.sortingOrder = countClick;
         //    }
         //}
-        var tv = (Canvas)BeginningOfGame.player.GetCurrentPlayerCanvas();
+        var tv = (Canvas)GameScript.player.GetCurrentPlayerCanvas();
 
         // Debug.Log("first card object:" + tv.transform.childCount);
 
@@ -243,13 +243,17 @@ public  class FirstCardObject : MonoBehaviour
         Destroy(transform.parent.gameObject);
 
         // player._listOfCards.Add(NameOfPrefab);
-        var list = BeginningOfGame.player.GetOfListOfCards();
+        //var list = BeginningOfGame.player.GetOfListOfCards();
+        var list = GameScript.player.GetOfListOfCards();
         list.Add(CardName);
 
 
         // Debug.Log("prosla karta:" + list.Count);
-        BeginningOfGame.player.SetListOfCards(list);
-        BeginningOfGame.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, positionOfCurrentCard, countClick);
+        //BeginningOfGame.player.SetListOfCards(list);
+        //BeginningOfGame.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, positionOfCurrentCard, countClick);
+        GameScript.player.SetListOfCards(list);
+        //GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, positionOfCurrentCard, countClick);
+
         TimeOfMoveObject.DeactiveGameObject();
 
         countClick++;
@@ -269,6 +273,10 @@ public  class FirstCardObject : MonoBehaviour
 
     public void  MouseOverEvent()
     {
+        if (!GameScript.isAviableToMove)
+        {
+            return;
+        }
         FirstCardSelected.SetActive(true);
 
         if (PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Red"))

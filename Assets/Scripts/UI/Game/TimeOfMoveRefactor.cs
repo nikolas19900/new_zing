@@ -38,8 +38,8 @@ public class TimeOfMoveRefactor : MonoBehaviour
         
         var index = CardNameClone.IndexOf("(");
         string CardName = CardNameClone.Substring(0, index);
-        var tt = Resources.Load("Prefabs/CardPrefabsSvg/" + CardName);
-        
+       
+        var tt = Resources.Load("Prefabs/CardPrefabsStartSvg/" + CardName);
         var _currentCard = (GameObject)tt;
         
         //za current card objekat je neophodno setovati svgrender order na 1
@@ -56,33 +56,23 @@ public class TimeOfMoveRefactor : MonoBehaviour
         _currentCard.transform.position = new Vector3(x, y);
 
 
-        GameObject myBrick = Instantiate(_currentCard, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
+        GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabsStartSvg/" + CardName, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
 
-        //var components = myBrick.GetComponents<Component>();
-
-        ////var image = gameObject.GetComponent<SVGImage>();
-        //// Debug.Log("vvv");
-        //foreach (var com in components)
-        //{
-        //    var vv = com.GetType();
-        //    if (typeof(SVGImporter.SVGRenderer).IsAssignableFrom(vv))
-        //    {
-        //        var order = (SVGImporter.SVGRenderer)com;
-        //        //SVGImporter.SVGRenderer
-        //        order.sortingOrder = countOfClick;
-        //    }
-        //}
+       
         
         myBrick.transform.SetParent(_tempCanvas.transform);
 
-        var list = BeginningOfGame.player.GetOfListOfCards();
+        //var list = BeginningOfGame.player.GetOfListOfCards();
+        var list = GameScript.player.GetOfListOfCards();
         list.Add(CardName);
         // Debug.Log("prosla karta:" + list.Count);
-       
 
 
-        BeginningOfGame.player.SetListOfCards(list);
-        BeginningOfGame.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, _currentCard.transform.position, countOfClick);
+
+        //BeginningOfGame.player.SetListOfCards(list);
+        //BeginningOfGame.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, _currentCard.transform.position, countOfClick);
+        GameScript.player.SetListOfCards(list);
+       // GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, _currentCard.transform.position, countOfClick);
         TimeOfMoveObject.DeactiveGameObject();
         
         countOfClick++;

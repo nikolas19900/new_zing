@@ -77,7 +77,7 @@ public class TimeOfMoveObject : MonoBehaviour
             int seconds = (int)tempTimer % 60;
             if (seconds == 0)
             {
-                SizeOfCanvas = BeginningOfGame.player.GetFirstDeck();
+                SizeOfCanvas = GameScript.player.GetFirstDeck();
                 countClick = SizeOfCanvas.transform.childCount;
 
                 gameObject.active = false;

@@ -108,6 +108,8 @@ public class GameScript : MonoBehaviourPunCallbacks
 
     public static GameScript player;
 
+    public static bool isAviableToMove = false;
+
     public static bool isGameStarted = false;
    
 
@@ -1158,6 +1160,16 @@ public class GameScript : MonoBehaviourPunCallbacks
     public Canvas GetCurrentPlayerCanvas()
     {
         return canvacesOfCurrentPlayer;
+    }
+
+    public List<string> GetOfListOfCards()
+    {
+        return _listOfCards;
+    }
+
+    public void SetListOfCards(List<string> _list)
+    {
+        _listOfCards = _list;
     }
 
 }
