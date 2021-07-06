@@ -976,8 +976,6 @@ public class GameScript : MonoBehaviourPunCallbacks
         FB.API("/me/picture?type=square&height=64&width=64", HttpMethod.GET, DisplayProfilePic);
 
         
-        
-
 
         if (SideOfTeam.CurrentPlayerSide == 1 && isGameStarted)
         {
@@ -1160,6 +1158,40 @@ public class GameScript : MonoBehaviourPunCallbacks
             }
             
         }
+    }
+
+    [PunRPC]
+    public void ChangeMoveDropedCard(string NameOfPrefab, Vector3 position)
+    {
+        var root = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
+        foreach (var temp in root)
+        {
+
+            if (temp.name.Contains("(Clone)"))
+            {
+                if (temp.name.Contains("CardImageValue"))
+                {
+                    var card = temp.gameObject;
+                    card.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+                    card.transform.SetParent(LastCardCanvas.transform);
+                }
+                else
+                {
+                    var card = temp.gameObject;
+                    card.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+                    card.transform.SetParent(canvacesOfFirstDeck.transform);
+                }
+            }
+
+        }
+
+        var players = PhotonNetwork.CurrentRoom.Players;
+
+        foreach(var tt in players)
+        {
+            Debug.Log("vrijednost:" + tt.Value.NickName);
+        }
+
     }
 
     [PunRPC]
