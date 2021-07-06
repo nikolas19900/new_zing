@@ -247,7 +247,7 @@ public  class FirstCardObject : MonoBehaviour
 
         myBrick.transform.SetParent(SizeOfCanvas.transform);
         cc.active = false;
-        Destroy(transform.parent.gameObject);
+        Destroy(transform.gameObject);
 
         // player._listOfCards.Add(NameOfPrefab);
         //var list = BeginningOfGame.player.GetOfListOfCards();
