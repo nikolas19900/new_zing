@@ -1047,7 +1047,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                 countFourth++;
             }
 
-            InitBoard();
+           
             string ttt = objLastCard.name.Split('_')[1];
             //Debug.Log("value2:" + ttt);
            
@@ -1241,38 +1241,7 @@ public class GameScript : MonoBehaviourPunCallbacks
     }
 
 
-    private void InitBoard()
-    {
-        float multiplier = 1.2f;
-        foreach (var obj in _cardsOfFirstPlayer)
-        {
-            //Debug.Log("vrijednost:" + obj);
-            var tt = Resources.Load("Prefabs/PlayerCards/" + obj);
-
-            GameObject FirstCardObject = (GameObject)tt;
-
-            //FirstCardObject.transform.localScale = new Vector3(0.23f, 0.23f);
-           
-            FirstCardObject.transform.localScale = new Vector3(0.789f, 0.789f, 0);
-
-            //float value = -200.8f;
-            //float valueY = -2.6f;
-            //GameObject myBrick = Instantiate(FirstCardObject, new Vector3(value + multiplier, valueY, 0), Quaternion.identity) as GameObject;
-            //myBrick.transform.SetParent(canvacesOfCurrentPlayer.transform);
-            //multiplier += 135f;
-            float value = -3.6f;
-            float valueY = -2.6f;
-            GameObject myBrick = Instantiate(FirstCardObject, new Vector3(340 + multiplier, 100, 0), Quaternion.identity) as GameObject;
-            //myBrick.transform.position = new Vector2(multiplier, 0);
-           
-
-            myBrick.transform.localScale = new Vector3(0.789f, 0.789f, 0);
-            myBrick.transform.SetParent(canvacesOfCurrentPlayer.transform);
-            multiplier += 90;
-
-        }
-
-    }
+   
 
     public void DeleteLastFourTalonCards()
     {
