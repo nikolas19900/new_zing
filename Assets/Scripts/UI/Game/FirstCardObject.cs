@@ -196,8 +196,8 @@ public  class FirstCardObject : MonoBehaviour
         float multiplier = 1.15f;
 
         string CardNameClone = transform.name;
-        var cc = transform.parent.gameObject;
-         Debug.Log("cc:" + CardNameClone);
+        
+         //Debug.Log("cc:" + CardNameClone);
 
         var index = CardNameClone.IndexOf("(");
         string CardName = CardNameClone.Substring(0, index);
@@ -246,7 +246,7 @@ public  class FirstCardObject : MonoBehaviour
         // Debug.Log("first card object:" + tv.transform.childCount);
 
         myBrick.transform.SetParent(SizeOfCanvas.transform);
-        cc.active = false;
+       
         Destroy(transform.gameObject);
 
         // player._listOfCards.Add(NameOfPrefab);
@@ -267,11 +267,13 @@ public  class FirstCardObject : MonoBehaviour
 
         //Debug.Log("protivnicka strana" + tv.transform.childCount);
 
-        foreach (Transform element in tv.transform)
+       foreach (Transform element in tv.transform)
         {
-            
-            var firstCard = element.Find("FirstCardSelected").gameObject;
-            firstCard.active = false;
+           
+            element.GetComponent<EventTrigger>().enabled = false;
+
+        //    //var firstCard = element.Find("FirstCardSelected").gameObject;
+        //    //firstCard.active = false;
 
         }
 

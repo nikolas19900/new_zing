@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class TimeOfMoveRefactor : MonoBehaviour
 {
@@ -82,9 +83,9 @@ public class TimeOfMoveRefactor : MonoBehaviour
         foreach (Transform element in tv.transform)
         {
             // Debug.Log(i++);
-
-            var firstCard = element.Find("FirstCardSelected").gameObject;
-            firstCard.active = false;
+            element.GetComponent<EventTrigger>().enabled = false;
+            //var firstCard = element.Find("FirstCardSelected").gameObject;
+            //firstCard.active = false;
 
         }
 
