@@ -259,7 +259,7 @@ public  class FirstCardObject : MonoBehaviour
         //BeginningOfGame.player.SetListOfCards(list);
         //BeginningOfGame.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, positionOfCurrentCard, countClick);
         GameScript.player.SetListOfCards(list);
-        //GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, positionOfCurrentCard, countClick);
+        GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, positionOfCurrentCard);
 
         TimeOfMoveObject.DeactiveGameObject();
 
