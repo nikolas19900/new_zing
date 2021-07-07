@@ -1205,8 +1205,9 @@ public class GameScript : MonoBehaviourPunCallbacks
             }
 
         }
+       
 
-        if(FirstPlayerName.text.Equals(NickName) && FirstPlayerImage.GetComponent<ImageByte>().GetBytes().Equals(values))
+        if(FirstPlayerName.text.Equals(NickName))
         {
             GameScript.isAviableToMove = true;
             TimeOfMove.active = true;
