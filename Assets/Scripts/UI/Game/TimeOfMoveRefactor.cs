@@ -73,7 +73,9 @@ public class TimeOfMoveRefactor : MonoBehaviour
         //BeginningOfGame.player.SetListOfCards(list);
         //BeginningOfGame.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, _currentCard.transform.position, countOfClick);
         GameScript.player.SetListOfCards(list);
-       // GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, _currentCard.transform.position, countOfClick);
+        // GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, _currentCard.transform.position, countOfClick);
+        GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName, PhotonNetwork.LocalPlayer.CustomProperties["Picture"]);
+
         TimeOfMoveObject.DeactiveGameObject();
         
         countOfClick++;
