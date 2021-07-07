@@ -62,11 +62,11 @@ namespace Assets.Scripts.UI.Game
 
         public static RecordBoard _instance;
 
-        [SerializeField]
-        private Canvas _EndOfGame;
+        //[SerializeField]
+        //private Canvas _EndOfGame;
 
-        [SerializeField]
-        private Text _NameOfWinner;
+        //[SerializeField]
+        //private Text _NameOfWinner;
 
 
         void Start()
@@ -74,7 +74,7 @@ namespace Assets.Scripts.UI.Game
 
             //_namesOfPlBlueValue.text = PhotonNetwork.CurrentRoom.GetPlayer(1).NickName;
             //_namesOfPlRedValue.text = PhotonNetwork.CurrentRoom.GetPlayer(2).NickName;
-            _EndOfGame.gameObject.active = false;
+           // _EndOfGame.gameObject.active = false;
             //SizeOfCanvas = BeginningOfGame.player.GetFirstDeck();
 
             if (_instance == null)
@@ -736,7 +736,7 @@ namespace Assets.Scripts.UI.Game
 
             if (valueBlueTotal >= 101 || valueRedTotal >= 101)
             {
-                _EndOfGame.gameObject.active = true;
+               // _EndOfGame.gameObject.active = true;
                 
                 if (valueBlueTotal > valueRedTotal)
                 {
@@ -752,7 +752,7 @@ namespace Assets.Scripts.UI.Game
             }
             else
             {
-                _EndOfGame.gameObject.active = false;
+               // _EndOfGame.gameObject.active = false;
 
                 if (!SideOfTeam.ChangeSideOfCards)
                     SideOfTeam.ChangeSideOfCards = true;
@@ -782,8 +782,8 @@ namespace Assets.Scripts.UI.Game
         [PunRPC]
         public void LaunchEndOfGame(string nameOfPlayer)
         {
-            _EndOfGame.gameObject.active = true;
-            _NameOfWinner.text = nameOfPlayer + " Won";
+           // _EndOfGame.gameObject.active = true;
+          //  _NameOfWinner.text = nameOfPlayer + " Won";
         }
 
         [PunRPC]
