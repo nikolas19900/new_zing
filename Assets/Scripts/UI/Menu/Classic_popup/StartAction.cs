@@ -165,6 +165,10 @@ public class StartAction : MonoBehaviourPunCallbacks
            
         }
         hash.Add("Picture", MasterManager.GameSettings.PlayerImage);
+        hash.Add("Cards", 0);
+        hash.Add("Points", 0);
+        hash.Add("Zing", 0);
+        hash.Add("Total", 0);
         hash.Add("State", "active");
 
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);

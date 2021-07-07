@@ -2969,6 +2969,8 @@ GameObject:
   m_Component:
   - component: {fileID: 645041829}
   - component: {fileID: 645041830}
+  - component: {fileID: 645041832}
+  - component: {fileID: 645041831}
   m_Layer: 0
   m_Name: RecordBoard
   m_TagString: Untagged
@@ -3007,6 +3009,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 645041828}
   m_CullTransparentMesh: 0
+--- !u!114 &645041831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 645041828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents: []
+  viewIdField: 7
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &645041832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 645041828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f18e844f9c4dd04d8a7d4d9b678d4f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cardsValue: {fileID: 644761805}
+  _pointsValue: {fileID: 478282708}
+  _zingsValue: {fileID: 175749061}
+  _totalPointsValue: {fileID: 1812783089}
+  _cardsRedValue: {fileID: 388376549}
+  _pointsRedValue: {fileID: 646780091}
+  _zingsRedValue: {fileID: 1565756047}
+  _totalPointsRedValue: {fileID: 1333472245}
+  _tempPhoton: {fileID: 645041831}
+  _EndOfGame: {fileID: 0}
+  _NameOfWinner: {fileID: 0}
 --- !u!1 &646780089
 GameObject:
   m_ObjectHideFlags: 0

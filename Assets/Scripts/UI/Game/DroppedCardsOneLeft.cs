@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class DroppedCardsOneLeft : MonoBehaviour
 {
@@ -16,10 +17,16 @@ public class DroppedCardsOneLeft : MonoBehaviour
     public void SetCanvas()
     {
         //Debug.Log("DroppedCardsOneLeft");
+        //foreach (Transform element in _canvas.transform)
+        //{
+        //    var firstCard = element.Find("FirstCardSelected").gameObject;
+        //    firstCard.active = true;
+        //}
+
         foreach (Transform element in _canvas.transform)
         {
-            var firstCard = element.Find("FirstCardSelected").gameObject;
-            firstCard.active = true;
+
+            element.GetComponent<EventTrigger>().enabled = true;
         }
     }
 

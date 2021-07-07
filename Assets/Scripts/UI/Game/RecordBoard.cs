@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.UI.Game.CheckCards;
 using Assets.Scripts.UI.Game.Utils;
 using Photon.Pun;
+using Photon.Realtime;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,44 +10,46 @@ using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 namespace Assets.Scripts.UI.Game
 {
     class RecordBoard : MonoBehaviourPun
     {
 
-        [SerializeField]
-        private TMP_Text _namesOfPlBlueValue;
+        //[SerializeField]
+        //private Text _namesOfPlBlueValue;
+
+        //[SerializeField]
+        //private Text _namesOfPlRedValue;
 
         [SerializeField]
-        private TMP_Text _namesOfPlRedValue;
+        private Text _cardsValue;
 
         [SerializeField]
-        private TMP_Text _cardsValue;
+        private Text _pointsValue;
 
         [SerializeField]
-        private TMP_Text _pointsValue;
+        private Text _zingsValue;
+
+       // private int _totalZing = 0;
 
         [SerializeField]
-        private TMP_Text _zingsValue;
-
-        private int _totalZing = 0;
-
-        [SerializeField]
-        private TMP_Text _totalPointsValue;
+        private Text _totalPointsValue;
 
         private int _totalPoints = 0;
 
         [SerializeField]
-        private TMP_Text _cardsRedValue;
+        private Text _cardsRedValue;
 
         [SerializeField]
-        private TMP_Text _pointsRedValue;
+        private Text _pointsRedValue;
 
         [SerializeField]
-        private TMP_Text _zingsRedValue;
+        private Text _zingsRedValue;
 
         [SerializeField]
-        private TMP_Text _totalPointsRedValue;
+        private Text _totalPointsRedValue;
 
         [SerializeField]
         private PhotonView _tempPhoton;
@@ -63,16 +66,16 @@ namespace Assets.Scripts.UI.Game
         private Canvas _EndOfGame;
 
         [SerializeField]
-        private TMP_Text _NameOfWinner;
+        private Text _NameOfWinner;
 
 
         void Start()
         {
 
-            _namesOfPlBlueValue.text = PhotonNetwork.CurrentRoom.GetPlayer(1).NickName;
-            _namesOfPlRedValue.text = PhotonNetwork.CurrentRoom.GetPlayer(2).NickName;
+            //_namesOfPlBlueValue.text = PhotonNetwork.CurrentRoom.GetPlayer(1).NickName;
+            //_namesOfPlRedValue.text = PhotonNetwork.CurrentRoom.GetPlayer(2).NickName;
             _EndOfGame.gameObject.active = false;
-            SizeOfCanvas = BeginningOfGame.player.GetFirstDeck();
+            //SizeOfCanvas = BeginningOfGame.player.GetFirstDeck();
 
             if (_instance == null)
             {
@@ -83,13 +86,13 @@ namespace Assets.Scripts.UI.Game
 
         void Update()
         {
-            SizeOfCanvas = BeginningOfGame.player.GetFirstDeck();
+           // SizeOfCanvas = BeginningOfGame.player.GetFirstDeck();
         }
 
         public void SetTotalPoints()
         {
             _totalPoints = 0;
-            _totalZing = 0;
+          //  _totalZing = 0;
             _tempPhoton.RPC("SetTotalPointsRed", RpcTarget.Others);
 
         }
@@ -99,7 +102,7 @@ namespace Assets.Scripts.UI.Game
         public void SetTotalPointsRed()
         {
             _totalPoints = 0;
-            _totalZing = 0;
+          //  _totalZing = 0;
             _cardsValue.text = "0";
 
             _cardsRedValue.text = "0";
@@ -132,138 +135,207 @@ namespace Assets.Scripts.UI.Game
         {
 
             // Debug.Log("velicina liste talon:" + BeginningOfGame.ListOfAllTakenCards.Count);
-            bool firstInteration = false;
-            if (BeginningOfGame.ListOfAllTakenCards.Count == 0)
-            {
-                BeginningOfGame.ListOfAllTakenCards = listArray.ToList<string>();
+            //bool firstInteration = false;
+            //if (BeginningOfGame.ListOfAllTakenCards.Count == 0)
+            //{
+            //    BeginningOfGame.ListOfAllTakenCards = listArray.ToList<string>();
 
-                firstInteration = true;
-            }
-            else
-            {
-                List<string> newList = listArray.ToList<string>();
+            //    firstInteration = true;
+            //}
+            //else
+            //{
+            //    List<string> newList = listArray.ToList<string>();
 
-                BeginningOfGame.ListOfAllTakenCards.AddRange(newList);
-            }
+            //    BeginningOfGame.ListOfAllTakenCards.AddRange(newList);
+            //}
             // Debug.Log("velicina liste talon posle:" + BeginningOfGame.ListOfAllTakenCards.Count);
             int pointsValue = 0;
             int newPoints = 0;
-            if (firstInteration)
+
+            if (PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Blue"))
             {
-                var Player = PhotonNetwork.LocalPlayer.UserId;
+                CalculatePoints points = new CalculatePoints(listArray.ToList());
+                    pointsValue = points.GetPoints();
 
-                string playerPhoton2 = PhotonNetwork.CurrentRoom.GetPlayer(1).UserId;
-                string valueFromContent = "";
-                if (Player == playerPhoton2)
-                    valueFromContent = _pointsValue.text;
-                else
+                int tempCards = int.Parse(_cardsValue.text) + listArray.Length;
+                _cardsValue.text = ""+tempCards;
+
+                int pointsBlueValue = int.Parse(_pointsValue.text) + pointsValue;
+
+                _pointsValue.text = "" + pointsBlueValue;
+
+                int totalBluePoints = int.Parse(_totalPointsValue.text) + pointsValue;
+
+                _totalPointsValue.text = "" + totalBluePoints;
+
+
+                Dictionary<int, Player> value = PhotonNetwork.CurrentRoom.Players;
+
+                foreach (var vv in value)
                 {
-                    valueFromContent = _pointsRedValue.text;
-                }
 
-                CalculatePoints points = new CalculatePoints(BeginningOfGame.ListOfAllTakenCards);
-                pointsValue = points.GetPoints();
-                newPoints = pointsValue;
-                //Debug.Log("first interaction trenutno poena" + pointsValue);
-                int currentPoints = int.Parse(valueFromContent);
-                pointsValue += currentPoints;
-                _pointsValue.text = "" + pointsValue;
-                //Debug.Log("first interaction ukupno poena" + pointsValue);
-                firstInteration = false;
+
+                    if (PhotonNetwork.CurrentRoom.GetPlayer(vv.Key) == PhotonNetwork.LocalPlayer)
+                    {
+                        ExitGames.Client.Photon.Hashtable hash = PhotonNetwork.CurrentRoom.Players[vv.Key].CustomProperties;
+                        hash["Cards"] = int.Parse(_cardsValue.text);
+                        hash["Points"] = int.Parse(_pointsValue.text);
+                        hash["Zing"] = int.Parse(_zingsValue.text);
+                        hash["Total"] = int.Parse(_totalPointsValue.text);
+                        PhotonNetwork.CurrentRoom.Players[vv.Key].SetCustomProperties(hash);
+                    }
+                }
             }
             else
             {
-                List<string> list = listArray.ToList<string>();
-                var Player = PhotonNetwork.LocalPlayer.UserId;
-
-                string playerPhoton2 = PhotonNetwork.CurrentRoom.GetPlayer(1).UserId;
-                string valueFromContent = "";
-                if (Player == playerPhoton2)
-                    valueFromContent = _pointsValue.text;
-                else
-                {
-                    valueFromContent = _pointsRedValue.text;
-                }
-
-
-                CalculatePoints points = new CalculatePoints(list);
+                CalculatePoints points = new CalculatePoints(listArray.ToList());
                 pointsValue = points.GetPoints();
-                //Debug.Log("trenutno poena" +pointsValue);
-                newPoints = pointsValue;
-                int currentPoints = int.Parse(valueFromContent);
-                pointsValue += currentPoints;
-                //Debug.Log("ukupno poena" + pointsValue);
 
-            }
+                int tempCards = int.Parse(_cardsRedValue.text) + listArray.Length;
+                _cardsRedValue.text = "" + tempCards;
 
-            var PlayerName = PhotonNetwork.LocalPlayer.UserId;
 
-            DateTime date = DateTime.Now;
-            _dateAndTimeOfTakenCards = date;
+                int pointsRedValue = int.Parse(_pointsRedValue.text) + pointsValue;
 
-            PlayerId = PlayerName;
-            // Debug.Log("vrijeme:" + date.ToString());
+                _pointsRedValue.text = "" + pointsRedValue;
 
-            string playerPhoton = PhotonNetwork.CurrentRoom.GetPlayer(1).UserId;
-            if (PlayerName == playerPhoton)
-            {
-                //Debug.Log("plavi:");
-                _cardsValue.text = "" + BeginningOfGame.ListOfAllTakenCards.Count;
-                _pointsValue.text = "" + pointsValue;
-                string valueFromZing = _zingsValue.text;
-                string valueFromTotal = _totalPointsValue.text;
+                int totalRedPoints = int.Parse(_totalPointsRedValue.text) + pointsValue;
 
-                int zingContent = int.Parse(valueFromZing);
-                int totalPoints = 0;
-                //var RecordInteration = RecordInterationValue.text;
+                _totalPointsRedValue.text = "" + totalRedPoints;
 
-                //int RecordInteValue = int.Parse(RecordInteration);
-                //Debug.Log("vrijednost:" + RecordInteration);
+                Dictionary<int, Player> value = PhotonNetwork.CurrentRoom.Players;
 
-                if (RecordInteration._interation == 0) {
-                    totalPoints = pointsValue + zingContent;
-                } else
+                foreach (var vv in value)
                 {
-                    // Debug.Log("total:" + totalPoints);
-                    totalPoints = int.Parse(valueFromTotal);
-                    // Debug.Log("total 2:" + totalPoints);
-                    totalPoints += newPoints;
-                    // Debug.Log("total 3:" + totalPoints);
+
+
+                    if (PhotonNetwork.CurrentRoom.GetPlayer(vv.Key) == PhotonNetwork.LocalPlayer)
+                    {
+                        ExitGames.Client.Photon.Hashtable hash = PhotonNetwork.CurrentRoom.Players[vv.Key].CustomProperties;
+                        hash["Cards"] = int.Parse(_cardsRedValue.text);
+                        hash["Points"] = int.Parse(_pointsRedValue.text);
+                        hash["Zing"] = int.Parse(_zingsRedValue.text);
+                        hash["Total"] = int.Parse(_totalPointsRedValue.text);
+                        PhotonNetwork.CurrentRoom.Players[vv.Key].SetCustomProperties(hash);
+                    }
                 }
-                _totalPointsValue.text = "" + totalPoints;
-                photonView.RPC("TotalCardBlue", RpcTarget.Others, BeginningOfGame.ListOfAllTakenCards.Count, pointsValue, totalPoints);
             }
-            else
-            {
-                //Debug.Log("crveni:");
-                _cardsRedValue.text = "" + BeginningOfGame.ListOfAllTakenCards.Count;
-                _pointsRedValue.text = "" + pointsValue;
+            //if (firstInteration)
+            //{
+            //    var Player = PhotonNetwork.LocalPlayer.UserId;
 
-                string valueFromZingRed = _zingsRedValue.text;
-                string valueFromTotal = _totalPointsRedValue.text;
-                int zingContentRed = int.Parse(valueFromZingRed);
-                int totalPointsRed = 0;
+            //    string playerPhoton2 = PhotonNetwork.CurrentRoom.GetPlayer(1).UserId;
+            //    string valueFromContent = "";
+            //    if (Player == playerPhoton2)
+            //        valueFromContent = _pointsValue.text;
+            //    else
+            //    {
+            //        valueFromContent = _pointsRedValue.text;
+            //    }
 
-                //var RecordInteration = RecordInterationValue.text;
+            //    CalculatePoints points = new CalculatePoints(BeginningOfGame.ListOfAllTakenCards);
+            //    pointsValue = points.GetPoints();
+            //    newPoints = pointsValue;
+            //    //Debug.Log("first interaction trenutno poena" + pointsValue);
+            //    int currentPoints = int.Parse(valueFromContent);
+            //    pointsValue += currentPoints;
+            //    _pointsValue.text = "" + pointsValue;
+            //    //Debug.Log("first interaction ukupno poena" + pointsValue);
+            //    firstInteration = false;
+            //}
+            //else
+            //{
+            //    List<string> list = listArray.ToList<string>();
+            //    var Player = PhotonNetwork.LocalPlayer.UserId;
 
-                //int RecordInteValue = int.Parse(RecordInteration);
+            //    string playerPhoton2 = PhotonNetwork.CurrentRoom.GetPlayer(1).UserId;
+            //    string valueFromContent = "";
+            //    if (Player == playerPhoton2)
+            //        valueFromContent = _pointsValue.text;
+            //    else
+            //    {
+            //        valueFromContent = _pointsRedValue.text;
+            //    }
 
-                if (RecordInteration._interation == 0)
-                {
-                    totalPointsRed = pointsValue + zingContentRed;
-                }
-                else
-                {
-                    //Debug.Log("total red:" + totalPointsRed);
-                    totalPointsRed = int.Parse(valueFromTotal);
-                    //Debug.Log("total red 1:" + totalPointsRed);
-                    totalPointsRed += newPoints;
-                    //Debug.Log("total red 2:" + totalPointsRed);
-                }
 
-                _totalPointsRedValue.text = "" + totalPointsRed;
-                photonView.RPC("TotalCardRed", RpcTarget.Others, BeginningOfGame.ListOfAllTakenCards.Count, pointsValue, totalPointsRed);
-            }
+            //    CalculatePoints points = new CalculatePoints(list);
+            //    pointsValue = points.GetPoints();
+            //    //Debug.Log("trenutno poena" +pointsValue);
+            //    newPoints = pointsValue;
+            //    int currentPoints = int.Parse(valueFromContent);
+            //    pointsValue += currentPoints;
+            //    //Debug.Log("ukupno poena" + pointsValue);
+
+            //}
+
+            //var PlayerName = PhotonNetwork.LocalPlayer.UserId;
+
+            //DateTime date = DateTime.Now;
+            //_dateAndTimeOfTakenCards = date;
+
+            //PlayerId = PlayerName;
+            //// Debug.Log("vrijeme:" + date.ToString());
+
+            //string playerPhoton = PhotonNetwork.CurrentRoom.GetPlayer(1).UserId;
+            //if (PlayerName == playerPhoton)
+            //{
+            //    //Debug.Log("plavi:");
+            //    _cardsValue.text = "" + BeginningOfGame.ListOfAllTakenCards.Count;
+            //    _pointsValue.text = "" + pointsValue;
+            //    string valueFromZing = _zingsValue.text;
+            //    string valueFromTotal = _totalPointsValue.text;
+
+            //    int zingContent = int.Parse(valueFromZing);
+            //    int totalPoints = 0;
+            //    //var RecordInteration = RecordInterationValue.text;
+
+            //    //int RecordInteValue = int.Parse(RecordInteration);
+            //    //Debug.Log("vrijednost:" + RecordInteration);
+
+            //    if (RecordInteration._interation == 0) {
+            //        totalPoints = pointsValue + zingContent;
+            //    } else
+            //    {
+            //        // Debug.Log("total:" + totalPoints);
+            //        totalPoints = int.Parse(valueFromTotal);
+            //        // Debug.Log("total 2:" + totalPoints);
+            //        totalPoints += newPoints;
+            //        // Debug.Log("total 3:" + totalPoints);
+            //    }
+            //    _totalPointsValue.text = "" + totalPoints;
+            //    photonView.RPC("TotalCardBlue", RpcTarget.Others, BeginningOfGame.ListOfAllTakenCards.Count, pointsValue, totalPoints);
+            //}
+            //else
+            //{
+            //    //Debug.Log("crveni:");
+            //    _cardsRedValue.text = "" + BeginningOfGame.ListOfAllTakenCards.Count;
+            //    _pointsRedValue.text = "" + pointsValue;
+
+            //    string valueFromZingRed = _zingsRedValue.text;
+            //    string valueFromTotal = _totalPointsRedValue.text;
+            //    int zingContentRed = int.Parse(valueFromZingRed);
+            //    int totalPointsRed = 0;
+
+            //    //var RecordInteration = RecordInterationValue.text;
+
+            //    //int RecordInteValue = int.Parse(RecordInteration);
+
+            //    if (RecordInteration._interation == 0)
+            //    {
+            //        totalPointsRed = pointsValue + zingContentRed;
+            //    }
+            //    else
+            //    {
+            //        //Debug.Log("total red:" + totalPointsRed);
+            //        totalPointsRed = int.Parse(valueFromTotal);
+            //        //Debug.Log("total red 1:" + totalPointsRed);
+            //        totalPointsRed += newPoints;
+            //        //Debug.Log("total red 2:" + totalPointsRed);
+            //    }
+
+            //    _totalPointsRedValue.text = "" + totalPointsRed;
+            //    photonView.RPC("TotalCardRed", RpcTarget.Others, BeginningOfGame.ListOfAllTakenCards.Count, pointsValue, totalPointsRed);
+            //}
 
 
             foreach (Transform transform in SizeOfCanvas.transform)
@@ -281,103 +353,172 @@ namespace Assets.Scripts.UI.Game
         [PunRPC]
         public void TakeCardsZing(string[] listArray)
         {
-            if (BeginningOfGame._listOfZings.Count == 0)
-            {
-                BeginningOfGame._listOfZings = listArray.ToList<string>();
-                BeginningOfGame.ListOfAllTakenCards.AddRange(BeginningOfGame._listOfZings);
-            }
-            else
-            {
+            //if (BeginningOfGame._listOfZings.Count == 0)
+            //{
+            //    BeginningOfGame._listOfZings = listArray.ToList<string>();
+            //    BeginningOfGame.ListOfAllTakenCards.AddRange(BeginningOfGame._listOfZings);
+            //}
+            //else
+            //{
 
-                List<string> newList = listArray.ToList<string>();
-                BeginningOfGame._listOfZings.AddRange(newList);
-                BeginningOfGame.ListOfAllTakenCards.AddRange(newList);
-            }
+            //    List<string> newList = listArray.ToList<string>();
+            //    BeginningOfGame._listOfZings.AddRange(newList);
+            //    BeginningOfGame.ListOfAllTakenCards.AddRange(newList);
+            //}
 
-            var lastCard = BeginningOfGame._listOfZings[BeginningOfGame._listOfZings.Count - 1];
-            var previousLastCard = BeginningOfGame._listOfZings[BeginningOfGame._listOfZings.Count - 2];
+            // var lastCard = BeginningOfGame._listOfZings[BeginningOfGame._listOfZings.Count - 1];
+            var lastCard = listArray[listArray.Length - 1];
+            var previousLastCard = listArray[listArray.Length - 2];
+           // var previousLastCard = BeginningOfGame._listOfZings[BeginningOfGame._listOfZings.Count - 2];
             int newPointsZing = 0;
             if (lastCard.Contains("J_") && previousLastCard.Contains("J_"))
             {
-                _totalZing += 20;
+               // _totalZing += 20;
                 newPointsZing = 20;
             }
             else
             {
-                _totalZing += 10;
+               // _totalZing += 10;
                 newPointsZing = 10;
             }
 
-            var PlayerName = PhotonNetwork.LocalPlayer.UserId;
-
-            PlayerId = PlayerName;
-
-            DateTime date = DateTime.Now;
-            _dateAndTimeOfTakenCards = date;
-
-            string playerPhoton = PhotonNetwork.CurrentRoom.GetPlayer(1).UserId;
-
-            if (PlayerName == playerPhoton)
+            if(PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Blue"))
             {
                 int tempZing = int.Parse(_zingsValue.text);
                 tempZing += newPointsZing;
                 _zingsValue.text = "" + tempZing;
-                _cardsValue.text = "" + BeginningOfGame.ListOfAllTakenCards.Count;
+                int tempCards = int.Parse(_cardsValue.text) + listArray.Length;
+                _cardsValue.text = "" + tempCards ;
+
                 string valueFromTotal = _totalPointsValue.text;
 
+                int pointsTotalValue = int.Parse(valueFromTotal) + newPointsZing;
 
-                string valueFromPoints = _pointsValue.text;
-                int pointsValue = int.Parse(valueFromPoints);
+                _totalPointsValue.text = ""+ pointsTotalValue;
 
-                //var RecordInteration = RecordInterationValue.text;
+                Dictionary<int, Player> value = PhotonNetwork.CurrentRoom.Players;
 
-                //int RecordInteValue = int.Parse(RecordInteration);
-                int totalPoints = 0;
-                if (RecordInteration._interation == 0)
+                foreach (var vv in value)
                 {
-                    totalPoints = pointsValue + _totalZing;
-                }
-                else
-                {
-                    totalPoints = int.Parse(valueFromTotal);
-                    totalPoints += newPointsZing;
+
+
+                    if (PhotonNetwork.CurrentRoom.GetPlayer(vv.Key) == PhotonNetwork.LocalPlayer)
+                    {
+                        ExitGames.Client.Photon.Hashtable hash = PhotonNetwork.CurrentRoom.Players[vv.Key].CustomProperties;
+                        hash["Cards"] = int.Parse(_cardsValue.text);
+                        hash["Points"] = int.Parse(_pointsValue.text);
+                        hash["Zing"] = int.Parse(_zingsValue.text);
+                        hash["Total"] = int.Parse(_totalPointsValue.text);
+                        PhotonNetwork.CurrentRoom.Players[vv.Key].SetCustomProperties(hash);
+                    }
                 }
 
-                _totalPointsValue.text = "" + totalPoints;
-                photonView.RPC("TotalCardBlue", RpcTarget.Others, BeginningOfGame.ListOfAllTakenCards.Count, pointsValue, totalPoints);
-                photonView.RPC("TotalZingCardsBlue", RpcTarget.Others, tempZing);
             }
             else
             {
                 int tempZing = int.Parse(_zingsRedValue.text);
                 tempZing += newPointsZing;
                 _zingsRedValue.text = "" + tempZing;
-                _cardsRedValue.text = "" + BeginningOfGame.ListOfAllTakenCards.Count;
+                int tempCards = int.Parse(_cardsRedValue.text) + listArray.Length;
+                _cardsRedValue.text = "" + tempCards ;
 
                 string valueFromTotal = _totalPointsRedValue.text;
 
-                string valueFromPointsRed = _pointsRedValue.text;
-                int pointsValueRed = int.Parse(valueFromPointsRed);
+                int pointsTotalValue = int.Parse(valueFromTotal) + newPointsZing;
 
+                _totalPointsRedValue.text = "" + pointsTotalValue;
 
-                //var RecordInteration = RecordInterationValue.text;
+                Dictionary<int, Player> value = PhotonNetwork.CurrentRoom.Players;
 
-                //int RecordInteValue = int.Parse(RecordInteration);
-                int totalPointsRed = 0;
-                if (RecordInteration._interation == 0)
+                foreach (var vv in value)
                 {
-                    totalPointsRed = pointsValueRed + _totalZing;
-                }
-                else
-                {
-                    totalPointsRed = int.Parse(valueFromTotal);
-                    totalPointsRed += newPointsZing;
-                }
 
-                _totalPointsRedValue.text = "" + totalPointsRed;
-                photonView.RPC("TotalCardRed", RpcTarget.Others, BeginningOfGame.ListOfAllTakenCards.Count, totalPointsRed, totalPointsRed);
-                photonView.RPC("TotalZingCardsRed", RpcTarget.Others, tempZing);
+
+                    if (PhotonNetwork.CurrentRoom.GetPlayer(vv.Key) == PhotonNetwork.LocalPlayer)
+                    {
+                        ExitGames.Client.Photon.Hashtable hash = PhotonNetwork.CurrentRoom.Players[vv.Key].CustomProperties;
+                        hash["Cards"] = int.Parse(_cardsRedValue.text);
+                        hash["Points"] = int.Parse(_pointsRedValue.text);
+                        hash["Zing"] = int.Parse(_zingsRedValue.text);
+                        hash["Total"] = int.Parse(_totalPointsRedValue.text);
+                        PhotonNetwork.CurrentRoom.Players[vv.Key].SetCustomProperties(hash);
+                    }
+                }
             }
+
+          
+
+
+            //var PlayerName = PhotonNetwork.LocalPlayer.UserId;
+
+            //PlayerId = PlayerName;
+
+            //DateTime date = DateTime.Now;
+            //_dateAndTimeOfTakenCards = date;
+
+            //string playerPhoton = PhotonNetwork.CurrentRoom.GetPlayer(1).UserId;
+
+            //if (PlayerName == playerPhoton)
+            //{
+            //    int tempZing = int.Parse(_zingsValue.text);
+            //    tempZing += newPointsZing;
+            //    _zingsValue.text = "" + tempZing;
+            //    _cardsValue.text = "" + BeginningOfGame.ListOfAllTakenCards.Count;
+            //    string valueFromTotal = _totalPointsValue.text;
+
+
+            //    string valueFromPoints = _pointsValue.text;
+            //    int pointsValue = int.Parse(valueFromPoints);
+
+            //    //var RecordInteration = RecordInterationValue.text;
+
+            //    //int RecordInteValue = int.Parse(RecordInteration);
+            //    int totalPoints = 0;
+            //    if (RecordInteration._interation == 0)
+            //    {
+            //        totalPoints = pointsValue + _totalZing;
+            //    }
+            //    else
+            //    {
+            //        totalPoints = int.Parse(valueFromTotal);
+            //        totalPoints += newPointsZing;
+            //    }
+
+            //    _totalPointsValue.text = "" + totalPoints;
+            //    photonView.RPC("TotalCardBlue", RpcTarget.Others, BeginningOfGame.ListOfAllTakenCards.Count, pointsValue, totalPoints);
+            //    photonView.RPC("TotalZingCardsBlue", RpcTarget.Others, tempZing);
+            //}
+            //else
+            //{
+            //    int tempZing = int.Parse(_zingsRedValue.text);
+            //    tempZing += newPointsZing;
+            //    _zingsRedValue.text = "" + tempZing;
+            //    _cardsRedValue.text = "" + BeginningOfGame.ListOfAllTakenCards.Count;
+
+            //    string valueFromTotal = _totalPointsRedValue.text;
+
+            //    string valueFromPointsRed = _pointsRedValue.text;
+            //    int pointsValueRed = int.Parse(valueFromPointsRed);
+
+
+            //    //var RecordInteration = RecordInterationValue.text;
+
+            //    //int RecordInteValue = int.Parse(RecordInteration);
+            //    int totalPointsRed = 0;
+            //    if (RecordInteration._interation == 0)
+            //    {
+            //        totalPointsRed = pointsValueRed + _totalZing;
+            //    }
+            //    else
+            //    {
+            //        totalPointsRed = int.Parse(valueFromTotal);
+            //        totalPointsRed += newPointsZing;
+            //    }
+
+            //    _totalPointsRedValue.text = "" + totalPointsRed;
+            //    photonView.RPC("TotalCardRed", RpcTarget.Others, BeginningOfGame.ListOfAllTakenCards.Count, totalPointsRed, totalPointsRed);
+            //    photonView.RPC("TotalZingCardsRed", RpcTarget.Others, tempZing);
+            //}
 
 
             foreach (Transform transform in SizeOfCanvas.transform)
@@ -387,8 +528,7 @@ namespace Assets.Scripts.UI.Game
 
                 Destroy(transform.gameObject);
             }
-            // Debug.Log("zing!!");
-            //  Debug.Log("igrac ponio ukupno:" + ListOfTakenCards.Count);
+
         }
 
         [PunRPC]
@@ -600,13 +740,13 @@ namespace Assets.Scripts.UI.Game
                 
                 if (valueBlueTotal > valueRedTotal)
                 {
-                    _NameOfWinner.text = _namesOfPlBlueValue.text + " Won";
-                    photonView.RPC("LaunchEndOfGame", RpcTarget.Others, _namesOfPlBlueValue.text);
+                    //_NameOfWinner.text = _namesOfPlBlueValue.text + " Won";
+                    //photonView.RPC("LaunchEndOfGame", RpcTarget.Others, _namesOfPlBlueValue.text);
                 }
                 else
                 {
-                    _NameOfWinner.text = _namesOfPlRedValue.text + " Won";
-                    photonView.RPC("LaunchEndOfGame", RpcTarget.Others, _namesOfPlRedValue.text);
+                    //_NameOfWinner.text = _namesOfPlRedValue.text + " Won";
+                    //photonView.RPC("LaunchEndOfGame", RpcTarget.Others, _namesOfPlRedValue.text);
                 }
                 
             }
@@ -762,9 +902,9 @@ namespace Assets.Scripts.UI.Game
         [PunRPC]
         public void SetTableRecord(string namesOfBlue, string namesOfRed, string totalPointsBlue, string totalPointsRed)
         {
-            _namesOfPlBlueValue.text = namesOfBlue;
+            //_namesOfPlBlueValue.text = namesOfBlue;
 
-            _namesOfPlRedValue.text = namesOfRed;
+            //_namesOfPlRedValue.text = namesOfRed;
 
             _cardsValue.text = "0";
 
@@ -820,9 +960,9 @@ namespace Assets.Scripts.UI.Game
 
         public void SetInitializationOfCards()
         {
-            string namesOfBlue = _namesOfPlBlueValue.text;
+            //string namesOfBlue = _namesOfPlBlueValue.text;
 
-            string namesOfRed = _namesOfPlRedValue.text;
+            //string namesOfRed = _namesOfPlRedValue.text;
 
             _cardsValue.text = "0";
 
@@ -840,7 +980,7 @@ namespace Assets.Scripts.UI.Game
 
             string totalPointsRed = _totalPointsRedValue.text;
 
-            photonView.RPC("SetTableRecord", RpcTarget.Others, namesOfBlue, namesOfRed, totalPointsBlue, totalPointsRed);
+          //  photonView.RPC("SetTableRecord", RpcTarget.Others, namesOfBlue, namesOfRed, totalPointsBlue, totalPointsRed);
         }
 
 

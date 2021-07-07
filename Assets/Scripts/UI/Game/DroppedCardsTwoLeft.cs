@@ -38,12 +38,12 @@ public class DroppedCardsTwoLeft : MonoBehaviour
             }
             string[] listArray = list.ToArray();
         
-            foreach (Transform element in _canvasCurrentPlayer.transform)
-            {
+            //foreach (Transform element in _canvasCurrentPlayer.transform)
+            //{
 
-                var firstCard = element.Find("FirstCardSelected").gameObject;
-                firstCard.active = true;
-            }
+            //    var firstCard = element.Find("FirstCardSelected").gameObject;
+            //    firstCard.active = true;
+            //}
         return listArray;    
     }
 
@@ -63,11 +63,11 @@ public class DroppedCardsTwoLeft : MonoBehaviour
         }
         string[] listArray = list.ToArray();
 
-        foreach (Transform element in _canvasCurrentPlayer.transform)
-        {
-            var firstCard = element.Find("FirstCardSelected").gameObject;
-            firstCard.active = true;
-        }
+        //foreach (Transform element in _canvasCurrentPlayer.transform)
+        //{
+        //    var firstCard = element.Find("FirstCardSelected").gameObject;
+        //    firstCard.active = true;
+        //}
 
         return listArray;
     }

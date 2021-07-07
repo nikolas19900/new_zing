@@ -141,7 +141,8 @@ public class GameScript : MonoBehaviourPunCallbacks
     private bool isArrangeCard = false;
 
     private int currentInstance = 0;
-
+    private GameObject _previousCard;
+    private GameObject _currentCard;
 
     void Awake()
     {
@@ -1225,6 +1226,211 @@ public class GameScript : MonoBehaviourPunCallbacks
             }
         }
 
+    }
+
+
+    public void PickUpCardsFromDeck()
+    {
+        if (canvacesOfCurrentPlayer.transform.childCount > 0)
+        {
+            if (canvacesOfFirstDeck.transform.childCount == 1)
+            {
+                if (canvacesOfCurrentPlayer.transform.childCount > 0)
+                {
+                    //player.TimeOfMove.active = true;
+                    //isAviableToMove = true;
+                    DroppedCardsOneLeft dropCard = new DroppedCardsOneLeft(canvacesOfCurrentPlayer);
+                    //dropCard.SetCanvas();
+
+                }
+            }
+            else if (canvacesOfFirstDeck.transform.childCount == 2)
+            {
+                _previousCard = canvacesOfFirstDeck.transform.GetChild(canvacesOfFirstDeck.transform.childCount - 2).gameObject;
+
+                _currentCard = canvacesOfFirstDeck.transform.GetChild(canvacesOfFirstDeck.transform.childCount - 1).gameObject;
+
+                string goName1 = _previousCard.name.Split('_')[0];
+                string goName2 = _currentCard.name.Split('_')[0];
+                //Debug.Log("evo me");
+                //Debug.Log("predhodna karta:" + goName1);
+                //Debug.Log("zadnja karta:" + goName2);
+                DroppedCardsTwoLeft dropCard = new DroppedCardsTwoLeft(goName1, goName2, canvacesOfFirstDeck, canvacesOfCurrentPlayer);
+                if (goName1.Equals(goName2, StringComparison.OrdinalIgnoreCase))
+                {
+                    string[] listArray = dropCard.TakeActionEqualsName();
+                    //player.TimeOfMove.active = true;
+                    //isAviableToMove = true;
+                    //photonView.RPC("TakeCardsZing", RpcTarget.Others, listArray);
+                    // RecordBoard._instance.photonView.RPC("TakeCardsZing", RpcTarget.Others, listArray);
+                    RecordBoard._instance.TakeCardsZing(listArray);
+                }
+                else if (goName2.Equals("J", StringComparison.OrdinalIgnoreCase))
+                {
+                    string[] listArray = dropCard.TakeActionJDropped();
+
+                    //player.TimeOfMove.active = true;
+                    //isAviableToMove = true;
+                  //  RecordBoard._instance.photonView.RPC("TakeCardsFromTalon", RpcTarget.Others, listArray);
+                    //photonView.RPC("TakeCardsFromTalon", RpcTarget.Others, listArray);
+                }
+                else
+                {
+                    if (canvacesOfCurrentPlayer.transform.childCount > 0)
+                    {
+                        //player.TimeOfMove.active = true;
+                        //isAviableToMove = true;
+                        //dropCard.SetCanvas();
+
+                    }
+                }
+            }
+            else
+            {
+                _previousCard = canvacesOfFirstDeck.transform.GetChild(canvacesOfFirstDeck.transform.childCount - 2).gameObject;
+
+                _currentCard = canvacesOfFirstDeck.transform.GetChild(canvacesOfFirstDeck.transform.childCount - 1).gameObject;
+
+                string goName1 = _previousCard.name.Split('_')[0];
+                string goName2 = _currentCard.name.Split('_')[0];
+                //Debug.Log("evo me");
+                //Debug.Log("predhodna karta:" + goName1);
+                //Debug.Log("zadnja karta:" + goName2);
+                DroppedCardsTwoLeft dropCard = new DroppedCardsTwoLeft(goName1, goName2, canvacesOfFirstDeck, canvacesOfCurrentPlayer);
+                if (goName1.Equals(goName2, StringComparison.OrdinalIgnoreCase))
+                {
+                    string[] listArray = dropCard.TakeActionEqualsName();
+
+                    //player.TimeOfMove.active = true;
+                    //isAviableToMove = true;
+                    // photonView.RPC("TakeCardsFromTalon", RpcTarget.Others, listArray);
+                  //  RecordBoard._instance.photonView.RPC("TakeCardsFromTalon", RpcTarget.Others, listArray);
+                    //  Debug.Log("val:"+ ListOfTakenCards.Count);
+                }
+                else if (goName2.Equals("J", StringComparison.OrdinalIgnoreCase))
+                {
+
+                    string[] listArray = dropCard.TakeActionJDropped();
+                    //player.TimeOfMove.active = true;
+                    //isAviableToMove = true;
+
+                    //  photonView.RPC("TakeCardsFromTalon", RpcTarget.Others, listArray);
+                 //   RecordBoard._instance.photonView.RPC("TakeCardsFromTalon", RpcTarget.Others, listArray);
+                }
+                else
+                {
+                    if (canvacesOfCurrentPlayer.transform.childCount > 0)
+                    {
+                        //player.TimeOfMove.active = true;
+                        //isAviableToMove = true;
+                        //dropCard.SetCanvas();
+                    }
+
+                }
+            }
+        }
+        else
+        {
+
+            //ovdje se pise kod ukoliko su sve igraceve karte bacene na stolu.
+            if (canvacesOfFirstDeck.transform.childCount == 1)
+            {
+                if (canvacesOfCurrentPlayer.transform.childCount > 0)
+                {
+                    //player.TimeOfMove.active = true;
+                    //isAviableToMove = true;
+                    DroppedCardsOneLeft dropedCardOneLeft = new DroppedCardsOneLeft(canvacesOfCurrentPlayer);
+                    //dropedCardOneLeft.SetCanvas();
+
+                }
+            }
+            else if (canvacesOfFirstDeck.transform.childCount == 2)
+            {
+                _previousCard = canvacesOfFirstDeck.transform.GetChild(canvacesOfFirstDeck.transform.childCount - 2).gameObject;
+
+                _currentCard = canvacesOfFirstDeck.transform.GetChild(canvacesOfFirstDeck.transform.childCount - 1).gameObject;
+
+                string goName1 = _previousCard.name.Split('_')[0];
+                string goName2 = _currentCard.name.Split('_')[0];
+                //Debug.Log("evo me");
+                //Debug.Log("predhodna karta:" + goName1);
+                //Debug.Log("zadnja karta:" + goName2);
+                DroppedCardsTwoLeft dropCard = new DroppedCardsTwoLeft(goName1, goName2, canvacesOfFirstDeck, canvacesOfCurrentPlayer);
+                if (goName1.Equals(goName2, StringComparison.OrdinalIgnoreCase))
+                {
+
+                    string[] listArray = dropCard.TakeActionEqualsName();
+                    //player.TimeOfMove.active = true;
+                    //isAviableToMove = true;
+
+                    //photonView.RPC("TakeCardsZing", RpcTarget.Others, listArray);
+                 //   RecordBoard._instance.photonView.RPC("TakeCardsZing", RpcTarget.Others, listArray);
+
+                }
+                else if (goName2.Equals("J", StringComparison.OrdinalIgnoreCase))
+                {
+                    string[] listArray = dropCard.TakeActionJDropped();
+
+                    //photonView.RPC("TakeCardsFromTalon", RpcTarget.Others, listArray);
+                 //   RecordBoard._instance.photonView.RPC("TakeCardsFromTalon", RpcTarget.Others, listArray);
+                }
+                else
+                {
+                    if (canvacesOfCurrentPlayer.transform.childCount > 0)
+                    {
+                        //player.TimeOfMove.active = true;
+                        //isAviableToMove = true;
+
+                    }
+                }
+            }
+            else
+            {
+                _previousCard = canvacesOfFirstDeck.transform.GetChild(canvacesOfFirstDeck.transform.childCount - 2).gameObject;
+
+                _currentCard = canvacesOfFirstDeck.transform.GetChild(canvacesOfFirstDeck.transform.childCount - 1).gameObject;
+
+                string goName1 = _previousCard.name.Split('_')[0];
+                string goName2 = _currentCard.name.Split('_')[0];
+                //Debug.Log("evo me");
+                //Debug.Log("predhodna karta:" + goName1);
+                //Debug.Log("zadnja karta:" + goName2);
+                DroppedCardsTwoLeft dropCard = new DroppedCardsTwoLeft(goName1, goName2, canvacesOfFirstDeck, canvacesOfCurrentPlayer);
+
+                if (goName1.Equals(goName2, StringComparison.OrdinalIgnoreCase))
+                {
+
+                    string[] listArray = dropCard.TakeActionEqualsName();
+                    //player.TimeOfMove.active = true;
+                    //isAviableToMove = true;
+
+                    // photonView.RPC("TakeCardsFromTalon", RpcTarget.Others, listArray);
+                  //  RecordBoard._instance.photonView.RPC("TakeCardsFromTalon", RpcTarget.Others, listArray);
+
+                    //  Debug.Log("val:"+ ListOfTakenCards.Count);
+                }
+                else if (goName2.Equals("J", StringComparison.OrdinalIgnoreCase))
+                {
+
+                    string[] listArray = dropCard.TakeActionJDropped();
+                    //player.TimeOfMove.active = true;
+                    //isAviableToMove = true;
+
+                    //photonView.RPC("TakeCardsFromTalon", RpcTarget.Others, listArray);
+                   // RecordBoard._instance.photonView.RPC("TakeCardsFromTalon", RpcTarget.Others, listArray);
+                }
+                else
+                {
+
+                    if (canvacesOfCurrentPlayer.transform.childCount > 0)
+                    {
+                        //player.TimeOfMove.active = true;
+                        //isAviableToMove = true;
+                        //dropCard.SetCanvas();
+                    }
+                }
+            }
+        }
     }
 
     [PunRPC]
