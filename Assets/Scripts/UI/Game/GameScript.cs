@@ -227,13 +227,13 @@ public class GameScript : MonoBehaviourPunCallbacks
         }
             _currentPhotonView.RPC("UpdatePlayersName", RpcTarget.All);
 
-        if (PhotonNetwork.CurrentRoom.PlayerCount == 4) {
+        //if (PhotonNetwork.CurrentRoom.PlayerCount == 4) {
           
            
-            isGameStarted = true;
-            photonView.RPC("StartGame", PhotonNetwork.CurrentRoom.GetPlayer(1), isGameStarted);
+        //    isGameStarted = true;
+        //    photonView.RPC("StartGame", PhotonNetwork.CurrentRoom.GetPlayer(1), isGameStarted);
          
-        }
+        //}
 
         SetSideOfBorderImages();
         
