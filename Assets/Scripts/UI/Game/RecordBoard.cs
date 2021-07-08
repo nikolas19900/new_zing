@@ -76,7 +76,7 @@ namespace Assets.Scripts.UI.Game
             //_namesOfPlRedValue.text = PhotonNetwork.CurrentRoom.GetPlayer(2).NickName;
             // _EndOfGame.gameObject.active = false;
             //SizeOfCanvas = BeginningOfGame.player.GetFirstDeck();
-            Debug.Log("pokrenuo sam");
+            
             if (_instance == null)
             {
 

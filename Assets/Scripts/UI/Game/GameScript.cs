@@ -1564,4 +1564,9 @@ public class GameScript : MonoBehaviourPunCallbacks
         _listOfCards = _list;
     }
 
+    public void DeactivateTimeOfMove()
+    {
+        TimeOfMove.SetActive(false);
+    }
+
 }
