@@ -679,7 +679,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                             FirstPlayerImage.GetComponent<ImageByte>().SetBytes(valuePicture2);
 
-                            FirstPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
+                            FirstPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName+"1";
                         }
                         else
                         {
@@ -693,7 +693,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                             SecondPlayerImage.GetComponent<ImageByte>().SetBytes(valuePicture3);
 
-                            SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
+                            SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName +"2";
                         }
                     }
                     else if (PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Blue"))
@@ -729,7 +729,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                                         SecondPlayerImage.GetComponent<ImageByte>().SetBytes(valuePicture3);
 
-                                        SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(kk.Key).NickName;
+                                        SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(kk.Key).NickName+"3";
                                     }
                                 }
                             }
@@ -752,7 +752,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                             FirstPlayerImage.GetComponent<ImageByte>().SetBytes(valuePicture2);
 
-                            FirstPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
+                            FirstPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName+"4";
                         }
                         else
                         {
@@ -765,7 +765,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                             SecondPlayerImage.GetComponent<ImageByte>().SetBytes(valuePicture3);
 
-                            SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
+                            SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName+"5";
                         }
                     }
                     else if (PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Red"))

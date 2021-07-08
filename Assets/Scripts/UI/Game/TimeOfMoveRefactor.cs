@@ -87,6 +87,7 @@ public class TimeOfMoveRefactor : MonoBehaviour
             GameScript.player.photonView.RPC("CleanDesk", RpcTarget.Others);
         }
         GameScript.player.photonView.RPC("ActivatePlayerToPlay", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName);
+
         countOfClick++;
 
         Destroy(_tempTransoformCard.gameObject);
