@@ -258,11 +258,14 @@ public  class FirstCardObject : MonoBehaviour
         // Debug.Log("prosla karta:" + list.Count);
         //BeginningOfGame.player.SetListOfCards(list);
         //BeginningOfGame.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, positionOfCurrentCard, countClick);
+        GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName, PhotonNetwork.LocalPlayer.CustomProperties["Picture"]);
+
         GameScript.player.SetListOfCards(list);
         GameScript.player.PickUpCardsFromDeck();
         TimeOfMoveObject.DeactiveGameObject();
+        GameScript.player.DeactivateTimeOfMove();
 
-        countClick++;
+       countClick++;
 
         //Debug.Log("protivnicka strana" + tv.transform.childCount);
 
