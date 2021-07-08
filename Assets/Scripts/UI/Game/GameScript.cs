@@ -698,6 +698,28 @@ public class GameScript : MonoBehaviourPunCallbacks
                                 FirstPlayerImage.GetComponent<ImageByte>().SetBytes(valuePicture2);
 
                                 FirstPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
+
+                                Dictionary<int, Player> valuePlayers = PhotonNetwork.CurrentRoom.Players;
+
+                                foreach(var pp in valuePlayers)
+                                {
+                                    if (PhotonNetwork.CurrentRoom.GetPlayer(pp.Key).CustomProperties["Team"].Equals("Blue")
+                                         && !PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName.Equals(PhotonNetwork.CurrentRoom.GetPlayer(pp.Key).NickName)
+                                        )
+                                    {
+                                        Texture2D tex3 = new Texture2D(83, 87);
+                                        byte[] valuePicture3 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(pp.Key).CustomProperties["Picture"];
+                                        tex3.LoadImage(valuePicture3);
+                                        // Assign texture to renderer's material.
+                                        //GetComponent<Renderer>().material.mainTexture = tex;
+                                        UnityEngine.UI.Image ProfilePic3 = SecondPlayerImage.GetComponent<UnityEngine.UI.Image>();
+                                        ProfilePic3.sprite = Sprite.Create(tex3, new Rect(0, 0, 83, 87), new Vector2());
+
+                                        SecondPlayerImage.GetComponent<ImageByte>().SetBytes(valuePicture3);
+
+                                        SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(pp.Key).NickName;
+                                    }
+                                }
                             }
                             else { 
 
