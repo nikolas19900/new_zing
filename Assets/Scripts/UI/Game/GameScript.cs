@@ -669,6 +669,21 @@ public class GameScript : MonoBehaviourPunCallbacks
                     {
                         if (FirstPlayerName.text == "")
                         {
+                            Texture2D tex2 = new Texture2D(83, 87);
+                            byte[] valuePicture2 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Picture"];
+                            tex2.LoadImage(valuePicture2);
+                            // Assign texture to renderer's material.
+                            //GetComponent<Renderer>().material.mainTexture = tex;
+                            UnityEngine.UI.Image ProfilePic2 = FirstPlayerImage.GetComponent<UnityEngine.UI.Image>();
+                            ProfilePic2.sprite = Sprite.Create(tex2, new Rect(0, 0, 83, 87), new Vector2());
+
+                            FirstPlayerImage.GetComponent<ImageByte>().SetBytes(valuePicture2);
+
+                            FirstPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
+
+                        }
+                        else
+                        {
                             
 
                             Texture2D tex3 = new Texture2D(83, 87);
@@ -682,20 +697,6 @@ public class GameScript : MonoBehaviourPunCallbacks
                             SecondPlayerImage.GetComponent<ImageByte>().SetBytes(valuePicture3);
 
                             SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
-                        }
-                        else
-                        {
-                            Texture2D tex2 = new Texture2D(83, 87);
-                            byte[] valuePicture2 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Picture"];
-                            tex2.LoadImage(valuePicture2);
-                            // Assign texture to renderer's material.
-                            //GetComponent<Renderer>().material.mainTexture = tex;
-                            UnityEngine.UI.Image ProfilePic2 = FirstPlayerImage.GetComponent<UnityEngine.UI.Image>();
-                            ProfilePic2.sprite = Sprite.Create(tex2, new Rect(0, 0, 83, 87), new Vector2());
-
-                            FirstPlayerImage.GetComponent<ImageByte>().SetBytes(valuePicture2);
-
-                            FirstPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName ;
                         }
                     }
                     else if (PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Blue"))
