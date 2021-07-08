@@ -1210,9 +1210,10 @@ public class GameScript : MonoBehaviourPunCallbacks
 
         if(FirstPlayerName.text.Equals(NickName))
         {
+            ActivateTimeOfMove();
             GameScript.isAviableToMove = true;
             TimeOfMove.active = true;
-
+            
             var tv = (Canvas)canvacesOfCurrentPlayer;
 
             foreach (Transform element in tv.transform)
@@ -1224,6 +1225,8 @@ public class GameScript : MonoBehaviourPunCallbacks
                 //    //firstCard.active = false;
 
             }
+
+
         }
 
     }
@@ -1559,6 +1562,11 @@ public class GameScript : MonoBehaviourPunCallbacks
     public void DeactivateTimeOfMove()
     {
         TimeOfMove.SetActive(false);
+    }
+
+    public void ActivateTimeOfMove()
+    {
+        TimeOfMove.SetActive(true);
     }
 
 }
