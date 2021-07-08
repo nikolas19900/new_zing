@@ -63,6 +63,8 @@ public class TimeOfMoveRefactor : MonoBehaviour
         
         myBrick.transform.SetParent(_tempCanvas.transform);
 
+        GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others);
+
         //var list = BeginningOfGame.player.GetOfListOfCards();
         var list = GameScript.player.GetOfListOfCards();
         list.Add(CardName);
@@ -79,8 +81,12 @@ public class TimeOfMoveRefactor : MonoBehaviour
 
         TimeOfMoveObject.DeactiveGameObject();
         GameScript.player.DeactivateTimeOfMove();
-        GameScript.player.PickUpCardsFromDeck();
-
+        bool isPickedUp = GameScript.player.PickUpCardsFromDeck();
+        if (isPickedUp)
+        {
+            GameScript.player.photonView.RPC("CleanDesk", RpcTarget.Others);
+        }
+        GameScript.player.photonView.RPC("ActivatePlayerToPlay", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName);
         countOfClick++;
 
         Destroy(_tempTransoformCard.gameObject);
@@ -89,7 +95,7 @@ public class TimeOfMoveRefactor : MonoBehaviour
         GameScript.player.SetListOfCards(list);
         // GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, _currentCard.transform.position, countOfClick);
         // GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName, PhotonNetwork.LocalPlayer.CustomProperties["Picture"]);
-        GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName, PhotonNetwork.LocalPlayer.CustomProperties["Picture"]);
+        
 
        
 

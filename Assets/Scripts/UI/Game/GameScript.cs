@@ -1183,7 +1183,7 @@ public class GameScript : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void ChangeMoveDropedCard(string NickName, byte[] values)
+    public void ChangeMoveDropedCard()
     {
         var root = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
         foreach (var temp in root)
@@ -1207,13 +1207,20 @@ public class GameScript : MonoBehaviourPunCallbacks
 
         }
        
+       
 
-        if(FirstPlayerName.text.Equals(NickName))
+    }
+
+
+    [PunRPC]
+    public void ActivatePlayerToPlay(string NickName)
+    {
+        if (FirstPlayerName.text.Equals(NickName))
         {
             ActivateTimeOfMove();
             GameScript.isAviableToMove = true;
             TimeOfMove.active = true;
-            
+
             var tv = (Canvas)canvacesOfCurrentPlayer;
 
             foreach (Transform element in tv.transform)
@@ -1228,11 +1235,18 @@ public class GameScript : MonoBehaviourPunCallbacks
 
 
         }
-
     }
 
+    [PunRPC]
+    public void CleanDesk()
+    {
+        foreach(Transform tt in canvacesOfFirstDeck.transform)
+        {
+            Destroy(tt);
+        }
+    }
 
-    public void PickUpCardsFromDeck()
+    public bool PickUpCardsFromDeck()
     {
         if (canvacesOfCurrentPlayer.transform.childCount > 0)
         {
@@ -1244,7 +1258,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                     //isAviableToMove = true;
                     DroppedCardsOneLeft dropCard = new DroppedCardsOneLeft(canvacesOfCurrentPlayer);
                     //dropCard.SetCanvas();
-
+                   
                 }
             }
             else if (canvacesOfFirstDeck.transform.childCount == 2)
@@ -1266,7 +1280,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                     //isAviableToMove = true;
                     //photonView.RPC("TakeCardsZing", RpcTarget.Others, listArray);
                      RecordBoard._instance.photonView.RPC("TakeCardsZing", RpcTarget.All, listArray);
-                    
+                    return true;
                     //RecordBoard._instance.TakeCardsZing(listArray);
                 }
                 else if (goName2.Equals("J", StringComparison.OrdinalIgnoreCase))
@@ -1276,7 +1290,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                     //player.TimeOfMove.active = true;
                     //isAviableToMove = true;
                       RecordBoard._instance.photonView.RPC("TakeCardsFromTalon", RpcTarget.All, listArray);
-                   
+                    return true;
                     //photonView.RPC("TakeCardsFromTalon", RpcTarget.Others, listArray);
                     //RecordBoard._instance.TakeCardsFromTalon(listArray);
                 }
@@ -1289,6 +1303,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                         //dropCard.SetCanvas();
 
                     }
+                    
                 }
             }
             else
@@ -1311,7 +1326,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                     //isAviableToMove = true;
                     // photonView.RPC("TakeCardsFromTalon", RpcTarget.Others, listArray);
                       RecordBoard._instance.photonView.RPC("TakeCardsFromTalon", RpcTarget.All, listArray);
-                   
+                    return true;
                     //  Debug.Log("val:"+ ListOfTakenCards.Count);
                     //RecordBoard._instance.TakeCardsFromTalon(listArray);
                 }
@@ -1324,7 +1339,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                     //  photonView.RPC("TakeCardsFromTalon", RpcTarget.Others, listArray);
                        RecordBoard._instance.photonView.RPC("TakeCardsFromTalon", RpcTarget.All, listArray);
-                   
+                    return true;
                     //RecordBoard._instance.TakeCardsFromTalon(listArray);
                 }
                 else
@@ -1375,7 +1390,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                     //photonView.RPC("TakeCardsZing", RpcTarget.Others, listArray);
                        RecordBoard._instance.photonView.RPC("TakeCardsZing", RpcTarget.All, listArray);
-                   
+                    return true;
                     //RecordBoard._instance.TakeCardsZing(listArray);
 
                 }
@@ -1385,7 +1400,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                     //photonView.RPC("TakeCardsFromTalon", RpcTarget.Others, listArray);
                        RecordBoard._instance.photonView.RPC("TakeCardsFromTalon", RpcTarget.All, listArray);
-                   
+                    return true;
                     //RecordBoard._instance.TakeCardsFromTalon(listArray);
                 }
                 else
@@ -1420,7 +1435,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                     // photonView.RPC("TakeCardsFromTalon", RpcTarget.Others, listArray);
                       RecordBoard._instance.photonView.RPC("TakeCardsFromTalon", RpcTarget.All, listArray);
-                   
+                    return true;
                     //RecordBoard._instance.TakeCardsFromTalon(listArray);
                     //  Debug.Log("val:"+ ListOfTakenCards.Count);
                 }
@@ -1433,7 +1448,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                     //photonView.RPC("TakeCardsFromTalon", RpcTarget.Others, listArray);
                      RecordBoard._instance.photonView.RPC("TakeCardsFromTalon", RpcTarget.All, listArray);
-                   
+                    return true;
                     //RecordBoard._instance.TakeCardsFromTalon(listArray);
                 }
                 else
@@ -1448,6 +1463,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                 }
             }
         }
+        return false;
     }
 
     [PunRPC]

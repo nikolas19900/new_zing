@@ -249,6 +249,7 @@ public  class FirstCardObject : MonoBehaviour
        
         Destroy(transform.gameObject);
 
+        GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others);
         // player._listOfCards.Add(NameOfPrefab);
         //var list = BeginningOfGame.player.GetOfListOfCards();
         var list = GameScript.player.GetOfListOfCards();
@@ -271,15 +272,20 @@ public  class FirstCardObject : MonoBehaviour
 
         TimeOfMoveObject.DeactiveGameObject();
         GameScript.player.DeactivateTimeOfMove();
-        GameScript.player.PickUpCardsFromDeck();
+        bool isPickedUp = GameScript.player.PickUpCardsFromDeck();
+        if (isPickedUp)
+        {
+            GameScript.player.photonView.RPC("CleanDesk", RpcTarget.Others);
+        }
+        GameScript.player.photonView.RPC("ActivatePlayerToPlay", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName);
 
-       
+       //ukoliko je ponio sa stola mora da pocisti sto
         //BeginningOfGame.player.SetListOfCards(list);
         //BeginningOfGame.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, _currentCard.transform.position, countOfClick);
         GameScript.player.SetListOfCards(list);
         // GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, _currentCard.transform.position, countOfClick);
         // GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName, PhotonNetwork.LocalPlayer.CustomProperties["Picture"]);
-        GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName, PhotonNetwork.LocalPlayer.CustomProperties["Picture"]);
+        
 
 
         countClick++;
