@@ -258,26 +258,35 @@ public  class FirstCardObject : MonoBehaviour
         // Debug.Log("prosla karta:" + list.Count);
         //BeginningOfGame.player.SetListOfCards(list);
         //BeginningOfGame.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, positionOfCurrentCard, countClick);
-        GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName, PhotonNetwork.LocalPlayer.CustomProperties["Picture"]);
+        
+        foreach (Transform element in tv.transform)
+        {
 
-        GameScript.player.SetListOfCards(list);
-        GameScript.player.PickUpCardsFromDeck();
+            element.GetComponent<EventTrigger>().enabled = false;
+
+            //    //var firstCard = element.Find("FirstCardSelected").gameObject;
+            //    //firstCard.active = false;
+
+        }
+
         TimeOfMoveObject.DeactiveGameObject();
         GameScript.player.DeactivateTimeOfMove();
+        GameScript.player.PickUpCardsFromDeck();
 
-       countClick++;
+       
+        //BeginningOfGame.player.SetListOfCards(list);
+        //BeginningOfGame.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, _currentCard.transform.position, countOfClick);
+        GameScript.player.SetListOfCards(list);
+        // GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, _currentCard.transform.position, countOfClick);
+        // GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName, PhotonNetwork.LocalPlayer.CustomProperties["Picture"]);
+        GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName, PhotonNetwork.LocalPlayer.CustomProperties["Picture"]);
+
+
+        countClick++;
 
         //Debug.Log("protivnicka strana" + tv.transform.childCount);
 
-       foreach (Transform element in tv.transform)
-        {
-           
-            element.GetComponent<EventTrigger>().enabled = false;
-
-        //    //var firstCard = element.Find("FirstCardSelected").gameObject;
-        //    //firstCard.active = false;
-
-        }
+       
 
 
     }  

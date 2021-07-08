@@ -68,22 +68,6 @@ public class TimeOfMoveRefactor : MonoBehaviour
         list.Add(CardName);
         // Debug.Log("prosla karta:" + list.Count);
 
-
-
-        //BeginningOfGame.player.SetListOfCards(list);
-        //BeginningOfGame.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, _currentCard.transform.position, countOfClick);
-        GameScript.player.SetListOfCards(list);
-        // GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, _currentCard.transform.position, countOfClick);
-        // GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName, PhotonNetwork.LocalPlayer.CustomProperties["Picture"]);
-        GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName, PhotonNetwork.LocalPlayer.CustomProperties["Picture"]);
-
-        GameScript.player.PickUpCardsFromDeck();
-        TimeOfMoveObject.DeactiveGameObject();
-        GameScript.player.DeactivateTimeOfMove();
-        countOfClick++;
-
-        Destroy(_tempTransoformCard.gameObject);
-
         foreach (Transform element in tv.transform)
         {
             // Debug.Log(i++);
@@ -92,6 +76,26 @@ public class TimeOfMoveRefactor : MonoBehaviour
             //firstCard.active = false;
 
         }
+
+        TimeOfMoveObject.DeactiveGameObject();
+        GameScript.player.DeactivateTimeOfMove();
+        GameScript.player.PickUpCardsFromDeck();
+
+        countOfClick++;
+
+        Destroy(_tempTransoformCard.gameObject);
+        //BeginningOfGame.player.SetListOfCards(list);
+        //BeginningOfGame.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, _currentCard.transform.position, countOfClick);
+        GameScript.player.SetListOfCards(list);
+        // GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, _currentCard.transform.position, countOfClick);
+        // GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName, PhotonNetwork.LocalPlayer.CustomProperties["Picture"]);
+        GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName, PhotonNetwork.LocalPlayer.CustomProperties["Picture"]);
+
+       
+
+        
+
+      
 
     }
 

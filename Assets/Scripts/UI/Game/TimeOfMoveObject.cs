@@ -79,13 +79,13 @@ public class TimeOfMoveObject : MonoBehaviour
             {
                 SizeOfCanvas = GameScript.player.GetFirstDeck();
                 countClick = SizeOfCanvas.transform.childCount;
-
+                GameScript.player.DeactivateTimeOfMove();
                 gameObject.active = false;
-                tempTimer = 0;
+                DeactiveGameObject();
                 
                 TimeOfMoveRefactor timeOfMove = new TimeOfMoveRefactor(SizeOfCanvas, countClick);
                 timeOfMove.ConfigureDroppedCard();
-               
+                
                 return;
             }
 
