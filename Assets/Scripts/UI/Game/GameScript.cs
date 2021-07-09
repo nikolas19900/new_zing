@@ -255,15 +255,17 @@ public class GameScript : MonoBehaviourPunCallbacks
             {
                 //vazno !!!!!!!!!!!!
                 
-                if (players[current.Key].CustomProperties["State"].Equals("inactive"))
+                if (players[current.Key].CustomProperties["State"].Equals("inactive") || players[current.Key].IsInactive)
                 {
                     if (players[current.Key].IsMasterClient && isGameStarted == false)
                     {
                         _currentPhotonView.RPC("SwitchAllSceneAndLeave", RpcTarget.Others);
                     }
                     //ako jedan od igraca nije aktivan aktivirace se ova linija koda
-                    // Debug.Log("radi");
+                     Debug.Log("ovaj igrac nije aktivan:"+ players[current.Key].NickName);
                     //_currentPhotonView.RPC("ReadLine", players[current.Key]);
+
+
                 }
 
                 
