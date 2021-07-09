@@ -372,6 +372,14 @@ namespace Assets.Scripts.UI.Game
                 _zingsRedValue.text = zing;
                 _totalPointsRedValue.text = total;
             }
+
+            foreach (Transform transform in SizeOfCanvas.transform)
+            {
+
+                GameObject tempGameObject = transform.gameObject;
+
+                Destroy(transform.gameObject);
+            }
         }
 
 
