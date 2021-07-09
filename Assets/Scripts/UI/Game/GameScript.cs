@@ -255,7 +255,7 @@ public class GameScript : MonoBehaviourPunCallbacks
             {
                 //vazno !!!!!!!!!!!!
                 Debug.Log("ukupno:" + players.Count);
-                if (players[current.Key].CustomProperties["State"].Equals("inactive") || !players[current.Key].IsInactive)
+                if (players[current.Key].CustomProperties["State"].Equals("inactive") || players[current.Key].IsInactive)
                 {
                     if (players[current.Key].IsMasterClient && isGameStarted == false)
                     {
