@@ -185,6 +185,9 @@ namespace Assets.Scripts.UI.Game
                         PhotonNetwork.CurrentRoom.Players[vv.Key].SetCustomProperties(hash);
                     }
                 }
+
+                _tempPhoton.RPC("UpdateTableRecord", RpcTarget.Others, PhotonNetwork.LocalPlayer.CustomProperties["Team"], _cardsValue.text,
+                    _pointsValue.text, _zingsValue.text, _totalPointsValue.text);
             }
             else
             {
@@ -219,6 +222,9 @@ namespace Assets.Scripts.UI.Game
                         PhotonNetwork.CurrentRoom.Players[vv.Key].SetCustomProperties(hash);
                     }
                 }
+                
+                _tempPhoton.RPC("UpdateTableRecord", RpcTarget.Others, PhotonNetwork.LocalPlayer.CustomProperties["Team"], _cardsRedValue.text,
+                    _pointsRedValue.text,_zingsRedValue.text,_totalPointsRedValue.text);
             }
             //if (firstInteration)
             //{
@@ -349,6 +355,25 @@ namespace Assets.Scripts.UI.Game
             //Debug.Log("igrac ponio ukupno:" + BeginningOfGame.ListOfTakenCards.Count);
         }
 
+        [PunRPC]
+        public void UpdateTableRecord(string strana,string cards,string points,string zing,string total)
+        {
+            if (strana.Equals("Blue"))
+            {
+                _cardsValue.text = cards;
+                _pointsValue.text = points;
+                _zingsValue.text = zing;
+                _totalPointsValue.text = total;
+            }
+            else
+            {
+                _cardsRedValue.text = cards;
+                _pointsRedValue.text = points;
+                _zingsRedValue.text = zing;
+                _totalPointsRedValue.text = total;
+            }
+        }
+
 
         [PunRPC]
         public void TakeCardsZing(string[] listArray)
@@ -413,6 +438,9 @@ namespace Assets.Scripts.UI.Game
                     }
                 }
 
+                _tempPhoton.RPC("UpdateTableRecord", RpcTarget.Others, PhotonNetwork.LocalPlayer.CustomProperties["Team"], _cardsValue.text,
+                   _pointsValue.text, _zingsValue.text, _totalPointsValue.text);
+
             }
             else
             {
@@ -444,6 +472,9 @@ namespace Assets.Scripts.UI.Game
                         PhotonNetwork.CurrentRoom.Players[vv.Key].SetCustomProperties(hash);
                     }
                 }
+
+                _tempPhoton.RPC("UpdateTableRecord", RpcTarget.Others, PhotonNetwork.LocalPlayer.CustomProperties["Team"], _cardsRedValue.text,
+                   _pointsRedValue.text, _zingsRedValue.text, _totalPointsRedValue.text);
             }
 
           

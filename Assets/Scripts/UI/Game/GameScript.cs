@@ -1308,7 +1308,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                     //player.TimeOfMove.active = true;
                     //isAviableToMove = true;
                     //photonView.RPC("TakeCardsZing", RpcTarget.Others, listArray);
-                     RecordBoard._instance.photonView.RPC("TakeCardsZing", RpcTarget.All, listArray);
+                     RecordBoard._instance.photonView.RPC("TakeCardsZing", PhotonNetwork.LocalPlayer, listArray);
                     return true;
                     //RecordBoard._instance.TakeCardsZing(listArray);
                 }
@@ -1318,7 +1318,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                     //player.TimeOfMove.active = true;
                     //isAviableToMove = true;
-                      RecordBoard._instance.photonView.RPC("TakeCardsFromTalon", RpcTarget.All, listArray);
+                      RecordBoard._instance.photonView.RPC("TakeCardsFromTalon", PhotonNetwork.LocalPlayer, listArray);
                     return true;
                     //photonView.RPC("TakeCardsFromTalon", RpcTarget.Others, listArray);
                     //RecordBoard._instance.TakeCardsFromTalon(listArray);
@@ -1354,7 +1354,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                     //player.TimeOfMove.active = true;
                     //isAviableToMove = true;
                     // photonView.RPC("TakeCardsFromTalon", RpcTarget.Others, listArray);
-                      RecordBoard._instance.photonView.RPC("TakeCardsFromTalon", RpcTarget.All, listArray);
+                      RecordBoard._instance.photonView.RPC("TakeCardsFromTalon", PhotonNetwork.LocalPlayer, listArray);
                     return true;
                     //  Debug.Log("val:"+ ListOfTakenCards.Count);
                     //RecordBoard._instance.TakeCardsFromTalon(listArray);
@@ -1367,7 +1367,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                     //isAviableToMove = true;
 
                     //  photonView.RPC("TakeCardsFromTalon", RpcTarget.Others, listArray);
-                       RecordBoard._instance.photonView.RPC("TakeCardsFromTalon", RpcTarget.All, listArray);
+                       RecordBoard._instance.photonView.RPC("TakeCardsFromTalon", PhotonNetwork.LocalPlayer, listArray);
                     return true;
                     //RecordBoard._instance.TakeCardsFromTalon(listArray);
                 }
@@ -1418,7 +1418,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                     //isAviableToMove = true;
 
                     //photonView.RPC("TakeCardsZing", RpcTarget.Others, listArray);
-                       RecordBoard._instance.photonView.RPC("TakeCardsZing", RpcTarget.All, listArray);
+                       RecordBoard._instance.photonView.RPC("TakeCardsZing", PhotonNetwork.LocalPlayer, listArray);
                     return true;
                     //RecordBoard._instance.TakeCardsZing(listArray);
 
@@ -1428,7 +1428,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                     string[] listArray = dropCard.TakeActionJDropped();
 
                     //photonView.RPC("TakeCardsFromTalon", RpcTarget.Others, listArray);
-                       RecordBoard._instance.photonView.RPC("TakeCardsFromTalon", RpcTarget.All, listArray);
+                       RecordBoard._instance.photonView.RPC("TakeCardsFromTalon", PhotonNetwork.LocalPlayer, listArray);
                     return true;
                     //RecordBoard._instance.TakeCardsFromTalon(listArray);
                 }
@@ -1463,7 +1463,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                     //isAviableToMove = true;
 
                     // photonView.RPC("TakeCardsFromTalon", RpcTarget.Others, listArray);
-                      RecordBoard._instance.photonView.RPC("TakeCardsFromTalon", RpcTarget.All, listArray);
+                      RecordBoard._instance.photonView.RPC("TakeCardsFromTalon", PhotonNetwork.LocalPlayer, listArray);
                     return true;
                     //RecordBoard._instance.TakeCardsFromTalon(listArray);
                     //  Debug.Log("val:"+ ListOfTakenCards.Count);
@@ -1476,7 +1476,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                     //isAviableToMove = true;
 
                     //photonView.RPC("TakeCardsFromTalon", RpcTarget.Others, listArray);
-                     RecordBoard._instance.photonView.RPC("TakeCardsFromTalon", RpcTarget.All, listArray);
+                     RecordBoard._instance.photonView.RPC("TakeCardsFromTalon", PhotonNetwork.LocalPlayer, listArray);
                     return true;
                     //RecordBoard._instance.TakeCardsFromTalon(listArray);
                 }
