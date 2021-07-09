@@ -255,7 +255,7 @@ public class GameScript : MonoBehaviourPunCallbacks
             {
                 //vazno !!!!!!!!!!!!
                 Debug.Log("ukupno:" + players.Count);
-                if (players[current.Key].CustomProperties["State"].Equals("inactive") || players[current.Key].IsInactive)
+                if (players[current.Key].CustomProperties["State"].Equals("inactive") )
                 {
                     if (players[current.Key].IsMasterClient && isGameStarted == false)
                     {
@@ -268,6 +268,25 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                 }
 
+                
+            }
+            if(players.Count < 4) { 
+                List<string> listOfPlayers = new List<string>();
+                listOfPlayers.Add(PhotonNetwork.LocalPlayer.NickName);
+                listOfPlayers.Add(FirstPlayerName.text);
+                listOfPlayers.Add(SecondPlayerName.text);
+                listOfPlayers.Add(ThirdPlayerName.text);
+                foreach(var play in listOfPlayers)
+                {
+                    foreach (var current in players)
+                    {
+                        if (!play.Equals(players[current.Key].NickName))
+                        {
+                            Debug.Log("igrac nije aktivan:" + play);
+                        }
+                    }
+
+                }
                 
             }
 
