@@ -270,21 +270,27 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                 
             }
-            if(players.Count < 4) { 
+            if(players.Count < 4 && isGameStarted) { 
                 List<string> listOfPlayers = new List<string>();
                 listOfPlayers.Add(PhotonNetwork.LocalPlayer.NickName);
                 listOfPlayers.Add(FirstPlayerName.text);
                 listOfPlayers.Add(SecondPlayerName.text);
                 listOfPlayers.Add(ThirdPlayerName.text);
-                foreach(var play in listOfPlayers)
+                List<string> temp = new List<string>();
+
+                foreach (var current in players)
                 {
-                    foreach (var current in players)
+                    temp.Add(players[current.Key].NickName);
+                    
+                }
+
+                foreach (var play in listOfPlayers)
+                {
+                    if (!temp.Contains(play))
                     {
-                        if (!play.Equals(players[current.Key].NickName))
-                        {
-                            Debug.Log("igrac nije aktivan:" + play);
-                        }
+                        Debug.Log("ovaj igrac nije aktican:" + play);
                     }
+                    
 
                 }
                 
