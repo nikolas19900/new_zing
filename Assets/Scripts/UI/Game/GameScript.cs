@@ -159,6 +159,8 @@ public class GameScript : MonoBehaviourPunCallbacks
     void Start()
     {
 
+        RemainingCardsList = new List<string>();
+
         ParseJson json = new ParseJson();
         var root = json.DeserializeGame();
 
@@ -288,7 +290,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                 {
                     if (!temp.Contains(play))
                     {
-                        Debug.Log("ovaj igrac nije aktican:" + play);
+                       // Debug.Log("ovaj igrac nije aktican:" + play);
                     }
                     
 
@@ -530,9 +532,9 @@ public class GameScript : MonoBehaviourPunCallbacks
                             byte[] valuePicture4 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Picture"];
                             tex4.LoadImage(valuePicture4);
                                 
-                                FirstPlayerImage.GetComponent<ImageByte>().SetBytes(valuePicture4);
+                            FirstPlayerImage.GetComponent<ImageByte>().SetBytes(valuePicture4);
                                 
-                                UnityEngine.UI.Image ProfilePic4 = FirstPlayerImage.GetComponent<UnityEngine.UI.Image>();
+                            UnityEngine.UI.Image ProfilePic4 = FirstPlayerImage.GetComponent<UnityEngine.UI.Image>();
                             ProfilePic4.sprite = Sprite.Create(tex4, new Rect(0, 0, 83, 87), new Vector2());
 
                             FirstPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName ;
@@ -875,9 +877,10 @@ public class GameScript : MonoBehaviourPunCallbacks
 
     [PunRPC]
     public void SetInstanceOfCurrentPlayer(int value,string[] cardsOfFirstPlayer, 
-        string[] cardsOfSecondPlayer, string[] cardsOfThirdPlayer,string[] cardsOfFourthPlayer)
+        string[] cardsOfSecondPlayer, string[] cardsOfThirdPlayer,string[] cardsOfFourthPlayer,string[] RemaingCards)
     {
         currentInstance = value;
+        RemainingCardsList = RemaingCards.ToList();
         if(currentInstance == 1)
         {
             _cardsOfFirstPlayer = cardsOfFirstPlayer.ToList();
@@ -1230,7 +1233,7 @@ public class GameScript : MonoBehaviourPunCallbacks
             foreach(var temp in players)
             {
                 _currentPhotonView.RPC("SetInstanceOfCurrentPlayer", temp.Value,tempValue, _cardsOfFirstPlayer.ToArray(), cardsOfSecondPlayer.ToArray(),
-                    cardsOfThirdPlayer.ToArray(),cardsOfFourthPlayer.ToArray());
+                    cardsOfThirdPlayer.ToArray(),cardsOfFourthPlayer.ToArray(),RemainingCardsList.ToArray());
                 tempValue++;
 
             }
@@ -1600,7 +1603,23 @@ public class GameScript : MonoBehaviourPunCallbacks
        
     }
 
-
+    [PunRPC]
+    public void SetListForRequiredPlayer(int instance,string[] tempList)
+    {
+        if(instance == 1)
+        {
+            _cardsOfFirstPlayer = tempList.ToList();
+        }else if(instance == 2)
+        {
+            _cardsOfSecondPlayer = tempList.ToList();
+        }else if(instance == 3)
+        {
+            _cardsOfThirdPlayer = tempList.ToList();
+        }else if(instance == 4)
+        {
+            _cardsOfFourthPlayer = tempList.ToList();
+        }
+    }
    
 
     public void DeleteLastFourTalonCards()
@@ -1640,5 +1659,53 @@ public class GameScript : MonoBehaviourPunCallbacks
     {
         TimeOfMove.SetActive(true);
     }
+
+    public int GetCurrentInstance()
+    {
+        return currentInstance;
+    }
+
+    public void SetCurrentInstance(int instance)
+    {
+        currentInstance = instance;
+    }
+    public List<string> GetCardsOfFirstPlayer()
+    {
+        return _cardsOfFirstPlayer;
+    }
+    
+    public void SetCardsOfFirstPlayer(List<string> cards)
+    {
+        _cardsOfFirstPlayer = cards;
+    }
+    public List<string> GetCardsOfSecondPlayer()
+    {
+        return _cardsOfSecondPlayer;
+    }
+    public void SetCardsOfSecondPlayer(List<string> cards)
+    {
+        _cardsOfSecondPlayer = cards;
+    }
+
+    public List<string> GetCardsOfThirdPlayer()
+    {
+        return _cardsOfThirdPlayer;
+    }
+
+    public void SetCardsOfThirdPlayer(List<string> cards)
+    {
+        _cardsOfThirdPlayer = cards;
+    }
+
+    public List<string> GetCardsOfFourthPlayer()
+    {
+        return _cardsOfFourthPlayer;
+    }
+
+    public void SetCardsOfFourthPlayer(List<string> cards)
+    {
+        _cardsOfFourthPlayer = cards;
+    }
+   
 
 }

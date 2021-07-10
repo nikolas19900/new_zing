@@ -14,14 +14,14 @@ public class TimeOfMoveObject : MonoBehaviour
     bool isTimerGone = false;
     public static TimeOfMoveObject _instance;
     
-    public static int countClick = 1;
+  //  public static int countClick = 1;
     Canvas SizeOfCanvas;
     // Start is called before the first frame update
     void Start()
     {
         
         SizeOfCanvas = GameScript.player.GetFirstDeck();
-        countClick = SizeOfCanvas.transform.childCount;
+       // countClick = SizeOfCanvas.transform.childCount;
         if (_instance == null)
         {
             _instance = this;
@@ -78,12 +78,12 @@ public class TimeOfMoveObject : MonoBehaviour
             if (seconds == 0)
             {
                 SizeOfCanvas = GameScript.player.GetFirstDeck();
-                countClick = SizeOfCanvas.transform.childCount;
+                //countClick = SizeOfCanvas.transform.childCount;
                 GameScript.player.DeactivateTimeOfMove();
                 gameObject.active = false;
                 DeactiveGameObject();
                 
-                TimeOfMoveRefactor timeOfMove = new TimeOfMoveRefactor(SizeOfCanvas, countClick);
+                TimeOfMoveRefactor timeOfMove = new TimeOfMoveRefactor(SizeOfCanvas);
                 timeOfMove.ConfigureDroppedCard();
                 
                 return;

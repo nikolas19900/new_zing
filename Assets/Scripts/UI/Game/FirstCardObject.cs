@@ -18,7 +18,7 @@ public  class FirstCardObject : MonoBehaviour
     private System.Random _random;
    
     Canvas SizeOfCanvas;
-    public static int countClick = 1;
+   // public static int countClick = 1;
 
     
    
@@ -41,7 +41,7 @@ public  class FirstCardObject : MonoBehaviour
 
         // Debug.Log("velicina:" + BeginningOfGame.enemy.SizeOfFirstDeck());
       //  Debug.Log("velicina:" + value.transform.childCount);
-        countClick = SizeOfCanvas.transform.childCount;
+       // countClick = SizeOfCanvas.transform.childCount;
     }
 
     // Update is called once per frame
@@ -249,11 +249,42 @@ public  class FirstCardObject : MonoBehaviour
        
         Destroy(transform.gameObject);
 
+        if(GameScript.player.GetCurrentInstance() == 1)
+        {
+            var list = GameScript.player.GetCardsOfFirstPlayer();
+            list.Remove(CardName);
+            GameScript.player.SetCardsOfFirstPlayer(list);
+            //saljem trenutnu instancu i svima kojima je jedan azuriram listu. i tako isto sa ostalim listama.
+            GameScript.player.photonView.RPC("SetListForRequiredPlayer", RpcTarget.Others, GameScript.player.GetCurrentInstance(), list.ToArray());
+
+        }
+        else if(GameScript.player.GetCurrentInstance() == 2)
+        {
+            var list = GameScript.player.GetCardsOfSecondPlayer();
+            list.Remove(CardName);
+            GameScript.player.SetCardsOfSecondPlayer(list);
+            GameScript.player.photonView.RPC("SetListForRequiredPlayer", RpcTarget.Others, GameScript.player.GetCurrentInstance(), list.ToArray());
+        }
+        else if(GameScript.player.GetCurrentInstance() == 3)
+        {
+            var list = GameScript.player.GetCardsOfThirdPlayer();
+            list.Remove(CardName);
+            GameScript.player.SetCardsOfThirdPlayer(list);
+            GameScript.player.photonView.RPC("SetListForRequiredPlayer", RpcTarget.Others, GameScript.player.GetCurrentInstance(), list.ToArray());
+        }
+        else if(GameScript.player.GetCurrentInstance() == 4)
+        {
+            var list = GameScript.player.GetCardsOfFourthPlayer();
+            list.Remove(CardName);
+            GameScript.player.SetCardsOfFourthPlayer(list);
+            GameScript.player.photonView.RPC("SetListForRequiredPlayer", RpcTarget.Others, GameScript.player.GetCurrentInstance(), list.ToArray());
+        }
+
         GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others);
         // player._listOfCards.Add(NameOfPrefab);
         //var list = BeginningOfGame.player.GetOfListOfCards();
-        var list = GameScript.player.GetOfListOfCards();
-        list.Add(CardName);
+        //var list = GameScript.player.GetOfListOfCards();
+        //list.Add(CardName);
 
 
         // Debug.Log("prosla karta:" + list.Count);
@@ -282,13 +313,13 @@ public  class FirstCardObject : MonoBehaviour
        //ukoliko je ponio sa stola mora da pocisti sto
         //BeginningOfGame.player.SetListOfCards(list);
         //BeginningOfGame.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, _currentCard.transform.position, countOfClick);
-        GameScript.player.SetListOfCards(list);
+       // GameScript.player.SetListOfCards(list);
         // GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, _currentCard.transform.position, countOfClick);
         // GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName, PhotonNetwork.LocalPlayer.CustomProperties["Picture"]);
         
 
 
-        countClick++;
+       // countClick++;
 
         //Debug.Log("protivnicka strana" + tv.transform.childCount);
 

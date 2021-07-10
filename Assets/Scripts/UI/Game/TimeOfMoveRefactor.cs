@@ -14,10 +14,10 @@ public class TimeOfMoveRefactor : MonoBehaviour
     private Vector2 _endPoint;
     private float _landingToleranceRadius;
 
-    public TimeOfMoveRefactor(Canvas valueCanvas, int click)
+    public TimeOfMoveRefactor(Canvas valueCanvas)
     {
         _tempCanvas = valueCanvas;
-        countOfClick = click;
+        //countOfClick = click;
 
 
         _random = new System.Random();
@@ -63,11 +63,54 @@ public class TimeOfMoveRefactor : MonoBehaviour
         
         myBrick.transform.SetParent(_tempCanvas.transform);
 
+        Destroy(_tempTransoformCard.gameObject);
+        if (GameScript.player.GetCurrentInstance() == 1)
+        {
+            //treba kod projveriti da li radi dobro
+            
+            var list = GameScript.player.GetCardsOfFirstPlayer();
+            Debug.Log("ukupno 1:" + GameScript.player.GetCardsOfFirstPlayer());
+            list.Remove(CardName);
+            GameScript.player.SetCardsOfFirstPlayer(list);
+            Debug.Log("ukupno 12:" + GameScript.player.GetCardsOfFirstPlayer());
+            GameScript.player.photonView.RPC("SetListForRequiredPlayer", RpcTarget.Others, GameScript.player.GetCurrentInstance(), list.ToArray());
+
+        }
+        else if (GameScript.player.GetCurrentInstance() == 2)
+        {
+            var list = GameScript.player.GetCardsOfSecondPlayer();
+            Debug.Log("ukupno 2:" + GameScript.player.GetCardsOfSecondPlayer());
+            list.Remove(CardName);
+            GameScript.player.SetCardsOfSecondPlayer(list);
+            Debug.Log("ukupno 22:" + GameScript.player.GetCardsOfSecondPlayer());
+            GameScript.player.photonView.RPC("SetListForRequiredPlayer", RpcTarget.Others, GameScript.player.GetCurrentInstance(), list.ToArray());
+        }
+        else if (GameScript.player.GetCurrentInstance() == 3)
+        {
+            var list = GameScript.player.GetCardsOfThirdPlayer();
+            Debug.Log("ukupno 3:" + GameScript.player.GetCardsOfThirdPlayer());
+            list.Remove(CardName);
+            GameScript.player.SetCardsOfThirdPlayer(list);
+            Debug.Log("ukupno 32:" + GameScript.player.GetCardsOfThirdPlayer());
+
+            GameScript.player.photonView.RPC("SetListForRequiredPlayer", RpcTarget.Others, GameScript.player.GetCurrentInstance(), list.ToArray());
+        }
+        else if (GameScript.player.GetCurrentInstance() == 4)
+        {
+            var list = GameScript.player.GetCardsOfFourthPlayer();
+            Debug.Log("ukupno 4:" + GameScript.player.GetCardsOfFourthPlayer());
+            list.Remove(CardName);
+            GameScript.player.SetCardsOfFourthPlayer(list);
+            Debug.Log("ukupno 42:" + GameScript.player.GetCardsOfFourthPlayer());
+            GameScript.player.photonView.RPC("SetListForRequiredPlayer", RpcTarget.Others, GameScript.player.GetCurrentInstance(), list.ToArray());
+        }
+
+
         GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others);
 
         //var list = BeginningOfGame.player.GetOfListOfCards();
-        var list = GameScript.player.GetOfListOfCards();
-        list.Add(CardName);
+        //var list = GameScript.player.GetOfListOfCards();
+       // list.Add(CardName);
         // Debug.Log("prosla karta:" + list.Count);
 
         foreach (Transform element in tv.transform)
@@ -88,12 +131,12 @@ public class TimeOfMoveRefactor : MonoBehaviour
         }
         GameScript.player.photonView.RPC("ActivatePlayerToPlay", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName);
 
-        countOfClick++;
+      //  countOfClick++;
 
-        Destroy(_tempTransoformCard.gameObject);
+        
         //BeginningOfGame.player.SetListOfCards(list);
         //BeginningOfGame.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, _currentCard.transform.position, countOfClick);
-        GameScript.player.SetListOfCards(list);
+        //GameScript.player.SetListOfCards(list);
         // GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, _currentCard.transform.position, countOfClick);
         // GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName, PhotonNetwork.LocalPlayer.CustomProperties["Picture"]);
         
