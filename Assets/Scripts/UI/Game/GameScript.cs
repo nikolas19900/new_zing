@@ -256,7 +256,7 @@ public class GameScript : MonoBehaviourPunCallbacks
             foreach (var current in players)
             {
                 //vazno !!!!!!!!!!!!
-                Debug.Log("ukupno:" + players.Count);
+               
                 if (players[current.Key].CustomProperties["State"].Equals("inactive") )
                 {
                     if (players[current.Key].IsMasterClient && isGameStarted == false)
