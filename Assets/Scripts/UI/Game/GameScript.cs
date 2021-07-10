@@ -1604,23 +1604,36 @@ public class GameScript : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void SetListForRequiredPlayer(int instance,string[] tempList)
+    public void SetListForRequiredPlayerFirst(string[] tempList)
     {
-        if(instance == 1)
-        {
+      
             _cardsOfFirstPlayer = tempList.ToList();
-        }else if(instance == 2)
-        {
-            _cardsOfSecondPlayer = tempList.ToList();
-        }else if(instance == 3)
-        {
-            _cardsOfThirdPlayer = tempList.ToList();
-        }else if(instance == 4)
-        {
-            _cardsOfFourthPlayer = tempList.ToList();
-        }
     }
-   
+    [PunRPC]
+    public void SetListForRequiredPlayerSecond(string[] tempList)
+    {
+
+        _cardsOfSecondPlayer = tempList.ToList();
+
+    }
+
+    [PunRPC]
+    public void SetListForRequiredPlayerThird(string[] tempList)
+    {
+        
+        _cardsOfThirdPlayer = tempList.ToList();
+
+    }
+
+
+    [PunRPC]
+    public void SetListForRequiredPlayerFourth(string[] tempList)
+    {
+
+        _cardsOfFourthPlayer = tempList.ToList();
+
+    }
+
 
     public void DeleteLastFourTalonCards()
     {

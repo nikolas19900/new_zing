@@ -94,6 +94,10 @@ MonoBehaviour:
   - CleanDesk
   - UpdateTableRecord
   - SetListForRequiredPlayer
+  - SetListForRequiredPlayerFirst
+  - SetListForRequiredPlayerFourth
+  - SetListForRequiredPlayerSecond
+  - SetListForRequiredPlayerThird
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

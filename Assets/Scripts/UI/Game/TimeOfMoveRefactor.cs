@@ -73,7 +73,7 @@ public class TimeOfMoveRefactor : MonoBehaviour
             list.Remove(CardName);
             GameScript.player.SetCardsOfFirstPlayer(list);
             Debug.Log("ukupno 12:" + GameScript.player.GetCardsOfFirstPlayer());
-            GameScript.player.photonView.RPC("SetListForRequiredPlayer", RpcTarget.Others, GameScript.player.GetCurrentInstance(), list.ToArray());
+            GameScript.player.photonView.RPC("SetListForRequiredPlayerFirst", RpcTarget.Others,  list.ToArray());
 
         }
         else if (GameScript.player.GetCurrentInstance() == 2)
@@ -83,7 +83,7 @@ public class TimeOfMoveRefactor : MonoBehaviour
             list.Remove(CardName);
             GameScript.player.SetCardsOfSecondPlayer(list);
             Debug.Log("ukupno 22:" + GameScript.player.GetCardsOfSecondPlayer());
-            GameScript.player.photonView.RPC("SetListForRequiredPlayer", RpcTarget.Others, GameScript.player.GetCurrentInstance(), list.ToArray());
+            GameScript.player.photonView.RPC("SetListForRequiredPlayerSecond", RpcTarget.Others,  list.ToArray());
         }
         else if (GameScript.player.GetCurrentInstance() == 3)
         {
@@ -93,7 +93,7 @@ public class TimeOfMoveRefactor : MonoBehaviour
             GameScript.player.SetCardsOfThirdPlayer(list);
             Debug.Log("ukupno 32:" + GameScript.player.GetCardsOfThirdPlayer());
 
-            GameScript.player.photonView.RPC("SetListForRequiredPlayer", RpcTarget.Others, GameScript.player.GetCurrentInstance(), list.ToArray());
+            GameScript.player.photonView.RPC("SetListForRequiredPlayerThird", RpcTarget.Others, list.ToArray());
         }
         else if (GameScript.player.GetCurrentInstance() == 4)
         {
@@ -102,7 +102,7 @@ public class TimeOfMoveRefactor : MonoBehaviour
             list.Remove(CardName);
             GameScript.player.SetCardsOfFourthPlayer(list);
             Debug.Log("ukupno 42:" + GameScript.player.GetCardsOfFourthPlayer());
-            GameScript.player.photonView.RPC("SetListForRequiredPlayer", RpcTarget.Others, GameScript.player.GetCurrentInstance(), list.ToArray());
+            GameScript.player.photonView.RPC("SetListForRequiredPlayerFourth", RpcTarget.Others,  list.ToArray());
         }
 
 
