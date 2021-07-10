@@ -1232,6 +1232,10 @@ public class GameScript : MonoBehaviourPunCallbacks
             int tempValue = 1;
             foreach(var temp in players)
             {
+                ExitGames.Client.Photon.Hashtable hash = PhotonNetwork.CurrentRoom.Players[temp.Key].CustomProperties;
+                hash["Instance"] = tempValue;
+                PhotonNetwork.CurrentRoom.Players[temp.Key].SetCustomProperties(hash);
+                Debug.Log("u hash je setovana instanca:" + PhotonNetwork.CurrentRoom.Players[temp.Key].CustomProperties["Instance"]);
                 _currentPhotonView.RPC("SetInstanceOfCurrentPlayer", temp.Value,tempValue, _cardsOfFirstPlayer.ToArray(), cardsOfSecondPlayer.ToArray(),
                     cardsOfThirdPlayer.ToArray(),cardsOfFourthPlayer.ToArray(),RemainingCardsList.ToArray());
                 tempValue++;

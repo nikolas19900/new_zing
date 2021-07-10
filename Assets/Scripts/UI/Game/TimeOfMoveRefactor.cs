@@ -69,39 +69,39 @@ public class TimeOfMoveRefactor : MonoBehaviour
             //treba kod projveriti da li radi dobro
             
             var list = GameScript.player.GetCardsOfFirstPlayer();
-            Debug.Log("ukupno 1:" + GameScript.player.GetCardsOfFirstPlayer().Count);
+           
             list.Remove(CardName);
             GameScript.player.SetCardsOfFirstPlayer(list);
-            Debug.Log("ukupno 12:" + GameScript.player.GetCardsOfFirstPlayer().Count);
+           
             GameScript.player.photonView.RPC("SetListForRequiredPlayerFirst", RpcTarget.Others,  list.ToArray());
 
         }
         else if (GameScript.player.GetCurrentInstance() == 2)
         {
             var list = GameScript.player.GetCardsOfSecondPlayer();
-            Debug.Log("ukupno 2:" + GameScript.player.GetCardsOfSecondPlayer().Count);
+           
             list.Remove(CardName);
             GameScript.player.SetCardsOfSecondPlayer(list);
-            Debug.Log("ukupno 22:" + GameScript.player.GetCardsOfSecondPlayer().Count);
+           
             GameScript.player.photonView.RPC("SetListForRequiredPlayerSecond", RpcTarget.Others,  list.ToArray());
         }
         else if (GameScript.player.GetCurrentInstance() == 3)
         {
             var list = GameScript.player.GetCardsOfThirdPlayer();
-            Debug.Log("ukupno 3:" + GameScript.player.GetCardsOfThirdPlayer().Count);
+          
             list.Remove(CardName);
             GameScript.player.SetCardsOfThirdPlayer(list);
-            Debug.Log("ukupno 32:" + GameScript.player.GetCardsOfThirdPlayer().Count);
+         
 
             GameScript.player.photonView.RPC("SetListForRequiredPlayerThird", RpcTarget.Others, list.ToArray());
         }
         else if (GameScript.player.GetCurrentInstance() == 4)
         {
             var list = GameScript.player.GetCardsOfFourthPlayer();
-            Debug.Log("ukupno 4:" + GameScript.player.GetCardsOfFourthPlayer().Count);
+           
             list.Remove(CardName);
             GameScript.player.SetCardsOfFourthPlayer(list);
-            Debug.Log("ukupno 42:" + GameScript.player.GetCardsOfFourthPlayer().Count);
+           
             GameScript.player.photonView.RPC("SetListForRequiredPlayerFourth", RpcTarget.Others,  list.ToArray());
         }
 

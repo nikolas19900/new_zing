@@ -170,6 +170,7 @@ public class StartAction : MonoBehaviourPunCallbacks
         hash.Add("Zing", 0);
         hash.Add("Total", 0);
         hash.Add("State", "active");
+        hash.Add("Instance", 0);
 
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
     }
