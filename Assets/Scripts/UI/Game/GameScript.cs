@@ -325,7 +325,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                         Vector3 positionOfCurrentCard = new Vector3(x, y);
                         //GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabs/" + CardName, _currentCard.transform.position, Quaternion.identity);
 
-                        GameObject myBrick = Instantiate(_currentCard, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
+                        GameObject myBrick = Instantiate(card, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
 
 
 
@@ -370,7 +370,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                         Vector3 positionOfCurrentCard = new Vector3(x, y);
                         //GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabs/" + CardName, _currentCard.transform.position, Quaternion.identity);
 
-                        GameObject myBrick = Instantiate(_currentCard, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
+                        GameObject myBrick = Instantiate(card, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
 
 
 
@@ -418,7 +418,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                         Vector3 positionOfCurrentCard = new Vector3(x, y);
                         //GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabs/" + CardName, _currentCard.transform.position, Quaternion.identity);
 
-                        GameObject myBrick = Instantiate(_currentCard, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
+                        GameObject myBrick = Instantiate(card, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
 
 
 
@@ -463,7 +463,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                         Vector3 positionOfCurrentCard = new Vector3(x, y);
                         //GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabs/" + CardName, _currentCard.transform.position, Quaternion.identity);
 
-                        GameObject myBrick = Instantiate(_currentCard, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
+                        GameObject myBrick = Instantiate(card, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
 
 
                         myBrick.transform.SetParent(canvacesOfFirstDeck.transform);

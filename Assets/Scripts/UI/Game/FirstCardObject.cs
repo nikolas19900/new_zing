@@ -217,9 +217,9 @@ public  class FirstCardObject : MonoBehaviour
         var valueX = 300 * (1 - (-0.6)) + (-0.6);
         //float x = (float)(_endPoint.x + valueX  * _random.NextDouble() );
         float toleranceX = 2.3f;
-        float x = (float)(valueX + _random.Next(-20, 0) * toleranceX);
+        float x = (float) (valueX + _random.Next(-20, 0) * toleranceX);
         var value = 340 * (1.5 - 0.6) + 0.6;
-        float y = (float)(_endPoint.y + _random.Next(100, 150) * _landingToleranceRadius + value);
+        float y = (float) (_endPoint.y + _random.Next(100, 150) * _landingToleranceRadius + value);
 
         _currentCard.transform.position = new Vector3(x, y);
         Vector3 positionOfCurrentCard = new Vector3(x, y);
