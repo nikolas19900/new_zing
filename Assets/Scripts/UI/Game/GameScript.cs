@@ -397,9 +397,9 @@ public class GameScript : MonoBehaviourPunCallbacks
                     if (list.Count > 0)
                     {
 
-
+                        
                         var val = list[0];
-
+                        Debug.Log("vrijednost:" + val);
                         var tt = Resources.Load("Prefabs/CardPrefabsStartSvg/" + val);
 
                         GameObject card = (GameObject)tt;
