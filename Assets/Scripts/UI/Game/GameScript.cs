@@ -294,7 +294,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                 float _landingToleranceRadius = 0.3f;
                 Vector2 _endPoint = Vector2.zero;
-                if (!temp.Contains(1))
+                if (!temp.Contains(1) && SideOfTeam.MoveInstance == 1)
                 {
                     Debug.Log("broj:" + 1);
                     
@@ -342,7 +342,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                     }
                 }
 
-                 if (!temp.Contains(2))
+                 if (!temp.Contains(2) && SideOfTeam.MoveInstance == 2)
                 {
                     Debug.Log("usao sam 2");
                     var list = GetCardsOfSecondPlayer();
@@ -389,7 +389,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                     }
                 }
-                 if (!temp.Contains(3))
+                 if (!temp.Contains(3) && SideOfTeam.MoveInstance == 3)
                 {
 
                     var list = GetCardsOfThirdPlayer();
@@ -435,7 +435,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                     }
                 }
-                 if (!temp.Contains(4))
+                 if (!temp.Contains(4) && SideOfTeam.MoveInstance == 4)
                 {
                     Debug.Log("usao sam 4");
                     var list = GetCardsOfFourthPlayer();
@@ -1069,9 +1069,13 @@ public class GameScript : MonoBehaviourPunCallbacks
     {
         currentInstance = value;
         RemainingCardsList = RemaingCards.ToList();
-        if(currentInstance == 1)
+        _cardsOfFirstPlayer = cardsOfFirstPlayer.ToList();
+        _cardsOfSecondPlayer = cardsOfSecondPlayer.ToList();
+        _cardsOfThirdPlayer = cardsOfThirdPlayer.ToList();
+        _cardsOfFourthPlayer = cardsOfFourthPlayer.ToList();
+        if (currentInstance == 1)
         {
-            _cardsOfFirstPlayer = cardsOfFirstPlayer.ToList();
+           
 
             float multiplier = 1.2f;
 
@@ -1100,7 +1104,7 @@ public class GameScript : MonoBehaviourPunCallbacks
         }
         if(currentInstance == 2)
         {
-            _cardsOfSecondPlayer = cardsOfSecondPlayer.ToList();
+            
             float multiplier = 1.2f;
 
             foreach (var obj in _cardsOfSecondPlayer)
@@ -1126,7 +1130,7 @@ public class GameScript : MonoBehaviourPunCallbacks
         }
         if(currentInstance == 3)
         {
-            _cardsOfThirdPlayer = cardsOfThirdPlayer.ToList();
+            
 
             float multiplier = 1.2f;
 
@@ -1153,7 +1157,7 @@ public class GameScript : MonoBehaviourPunCallbacks
         }
         if(currentInstance == 4)
         {
-            _cardsOfFourthPlayer = cardsOfFourthPlayer.ToList();
+            
 
             float multiplier = 1.2f;
 
