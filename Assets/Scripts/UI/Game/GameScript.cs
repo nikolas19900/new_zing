@@ -292,200 +292,199 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                     }
 
-                    foreach (var play in listOfPlayers)
+                float _landingToleranceRadius = 0.3f;
+                Vector2 _endPoint = Vector2.zero;
+                if (!temp.Contains(1))
+                {
+                    Debug.Log("broj:" + 1);
+                    
+
+                    Debug.Log("usao sam 1");
+                    var list = GetCardsOfFirstPlayer();
+                    if (list.Count > 0)
                     {
-                        if (!temp.Contains(play))
-                        {
-                        Debug.Log("broj:" + play);
-                            float _landingToleranceRadius = 0.3f;
-                            Vector2 _endPoint = Vector2.zero;
-                            if ( play == 1)
-                            {
-                                Debug.Log("usao sam 1");
-                                var list = GetCardsOfFirstPlayer();
-                                if (list.Count > 0)
-                                {
 
 
-                                    var val = list[0];
+                        var val = list[0];
 
-                                    var tt = Resources.Load("Prefabs/CardPrefabsStartSvg/" + val);
+                        var tt = Resources.Load("Prefabs/CardPrefabsStartSvg/" + val);
 
-                                    GameObject card = (GameObject)tt;
+                        GameObject card = (GameObject)tt;
 
 
-                                    _random = new System.Random();
+                        _random = new System.Random();
 
-                                    var valueX = 300 * (1 - (-0.6)) + (-0.6);
+                        var valueX = 300 * (1 - (-0.6)) + (-0.6);
 
-                                    float toleranceX = 2.3f;
-                                    float x = (float)(valueX + _random.Next(-20, 0) * toleranceX);
-                                    var value = 340 * (1.5 - 0.6) + 0.6;
-                                    float y = (float)(_endPoint.y + _random.Next(100, 150) * _landingToleranceRadius + value);
+                        float toleranceX = 2.3f;
+                        float x = (float)(valueX + _random.Next(-20, 0) * toleranceX);
+                        var value = 340 * (1.5 - 0.6) + 0.6;
+                        float y = (float)(_endPoint.y + _random.Next(100, 150) * _landingToleranceRadius + value);
 
-                                    card.transform.position = new Vector3(x, y);
-                                    Vector3 positionOfCurrentCard = new Vector3(x, y);
-                                    //GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabs/" + CardName, _currentCard.transform.position, Quaternion.identity);
+                        card.transform.position = new Vector3(x, y);
+                        Vector3 positionOfCurrentCard = new Vector3(x, y);
+                        //GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabs/" + CardName, _currentCard.transform.position, Quaternion.identity);
 
-                                    GameObject myBrick = Instantiate(_currentCard, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
+                        GameObject myBrick = Instantiate(_currentCard, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
 
 
 
-                                    // Debug.Log("first card object:" + tv.transform.childCount);
+                        // Debug.Log("first card object:" + tv.transform.childCount);
 
-                                    myBrick.transform.SetParent(canvacesOfFirstDeck.transform);
+                        myBrick.transform.SetParent(canvacesOfFirstDeck.transform);
 
-                                    list.Remove(val);
-                                    SetCardsOfFirstPlayer(list);
-                                    SideOfTeam.MoveInstance = 2;
-                                    
-                                    photonView.RPC("SetListForRequiredPlayerFirst", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
+                        list.Remove(val);
+                        SetCardsOfFirstPlayer(list);
+                        SideOfTeam.MoveInstance = 2;
 
-                                }
-                            }
-                            else if (  play == 2)
-                            {
-                                Debug.Log("usao sam 2");
-                                var list = GetCardsOfSecondPlayer();
-                                if (list.Count > 0)
-                                {
+                        photonView.RPC("SetListForRequiredPlayerFirst", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
 
+                    }
+                }
 
-                                    var val = list[0];
+                 if (!temp.Contains(2))
+                {
+                    Debug.Log("usao sam 2");
+                    var list = GetCardsOfSecondPlayer();
+                    if (list.Count > 0)
+                    {
 
-                                    var tt = Resources.Load("Prefabs/CardPrefabsStartSvg/" + val);
 
-                                    GameObject card = (GameObject)tt;
+                        var val = list[0];
 
+                        var tt = Resources.Load("Prefabs/CardPrefabsStartSvg/" + val);
 
-                                    _random = new System.Random();
+                        GameObject card = (GameObject)tt;
 
-                                    var valueX = 300 * (1 - (-0.6)) + (-0.6);
 
-                                    float toleranceX = 2.3f;
-                                    float x = (float)(valueX + _random.Next(-20, 0) * toleranceX);
-                                    var value = 340 * (1.5 - 0.6) + 0.6;
-                                    float y = (float)(_endPoint.y + _random.Next(100, 150) * _landingToleranceRadius + value);
+                        _random = new System.Random();
 
-                                    card.transform.position = new Vector3(x, y);
-                                    Vector3 positionOfCurrentCard = new Vector3(x, y);
-                                    //GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabs/" + CardName, _currentCard.transform.position, Quaternion.identity);
+                        var valueX = 300 * (1 - (-0.6)) + (-0.6);
 
-                                    GameObject myBrick = Instantiate(_currentCard, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
+                        float toleranceX = 2.3f;
+                        float x = (float)(valueX + _random.Next(-20, 0) * toleranceX);
+                        var value = 340 * (1.5 - 0.6) + 0.6;
+                        float y = (float)(_endPoint.y + _random.Next(100, 150) * _landingToleranceRadius + value);
 
+                        card.transform.position = new Vector3(x, y);
+                        Vector3 positionOfCurrentCard = new Vector3(x, y);
+                        //GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabs/" + CardName, _currentCard.transform.position, Quaternion.identity);
 
+                        GameObject myBrick = Instantiate(_currentCard, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
 
-                                    // Debug.Log("first card object:" + tv.transform.childCount);
 
-                                    myBrick.transform.SetParent(canvacesOfFirstDeck.transform);
 
-                                    list.Remove(val);
-                                    SetCardsOfSecondPlayer(list);
+                        // Debug.Log("first card object:" + tv.transform.childCount);
 
-                 
+                        myBrick.transform.SetParent(canvacesOfFirstDeck.transform);
 
-                                    SideOfTeam.MoveInstance = 3;
+                        list.Remove(val);
+                        SetCardsOfSecondPlayer(list);
 
-                                    photonView.RPC("SetListForRequiredPlayerSecond", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
 
-                                }
-                            }
-                            else if (play == 3)
-                            {
-                                
-                                var list = GetCardsOfThirdPlayer();
-                                Debug.Log("usao sam 3"+list.Count);
-                            if (list.Count > 0)
-                                {
 
+                        SideOfTeam.MoveInstance = 3;
 
-                                    var val = list[0];
+                        photonView.RPC("SetListForRequiredPlayerSecond", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
 
-                                    var tt = Resources.Load("Prefabs/CardPrefabsStartSvg/" + val);
+                    }
+                }
+                 if (!temp.Contains(3))
+                {
 
-                                    GameObject card = (GameObject)tt;
+                    var list = GetCardsOfThirdPlayer();
+                    Debug.Log("usao sam 3" + list.Count);
+                    if (list.Count > 0)
+                    {
 
 
-                                    _random = new System.Random();
+                        var val = list[0];
 
-                                    var valueX = 300 * (1 - (-0.6)) + (-0.6);
+                        var tt = Resources.Load("Prefabs/CardPrefabsStartSvg/" + val);
 
-                                    float toleranceX = 2.3f;
-                                    float x = (float)(valueX + _random.Next(-20, 0) * toleranceX);
-                                    var value = 340 * (1.5 - 0.6) + 0.6;
-                                    float y = (float)(_endPoint.y + _random.Next(100, 150) * _landingToleranceRadius + value);
+                        GameObject card = (GameObject)tt;
 
-                                    card.transform.position = new Vector3(x, y);
-                                    Vector3 positionOfCurrentCard = new Vector3(x, y);
-                                    //GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabs/" + CardName, _currentCard.transform.position, Quaternion.identity);
 
-                                    GameObject myBrick = Instantiate(_currentCard, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
+                        _random = new System.Random();
 
+                        var valueX = 300 * (1 - (-0.6)) + (-0.6);
 
+                        float toleranceX = 2.3f;
+                        float x = (float)(valueX + _random.Next(-20, 0) * toleranceX);
+                        var value = 340 * (1.5 - 0.6) + 0.6;
+                        float y = (float)(_endPoint.y + _random.Next(100, 150) * _landingToleranceRadius + value);
 
-                                    // Debug.Log("first card object:" + tv.transform.childCount);
+                        card.transform.position = new Vector3(x, y);
+                        Vector3 positionOfCurrentCard = new Vector3(x, y);
+                        //GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabs/" + CardName, _currentCard.transform.position, Quaternion.identity);
 
-                                    myBrick.transform.SetParent(canvacesOfFirstDeck.transform);
+                        GameObject myBrick = Instantiate(_currentCard, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
 
-                                    list.Remove(val);
-                                    SetCardsOfThirdPlayer(list);
-                                    SideOfTeam.MoveInstance = 4;
 
-                                    photonView.RPC("SetListForRequiredPlayerThird", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
-                                    
 
-                                }
-                            }
-                            else if ( play == 4)
-                            {
-                                Debug.Log("usao sam 4");
-                                var list = GetCardsOfFourthPlayer();
-                                if (list.Count > 0)
-                                {
+                        // Debug.Log("first card object:" + tv.transform.childCount);
 
+                        myBrick.transform.SetParent(canvacesOfFirstDeck.transform);
 
-                                    var val = list[0];
+                        list.Remove(val);
+                        SetCardsOfThirdPlayer(list);
+                        SideOfTeam.MoveInstance = 4;
 
-                                    var tt = Resources.Load("Prefabs/CardPrefabsStartSvg/" + val);
+                        photonView.RPC("SetListForRequiredPlayerThird", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
 
-                                    GameObject card = (GameObject)tt;
 
+                    }
+                }
+                 if (!temp.Contains(4))
+                {
+                    Debug.Log("usao sam 4");
+                    var list = GetCardsOfFourthPlayer();
+                    if (list.Count > 0)
+                    {
 
-                                    _random = new System.Random();
 
-                                    var valueX = 300 * (1 - (-0.6)) + (-0.6);
+                        var val = list[0];
 
-                                    float toleranceX = 2.3f;
-                                    float x = (float)(valueX + _random.Next(-20, 0) * toleranceX);
-                                    var value = 340 * (1.5 - 0.6) + 0.6;
-                                    float y = (float)(_endPoint.y + _random.Next(100, 150) * _landingToleranceRadius + value);
+                        var tt = Resources.Load("Prefabs/CardPrefabsStartSvg/" + val);
 
-                                    card.transform.position = new Vector3(x, y);
-                                    Vector3 positionOfCurrentCard = new Vector3(x, y);
-                                    //GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabs/" + CardName, _currentCard.transform.position, Quaternion.identity);
+                        GameObject card = (GameObject)tt;
 
-                                    GameObject myBrick = Instantiate(_currentCard, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
 
+                        _random = new System.Random();
 
-                                    myBrick.transform.SetParent(canvacesOfFirstDeck.transform);
+                        var valueX = 300 * (1 - (-0.6)) + (-0.6);
 
-                                    list.Remove(val);
-                                    SetCardsOfFourthPlayer(list);
-                                    SideOfTeam.MoveInstance = 1;
+                        float toleranceX = 2.3f;
+                        float x = (float)(valueX + _random.Next(-20, 0) * toleranceX);
+                        var value = 340 * (1.5 - 0.6) + 0.6;
+                        float y = (float)(_endPoint.y + _random.Next(100, 150) * _landingToleranceRadius + value);
 
-                                    photonView.RPC("SetListForRequiredPlayerFourth", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
-                                   
+                        card.transform.position = new Vector3(x, y);
+                        Vector3 positionOfCurrentCard = new Vector3(x, y);
+                        //GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabs/" + CardName, _currentCard.transform.position, Quaternion.identity);
 
-                                }
-                            }
+                        GameObject myBrick = Instantiate(_currentCard, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
+
+
+                        myBrick.transform.SetParent(canvacesOfFirstDeck.transform);
+
+                        list.Remove(val);
+                        SetCardsOfFourthPlayer(list);
+                        SideOfTeam.MoveInstance = 1;
+
+                        photonView.RPC("SetListForRequiredPlayerFourth", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
+
+
+                    }
+                }
                             // Debug.Log("ovaj igrac nije aktican:" + play);
-                        }
+                        
 
 
                     
                 }
                 
-            }
+            
 
 
         }
