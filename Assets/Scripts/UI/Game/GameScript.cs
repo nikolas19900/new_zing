@@ -296,6 +296,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                     {
                         if (!temp.Contains(play))
                         {
+                        Debug.Log("broj:" + play);
                             float _landingToleranceRadius = 0.3f;
                             Vector2 _endPoint = Vector2.zero;
                             if ( play == 1)
