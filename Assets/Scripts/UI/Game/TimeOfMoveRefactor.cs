@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using Assets.Scripts.UI.Game;
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -72,8 +73,10 @@ public class TimeOfMoveRefactor : MonoBehaviour
            
             list.Remove(CardName);
             GameScript.player.SetCardsOfFirstPlayer(list);
+            SideOfTeam.MoveInstance = 2;
+            //saljem trenutnu instancu i svima kojima je jedan azuriram listu. i tako isto sa ostalim listama.
+            GameScript.player.photonView.RPC("SetListForRequiredPlayerFirst", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
            
-            GameScript.player.photonView.RPC("SetListForRequiredPlayerFirst", RpcTarget.Others,  list.ToArray());
 
         }
         else if (GameScript.player.GetCurrentInstance() == 2)
@@ -82,8 +85,8 @@ public class TimeOfMoveRefactor : MonoBehaviour
            
             list.Remove(CardName);
             GameScript.player.SetCardsOfSecondPlayer(list);
-           
-            GameScript.player.photonView.RPC("SetListForRequiredPlayerSecond", RpcTarget.Others,  list.ToArray());
+            SideOfTeam.MoveInstance = 3;
+            GameScript.player.photonView.RPC("SetListForRequiredPlayerSecond", RpcTarget.Others,  list.ToArray(), SideOfTeam.MoveInstance);
         }
         else if (GameScript.player.GetCurrentInstance() == 3)
         {
@@ -91,9 +94,9 @@ public class TimeOfMoveRefactor : MonoBehaviour
           
             list.Remove(CardName);
             GameScript.player.SetCardsOfThirdPlayer(list);
-         
+            SideOfTeam.MoveInstance = 4;
 
-            GameScript.player.photonView.RPC("SetListForRequiredPlayerThird", RpcTarget.Others, list.ToArray());
+            GameScript.player.photonView.RPC("SetListForRequiredPlayerThird", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
         }
         else if (GameScript.player.GetCurrentInstance() == 4)
         {
@@ -101,8 +104,8 @@ public class TimeOfMoveRefactor : MonoBehaviour
            
             list.Remove(CardName);
             GameScript.player.SetCardsOfFourthPlayer(list);
-           
-            GameScript.player.photonView.RPC("SetListForRequiredPlayerFourth", RpcTarget.Others,  list.ToArray());
+            SideOfTeam.MoveInstance = 1;
+            GameScript.player.photonView.RPC("SetListForRequiredPlayerFourth", RpcTarget.Others,  list.ToArray(), SideOfTeam.MoveInstance);
         }
 
 

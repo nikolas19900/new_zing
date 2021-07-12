@@ -11,5 +11,7 @@ namespace Assets.Scripts.UI.Game
         public static bool ChangeSideOfCards = false;
 
         public static int CurrentPlayerSide = 1;
+
+        public static int MoveInstance = 1;
     }
 }
