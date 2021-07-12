@@ -300,6 +300,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                             Vector2 _endPoint = Vector2.zero;
                             if (play == 1 && SideOfTeam.MoveInstance == 1)
                             {
+                                Debug.Log("usao sam 1");
                                 var list = GetCardsOfFirstPlayer();
                                 if (list.Count > 0)
                                 {
@@ -343,6 +344,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                             }
                             else if (play == 2 && SideOfTeam.MoveInstance == 2)
                             {
+                                Debug.Log("usao sam 2");
                                 var list = GetCardsOfSecondPlayer();
                                 if (list.Count > 0)
                                 {
@@ -389,6 +391,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                             }
                             else if (play == 3 && SideOfTeam.MoveInstance == 3)
                             {
+                                Debug.Log("usao sam 3");
                                 var list = GetCardsOfThirdPlayer();
                                 if (list.Count > 0)
                                 {
@@ -433,6 +436,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                             }
                             else if (play == 4 && SideOfTeam.MoveInstance == 4)
                             {
+                                Debug.Log("usao sam 4");
                                 var list = GetCardsOfFourthPlayer();
                                 if (list.Count > 0)
                                 {
