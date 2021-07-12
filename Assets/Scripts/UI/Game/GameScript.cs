@@ -391,9 +391,10 @@ public class GameScript : MonoBehaviourPunCallbacks
                             }
                             else if (play == 3 && SideOfTeam.MoveInstance == 3)
                             {
-                                Debug.Log("usao sam 3");
+                                
                                 var list = GetCardsOfThirdPlayer();
-                                if (list.Count > 0)
+                                Debug.Log("usao sam 3"+list.Count);
+                            if (list.Count > 0)
                                 {
 
 
