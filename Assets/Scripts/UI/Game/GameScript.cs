@@ -294,6 +294,8 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                 float _landingToleranceRadius = 0.3f;
                 Vector2 _endPoint = Vector2.zero;
+                Debug.Log("vrij:" + SideOfTeam.MoveInstance);
+
                 if (!temp.Contains(1) && SideOfTeam.MoveInstance == 1)
                 {
                     Debug.Log("broj:" + 1);
