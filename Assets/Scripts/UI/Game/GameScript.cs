@@ -760,8 +760,8 @@ public class GameScript : MonoBehaviourPunCallbacks
                             {
                                 if (PhotonNetwork.CurrentRoom.GetPlayer(kk.Key).CustomProperties["Team"].Equals("Red"))
                                 {
-                                    //if (!PhotonNetwork.CurrentRoom.GetPlayer(kk.Key).NickName.Equals(SecondPlayerName.text))
-                                    if (!PhotonNetwork.CurrentRoom.GetPlayer(kk.Key).CustomProperties["Instance"].Equals(SecondPlayerInstance.text))
+                                    if (!PhotonNetwork.CurrentRoom.GetPlayer(kk.Key).NickName.Equals(SecondPlayerName.text))
+                                    
                                     {
                                         FirstPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(kk.Key).NickName;
                                       
@@ -797,9 +797,8 @@ public class GameScript : MonoBehaviourPunCallbacks
                             //provjeriti kako rijesiti prepoznavanje igraca da nisu isti
                             //najbolja provjera da ide samo preko slike 
 
-                            //if (!SecondPlayerName.text.Equals(PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName)) { 
-                            if (!SecondPlayerInstance.text.Equals(PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Instance"]))
-                            {
+                            if (!SecondPlayerName.text.Equals(PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName)) { 
+                            
                                 Texture2D tex4 = new Texture2D(83, 87);
                             byte[] valuePicture4 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Picture"];
                             tex4.LoadImage(valuePicture4);
@@ -866,22 +865,22 @@ public class GameScript : MonoBehaviourPunCallbacks
                         }
                         else
                         {
-                            //if (!SecondPlayerName.text.Equals(PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName))
-                            if (!SecondPlayerInstance.text.Equals(PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Instance"]))
+                            if (!SecondPlayerName.text.Equals(PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName))
+                            
                             {
                                 var qq = PhotonNetwork.CurrentRoom.Players;
                                 bool checkPlayer = false;
                                 foreach(var q in qq)
                                 {
-                                    //if (!SecondPlayerName.text.Equals(PhotonNetwork.CurrentRoom.GetPlayer(q.Key).NickName))
-                                    if (!SecondPlayerInstance.text.Equals(PhotonNetwork.CurrentRoom.GetPlayer(q.Key).CustomProperties["Instance"]))
+                                    if (!SecondPlayerName.text.Equals(PhotonNetwork.CurrentRoom.GetPlayer(q.Key).NickName))
+                                    
                                     {
                                         if (PhotonNetwork.CurrentRoom.GetPlayer(q.Key).CustomProperties["Team"].Equals("Red") 
                                             )
                                         {
                                             //ovdje pojavljuje dva ista igraca
-                                            //if (!PhotonNetwork.CurrentRoom.GetPlayer(q.Key).NickName.Equals(FirstPlayerName.text))
-                                            if (!PhotonNetwork.CurrentRoom.GetPlayer(q.Key).CustomProperties["Instance"].Equals(FirstPlayerInstance.text))
+                                            if (!PhotonNetwork.CurrentRoom.GetPlayer(q.Key).NickName.Equals(FirstPlayerName.text))
+                                            
                                             {
 
                                             
