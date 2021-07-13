@@ -760,7 +760,8 @@ public class GameScript : MonoBehaviourPunCallbacks
                             {
                                 if (PhotonNetwork.CurrentRoom.GetPlayer(kk.Key).CustomProperties["Team"].Equals("Red"))
                                 {
-                                    if (!PhotonNetwork.CurrentRoom.GetPlayer(kk.Key).NickName.Equals(SecondPlayerName.text))
+                                    //if (!PhotonNetwork.CurrentRoom.GetPlayer(kk.Key).NickName.Equals(SecondPlayerName.text))
+                                    if (!PhotonNetwork.CurrentRoom.GetPlayer(kk.Key).CustomProperties["Instance"].Equals(SecondPlayerInstance.text))
                                     {
                                         FirstPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(kk.Key).NickName;
                                       
@@ -863,19 +864,22 @@ public class GameScript : MonoBehaviourPunCallbacks
                         }
                         else
                         {
-                            if (!SecondPlayerName.text.Equals(PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName))
+                            //if (!SecondPlayerName.text.Equals(PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName))
+                            if (!SecondPlayerInstance.text.Equals(PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Instance"]))
                             {
                                 var qq = PhotonNetwork.CurrentRoom.Players;
                                 bool checkPlayer = false;
                                 foreach(var q in qq)
                                 {
-                                    if (!SecondPlayerName.text.Equals(PhotonNetwork.CurrentRoom.GetPlayer(q.Key).NickName))
+                                    //if (!SecondPlayerName.text.Equals(PhotonNetwork.CurrentRoom.GetPlayer(q.Key).NickName))
+                                    if (!SecondPlayerInstance.text.Equals(PhotonNetwork.CurrentRoom.GetPlayer(q.Key).CustomProperties["Instance"]))
                                     {
                                         if (PhotonNetwork.CurrentRoom.GetPlayer(q.Key).CustomProperties["Team"].Equals("Red") 
                                             )
                                         {
                                             //ovdje pojavljuje dva ista igraca
-                                            if (!PhotonNetwork.CurrentRoom.GetPlayer(q.Key).NickName.Equals(FirstPlayerName.text))
+                                            //if (!PhotonNetwork.CurrentRoom.GetPlayer(q.Key).NickName.Equals(FirstPlayerName.text))
+                                            if (!PhotonNetwork.CurrentRoom.GetPlayer(q.Key).CustomProperties["Instance"].Equals(FirstPlayerInstance.text))
                                             {
 
                                             
@@ -1016,8 +1020,11 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                                 foreach(var pp in valuePlayers)
                                 {
+                                    //if (PhotonNetwork.CurrentRoom.GetPlayer(pp.Key).CustomProperties["Team"].Equals("Blue")
+                                    //     && !PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName.Equals(PhotonNetwork.CurrentRoom.GetPlayer(pp.Key).NickName)
+                                    //    )
                                     if (PhotonNetwork.CurrentRoom.GetPlayer(pp.Key).CustomProperties["Team"].Equals("Blue")
-                                         && !PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName.Equals(PhotonNetwork.CurrentRoom.GetPlayer(pp.Key).NickName)
+                                         && !PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Instance"].Equals(PhotonNetwork.CurrentRoom.GetPlayer(pp.Key).CustomProperties["Instance"])
                                         )
                                     {
                                         Texture2D tex3 = new Texture2D(83, 87);
@@ -1064,7 +1071,8 @@ public class GameScript : MonoBehaviourPunCallbacks
                             {
                                 if(PhotonNetwork.CurrentRoom.GetPlayer(kk.Key).CustomProperties["Team"].Equals("Red"))
                                 {
-                                    if (!PhotonNetwork.CurrentRoom.GetPlayer(kk.Key).NickName.Equals(FirstPlayerName.text))
+                                    //if (!PhotonNetwork.CurrentRoom.GetPlayer(kk.Key).NickName.Equals(FirstPlayerName.text))
+                                    if (!PhotonNetwork.CurrentRoom.GetPlayer(kk.Key).CustomProperties["Instance"].Equals(FirstPlayerInstance.text))
                                     {
                                         Texture2D tex3 = new Texture2D(83, 87);
                                         byte[] valuePicture3 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(kk.Key).CustomProperties["Picture"];
