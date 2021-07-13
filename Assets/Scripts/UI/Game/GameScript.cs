@@ -107,6 +107,15 @@ public class GameScript : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject TimeOfMove;
 
+    [SerializeField]
+    private Text FirstPlayerInstance;
+
+    [SerializeField]
+    private Text SecondPlayerInstance;
+
+    [SerializeField]
+    private Text ThirdPlayerInstance;
+
     public static GameScript player;
 
     public static bool isAviableToMove = false;
@@ -341,6 +350,12 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                         photonView.RPC("SetListForRequiredPlayerFirst", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
 
+                        bool isPickedUp = PickUpCardsFromDeck();
+                        if (isPickedUp)
+                        {
+                            photonView.RPC("CleanDesk", RpcTarget.Others);
+                        }
+
                     }
                 }
 
@@ -391,6 +406,12 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                         photonView.RPC("SetListForRequiredPlayerSecond", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
 
+                        bool isPickedUp = PickUpCardsFromDeck();
+                        if (isPickedUp)
+                        {
+                            photonView.RPC("CleanDesk", RpcTarget.Others);
+                        }
+
                     }
                 }
                  if (!temp.Contains(3) && SideOfTeam.MoveInstance == 3)
@@ -438,7 +459,11 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                         photonView.RPC("SetListForRequiredPlayerThird", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
 
-
+                        bool isPickedUp = PickUpCardsFromDeck();
+                        if (isPickedUp)
+                        {
+                            photonView.RPC("CleanDesk", RpcTarget.Others);
+                        }
                     }
                 }
                  if (!temp.Contains(4) && SideOfTeam.MoveInstance == 4)
@@ -482,7 +507,11 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                         photonView.RPC("SetListForRequiredPlayerFourth", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
 
-
+                        bool isPickedUp = PickUpCardsFromDeck();
+                        if (isPickedUp)
+                        {
+                            photonView.RPC("CleanDesk", RpcTarget.Others);
+                        }
                     }
                 }
                             // Debug.Log("ovaj igrac nije aktican:" + play);
@@ -712,6 +741,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                         ThirdPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
 
                         ThirdPlayerImage.GetComponent<ImageByte>().SetBytes(valuePicture);
+                        FirstPlayerInstance.text = ""+ PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Instance"];
 
                         if (PhotonNetwork.CurrentRoom.PlayerCount > 3 && FirstPlayerName.text == "")
                         {
@@ -739,8 +769,9 @@ public class GameScript : MonoBehaviourPunCallbacks
                                             Texture2D tex4= new Texture2D(8, 8);
                                             ProfilePic3.sprite = Sprite.Create(tex4, new Rect(0, 0, 8, 8), new Vector2());
                                         }
-                                        FirstPlayerImage.GetComponent<ImageByte>().SetBytes(valuePicture3);
 
+                                        FirstPlayerImage.GetComponent<ImageByte>().SetBytes(valuePicture3);
+                                        FirstPlayerInstance.text = "" + PhotonNetwork.CurrentRoom.GetPlayer(kk.Key).CustomProperties["Instance"];
                                     }
                                 }
                             }
@@ -766,6 +797,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                             ProfilePic4.sprite = Sprite.Create(tex4, new Rect(0, 0, 83, 87), new Vector2());
 
                             FirstPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName ;
+                                FirstPlayerInstance.text = "" + PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Instance"];
                             }
                             
                         }
@@ -789,6 +821,8 @@ public class GameScript : MonoBehaviourPunCallbacks
                                         ProfilePic5.sprite = Sprite.Create(tex5, new Rect(0, 0, 83, 87), new Vector2());
 
                                         SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(player3.Key).NickName ;
+                                        
+                                        SecondPlayerInstance.text = "" + PhotonNetwork.CurrentRoom.GetPlayer(player3.Key).CustomProperties["Instance"];
                                     }
                                 }
                             }
@@ -812,6 +846,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                             SecondPlayerImage.GetComponent<ImageByte>().SetBytes(valuePicture2);
 
                             SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
+                            SecondPlayerInstance.text = "" + PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Instance"];
                         }
                         else
                         {
@@ -848,7 +883,8 @@ public class GameScript : MonoBehaviourPunCallbacks
                                                 SecondPlayerImage.GetComponent<ImageByte>().SetBytes(valuePicture2);
 
                                                 SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(q.Key).NickName;
-                                            checkPlayer = true;
+                                                SecondPlayerInstance.text = "" + PhotonNetwork.CurrentRoom.GetPlayer(q.Key).CustomProperties["Instance"];
+                                                checkPlayer = true;
                                             }
                                         }
                                     }
@@ -865,6 +901,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                                     FirstPlayerImage.GetComponent<ImageByte>().SetBytes(valuePicture3);
 
                                     FirstPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
+                                    FirstPlayerInstance.text = "" + PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Instance"];
                                 }
                             }
                         }
@@ -890,7 +927,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                         ThirdPlayerImage.GetComponent<ImageByte>().SetBytes(valuePicture10);
 
                         ThirdPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
-
+                        ThirdPlayerInstance.text = "" + PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Instance"];
                     }
                 }
                 
@@ -939,7 +976,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                             FirstPlayerImage.GetComponent<ImageByte>().SetBytes(valuePicture2);
 
                             FirstPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
-
+                            FirstPlayerInstance.text = "" + PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Instance"];
                         }
                         else
                         {
@@ -956,7 +993,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                                 FirstPlayerImage.GetComponent<ImageByte>().SetBytes(valuePicture2);
 
                                 FirstPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
-
+                                FirstPlayerInstance.text = "" + PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Instance"];
                                 Dictionary<int, Player> valuePlayers = PhotonNetwork.CurrentRoom.Players;
 
                                 foreach(var pp in valuePlayers)
@@ -976,6 +1013,8 @@ public class GameScript : MonoBehaviourPunCallbacks
                                         SecondPlayerImage.GetComponent<ImageByte>().SetBytes(valuePicture3);
 
                                         SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(pp.Key).NickName;
+
+                                        SecondPlayerInstance.text = "" + PhotonNetwork.CurrentRoom.GetPlayer(pp.Key).CustomProperties["Instance"];
                                     }
                                 }
                             }
@@ -995,6 +1034,8 @@ public class GameScript : MonoBehaviourPunCallbacks
                         ThirdPlayerImage.GetComponent<ImageByte>().SetBytes(valuePicture);
 
                         ThirdPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
+
+                        ThirdPlayerInstance.text = "" + PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Instance"];
                         Dictionary<int, Player> valuePlayers = PhotonNetwork.CurrentRoom.Players;
                         //ovdje korekcija
                        if(PhotonNetwork.CurrentRoom.PlayerCount > 3 && SecondPlayerName.text =="")
@@ -1016,6 +1057,8 @@ public class GameScript : MonoBehaviourPunCallbacks
                                         SecondPlayerImage.GetComponent<ImageByte>().SetBytes(valuePicture3);
 
                                         SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(kk.Key).NickName;
+
+                                        SecondPlayerInstance.text = "" + PhotonNetwork.CurrentRoom.GetPlayer(kk.Key).CustomProperties["Instance"];
                                     }
                                 }
                             }
@@ -1039,6 +1082,8 @@ public class GameScript : MonoBehaviourPunCallbacks
                             FirstPlayerImage.GetComponent<ImageByte>().SetBytes(valuePicture2);
 
                             FirstPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
+
+                            FirstPlayerInstance.text = "" + PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Instance"];
                         }
                         else
                         {
@@ -1052,6 +1097,8 @@ public class GameScript : MonoBehaviourPunCallbacks
                             SecondPlayerImage.GetComponent<ImageByte>().SetBytes(valuePicture3);
 
                             SecondPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
+
+                            SecondPlayerInstance.text = "" + PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Instance"];
                         }
                     }
                     else if (PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Red"))
@@ -1067,6 +1114,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                         ThirdPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
 
+                        ThirdPlayerInstance.text = "" + PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Instance"];
                     }
                 }
                 
@@ -1464,9 +1512,9 @@ public class GameScript : MonoBehaviourPunCallbacks
             int tempValue = 1;
             foreach(var temp in players)
             {
-                ExitGames.Client.Photon.Hashtable hash = PhotonNetwork.CurrentRoom.Players[temp.Key].CustomProperties;
-                hash["Instance"] = tempValue;
-                PhotonNetwork.CurrentRoom.Players[temp.Key].SetCustomProperties(hash);
+                //ExitGames.Client.Photon.Hashtable hash = PhotonNetwork.CurrentRoom.Players[temp.Key].CustomProperties;
+                //hash["Instance"] = tempValue;
+                //PhotonNetwork.CurrentRoom.Players[temp.Key].SetCustomProperties(hash);
                 //Debug.Log("u hash je setovana instanca:" + PhotonNetwork.CurrentRoom.Players[temp.Key].CustomProperties["Instance"]);
                 _currentPhotonView.RPC("SetInstanceOfCurrentPlayer", temp.Value,tempValue, _cardsOfFirstPlayer.ToArray(), cardsOfSecondPlayer.ToArray(),
                     cardsOfThirdPlayer.ToArray(),cardsOfFourthPlayer.ToArray(),RemainingCardsList.ToArray());
