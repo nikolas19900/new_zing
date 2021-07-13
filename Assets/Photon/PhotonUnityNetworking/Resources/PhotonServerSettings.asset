@@ -98,6 +98,7 @@ MonoBehaviour:
   - SetListForRequiredPlayerFourth
   - SetListForRequiredPlayerSecond
   - SetListForRequiredPlayerThird
+  - DropTheCard
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

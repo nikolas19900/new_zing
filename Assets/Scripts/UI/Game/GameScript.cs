@@ -294,11 +294,11 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                 float _landingToleranceRadius = 0.3f;
                 Vector2 _endPoint = Vector2.zero;
-                Debug.Log("vrij:" + SideOfTeam.MoveInstance);
+                //Debug.Log("vrij:" + SideOfTeam.MoveInstance);
 
                 if (!temp.Contains(1) && SideOfTeam.MoveInstance == 1)
                 {
-                    Debug.Log("broj:" + 1);
+                    
                     
 
                     Debug.Log("usao sam 1");
@@ -329,11 +329,11 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                         GameObject myBrick = Instantiate(card, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
 
-
-
-                        // Debug.Log("first card object:" + tv.transform.childCount);
-
+                        
                         myBrick.transform.SetParent(canvacesOfFirstDeck.transform);
+
+                        photonView.RPC("DropTheCard", RpcTarget.Others, val);
+
 
                         list.Remove(val);
                         SetCardsOfFirstPlayer(list);
@@ -380,6 +380,8 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                         myBrick.transform.SetParent(canvacesOfFirstDeck.transform);
 
+                        photonView.RPC("DropTheCard", RpcTarget.Others, val);
+
                         list.Remove(val);
                         SetCardsOfSecondPlayer(list);
 
@@ -404,7 +406,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                         Debug.Log("vrijednost:" + val);
                         var tt = Resources.Load("Prefabs/CardPrefabsStartSvg/" + val);
 
-                        GameObject card = (GameObject)tt;
+                        GameObject card = (GameObject) tt;
 
 
                         _random = new System.Random();
@@ -428,11 +430,13 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                         myBrick.transform.SetParent(canvacesOfFirstDeck.transform);
 
+                        photonView.RPC("DropTheCard", RpcTarget.Others, val);
+
                         list.Remove(val);
                         SetCardsOfThirdPlayer(list);
-                        //SideOfTeam.MoveInstance = 4;
+                        SideOfTeam.MoveInstance = 4;
 
-                        //photonView.RPC("SetListForRequiredPlayerThird", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
+                        photonView.RPC("SetListForRequiredPlayerThird", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
 
 
                     }
@@ -469,6 +473,8 @@ public class GameScript : MonoBehaviourPunCallbacks
 
 
                         myBrick.transform.SetParent(canvacesOfFirstDeck.transform);
+
+                        photonView.RPC("DropTheCard", RpcTarget.Others, val);
 
                         list.Remove(val);
                         SetCardsOfFourthPlayer(list);
@@ -616,7 +622,39 @@ public class GameScript : MonoBehaviourPunCallbacks
     }
 
 
-   
+   [PunRPC]
+   public void DropTheCard(string name)
+    {
+        float _landingToleranceRadius = 0.3f;
+        Vector2 _endPoint = Vector2.zero;
+
+        var tt = Resources.Load("Prefabs/CardPrefabsStartSvg/" + name);
+
+        GameObject card = (GameObject)tt;
+
+
+        _random = new System.Random();
+
+        var valueX = 300 * (1 - (-0.6)) + (-0.6);
+
+        float toleranceX = 2.3f;
+        float x = (float)(valueX + _random.Next(-20, 0) * toleranceX);
+        var value = 340 * (1.5 - 0.6) + 0.6;
+        float y = (float)(_endPoint.y + _random.Next(100, 150) * _landingToleranceRadius + value);
+
+        card.transform.position = new Vector3(x, y);
+        Vector3 positionOfCurrentCard = new Vector3(x, y);
+        //GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabs/" + CardName, _currentCard.transform.position, Quaternion.identity);
+
+        GameObject myBrick = Instantiate(card, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
+
+
+
+        // Debug.Log("first card object:" + tv.transform.childCount);
+
+        myBrick.transform.SetParent(canvacesOfFirstDeck.transform);
+
+    }
 
     [PunRPC]
     public void SendInitTalon(string[] Array)
