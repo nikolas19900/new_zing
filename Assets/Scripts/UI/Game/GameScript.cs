@@ -793,11 +793,13 @@ public class GameScript : MonoBehaviourPunCallbacks
                     {
                         if(SecondPlayerName.text != "") {
 
-                            
+
                             //provjeriti kako rijesiti prepoznavanje igraca da nisu isti
                             //najbolja provjera da ide samo preko slike 
 
-                            if (!SecondPlayerName.text.Equals(PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName)) { 
+                            //if (!SecondPlayerName.text.Equals(PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName)) { 
+                            if (!SecondPlayerInstance.text.Equals(PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Instance"]))
+                            {
                                 Texture2D tex4 = new Texture2D(83, 87);
                             byte[] valuePicture4 = (byte[])PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Picture"];
                             tex4.LoadImage(valuePicture4);
