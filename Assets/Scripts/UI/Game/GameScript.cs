@@ -741,7 +741,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                         ThirdPlayerName.text = PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).NickName;
 
                         ThirdPlayerImage.GetComponent<ImageByte>().SetBytes(valuePicture);
-                        FirstPlayerInstance.text = ""+ PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Instance"];
+                        ThirdPlayerInstance.text = ""+ PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Instance"];
 
                         if (PhotonNetwork.CurrentRoom.PlayerCount > 3 && FirstPlayerName.text == "")
                         {
