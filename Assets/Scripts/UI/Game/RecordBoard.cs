@@ -131,6 +131,47 @@ namespace Assets.Scripts.UI.Game
         }
 
         [PunRPC]
+        public void TakeCardsFromTalon2(string sideOfTeam,string[] listArray)
+        {
+            int pointsValue = 0;
+            int newPoints = 0;
+
+            if (sideOfTeam.Equals("Blue"))
+            {
+                CalculatePoints points = new CalculatePoints(listArray.ToList());
+                pointsValue = points.GetPoints();
+
+                int tempCards = int.Parse(_cardsValue.text) + listArray.Length;
+                _cardsValue.text = "" + tempCards;
+
+                int pointsBlueValue = int.Parse(_pointsValue.text) + pointsValue;
+
+                _pointsValue.text = "" + pointsBlueValue;
+
+                int totalBluePoints = int.Parse(_totalPointsValue.text) + pointsValue;
+
+                _totalPointsValue.text = "" + totalBluePoints;
+            }
+            else
+            {
+                CalculatePoints points = new CalculatePoints(listArray.ToList());
+                pointsValue = points.GetPoints();
+
+                int tempCards = int.Parse(_cardsRedValue.text) + listArray.Length;
+                _cardsRedValue.text = "" + tempCards;
+
+
+                int pointsRedValue = int.Parse(_pointsRedValue.text) + pointsValue;
+
+                _pointsRedValue.text = "" + pointsRedValue;
+
+                int totalRedPoints = int.Parse(_totalPointsRedValue.text) + pointsValue;
+
+                _totalPointsRedValue.text = "" + totalRedPoints;
+            }
+        }
+
+        [PunRPC]
         public void TakeCardsFromTalon(string[] listArray)
         {
 
@@ -381,7 +422,57 @@ namespace Assets.Scripts.UI.Game
                 Destroy(transform.gameObject);
             }
         }
+        [PunRPC]
+        public void TakeCardsZing2(string sideOfTeam,string[] listArray)
+        {
+            var lastCard = listArray[listArray.Length - 1];
+            var previousLastCard = listArray[listArray.Length - 2];
+            // var previousLastCard = BeginningOfGame._listOfZings[BeginningOfGame._listOfZings.Count - 2];
+            int newPointsZing = 0;
+            if (lastCard.Contains("J_") && previousLastCard.Contains("J_"))
+            {
+                // _totalZing += 20;
+                newPointsZing = 20;
+            }
+            else
+            {
+                // _totalZing += 10;
+                newPointsZing = 10;
+            }
 
+            if (sideOfTeam.Equals("Blue"))
+            {
+                int tempZing = int.Parse(_zingsValue.text);
+                tempZing += newPointsZing;
+                _zingsValue.text = "" + tempZing;
+                int tempCards = int.Parse(_cardsValue.text) + listArray.Length;
+                _cardsValue.text = "" + tempCards;
+
+                string valueFromTotal = _totalPointsValue.text;
+
+                int pointsTotalValue = int.Parse(valueFromTotal) + newPointsZing;
+
+                _totalPointsValue.text = "" + pointsTotalValue;
+
+                
+            }
+            else
+            {
+                int tempZing = int.Parse(_zingsRedValue.text);
+                tempZing += newPointsZing;
+                _zingsRedValue.text = "" + tempZing;
+                int tempCards = int.Parse(_cardsRedValue.text) + listArray.Length;
+                _cardsRedValue.text = "" + tempCards;
+
+                string valueFromTotal = _totalPointsRedValue.text;
+
+                int pointsTotalValue = int.Parse(valueFromTotal) + newPointsZing;
+
+                _totalPointsRedValue.text = "" + pointsTotalValue;
+
+                
+            }
+        }
 
         [PunRPC]
         public void TakeCardsZing(string[] listArray)

@@ -359,11 +359,13 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                         photonView.RPC("SetListForRequiredPlayerFirst", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
 
-                        bool isPickedUp = PickUpCardsFromDeck();
+                        bool isPickedUp = PickUpCardsFromDeckWithoutPlayer("Blue");
                         if (isPickedUp)
                         {
                             photonView.RPC("CleanDesk", RpcTarget.Others);
                         }
+
+                        photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, SideOfTeam.MoveInstance);
 
                     }
                 }
@@ -415,11 +417,13 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                         photonView.RPC("SetListForRequiredPlayerSecond", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
 
-                        bool isPickedUp = PickUpCardsFromDeck();
+                        bool isPickedUp = PickUpCardsFromDeckWithoutPlayer("Red");
                         if (isPickedUp)
                         {
                             photonView.RPC("CleanDesk", RpcTarget.Others);
                         }
+
+                        photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, SideOfTeam.MoveInstance);
 
                     }
                 }
@@ -468,11 +472,13 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                         photonView.RPC("SetListForRequiredPlayerThird", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
 
-                        bool isPickedUp = PickUpCardsFromDeck();
+                        bool isPickedUp = PickUpCardsFromDeckWithoutPlayer("Blue");
                         if (isPickedUp)
                         {
                             photonView.RPC("CleanDesk", RpcTarget.Others);
                         }
+
+                        photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, SideOfTeam.MoveInstance);
                     }
                 }
                  if (!temp.Contains(4) && SideOfTeam.MoveInstance == 4)
@@ -516,11 +522,13 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                         photonView.RPC("SetListForRequiredPlayerFourth", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
 
-                        bool isPickedUp = PickUpCardsFromDeck();
+                        bool isPickedUp = PickUpCardsFromDeckWithoutPlayer("Red");
                         if (isPickedUp)
                         {
                             photonView.RPC("CleanDesk", RpcTarget.Others);
                         }
+
+                        photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, SideOfTeam.MoveInstance);
                     }
                 }
                             // Debug.Log("ovaj igrac nije aktican:" + play);
@@ -1611,12 +1619,221 @@ public class GameScript : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
+    public void ActivatePlayerToPlayInstance(int tempInst)
+    {
+        if (FirstPlayerInstance.text.Equals(""+tempInst))
+        {
+            ActivateTimeOfMove();
+            GameScript.isAviableToMove = true;
+            TimeOfMove.active = true;
+
+            var tv = (Canvas)canvacesOfCurrentPlayer;
+
+            foreach (Transform element in tv.transform)
+            {
+
+                element.GetComponent<EventTrigger>().enabled = true;
+
+                //    //var firstCard = element.Find("FirstCardSelected").gameObject;
+                //    //firstCard.active = false;
+
+            }
+
+
+        }
+    }
+
+    [PunRPC]
     public void CleanDesk()
     {
         foreach(Transform tt in canvacesOfFirstDeck.transform)
         {
             Destroy(tt);
         }
+    }
+
+    public bool PickUpCardsFromDeckWithoutPlayer(string sideOfTeam)
+    {
+        if (canvacesOfCurrentPlayer.transform.childCount > 0)
+        {
+            if (canvacesOfFirstDeck.transform.childCount == 1)
+            {
+                if (canvacesOfCurrentPlayer.transform.childCount > 0)
+                {
+                    
+                    DroppedCardsOneLeft dropCard = new DroppedCardsOneLeft(canvacesOfCurrentPlayer);
+                    
+
+                }
+            }
+            else if (canvacesOfFirstDeck.transform.childCount == 2)
+            {
+                _previousCard = canvacesOfFirstDeck.transform.GetChild(canvacesOfFirstDeck.transform.childCount - 2).gameObject;
+
+                _currentCard = canvacesOfFirstDeck.transform.GetChild(canvacesOfFirstDeck.transform.childCount - 1).gameObject;
+
+                string goName1 = _previousCard.name.Split('_')[0];
+                string goName2 = _currentCard.name.Split('_')[0];
+                
+                DroppedCardsTwoLeft dropCard = new DroppedCardsTwoLeft(goName1, goName2, canvacesOfFirstDeck, canvacesOfCurrentPlayer);
+                if (goName1.Equals(goName2, StringComparison.OrdinalIgnoreCase))
+                {
+                    string[] listArray = dropCard.TakeActionEqualsName();
+                    
+                    RecordBoard._instance.photonView.RPC("TakeCardsZing2", RpcTarget.All,sideOfTeam, listArray);
+                    return true;
+                    
+                }
+                else if (goName2.Equals("J", StringComparison.OrdinalIgnoreCase))
+                {
+                    string[] listArray = dropCard.TakeActionJDropped();
+
+                    
+                    RecordBoard._instance.photonView.RPC("TakeCardsFromTalon2", RpcTarget.All,sideOfTeam, listArray);
+                    return true;
+                    
+                }
+                else
+                {
+                    if (canvacesOfCurrentPlayer.transform.childCount > 0)
+                    {
+                        
+
+                    }
+
+                }
+            }
+            else
+            {
+                _previousCard = canvacesOfFirstDeck.transform.GetChild(canvacesOfFirstDeck.transform.childCount - 2).gameObject;
+
+                _currentCard = canvacesOfFirstDeck.transform.GetChild(canvacesOfFirstDeck.transform.childCount - 1).gameObject;
+
+                string goName1 = _previousCard.name.Split('_')[0];
+                string goName2 = _currentCard.name.Split('_')[0];
+                
+                DroppedCardsTwoLeft dropCard = new DroppedCardsTwoLeft(goName1, goName2, canvacesOfFirstDeck, canvacesOfCurrentPlayer);
+                if (goName1.Equals(goName2, StringComparison.OrdinalIgnoreCase))
+                {
+                    string[] listArray = dropCard.TakeActionEqualsName();
+
+                    
+                    RecordBoard._instance.photonView.RPC("TakeCardsFromTalon2", RpcTarget.All,sideOfTeam, listArray);
+                    return true;
+                    
+                }
+                else if (goName2.Equals("J", StringComparison.OrdinalIgnoreCase))
+                {
+
+                    string[] listArray = dropCard.TakeActionJDropped();
+                    
+                    RecordBoard._instance.photonView.RPC("TakeCardsFromTalon2", RpcTarget.All, sideOfTeam, listArray);
+                    return true;
+                    //RecordBoard._instance.TakeCardsFromTalon(listArray);
+                }
+                else
+                {
+                    if (canvacesOfCurrentPlayer.transform.childCount > 0)
+                    {
+                        //player.TimeOfMove.active = true;
+                        //isAviableToMove = true;
+                        //dropCard.SetCanvas();
+                    }
+
+                }
+            }
+        }
+        else
+        {
+
+            //ovdje se pise kod ukoliko su sve igraceve karte bacene na stolu.
+            if (canvacesOfFirstDeck.transform.childCount == 1)
+            {
+                if (canvacesOfCurrentPlayer.transform.childCount > 0)
+                {
+                    
+                    DroppedCardsOneLeft dropedCardOneLeft = new DroppedCardsOneLeft(canvacesOfCurrentPlayer);
+                    
+
+                }
+            }
+            else if (canvacesOfFirstDeck.transform.childCount == 2)
+            {
+                _previousCard = canvacesOfFirstDeck.transform.GetChild(canvacesOfFirstDeck.transform.childCount - 2).gameObject;
+
+                _currentCard = canvacesOfFirstDeck.transform.GetChild(canvacesOfFirstDeck.transform.childCount - 1).gameObject;
+
+                string goName1 = _previousCard.name.Split('_')[0];
+                string goName2 = _currentCard.name.Split('_')[0];
+                
+                DroppedCardsTwoLeft dropCard = new DroppedCardsTwoLeft(goName1, goName2, canvacesOfFirstDeck, canvacesOfCurrentPlayer);
+                if (goName1.Equals(goName2, StringComparison.OrdinalIgnoreCase))
+                {
+
+                    string[] listArray = dropCard.TakeActionEqualsName();
+                    
+                    RecordBoard._instance.photonView.RPC("TakeCardsZing2", RpcTarget.All, sideOfTeam, listArray);
+                    return true;
+                    
+
+                }
+                else if (goName2.Equals("J", StringComparison.OrdinalIgnoreCase))
+                {
+                    string[] listArray = dropCard.TakeActionJDropped();
+
+                    
+                    RecordBoard._instance.photonView.RPC("TakeCardsFromTalon2", RpcTarget.All, sideOfTeam, listArray);
+                    return true;
+                    
+                }
+                else
+                {
+                    if (canvacesOfCurrentPlayer.transform.childCount > 0)
+                    {
+                        
+                    }
+                }
+            }
+            else
+            {
+                _previousCard = canvacesOfFirstDeck.transform.GetChild(canvacesOfFirstDeck.transform.childCount - 2).gameObject;
+
+                _currentCard = canvacesOfFirstDeck.transform.GetChild(canvacesOfFirstDeck.transform.childCount - 1).gameObject;
+
+                string goName1 = _previousCard.name.Split('_')[0];
+                string goName2 = _currentCard.name.Split('_')[0];
+                
+                DroppedCardsTwoLeft dropCard = new DroppedCardsTwoLeft(goName1, goName2, canvacesOfFirstDeck, canvacesOfCurrentPlayer);
+
+                if (goName1.Equals(goName2, StringComparison.OrdinalIgnoreCase))
+                {
+
+                    string[] listArray = dropCard.TakeActionEqualsName();
+                    
+                    RecordBoard._instance.photonView.RPC("TakeCardsFromTalon2", RpcTarget.All, sideOfTeam, listArray);
+                    return true;
+                    
+                }
+                else if (goName2.Equals("J", StringComparison.OrdinalIgnoreCase))
+                {
+
+                    string[] listArray = dropCard.TakeActionJDropped();
+                    
+                    RecordBoard._instance.photonView.RPC("TakeCardsFromTalon2", RpcTarget.All, sideOfTeam, listArray);
+                    return true;
+                    
+                }
+                else
+                {
+
+                    if (canvacesOfCurrentPlayer.transform.childCount > 0)
+                    {
+                        
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     public bool PickUpCardsFromDeck()
