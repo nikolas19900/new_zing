@@ -365,7 +365,8 @@ public class GameScript : MonoBehaviourPunCallbacks
                             photonView.RPC("CleanDesk", RpcTarget.Others);
                         }
 
-                        photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, SideOfTeam.MoveInstance);
+                        
+                        ActivatePlayerToPlayInstance(SideOfTeam.MoveInstance);
 
                     }
                 }
@@ -423,7 +424,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                             photonView.RPC("CleanDesk", RpcTarget.Others);
                         }
 
-                        photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, SideOfTeam.MoveInstance);
+                        ActivatePlayerToPlayInstance(SideOfTeam.MoveInstance);
 
                     }
                 }
@@ -478,7 +479,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                             photonView.RPC("CleanDesk", RpcTarget.Others);
                         }
 
-                        photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, SideOfTeam.MoveInstance);
+                        ActivatePlayerToPlayInstance(SideOfTeam.MoveInstance);
                     }
                 }
                  if (!temp.Contains(4) && SideOfTeam.MoveInstance == 4)
@@ -528,7 +529,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                             photonView.RPC("CleanDesk", RpcTarget.Others);
                         }
 
-                        photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, SideOfTeam.MoveInstance);
+                        ActivatePlayerToPlayInstance(SideOfTeam.MoveInstance);
                     }
                 }
                             // Debug.Log("ovaj igrac nije aktican:" + play);
