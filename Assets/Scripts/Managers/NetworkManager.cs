@@ -57,6 +57,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnDisconnected(DisconnectCause cause)
     {
+        PhotonNetwork.Reconnect();
         print("Disconnected from server:" + cause.ToString());
     }
 
