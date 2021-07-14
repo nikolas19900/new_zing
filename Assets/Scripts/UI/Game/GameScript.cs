@@ -365,7 +365,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                             photonView.RPC("CleanDesk", RpcTarget.Others);
                         }
 
-                        photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, SideOfTeam.MoveInstance);
+                        photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 1);
                         
 
                     }
@@ -424,7 +424,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                             photonView.RPC("CleanDesk", RpcTarget.Others);
                         }
 
-                        photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, SideOfTeam.MoveInstance);
+                        photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 2);
 
                     }
                 }
@@ -479,7 +479,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                             photonView.RPC("CleanDesk", RpcTarget.Others);
                         }
 
-                        photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, SideOfTeam.MoveInstance);
+                        photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 3);
                     }
                 }
                  if (!temp.Contains(4) && SideOfTeam.MoveInstance == 4)
@@ -529,7 +529,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                             photonView.RPC("CleanDesk", RpcTarget.Others);
                         }
 
-                        photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, SideOfTeam.MoveInstance);
+                        photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 4);
                     }
                 }
                             // Debug.Log("ovaj igrac nije aktican:" + play);
@@ -1622,6 +1622,8 @@ public class GameScript : MonoBehaviourPunCallbacks
     [PunRPC]
     public void ActivatePlayerToPlayInstance(int tempInst)
     {
+        Debug.Log("vri:" + FirstPlayerInstance.text);
+        Debug.Log("v:" + tempInst);
         if (FirstPlayerInstance.text.Equals(""+tempInst))
         {
             ActivateTimeOfMove();
