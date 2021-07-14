@@ -350,7 +350,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                         
                         myBrick.transform.SetParent(canvacesOfFirstDeck.transform);
 
-                        photonView.RPC("DropTheCard", RpcTarget.Others, val);
+                        //photonView.RPC("DropTheCard", RpcTarget.Others, val);
 
 
                         list.Remove(val);
@@ -407,7 +407,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                         myBrick.transform.SetParent(canvacesOfFirstDeck.transform);
 
-                        photonView.RPC("DropTheCard", RpcTarget.Others, val);
+                        //photonView.RPC("DropTheCard", RpcTarget.Others, val);
 
                         list.Remove(val);
                         SetCardsOfSecondPlayer(list);
@@ -465,7 +465,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                         myBrick.transform.SetParent(canvacesOfFirstDeck.transform);
 
-                        photonView.RPC("DropTheCard", RpcTarget.Others, val);
+                        //photonView.RPC("DropTheCard", RpcTarget.Others, val);
 
                         list.Remove(val);
                         SetCardsOfThirdPlayer(list);
@@ -515,7 +515,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                         myBrick.transform.SetParent(canvacesOfFirstDeck.transform);
 
-                        photonView.RPC("DropTheCard", RpcTarget.Others, val);
+                        //photonView.RPC("DropTheCard", RpcTarget.Others, val);
 
                         list.Remove(val);
                         SetCardsOfFourthPlayer(list);
