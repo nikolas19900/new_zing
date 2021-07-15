@@ -362,7 +362,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                         bool isPickedUp = PickUpCardsFromDeckWithoutPlayer("Blue");
                         if (isPickedUp)
                         {
-                            photonView.RPC("CleanDesk", RpcTarget.Others);
+                            photonView.RPC("CleanDesk", RpcTarget.All);
                         }
 
                         photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 1);
@@ -419,7 +419,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                         bool isPickedUp = PickUpCardsFromDeckWithoutPlayer("Red");
                         if (isPickedUp)
                         {
-                            photonView.RPC("CleanDesk", RpcTarget.Others);
+                            photonView.RPC("CleanDesk", RpcTarget.All);
                         }
 
                         photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 2);
@@ -474,7 +474,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                         bool isPickedUp = PickUpCardsFromDeckWithoutPlayer("Blue");
                         if (isPickedUp)
                         {
-                            photonView.RPC("CleanDesk", RpcTarget.Others);
+                            photonView.RPC("CleanDesk", RpcTarget.All);
                         }
 
                         photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 3);
@@ -524,7 +524,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                         bool isPickedUp = PickUpCardsFromDeckWithoutPlayer("Red");
                         if (isPickedUp)
                         {
-                            photonView.RPC("CleanDesk", RpcTarget.Others);
+                            photonView.RPC("CleanDesk", RpcTarget.All);
                         }
 
                         photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 4);
