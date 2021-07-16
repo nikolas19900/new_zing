@@ -546,17 +546,17 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                 //photonView.RPC("DropTheCard", RpcTarget.All, val);
 
-                //list.Remove(val);
-                //SetCardsOfThirdPlayer(list);
+                list.Remove(val);
+                SetCardsOfThirdPlayer(list);
                 SideOfTeam.MoveInstance = 4;
 
                 photonView.RPC("SetListForRequiredPlayerThird", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
 
-                //bool isPickedUp = PickUpCardsFromDeckWithoutPlayer("Blue");
-                //if (isPickedUp)
-                //{
-                //    photonView.RPC("CleanDesk", RpcTarget.All);
-                //}
+                bool isPickedUp = PickUpCardsFromDeckWithoutPlayer("Blue");
+                if (isPickedUp)
+                {
+                    photonView.RPC("CleanDesk", RpcTarget.All);
+                }
 
                 photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 3);
             }
