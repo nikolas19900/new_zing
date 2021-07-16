@@ -428,56 +428,8 @@ public class GameScript : MonoBehaviourPunCallbacks
                 }
                  if (!temp.Contains(3) && SideOfTeam.MoveInstance == 3)
                 {
-
-                    var list = GetCardsOfThirdPlayer();
-                    Debug.Log("usao sam 3" + list.Count);
-                    if (list.Count > 0)
-                    {
-
-                        
-                        var val = list[0];
-                        Debug.Log("vrijednost:" + val);
-                        var tt = Resources.Load("Prefabs/CardPrefabsSvg/" + val);
-
-                        GameObject card = (GameObject)tt;
-
-
-                        _random = new System.Random();
-
-                        var valueX = 300 * (1 - (-0.6)) + (-0.6);
-
-                        float toleranceX = 2.3f;
-                        float x = (float)(valueX + _random.Next(-20, 0) * toleranceX);
-                        var value = 340 * (1.5 - 0.6) + 0.6;
-                        float y = (float)(_endPoint.y + _random.Next(100, 150) * _landingToleranceRadius + value);
-
-                        card.transform.position = new Vector3(x, y);
-                        Vector3 positionOfCurrentCard = new Vector3(x, y);
-                        //GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabs/" + CardName, _currentCard.transform.position, Quaternion.identity);
-
-                        GameObject myBrick = Instantiate(card, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
-
-
-                        ////// Debug.Log("first card object:" + tv.transform.childCount);
-
-                        myBrick.transform.SetParent(canvacesOfFirstDeck.transform);
-
-                        //photonView.RPC("DropTheCard", RpcTarget.All, val);
-
-                        //list.Remove(val);
-                        //SetCardsOfThirdPlayer(list);
-                        SideOfTeam.MoveInstance = 4;
-
-                        photonView.RPC("SetListForRequiredPlayerThird", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
-
-                        //bool isPickedUp = PickUpCardsFromDeckWithoutPlayer("Blue");
-                        //if (isPickedUp)
-                        //{
-                        //    photonView.RPC("CleanDesk", RpcTarget.All);
-                        //}
-
-                        photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 3);
-                    }
+                    Invoke("ThirdDropCard", 1f);
+                   
                 }
                  if (!temp.Contains(4) && SideOfTeam.MoveInstance == 4)
                 {
@@ -548,6 +500,61 @@ public class GameScript : MonoBehaviourPunCallbacks
             
             ArrangeCards();
         }
+
+    }
+
+    public void ThirdDropCard()
+    {
+        var list = GetCardsOfThirdPlayer();
+        Debug.Log("usao sam 3" + list.Count);
+        if (list.Count > 0)
+        {
+
+
+            var val = list[0];
+            Debug.Log("vrijednost:" + val);
+            var tt = Resources.Load("Prefabs/CardPrefabsSvg/" + val);
+
+            GameObject card = (GameObject)tt;
+
+
+            _random = new System.Random();
+
+            var valueX = 300 * (1 - (-0.6)) + (-0.6);
+
+            float toleranceX = 2.3f;
+            float x = (float)(valueX + _random.Next(-20, 0) * toleranceX);
+            var value = 340 * (1.5 - 0.6) + 0.6;
+            float y = (float)(_endPoint.y + _random.Next(100, 150) * _landingToleranceRadius + value);
+
+            card.transform.position = new Vector3(x, y);
+            Vector3 positionOfCurrentCard = new Vector3(x, y);
+            //GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabs/" + CardName, _currentCard.transform.position, Quaternion.identity);
+
+            GameObject myBrick = Instantiate(card, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
+
+
+            ////// Debug.Log("first card object:" + tv.transform.childCount);
+
+            myBrick.transform.SetParent(canvacesOfFirstDeck.transform);
+
+            //photonView.RPC("DropTheCard", RpcTarget.All, val);
+
+            //list.Remove(val);
+            //SetCardsOfThirdPlayer(list);
+            SideOfTeam.MoveInstance = 4;
+
+            photonView.RPC("SetListForRequiredPlayerThird", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
+
+            //bool isPickedUp = PickUpCardsFromDeckWithoutPlayer("Blue");
+            //if (isPickedUp)
+            //{
+            //    photonView.RPC("CleanDesk", RpcTarget.All);
+            //}
+
+            photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 3);
+        }
+
 
     }
 
