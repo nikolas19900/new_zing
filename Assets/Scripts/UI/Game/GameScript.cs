@@ -505,6 +505,9 @@ public class GameScript : MonoBehaviourPunCallbacks
 
     public void ThirdDropCard()
     {
+        float _landingToleranceRadius = 0.3f;
+        Vector2 _endPoint = Vector2.zero;
+
         var list = GetCardsOfThirdPlayer();
         Debug.Log("usao sam 3" + list.Count);
         if (list.Count > 0)
