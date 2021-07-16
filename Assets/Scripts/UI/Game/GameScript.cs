@@ -437,30 +437,30 @@ public class GameScript : MonoBehaviourPunCallbacks
                         
                         var val = list[0];
                         Debug.Log("vrijednost:" + val);
-                        //var tt = Resources.Load("Prefabs/CardPrefabsSvg/" + val);
+                        var tt = Resources.Load("Prefabs/CardPrefabsSvg/" + val);
 
-                        //GameObject card = (GameObject)tt;
+                        GameObject card = (GameObject)tt;
 
 
-                        //_random = new System.Random();
+                        _random = new System.Random();
 
-                        //var valueX = 300 * (1 - (-0.6)) + (-0.6);
+                        var valueX = 300 * (1 - (-0.6)) + (-0.6);
 
-                        //float toleranceX = 2.3f;
-                        //float x = (float)(valueX + _random.Next(-20, 0) * toleranceX);
-                        //var value = 340 * (1.5 - 0.6) + 0.6;
-                        //float y = (float)(_endPoint.y + _random.Next(100, 150) * _landingToleranceRadius + value);
+                        float toleranceX = 2.3f;
+                        float x = (float)(valueX + _random.Next(-20, 0) * toleranceX);
+                        var value = 340 * (1.5 - 0.6) + 0.6;
+                        float y = (float)(_endPoint.y + _random.Next(100, 150) * _landingToleranceRadius + value);
 
-                        //card.transform.position = new Vector3(x, y);
-                        //Vector3 positionOfCurrentCard = new Vector3(x, y);
-                        ////GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabs/" + CardName, _currentCard.transform.position, Quaternion.identity);
+                        card.transform.position = new Vector3(x, y);
+                        Vector3 positionOfCurrentCard = new Vector3(x, y);
+                        //GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabs/" + CardName, _currentCard.transform.position, Quaternion.identity);
 
-                        //GameObject myBrick = Instantiate(card, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
+                        GameObject myBrick = Instantiate(card, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
 
 
                         ////// Debug.Log("first card object:" + tv.transform.childCount);
 
-                        //myBrick.transform.SetParent(canvacesOfFirstDeck.transform);
+                        myBrick.transform.SetParent(canvacesOfFirstDeck.transform);
 
                         //photonView.RPC("DropTheCard", RpcTarget.All, val);
 
