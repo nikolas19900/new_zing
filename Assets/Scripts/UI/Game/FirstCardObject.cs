@@ -222,6 +222,7 @@ public  class FirstCardObject : MonoBehaviour
         float y = (float) (_endPoint.y + _random.Next(100, 150) * _landingToleranceRadius + value);
 
         _currentCard.transform.position = new Vector3(x, y);
+        _currentCard.transform.localScale = new Vector3(0.789f, 0.789f, 0);
         Vector3 positionOfCurrentCard = new Vector3(x, y);
         //GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabs/" + CardName, _currentCard.transform.position, Quaternion.identity);
 

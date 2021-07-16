@@ -55,14 +55,15 @@ public class TimeOfMoveRefactor : MonoBehaviour
         float x = (float)(valueX + _random.Next(-20, 0) * toleranceX);
         var value = 340 * (1.5 - 0.6) + 0.6;
         float y = (float)(_endPoint.y + _random.Next(100, 150) * _landingToleranceRadius + value);
+
         _currentCard.transform.position = new Vector3(x, y);
+        _currentCard.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+
         Vector3 positionOfCurrentCard = new Vector3(x, y);
         GameObject myBrick = Instantiate(_currentCard, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
 
         // GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabsStartSvg/" + CardName, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
-
-
-
+        
         myBrick.transform.SetParent(_tempCanvas.transform);
 
         Destroy(_tempTransoformCard.gameObject);

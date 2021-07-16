@@ -1591,7 +1591,7 @@ public class GameScript : MonoBehaviourPunCallbacks
         var card = (GameObject)tt;
 
         card.transform.position += position;
-
+        card.transform.localScale = new Vector3(0.789f, 0.789f, 0);
         GameObject myBrick = Instantiate(card, new Vector3(position.x, position.y, 0), Quaternion.identity) as GameObject;
 
 
