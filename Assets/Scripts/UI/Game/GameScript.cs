@@ -550,13 +550,13 @@ public class GameScript : MonoBehaviourPunCallbacks
                 SetCardsOfThirdPlayer(list);
                 SideOfTeam.MoveInstance = 4;
 
-                photonView.RPC("SetListForRequiredPlayerThird", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
+                //photonView.RPC("SetSideForRequiredPlayerThird", RpcTarget.Others,  SideOfTeam.MoveInstance);
 
                 bool isPickedUp = PickUpCardsFromDeckWithoutPlayer("Blue");
-                if (isPickedUp)
-                {
-                    photonView.RPC("CleanDesk", RpcTarget.All);
-                }
+                //if (isPickedUp)
+                //{
+                //    photonView.RPC("CleanDesk", RpcTarget.All);
+                //}
 
                 photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 3);
             }
@@ -1650,6 +1650,8 @@ public class GameScript : MonoBehaviourPunCallbacks
         //Debug.Log("v:" + tempInst);
         if (FirstPlayerInstance.text.Equals(""+tempInst))
         {
+            
+
             ActivateTimeOfMove();
             GameScript.isAviableToMove = true;
             TimeOfMove.active = true;
@@ -1706,8 +1708,9 @@ public class GameScript : MonoBehaviourPunCallbacks
                 if (goName1.Equals(goName2, StringComparison.OrdinalIgnoreCase))
                 {
                     string[] listArray = dropCard.TakeActionEqualsName();
-                    
-                    RecordBoard._instance.photonView.RPC("TakeCardsZing2", RpcTarget.All,sideOfTeam, listArray);
+
+                    //RecordBoard._instance.photonView.RPC("TakeCardsZing2", RpcTarget.All,sideOfTeam, listArray);
+                    RecordBoard._instance.TakeCardsZing2(sideOfTeam, listArray);
                     return true;
                     
                 }
@@ -1715,8 +1718,9 @@ public class GameScript : MonoBehaviourPunCallbacks
                 {
                     string[] listArray = dropCard.TakeActionJDropped();
 
-                    
-                    RecordBoard._instance.photonView.RPC("TakeCardsFromTalon2", RpcTarget.All,sideOfTeam, listArray);
+
+                    // RecordBoard._instance.photonView.RPC("TakeCardsFromTalon2", RpcTarget.All,sideOfTeam, listArray);
+                    RecordBoard._instance.TakeCardsFromTalon2(sideOfTeam, listArray);
                     return true;
                     
                 }
@@ -1744,8 +1748,9 @@ public class GameScript : MonoBehaviourPunCallbacks
                 {
                     string[] listArray = dropCard.TakeActionEqualsName();
 
-                    
-                    RecordBoard._instance.photonView.RPC("TakeCardsFromTalon2", RpcTarget.All,sideOfTeam, listArray);
+
+                    //RecordBoard._instance.photonView.RPC("TakeCardsFromTalon2", RpcTarget.All,sideOfTeam, listArray);
+                    RecordBoard._instance.TakeCardsFromTalon2( sideOfTeam, listArray);
                     return true;
                     
                 }
@@ -1754,7 +1759,8 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                     string[] listArray = dropCard.TakeActionJDropped();
                     
-                    RecordBoard._instance.photonView.RPC("TakeCardsFromTalon2", RpcTarget.All, sideOfTeam, listArray);
+                    
+                    RecordBoard._instance.TakeCardsFromTalon2(sideOfTeam, listArray);
                     return true;
                     //RecordBoard._instance.TakeCardsFromTalon(listArray);
                 }
@@ -1798,8 +1804,9 @@ public class GameScript : MonoBehaviourPunCallbacks
                 {
 
                     string[] listArray = dropCard.TakeActionEqualsName();
-                    
-                    RecordBoard._instance.photonView.RPC("TakeCardsZing2", RpcTarget.All, sideOfTeam, listArray);
+
+                    //RecordBoard._instance.photonView.RPC("TakeCardsZing2", RpcTarget.All, sideOfTeam, listArray);
+                    RecordBoard._instance.TakeCardsZing2(sideOfTeam, listArray);
                     return true;
                     
 
@@ -1809,7 +1816,8 @@ public class GameScript : MonoBehaviourPunCallbacks
                     string[] listArray = dropCard.TakeActionJDropped();
 
                     
-                    RecordBoard._instance.photonView.RPC("TakeCardsFromTalon2", RpcTarget.All, sideOfTeam, listArray);
+                   // RecordBoard._instance.photonView.RPC("TakeCardsFromTalon2", RpcTarget.All, sideOfTeam, listArray);
+                    RecordBoard._instance.TakeCardsFromTalon2(sideOfTeam, listArray);
                     return true;
                     
                 }
@@ -1836,8 +1844,9 @@ public class GameScript : MonoBehaviourPunCallbacks
                 {
 
                     string[] listArray = dropCard.TakeActionEqualsName();
-                    
-                    RecordBoard._instance.photonView.RPC("TakeCardsFromTalon2", RpcTarget.All, sideOfTeam, listArray);
+
+                    //RecordBoard._instance.photonView.RPC("TakeCardsFromTalon2", RpcTarget.All, sideOfTeam, listArray);
+                    RecordBoard._instance.TakeCardsFromTalon2(sideOfTeam, listArray);
                     return true;
                     
                 }
@@ -1845,8 +1854,9 @@ public class GameScript : MonoBehaviourPunCallbacks
                 {
 
                     string[] listArray = dropCard.TakeActionJDropped();
-                    
-                    RecordBoard._instance.photonView.RPC("TakeCardsFromTalon2", RpcTarget.All, sideOfTeam, listArray);
+
+                    //RecordBoard._instance.photonView.RPC("TakeCardsFromTalon2", RpcTarget.All, sideOfTeam, listArray);
+                    RecordBoard._instance.TakeCardsFromTalon2(sideOfTeam, listArray);
                     return true;
                     
                 }
@@ -2177,10 +2187,10 @@ public class GameScript : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void SetListForRequiredPlayerThird(string[] tempList,int side)
+    public void SetSideForRequiredPlayerThird(string[] tempList,int side)
     {
         
-        _cardsOfThirdPlayer = tempList.ToList();
+        //_cardsOfThirdPlayer = tempList.ToList();
         SideOfTeam.MoveInstance = side;
     }
 
