@@ -1562,31 +1562,42 @@ public class GameScript : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void ChangeMoveDropedCard()
+    public void ChangeMoveDropedCard(string NameOfPrefab, Vector3 position)
     {
-        var root = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
-        foreach (var temp in root)
-        {
+        //var root = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
+        //foreach (var temp in root)
+        //{
 
-            if (temp.name.Contains("(Clone)"))
-            {
-                if (temp.name.Contains("CardImageValue"))
-                {
-                    var card = temp.gameObject;
-                    card.transform.localScale = new Vector3(0.789f, 0.789f, 0);
-                    card.transform.SetParent(LastCardCanvas.transform);
-                }
-                else
-                {
-                    var card = temp.gameObject;
-                    card.transform.localScale = new Vector3(0.789f, 0.789f, 0);
-                    card.transform.SetParent(canvacesOfFirstDeck.transform);
-                }
-            }
+        //    if (temp.name.Contains("(Clone)"))
+        //    {
+        //        if (temp.name.Contains("CardImageValue"))
+        //        {
+        //            var card = temp.gameObject;
+        //            card.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+        //            card.transform.SetParent(LastCardCanvas.transform);
+        //        }
+        //        else
+        //        {
+        //            var card = temp.gameObject;
+        //            card.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+        //            card.transform.SetParent(canvacesOfFirstDeck.transform);
+        //        }
+        //    }
 
-        }
-       
-       
+        //}
+
+        var tt = Resources.Load("Prefabs/CardPrefabsSvg/" + NameOfPrefab);
+        
+        var card = (GameObject)tt;
+
+        card.transform.position += position;
+
+        GameObject myBrick = Instantiate(card, new Vector3(position.x, position.y, 0), Quaternion.identity) as GameObject;
+
+
+        myBrick.transform.SetParent(canvacesOfFirstDeck.transform);
+
+
 
     }
 

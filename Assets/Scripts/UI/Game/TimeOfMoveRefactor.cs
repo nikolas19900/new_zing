@@ -56,12 +56,13 @@ public class TimeOfMoveRefactor : MonoBehaviour
         var value = 340 * (1.5 - 0.6) + 0.6;
         float y = (float)(_endPoint.y + _random.Next(100, 150) * _landingToleranceRadius + value);
         _currentCard.transform.position = new Vector3(x, y);
+        Vector3 positionOfCurrentCard = new Vector3(x, y);
+        GameObject myBrick = Instantiate(_currentCard, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
+
+        // GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabsStartSvg/" + CardName, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
 
 
-        GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabsStartSvg/" + CardName, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
 
-       
-        
         myBrick.transform.SetParent(_tempCanvas.transform);
 
         Destroy(_tempTransoformCard.gameObject);
@@ -109,7 +110,7 @@ public class TimeOfMoveRefactor : MonoBehaviour
         }
 
 
-        GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others);
+        GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others,_currentCard.name, positionOfCurrentCard);
 
         //var list = BeginningOfGame.player.GetOfListOfCards();
         //var list = GameScript.player.GetOfListOfCards();

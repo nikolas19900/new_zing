@@ -225,8 +225,8 @@ public  class FirstCardObject : MonoBehaviour
         Vector3 positionOfCurrentCard = new Vector3(x, y);
         //GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabs/" + CardName, _currentCard.transform.position, Quaternion.identity);
 
-        // GameObject myBrick = Instantiate(_currentCard, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
-        GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabsStartSvg/"+_currentCard.name, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
+         GameObject myBrick = Instantiate(_currentCard, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
+        //GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabsSvg/"+_currentCard.name, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
         //var components = myBrick.GetComponents<Component>();
 
         ////var image = gameObject.GetComponent<SVGImage>();
@@ -284,7 +284,7 @@ public  class FirstCardObject : MonoBehaviour
             GameScript.player.photonView.RPC("SetListForRequiredPlayerFourth", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
         }
 
-        GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others);
+        GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, _currentCard.name,positionOfCurrentCard);
         // player._listOfCards.Add(NameOfPrefab);
         //var list = BeginningOfGame.player.GetOfListOfCards();
         //var list = GameScript.player.GetOfListOfCards();
@@ -316,7 +316,7 @@ public  class FirstCardObject : MonoBehaviour
 
        //ukoliko je ponio sa stola mora da pocisti sto
         //BeginningOfGame.player.SetListOfCards(list);
-        //BeginningOfGame.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, _currentCard.transform.position, countOfClick);
+       //BeginningOfGame.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, _currentCard.transform.position, countOfClick);
        // GameScript.player.SetListOfCards(list);
         // GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, _currentCard.transform.position, countOfClick);
         // GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName, PhotonNetwork.LocalPlayer.CustomProperties["Picture"]);
