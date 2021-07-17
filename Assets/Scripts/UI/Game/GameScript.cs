@@ -317,11 +317,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                 
 
 
-                    List<int> listOfPlayers = new List<int>();
-                    listOfPlayers.Add(1);
-                    listOfPlayers.Add(2);
-                    listOfPlayers.Add(3);
-                    listOfPlayers.Add(4);
+                    
                     List<int> temp = new List<int>();
 
                     foreach (var current in players)
@@ -332,8 +328,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                     }
 
-                float _landingToleranceRadius = 0.3f;
-                Vector2 _endPoint = Vector2.zero;
+                
                 //Debug.Log("vrij:" + SideOfTeam.MoveInstance);
 
                 if (!temp.Contains(1) && SideOfTeam.MoveInstance == 1)
@@ -353,9 +348,10 @@ public class GameScript : MonoBehaviourPunCallbacks
                     Invoke("ThirdDropCard", 1f);
                    
                 }
+                Debug.Log("move:" + SideOfTeam.MoveInstance);
                  if (!temp.Contains(4) && SideOfTeam.MoveInstance == 4)
                 {
-
+                    Debug.Log("sad sam pokrenuo ai na 4 instanci");
                     Invoke("FourthDropCard", 1f);
                     
                 }
