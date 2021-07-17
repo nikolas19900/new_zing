@@ -286,7 +286,11 @@ public class GameScript : MonoBehaviourPunCallbacks
                     //ako jedan od igraca nije aktivan aktivirace se ova linija koda
                      Debug.Log("ovaj igrac nije aktivan:"+ players[current.Key].NickName);
                     //_currentPhotonView.RPC("ReadLine", players[current.Key]);
-
+                    int vv = int.Parse(""+ players[current.Key].CustomProperties["Instance"]);
+                    if(vv == 3)
+                    {
+                        Invoke("ThirdDropCard", 1f);
+                    }
 
                 }
 
@@ -541,23 +545,20 @@ public class GameScript : MonoBehaviourPunCallbacks
                 GameObject myBrick = Instantiate(card, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
 
 
-                ////// Debug.Log("first card object:" + tv.transform.childCount);
+              
 
                 myBrick.transform.SetParent(canvacesOfFirstDeck.transform);
 
-                //photonView.RPC("DropTheCard", RpcTarget.All, val);
+             
 
                 list.Remove(val);
                 SetCardsOfThirdPlayer(list);
                 SideOfTeam.MoveInstance = 4;
 
-                //photonView.RPC("SetSideForRequiredPlayerThird", RpcTarget.Others,  SideOfTeam.MoveInstance);
+               
 
                 bool isPickedUp = PickUpCardsFromDeckWithoutPlayer("Blue");
-                //if (isPickedUp)
-                //{
-                //    photonView.RPC("CleanDesk", RpcTarget.All);
-                //}
+              
 
                 photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 3);
             }
