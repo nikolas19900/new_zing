@@ -162,7 +162,10 @@ public class GameScript : MonoBehaviourPunCallbacks
    
     private GameObject _previousCard;
     private GameObject _currentCard;
+    private bool runOnceFirst = false;
+    private bool runOnceSecond = false;
     private bool runOnceThird = false;
+    private bool runOnceFourth = false;
 
     void Awake()
     {
@@ -284,9 +287,14 @@ public class GameScript : MonoBehaviourPunCallbacks
                         _currentPhotonView.RPC("SwitchAllSceneAndLeave", RpcTarget.Others);
                     }
                     //ako jedan od igraca nije aktivan aktivirace se ova linija koda
-                     Debug.Log("ovaj igrac nije aktivan:"+ players[current.Key].NickName);
+                   //  Debug.Log("ovaj igrac nije aktivan:"+ players[current.Key].NickName);
                     //_currentPhotonView.RPC("ReadLine", players[current.Key]);
                     int vv = int.Parse(""+ players[current.Key].CustomProperties["Instance"]);
+
+                    if(vv == 1 && SideOfTeam.MoveInstance == 1)
+                    {
+                        Invoke("FirstDropCard", 1f);
+                    }
                     if(vv == 3 && SideOfTeam.MoveInstance == 3)
                     {
                         Invoke("ThirdDropCard", 1f);
@@ -321,59 +329,10 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                 if (!temp.Contains(1) && SideOfTeam.MoveInstance == 1)
                 {
+                    Invoke("FirstDropCard", 1f);
                     
-                    
-
-                    Debug.Log("usao sam 1");
-                    var list = GetCardsOfFirstPlayer();
-                    if (list.Count > 0)
-                    {
 
 
-                        var val = list[0];
-
-                        var tt = Resources.Load("Prefabs/CardPrefabsSvg/" + val);
-
-                        GameObject card = (GameObject)tt;
-
-
-                        _random = new System.Random();
-
-                        var valueX = 300 * (1 - (-0.6)) + (-0.6);
-
-                        float toleranceX = 2.3f;
-                        float x = (float)(valueX + _random.Next(-20, 0) * toleranceX);
-                        var value = 340 * (1.5 - 0.6) + 0.6;
-                        float y = (float)(_endPoint.y + _random.Next(100, 150) * _landingToleranceRadius + value);
-
-                        card.transform.position = new Vector3(x, y);
-                        Vector3 positionOfCurrentCard = new Vector3(x, y);
-                        ////GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabs/" + CardName, _currentCard.transform.position, Quaternion.identity);
-
-                        GameObject myBrick = Instantiate(card, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
-
-                        
-                        myBrick.transform.SetParent(canvacesOfFirstDeck.transform);
-
-                        //photonView.RPC("DropTheCard", RpcTarget.All, val);
-
-
-                        list.Remove(val);
-                        SetCardsOfFirstPlayer(list);
-                        SideOfTeam.MoveInstance = 2;
-
-                        photonView.RPC("SetListForRequiredPlayerFirst", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
-
-                        bool isPickedUp = PickUpCardsFromDeckWithoutPlayer("Blue");
-                        if (isPickedUp)
-                        {
-                            photonView.RPC("CleanDesk", RpcTarget.All);
-                        }
-
-                        photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 1);
-                        
-
-                    }
                 }
 
                  if (!temp.Contains(2) && SideOfTeam.MoveInstance == 2)
@@ -506,6 +465,73 @@ public class GameScript : MonoBehaviourPunCallbacks
             ArrangeCards();
         }
 
+    }
+
+
+    public void FirstDropCard()
+    {
+        if (!runOnceFirst)
+        {
+
+            float _landingToleranceRadius = 0.3f;
+            Vector2 _endPoint = Vector2.zero;
+
+           
+            Debug.Log("usao sam 1");
+            var list = GetCardsOfFirstPlayer();
+            if (list.Count > 0)
+            {
+
+
+                var val = list[0];
+
+                var tt = Resources.Load("Prefabs/CardPrefabsSvg/" + val);
+
+                GameObject card = (GameObject)tt;
+
+
+                _random = new System.Random();
+
+                var valueX = 300 * (1 - (-0.6)) + (-0.6);
+
+                float toleranceX = 2.3f;
+                float x = (float)(valueX + _random.Next(-20, 0) * toleranceX);
+                var value = 340 * (1.5 - 0.6) + 0.6;
+                float y = (float)(_endPoint.y + _random.Next(100, 150) * _landingToleranceRadius + value);
+
+                card.transform.position = new Vector3(x, y);
+                card.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+                Vector3 positionOfCurrentCard = new Vector3(x, y);
+                ////GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabs/" + CardName, _currentCard.transform.position, Quaternion.identity);
+
+                GameObject myBrick = Instantiate(card, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
+
+
+                myBrick.transform.SetParent(canvacesOfFirstDeck.transform);
+
+                //photonView.RPC("DropTheCard", RpcTarget.All, val);
+
+
+                list.Remove(val);
+                SetCardsOfFirstPlayer(list);
+                SideOfTeam.MoveInstance = 2;
+
+               
+
+                bool isPickedUp = PickUpCardsFromDeckWithoutPlayer("Blue");
+                
+
+                photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 1);
+
+
+            }
+            
+           
+           
+            runOnceFirst = true;
+
+
+        }
     }
 
     public void ThirdDropCard()
@@ -2293,6 +2319,26 @@ public class GameScript : MonoBehaviourPunCallbacks
         _cardsOfFourthPlayer = cards;
     }
 
+    public bool GetRunOnceFirst()
+    {
+        return runOnceFirst;
+    }
+
+    public void SetRunOnceFirst(bool run)
+    {
+        runOnceFirst = run;
+    }
+
+    public bool GetRunOnceSecond()
+    {
+        return runOnceSecond;
+    }
+
+    public void SetRunOnceSecond(bool run)
+    {
+        runOnceSecond = run;
+    }
+
     public bool GetRunOnceThird()
     {
         return runOnceThird;
@@ -2301,6 +2347,16 @@ public class GameScript : MonoBehaviourPunCallbacks
     public void SetRunOnceThird(bool run)
     {
         runOnceThird = run;
+    }
+
+    public bool GetRunOnceFourth()
+    {
+        return runOnceFourth;
+    }
+
+    public void SetRunOnceFourth(bool run)
+    {
+        runOnceFourth = run;
     }
 
 

@@ -250,9 +250,12 @@ public  class FirstCardObject : MonoBehaviour
        
         Destroy(transform.gameObject);
 
+        GameScript.player.SetRunOnceFirst(false);
+        GameScript.player.SetRunOnceSecond(false);
         GameScript.player.SetRunOnceThird(false);
+        GameScript.player.SetRunOnceFourth(false);
 
-        if(GameScript.player.GetCurrentInstance() == 1)
+        if (GameScript.player.GetCurrentInstance() == 1)
         {
             var list = GameScript.player.GetCardsOfFirstPlayer();
             list.Remove(CardName);

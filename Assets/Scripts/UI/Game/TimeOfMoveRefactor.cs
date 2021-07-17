@@ -67,6 +67,11 @@ public class TimeOfMoveRefactor : MonoBehaviour
         myBrick.transform.SetParent(_tempCanvas.transform);
 
         Destroy(_tempTransoformCard.gameObject);
+        GameScript.player.SetRunOnceFirst(false);
+        GameScript.player.SetRunOnceSecond(false);
+        GameScript.player.SetRunOnceThird(false);
+        GameScript.player.SetRunOnceFourth(false);
+
         if (GameScript.player.GetCurrentInstance() == 1)
         {
             //treba kod projveriti da li radi dobro
