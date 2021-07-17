@@ -2252,10 +2252,10 @@ public class GameScript : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void SetSideForRequiredPlayerThird(string[] tempList,int side)
+    public void SetListForRequiredPlayerThird(string[] tempList,int side)
     {
         
-        //_cardsOfThirdPlayer = tempList.ToList();
+        _cardsOfThirdPlayer = tempList.ToList();
         SideOfTeam.MoveInstance = side;
     }
 
