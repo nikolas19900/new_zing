@@ -41,7 +41,7 @@ public class TimeOfMoveRefactor : MonoBehaviour
         var index = CardNameClone.IndexOf("(");
         string CardName = CardNameClone.Substring(0, index);
        
-        var tt = Resources.Load("Prefabs/CardPrefabsStartSvg/" + CardName);
+        var tt = Resources.Load("Prefabs/CardPrefabsSvg/" + CardName);
         var _currentCard = (GameObject)tt;
         
         //za current card objekat je neophodno setovati svgrender order na 1

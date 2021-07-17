@@ -201,7 +201,7 @@ public  class FirstCardObject : MonoBehaviour
 
         var index = CardNameClone.IndexOf("(");
         string CardName = CardNameClone.Substring(0, index);
-        var tt = Resources.Load("Prefabs/CardPrefabsStartSvg/" + CardName);
+        var tt = Resources.Load("Prefabs/CardPrefabsSvg/" + CardName);
 
         _currentCard = (GameObject) tt;
 
