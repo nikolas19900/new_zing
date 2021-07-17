@@ -287,7 +287,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                      Debug.Log("ovaj igrac nije aktivan:"+ players[current.Key].NickName);
                     //_currentPhotonView.RPC("ReadLine", players[current.Key]);
                     int vv = int.Parse(""+ players[current.Key].CustomProperties["Instance"]);
-                    if(vv == 3)
+                    if(vv == 3 && SideOfTeam.MoveInstance == 3)
                     {
                         Invoke("ThirdDropCard", 1f);
                     }
