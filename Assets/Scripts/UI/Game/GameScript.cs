@@ -303,6 +303,11 @@ public class GameScript : MonoBehaviourPunCallbacks
                     {
                         Invoke("ThirdDropCard", 1f);
                     }
+                    if(vv == 4 && SideOfTeam.MoveInstance == 4)
+                    {
+                        Invoke("FourthDropCard", 1f);
+                        
+                    }
 
                 }
 
@@ -350,53 +355,9 @@ public class GameScript : MonoBehaviourPunCallbacks
                 }
                  if (!temp.Contains(4) && SideOfTeam.MoveInstance == 4)
                 {
-                    Debug.Log("usao sam 4");
-                    var list = GetCardsOfFourthPlayer();
-                    if (list.Count > 0)
-                    {
 
-
-                        var val = list[0];
-
-                        var tt = Resources.Load("Prefabs/CardPrefabsSvg/" + val);
-
-                        GameObject card = (GameObject)tt;
-
-
-                        _random = new System.Random();
-
-                        var valueX = 300 * (1 - (-0.6)) + (-0.6);
-
-                        float toleranceX = 2.3f;
-                        float x = (float)(valueX + _random.Next(-20, 0) * toleranceX);
-                        var value = 340 * (1.5 - 0.6) + 0.6;
-                        float y = (float)(_endPoint.y + _random.Next(100, 150) * _landingToleranceRadius + value);
-
-                        card.transform.position = new Vector3(x, y);
-                        Vector3 positionOfCurrentCard = new Vector3(x, y);
-                        //GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabs/" + CardName, _currentCard.transform.position, Quaternion.identity);
-
-                        GameObject myBrick = Instantiate(card, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
-
-
-                        myBrick.transform.SetParent(canvacesOfFirstDeck.transform);
-
-                        //photonView.RPC("DropTheCard", RpcTarget.All, val);
-
-                        list.Remove(val);
-                        SetCardsOfFourthPlayer(list);
-                        SideOfTeam.MoveInstance = 1;
-
-                        photonView.RPC("SetListForRequiredPlayerFourth", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
-
-                        bool isPickedUp = PickUpCardsFromDeckWithoutPlayer("Red");
-                        if (isPickedUp)
-                        {
-                            photonView.RPC("CleanDesk", RpcTarget.All);
-                        }
-
-                        photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 4);
-                    }
+                    Invoke("FourthDropCard", 1f);
+                    
                 }
                             // Debug.Log("ovaj igrac nije aktican:" + play);
             
@@ -612,9 +573,70 @@ public class GameScript : MonoBehaviourPunCallbacks
 
         }
         
-
-
     }
+
+
+    public void FourthDropCard()
+    {
+        if (!runOnceFourth)
+        {
+            float _landingToleranceRadius = 0.3f;
+            Vector2 _endPoint = Vector2.zero;
+
+            var list = GetCardsOfFourthPlayer();
+            //Debug.Log("usao sam 3" + list.Count);
+            if (list.Count > 0)
+            {
+
+
+                var val = list[0];
+                Debug.Log("vrijednost:" + val);
+                var tt = Resources.Load("Prefabs/CardPrefabsSvg/" + val);
+
+                GameObject card = (GameObject)tt;
+
+
+                _random = new System.Random();
+
+                var valueX = 300 * (1 - (-0.6)) + (-0.6);
+
+                float toleranceX = 2.3f;
+                float x = (float)(valueX + _random.Next(-20, 0) * toleranceX);
+                var value = 340 * (1.5 - 0.6) + 0.6;
+                float y = (float)(_endPoint.y + _random.Next(100, 150) * _landingToleranceRadius + value);
+
+                card.transform.position = new Vector3(x, y);
+                card.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+                Vector3 positionOfCurrentCard = new Vector3(x, y);
+                //GameObject myBrick = PhotonNetwork.Instantiate("Prefabs/CardPrefabs/" + CardName, _currentCard.transform.position, Quaternion.identity);
+
+                GameObject myBrick = Instantiate(card, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
+
+
+
+
+                myBrick.transform.SetParent(canvacesOfFirstDeck.transform);
+
+
+
+                list.Remove(val);
+                SetCardsOfFourthPlayer(list);
+                SideOfTeam.MoveInstance = 1;
+
+
+
+                bool isPickedUp = PickUpCardsFromDeckWithoutPlayer("Red");
+
+
+                photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 4);
+            }
+            runOnceFourth = true;
+
+
+        }
+        
+    }
+
 
     [PunRPC]
     public void SwitchAllSceneAndLeave()
