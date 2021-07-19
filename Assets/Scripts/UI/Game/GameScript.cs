@@ -1693,12 +1693,12 @@ public class GameScript : MonoBehaviourPunCallbacks
             TimeOfMove.active = true;
 
             var tv = (Canvas)canvacesOfCurrentPlayer;
-
+            int i = 0;
             foreach (Transform element in tv.transform)
             {
-
+                Debug.Log("po redu:" + i);
                 element.GetComponent<EventTrigger>().enabled = true;
-
+                i++;
                 //    //var firstCard = element.Find("FirstCardSelected").gameObject;
                 //    //firstCard.active = false;
 
@@ -1722,12 +1722,12 @@ public class GameScript : MonoBehaviourPunCallbacks
             TimeOfMove.active = true;
 
             var tv = (Canvas)canvacesOfCurrentPlayer;
-
+            int i = 0;
             foreach (Transform element in tv.transform)
             {
-
+                Debug.Log("po redu instance:" + i);
                 element.GetComponent<EventTrigger>().enabled = true;
-
+                i++;
                 //    //var firstCard = element.Find("FirstCardSelected").gameObject;
                 //    //firstCard.active = false;
 
