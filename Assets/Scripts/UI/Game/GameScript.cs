@@ -1711,8 +1711,8 @@ public class GameScript : MonoBehaviourPunCallbacks
     [PunRPC]
     public void ActivatePlayerToPlayInstance(int tempInst)
     {
-        //Debug.Log("vri:" + FirstPlayerInstance.text);
-        //Debug.Log("v:" + tempInst);
+        Debug.Log("vri:" + FirstPlayerInstance.text);
+        Debug.Log("v:" + tempInst);
         if (FirstPlayerInstance.text.Equals(""+tempInst))
         {
             
