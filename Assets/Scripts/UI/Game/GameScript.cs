@@ -429,9 +429,18 @@ public class GameScript : MonoBehaviourPunCallbacks
                
 
                 bool isPickedUp = PickUpCardsFromDeckWithoutPlayer("Blue");
-                
 
-                photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 1);
+                var players = PhotonNetwork.CurrentRoom.Players;
+                if(players.Count == 1)
+                {
+                    photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.All, 1);
+                }
+                else
+                {
+                    photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 1);
+                }
+
+                
 
 
             }
@@ -496,9 +505,17 @@ public class GameScript : MonoBehaviourPunCallbacks
 
 
                 bool isPickedUp = PickUpCardsFromDeckWithoutPlayer("Red");
-               
 
-                photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 2);
+                var players = PhotonNetwork.CurrentRoom.Players;
+                if (players.Count == 1)
+                {
+                    photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.All, 2);
+                }
+                else
+                {
+                    photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 2);
+                }
+                
                 
             }
 
@@ -560,9 +577,17 @@ public class GameScript : MonoBehaviourPunCallbacks
                
 
                 bool isPickedUp = PickUpCardsFromDeckWithoutPlayer("Blue");
-              
 
-                photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 3);
+                var players = PhotonNetwork.CurrentRoom.Players;
+                if (players.Count == 1)
+                {
+                    photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.All, 3);
+                }
+                else
+                {
+                    photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 3);
+                }
+               
             }
             runOnceThird = true;
 
@@ -623,8 +648,16 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                 bool isPickedUp = PickUpCardsFromDeckWithoutPlayer("Red");
 
-
-                photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 4);
+                var players = PhotonNetwork.CurrentRoom.Players;
+                if (players.Count == 1)
+                {
+                    photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.All, 4);
+                }
+                else
+                {
+                    photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 4);
+                }
+                
             }
             runOnceFourth = true;
 
