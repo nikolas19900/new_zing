@@ -764,7 +764,7 @@ public class GameScript : MonoBehaviourPunCallbacks
             GameObject gameObj = (GameObject)obj;
 
             
-            Vector3 position = new Vector3(startPosition, 800f);
+            Vector3 position = new Vector3(startPosition, 600f);
             gameObj.transform.localPosition = position;
             gameObj.transform.localScale = new Vector3(0.789f, 0.789f, 0);
             //PhotonNetwork.Instantiate("Prefabs/CardPrefabsStartSVG/" + gameObj.name, new Vector3(startPosition, 700f, 0), Quaternion.identity).transform.SetParent(canvacesOfFirstDeck.transform);
@@ -816,10 +816,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                     Time.deltaTime * (-card.transform.position.y + (float)_tolerances.ToArray().GetValue(i)) * 0.25f);
 
                 card.transform.position += position;
-                float x2 = -Time.deltaTime * (startPosition + (float)_tolerances.ToArray().GetValue(i)) * 0.25f;
-              
-                Vector3 position2 = new Vector3(x2,
-                    Time.deltaTime * (-1000f + (float)_tolerances.ToArray().GetValue(i)) * 0.25f);
+               
 
                
 
@@ -948,19 +945,15 @@ public class GameScript : MonoBehaviourPunCallbacks
 
         for (int i = 0; i < positions.Length; i++)
         {
-            //Debug.Log("card:" + values[i]);
-            //var card = canvacesOfFirstDeck.transform.Find($"{values[i]}(Clone)").gameObject;
-
+           
             var prefabs = Resources.Load("Prefabs/CardPrefabsSvg/" + Array[i]);
 
             GameObject gameObj = (GameObject)prefabs;
 
-            //Debug.Log(positions[i].x);
-            //Debug.Log(positions[i].y);
+           
             gameObj.transform.position = positions[i];
-            //Debug.Log(card.transform.position.x);
-            //Debug.Log(card.transform.position.y);
-            //card.transform.localScale = new Vector3(0.23f, 0.23f);
+            gameObj.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+            
             GameObject firstDeck = (GameObject)Instantiate(gameObj, new Vector3(positions[i].x, positions[i].y, 0), Quaternion.identity);
             firstDeck.transform.SetParent(canvacesOfFirstDeck.transform);
 
