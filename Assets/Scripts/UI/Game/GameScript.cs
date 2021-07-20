@@ -437,7 +437,26 @@ public class GameScript : MonoBehaviourPunCallbacks
                 }
                 else
                 {
-                    photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 1);
+                    int i = 0;
+                    foreach (var current in players)
+                    {
+                        
+
+                        if (players[current.Key].CustomProperties["State"].Equals("inactive"))
+                        {
+                            i++;
+                        }
+                    }
+                    if( i == 0)
+                    {
+                        photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 1);
+                    }
+                    else
+                    {
+                        photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.All, 1);
+                    }
+
+                    
                 }
 
                 
@@ -513,7 +532,24 @@ public class GameScript : MonoBehaviourPunCallbacks
                 }
                 else
                 {
-                    photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 2);
+                    int i = 0;
+                    foreach (var current in players)
+                    {
+
+
+                        if (players[current.Key].CustomProperties["State"].Equals("inactive"))
+                        {
+                            i++;
+                        }
+                    }
+                    if (i == 0)
+                    {
+                        photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 2);
+                    }
+                    else
+                    {
+                        photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.All, 2);
+                    }
                 }
                 
                 
@@ -585,7 +621,24 @@ public class GameScript : MonoBehaviourPunCallbacks
                 }
                 else
                 {
-                    photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 3);
+                    int i = 0;
+                    foreach (var current in players)
+                    {
+
+
+                        if (players[current.Key].CustomProperties["State"].Equals("inactive"))
+                        {
+                            i++;
+                        }
+                    }
+                    if (i == 0)
+                    {
+                        photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 3);
+                    }
+                    else
+                    {
+                        photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.All, 3);
+                    }
                 }
                
             }
@@ -655,7 +708,24 @@ public class GameScript : MonoBehaviourPunCallbacks
                 }
                 else
                 {
-                    photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 4);
+                    int i = 0;
+                    foreach (var current in players)
+                    {
+
+
+                        if (players[current.Key].CustomProperties["State"].Equals("inactive"))
+                        {
+                            i++;
+                        }
+                    }
+                    if (i == 0)
+                    {
+                        photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 4);
+                    }
+                    else
+                    {
+                        photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.All, 4);
+                    }
                 }
                 
             }
