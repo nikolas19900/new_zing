@@ -768,8 +768,9 @@ public class GameScript : MonoBehaviourPunCallbacks
             gameObj.transform.localPosition = position;
             gameObj.transform.localScale = new Vector3(0.789f, 0.789f, 0);
             //PhotonNetwork.Instantiate("Prefabs/CardPrefabsStartSVG/" + gameObj.name, new Vector3(startPosition, 700f, 0), Quaternion.identity).transform.SetParent(canvacesOfFirstDeck.transform);
-            GameObject firstDeck = (GameObject) PhotonNetwork.Instantiate("Prefabs/CardPrefabsStartSVG/"+gameObj.name, new Vector3(startPosition, 700f, 0), Quaternion.identity);
-            
+            //GameObject firstDeck = (GameObject) PhotonNetwork.Instantiate("Prefabs/CardPrefabsStartSVG/"+gameObj.name, new Vector3(startPosition, 700f, 0), Quaternion.identity);
+            GameObject firstDeck = (GameObject) Instantiate( gameObj, new Vector3(startPosition, 700f, 0), Quaternion.identity);
+
             firstDeck.transform.localScale = new Vector3(0.789f, 0.789f, 0);
             arrayPosition[i] = position;
             arrayCards[i] = "" + gameObj.name;
@@ -783,7 +784,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
         
 
-        _currentPhotonView.RPC("SendInitTalon", RpcTarget.Others, arrayCards);
+        _currentPhotonView.RPC("SendInitTalon", RpcTarget.Others, arrayCards,arrayPosition);
 
 
         isArrangeCard = false;
@@ -830,7 +831,9 @@ public class GameScript : MonoBehaviourPunCallbacks
                 i++;
 
             }
-          
+
+            photonView.RPC("InformCardPosition", RpcTarget.Others, arrayVectors, listTalon.ToArray());
+
             Invoke("InvokeMethod", 3f);
         }
         catch (Exception ex)
@@ -850,7 +853,37 @@ public class GameScript : MonoBehaviourPunCallbacks
     }
 
 
-   [PunRPC]
+    [PunRPC]
+    public void InformCardPosition(Vector3[] newPosition, string[] arrayTalon)
+    {
+
+
+        int i = 0;
+        if (listTalon == null)
+        {
+            listTalon = arrayTalon.ToList();
+        }
+
+
+        
+
+        foreach (var val in listTalon)
+        {
+
+            var card = canvacesOfFirstDeck.transform.Find($"{val}(Clone)").gameObject;
+
+            card.transform.position += newPosition[i];
+
+            var components = card.GetComponents<Component>();
+
+            card.transform.SetParent(canvacesOfFirstDeck.transform);
+
+            i++;
+        }
+    }
+
+
+    [PunRPC]
    public void DropTheCard(string name)
     {
         float _landingToleranceRadius = 0.3f;
@@ -885,34 +918,55 @@ public class GameScript : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void SendInitTalon(string[] Array)
+    public void SendInitTalon(string[] Array,Vector3[] positions)
     {
-        float startPosition = 1000f;
+        //float startPosition = 1000f;
 
-        int i = 0;
-        Vector3[] arrayPosition = new Vector3[4];
-        string[] arrayCards = { "", "", "", "" };
+        //int i = 0;
+        //Vector3[] arrayPosition = new Vector3[4];
+        //string[] arrayCards = { "", "", "", "" };
 
-        var root = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
-        foreach(var temp in root)
+        //var root = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
+        //foreach(var temp in root)
+        //{
+
+        //    if (temp.name.Contains("(Clone)")) {
+        //        if (temp.name.Contains("CardImageValue"))
+        //        {
+        //            var card = temp.gameObject;
+        //            card.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+        //            card.transform.SetParent(LastCardCanvas.transform);
+        //        }
+        //        else { 
+        //            var card = temp.gameObject;
+        //            card.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+        //            card.transform.SetParent(canvacesOfFirstDeck.transform);
+        //        }
+        //    }
+
+        //}
+
+        for (int i = 0; i < positions.Length; i++)
         {
+            //Debug.Log("card:" + values[i]);
+            //var card = canvacesOfFirstDeck.transform.Find($"{values[i]}(Clone)").gameObject;
 
-            if (temp.name.Contains("(Clone)")) {
-                if (temp.name.Contains("CardImageValue"))
-                {
-                    var card = temp.gameObject;
-                    card.transform.localScale = new Vector3(0.789f, 0.789f, 0);
-                    card.transform.SetParent(LastCardCanvas.transform);
-                }
-                else { 
-                    var card = temp.gameObject;
-                    card.transform.localScale = new Vector3(0.789f, 0.789f, 0);
-                    card.transform.SetParent(canvacesOfFirstDeck.transform);
-                }
-            }
-          
+            var prefabs = Resources.Load("Prefabs/CardPrefabsSvg/" + Array[i]);
+
+            GameObject gameObj = (GameObject)prefabs;
+
+            //Debug.Log(positions[i].x);
+            //Debug.Log(positions[i].y);
+            gameObj.transform.position = positions[i];
+            //Debug.Log(card.transform.position.x);
+            //Debug.Log(card.transform.position.y);
+            //card.transform.localScale = new Vector3(0.23f, 0.23f);
+            GameObject firstDeck = (GameObject)Instantiate(gameObj, new Vector3(positions[i].x, positions[i].y, 0), Quaternion.identity);
+            firstDeck.transform.SetParent(canvacesOfFirstDeck.transform);
+
+
         }
-        
+
     }
     [PunRPC]
     public void setOtherImagesofPlayers()
@@ -1796,12 +1850,12 @@ public class GameScript : MonoBehaviourPunCallbacks
             TimeOfMove.active = true;
 
             var tv = (Canvas)canvacesOfCurrentPlayer;
-            int i = 0;
+            
             foreach (Transform element in tv.transform)
             {
-                Debug.Log("po redu:" + i);
+                
                 element.GetComponent<EventTrigger>().enabled = true;
-                i++;
+                
                 //    //var firstCard = element.Find("FirstCardSelected").gameObject;
                 //    //firstCard.active = false;
 
@@ -1814,8 +1868,8 @@ public class GameScript : MonoBehaviourPunCallbacks
     [PunRPC]
     public void ActivatePlayerToPlayInstance(int tempInst)
     {
-        Debug.Log("vri:" + FirstPlayerInstance.text);
-        Debug.Log("v:" + tempInst);
+        //Debug.Log("vri:" + FirstPlayerInstance.text);
+        //Debug.Log("v:" + tempInst);
         if (FirstPlayerInstance.text.Equals(""+tempInst))
         {
             
@@ -1825,12 +1879,12 @@ public class GameScript : MonoBehaviourPunCallbacks
             TimeOfMove.active = true;
 
             var tv = (Canvas)canvacesOfCurrentPlayer;
-            int i = 0;
+            
             foreach (Transform element in tv.transform)
             {
-                Debug.Log("po redu instance:" + i);
+                
                 element.GetComponent<EventTrigger>().enabled = true;
-                i++;
+                
                 //    //var firstCard = element.Find("FirstCardSelected").gameObject;
                 //    //firstCard.active = false;
 
