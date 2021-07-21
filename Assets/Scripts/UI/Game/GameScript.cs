@@ -132,7 +132,7 @@ public class GameScript : MonoBehaviourPunCallbacks
     public static bool isGameStarted = false;
    
 
-    private ZingDealer _zingDealer;
+    private ZingDealer _zingDealer = new ZingDealer();
 
     private List<string> RemainingCardsList;
 
@@ -1542,6 +1542,127 @@ public class GameScript : MonoBehaviourPunCallbacks
         }
     }
 
+    [PunRPC]
+    public void SetCardsToPlayers( string[] cardsOfFirstPlayer,
+       string[] cardsOfSecondPlayer, string[] cardsOfThirdPlayer, string[] cardsOfFourthPlayer, string[] RemaingCards)
+    {
+       
+        RemainingCardsList = RemaingCards.ToList();
+        _cardsOfFirstPlayer = cardsOfFirstPlayer.ToList();
+        _cardsOfSecondPlayer = cardsOfSecondPlayer.ToList();
+        _cardsOfThirdPlayer = cardsOfThirdPlayer.ToList();
+        _cardsOfFourthPlayer = cardsOfFourthPlayer.ToList();
+        if (GetCurrentInstance() == 1)
+        {
+
+
+            float multiplier = 1.2f;
+
+            foreach (var obj in _cardsOfFirstPlayer)
+            {
+                //Debug.Log("vrijednost:" + obj);
+                var tt = Resources.Load("Prefabs/PlayerCards/" + obj);
+
+                GameObject FirstCardObject = (GameObject)tt;
+
+                //FirstCardObject.transform.localScale = new Vector3(0.23f, 0.23f);
+
+                FirstCardObject.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+
+                GameObject myBrick = Instantiate(FirstCardObject, new Vector3(340 + multiplier, 100, 0), Quaternion.identity) as GameObject;
+                //myBrick.transform.position = new Vector2(multiplier, 0);
+
+
+                myBrick.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+                myBrick.transform.SetParent(canvacesOfCurrentPlayer.transform);
+                multiplier += 90;
+
+            }
+
+
+        }
+        if (GetCurrentInstance() == 2)
+        {
+
+            float multiplier = 1.2f;
+
+            foreach (var obj in _cardsOfSecondPlayer)
+            {
+                //Debug.Log("vrijednost:" + obj);
+                var tt = Resources.Load("Prefabs/PlayerCards/" + obj);
+
+                GameObject FirstCardObject = (GameObject)tt;
+
+                //FirstCardObject.transform.localScale = new Vector3(0.23f, 0.23f);
+
+                FirstCardObject.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+
+                GameObject myBrick = Instantiate(FirstCardObject, new Vector3(340 + multiplier, 100, 0), Quaternion.identity) as GameObject;
+                //myBrick.transform.position = new Vector2(multiplier, 0);
+
+
+                myBrick.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+                myBrick.transform.SetParent(canvacesOfCurrentPlayer.transform);
+                multiplier += 90;
+
+            }
+        }
+        if (GetCurrentInstance() == 3)
+        {
+
+
+            float multiplier = 1.2f;
+
+            foreach (var obj in _cardsOfThirdPlayer)
+            {
+                //Debug.Log("vrijednost:" + obj);
+                var tt = Resources.Load("Prefabs/PlayerCards/" + obj);
+
+                GameObject FirstCardObject = (GameObject)tt;
+
+                //FirstCardObject.transform.localScale = new Vector3(0.23f, 0.23f);
+
+                FirstCardObject.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+
+                GameObject myBrick = Instantiate(FirstCardObject, new Vector3(340 + multiplier, 100, 0), Quaternion.identity) as GameObject;
+                //myBrick.transform.position = new Vector2(multiplier, 0);
+
+
+                myBrick.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+                myBrick.transform.SetParent(canvacesOfCurrentPlayer.transform);
+                multiplier += 90;
+
+            }
+        }
+        if (GetCurrentInstance() == 4)
+        {
+
+
+            float multiplier = 1.2f;
+
+            foreach (var obj in _cardsOfFourthPlayer)
+            {
+                //Debug.Log("vrijednost:" + obj);
+                var tt = Resources.Load("Prefabs/PlayerCards/" + obj);
+
+                GameObject FirstCardObject = (GameObject)tt;
+
+                //FirstCardObject.transform.localScale = new Vector3(0.23f, 0.23f);
+
+                FirstCardObject.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+
+                GameObject myBrick = Instantiate(FirstCardObject, new Vector3(340 + multiplier, 100, 0), Quaternion.identity) as GameObject;
+                //myBrick.transform.position = new Vector2(multiplier, 0);
+
+
+                myBrick.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+                myBrick.transform.SetParent(canvacesOfCurrentPlayer.transform);
+                multiplier += 90;
+
+            }
+        }
+    }
+
 
     void DisplayProfilePic(IGraphResult result)
     {
@@ -1610,7 +1731,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
         if (SideOfTeam.CurrentPlayerSide == 1 && isGameStarted)
         {
-            _zingDealer = new ZingDealer();
+            _zingDealer = new ZingDealer("start");
             string[] remaingCardArray = new string[_zingDealer.RemainingCards.Count];
             int intValue = 0;
             RemainingCardsList = new List<string>();
@@ -2568,6 +2689,26 @@ public class GameScript : MonoBehaviourPunCallbacks
     public void SetRunOnceFourth(bool run)
     {
         runOnceFourth = run;
+    }
+
+    public void setZingDealer(ZingDealer zing)
+    {
+        _zingDealer = zing;
+    }
+
+    public ZingDealer GetZingDealer()
+    {
+        return _zingDealer;
+    }
+
+    public List<string> GetRemainingCardsList()
+    {
+        return RemainingCardsList;
+    }
+
+    public void SetRemaingCardsList(List<string> values)
+    {
+        RemainingCardsList = values;
     }
 
 

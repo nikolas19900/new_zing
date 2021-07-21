@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Assets.Scripts.UI.Game.CheckCards
 {
-    class ZingDealer
+    public class ZingDealer
     {
         public const int NumberOfCards = 52;
         /// <summary>
@@ -35,7 +35,7 @@ namespace Assets.Scripts.UI.Game.CheckCards
 
         public List<Card> ListOfCardsOfFourthPlayers { get; private set; }
 
-        public ZingDealer()
+        public ZingDealer(string vv)
         {
             _random = new Random();
 
@@ -44,6 +44,11 @@ namespace Assets.Scripts.UI.Game.CheckCards
             InitTalon();
             InitLastCard();
             InitCardsForPlayers();
+        }
+
+        public ZingDealer()
+        {
+
         }
 
         public void AddCardToTalon()
