@@ -242,14 +242,14 @@ public  class FirstCardObject : MonoBehaviour
         //        order.sortingOrder = countClick;
         //    }
         //}
-        var tv = (Canvas)GameScript.player.GetCurrentPlayerCanvas();
+       
 
         // Debug.Log("first card object:" + tv.transform.childCount);
 
         myBrick.transform.SetParent(SizeOfCanvas.transform);
        
         Destroy(transform.gameObject);
-
+        var tv = (Canvas)GameScript.player.GetCurrentPlayerCanvas();
         if (tv.transform.childCount == 0 && SideOfTeam.CurrentPlayerSide == 1 && SideOfTeam.MoveInstance == 1)
         {
             GameScript.player.photonView.RPC("DeleteRemainingCards", RpcTarget.All);

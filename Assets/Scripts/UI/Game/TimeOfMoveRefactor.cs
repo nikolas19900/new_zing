@@ -67,6 +67,7 @@ public class TimeOfMoveRefactor : MonoBehaviour
         myBrick.transform.SetParent(_tempCanvas.transform);
 
         Destroy(_tempTransoformCard.gameObject);
+        tv = (Canvas)GameScript.player.GetCurrentPlayerCanvas();
 
         if (tv.transform.childCount == 0 && SideOfTeam.CurrentPlayerSide == 1 && SideOfTeam.MoveInstance == 1)
         {
