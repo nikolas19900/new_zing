@@ -1798,6 +1798,13 @@ public class GameScript : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
+    public void SetNextPlayerToPlay()
+    {
+        TimeOfMove.active = true;
+        isAviableToMove = true;
+    }
+
+    [PunRPC]
     public void ChangeMoveDropedCard(string NameOfPrefab, Vector3 position)
     {
         //var root = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
