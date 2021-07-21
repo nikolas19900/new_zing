@@ -103,6 +103,7 @@ MonoBehaviour:
   - TakeCardsFromTalon2
   - TakeCardsZing2
   - SetSideForRequiredPlayerThird
+  - DeleteRemainingCards
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

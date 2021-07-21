@@ -250,6 +250,11 @@ public  class FirstCardObject : MonoBehaviour
        
         Destroy(transform.gameObject);
 
+        if (tv.transform.childCount == 0)
+        {
+            GameScript.player.photonView.RPC("DeleteRemainingCards", RpcTarget.All);
+        }
+
         GameScript.player.SetRunOnceFirst(false);
         GameScript.player.SetRunOnceSecond(false);
         GameScript.player.SetRunOnceThird(false);

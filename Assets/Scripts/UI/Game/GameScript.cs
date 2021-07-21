@@ -1776,8 +1776,9 @@ public class GameScript : MonoBehaviourPunCallbacks
             }
             InitTalonCards();
             DeleteLastFourTalonCards();
-            TimeOfMove.active = true;
-            isAviableToMove = true;
+            _zingDealer.DeleteLastFourTalonCards();
+            //TimeOfMove.active = true;
+            //isAviableToMove = true;
             var players = PhotonNetwork.CurrentRoom.Players;
             int tempValue = 1;
             foreach(var temp in players)
@@ -1785,6 +1786,10 @@ public class GameScript : MonoBehaviourPunCallbacks
                 
                 _currentPhotonView.RPC("SetInstanceOfCurrentPlayer", temp.Value,tempValue, _cardsOfFirstPlayer.ToArray(), cardsOfSecondPlayer.ToArray(),
                     cardsOfThirdPlayer.ToArray(),cardsOfFourthPlayer.ToArray(),RemainingCardsList.ToArray());
+                if(tempValue == 2)
+                {
+                    _currentPhotonView.RPC("SetNextPlayerToPlay", temp.Value);
+                }
                 tempValue++;
 
             }
@@ -1842,6 +1847,8 @@ public class GameScript : MonoBehaviourPunCallbacks
             GameScript.isAviableToMove = true;
             TimeOfMove.active = true;
 
+            
+
             var tv = (Canvas)canvacesOfCurrentPlayer;
             
             foreach (Transform element in tv.transform)
@@ -1870,6 +1877,8 @@ public class GameScript : MonoBehaviourPunCallbacks
             ActivateTimeOfMove();
             GameScript.isAviableToMove = true;
             TimeOfMove.active = true;
+
+           
 
             var tv = (Canvas)canvacesOfCurrentPlayer;
             
@@ -2417,7 +2426,13 @@ public class GameScript : MonoBehaviourPunCallbacks
         _cardsOfFourthPlayer = tempList.ToList();
         SideOfTeam.MoveInstance = side;
     }
+    [PunRPC]
+    public void DeleteRemainingCards()
+    {
+        RemainingCardsList.RemoveRange(0, 16);
 
+        _zingDealer.DeleteRemainingCards();
+    }
 
     public void DeleteLastFourTalonCards()
     {
@@ -2426,6 +2441,8 @@ public class GameScript : MonoBehaviourPunCallbacks
         RemainingCardsList.RemoveRange(start, 4);
 
     }
+
+   
 
     public Canvas GetFirstDeck()
     {
