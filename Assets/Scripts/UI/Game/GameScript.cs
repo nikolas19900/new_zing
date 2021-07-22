@@ -2559,7 +2559,7 @@ public class GameScript : MonoBehaviourPunCallbacks
     {
         RemainingCardsList.RemoveRange(0, 16);
 
-        _zingDealer.DeleteRemainingCards();
+        
     }
 
     public void DeleteLastFourTalonCards()
