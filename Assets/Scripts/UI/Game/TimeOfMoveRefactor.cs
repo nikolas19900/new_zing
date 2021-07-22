@@ -73,34 +73,35 @@ public class TimeOfMoveRefactor : MonoBehaviour
         {
             GameScript.player.photonView.RPC("DeleteRemainingCards", RpcTarget.All);
             GameScript.player.GetZingDealer().DeleteRemainingCards();
+            if (GameScript.player.GetRemainingCardsList().Count > 0)
+            {
+                GameScript.player.GetZingDealer().DealCardsToPlayersFirstSecond();
+                GameScript.player.GetCardsOfFirstPlayer().Clear();
+                foreach (var obj in GameScript.player.GetZingDealer().CardsOfFirstPlayers)
+                {
+                    GameScript.player.GetCardsOfFirstPlayer().Add(obj.name);
+                }
 
-            GameScript.player.GetZingDealer().DealCardsToPlayersFirstSecond();
-            GameScript.player.GetCardsOfFirstPlayer().Clear();
-            foreach (var obj in GameScript.player.GetZingDealer().CardsOfFirstPlayers)
-            {
-                GameScript.player.GetCardsOfFirstPlayer().Add(obj.name);
+                GameScript.player.GetCardsOfSecondPlayer().Clear();
+                foreach (var obj in GameScript.player.GetZingDealer().CardsOfSecondPlayers)
+                {
+                    GameScript.player.GetCardsOfSecondPlayer().Add(obj.name);
+                }
+                GameScript.player.GetCardsOfThirdPlayer().Clear();
+                foreach (var obj in GameScript.player.GetZingDealer().CardsOfThirdPlayers)
+                {
+                    GameScript.player.GetCardsOfThirdPlayer().Add(obj.name);
+                }
+                GameScript.player.GetCardsOfFourthPlayer().Clear();
+                foreach (var obj in GameScript.player.GetZingDealer().CardsOfFourthPlayers)
+                {
+                    GameScript.player.GetCardsOfFourthPlayer().Add(obj.name);
+                }
+                Debug.Log("ukupno preostalo karata:" + GameScript.player.GetRemainingCardsList().ToArray().Length);
+                GameScript.player.photonView.RPC("SetCardsToPlayers", RpcTarget.All, GameScript.player.GetCardsOfFirstPlayer().ToArray(),
+                    GameScript.player.GetCardsOfSecondPlayer().ToArray(), GameScript.player.GetCardsOfThirdPlayer().ToArray(),
+                    GameScript.player.GetCardsOfFourthPlayer().ToArray(), GameScript.player.GetRemainingCardsList().ToArray());
             }
-
-            GameScript.player.GetCardsOfSecondPlayer().Clear();
-            foreach (var obj in GameScript.player.GetZingDealer().CardsOfSecondPlayers)
-            {
-                GameScript.player.GetCardsOfSecondPlayer().Add(obj.name);
-            }
-            GameScript.player.GetCardsOfThirdPlayer().Clear();
-            foreach (var obj in GameScript.player.GetZingDealer().CardsOfThirdPlayers)
-            {
-                GameScript.player.GetCardsOfThirdPlayer().Add(obj.name);
-            }
-            GameScript.player.GetCardsOfFourthPlayer().Clear();
-            foreach (var obj in GameScript.player.GetZingDealer().CardsOfFourthPlayers)
-            {
-                GameScript.player.GetCardsOfFourthPlayer().Add(obj.name);
-            }
-            Debug.Log("ukupno preostalo karata:" + GameScript.player.GetRemainingCardsList().ToArray().Length);
-            GameScript.player.photonView.RPC("SetCardsToPlayers", RpcTarget.All, GameScript.player.GetCardsOfFirstPlayer().ToArray(),
-                GameScript.player.GetCardsOfSecondPlayer().ToArray(), GameScript.player.GetCardsOfThirdPlayer().ToArray(),
-                GameScript.player.GetCardsOfFourthPlayer().ToArray(), GameScript.player.GetRemainingCardsList().ToArray());
-
         }
 
 

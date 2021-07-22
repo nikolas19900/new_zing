@@ -255,7 +255,7 @@ public  class FirstCardObject : MonoBehaviour
         {
             GameScript.player.photonView.RPC("DeleteRemainingCards", RpcTarget.All);
             GameScript.player.GetZingDealer().DeleteRemainingCards();
-
+            if(GameScript.player.GetRemainingCardsList().Count > 0) { 
             GameScript.player.GetZingDealer().DealCardsToPlayersFirstSecond();
             GameScript.player.GetCardsOfFirstPlayer().Clear();
             foreach (var obj in GameScript.player.GetZingDealer().CardsOfFirstPlayers)
@@ -282,7 +282,7 @@ public  class FirstCardObject : MonoBehaviour
             GameScript.player.photonView.RPC("SetCardsToPlayers", RpcTarget.All, GameScript.player.GetCardsOfFirstPlayer().ToArray(), 
                 GameScript.player.GetCardsOfSecondPlayer().ToArray(), GameScript.player.GetCardsOfThirdPlayer().ToArray(),
                 GameScript.player.GetCardsOfFourthPlayer().ToArray(), GameScript.player.GetRemainingCardsList().ToArray());
-
+            }
         }
 
         GameScript.player.SetRunOnceFirst(false);
