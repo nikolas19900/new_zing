@@ -132,7 +132,7 @@ public class GameScript : MonoBehaviourPunCallbacks
     public static bool isGameStarted = false;
    
 
-    private ZingDealer _zingDealer = new ZingDealer();
+    private ZingDealer _zingDealer;
 
     private List<string> RemainingCardsList;
 
@@ -430,10 +430,14 @@ public class GameScript : MonoBehaviourPunCallbacks
                     if (SideOfTeam.CurrentPlayerSide == 1)
                     {
                         photonView.RPC("DeleteRemainingCards", RpcTarget.All);
-                        _zingDealer.DeleteRemainingCards();
+                        _zingDealer = new ZingDealer();
+                         _zingDealer.RemainingCardsList = RemainingCardsList;
+                       
+                      
+                        
                         if (RemainingCardsList.Count > 0)
                         {
-                            _zingDealer.DealCardsToPlayersFirstSecond();
+                            _zingDealer.DealCardsToPlayersFirstSecondAI();
                             _cardsOfFirstPlayer.Clear();
                             foreach (var obj in _zingDealer.CardsOfFirstPlayers)
                             {

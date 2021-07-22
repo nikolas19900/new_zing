@@ -14,26 +14,26 @@ namespace Assets.Scripts.UI.Game.CheckCards
         /// This List represents dealer's cards
         /// </summary>
         public List<GameObject> RemainingCards { get; private set; }
+
+        public List<string> RemainingCardsList { get; set; }
         public List<GameObject> TalonCards { get; private set; }
 
         public GameObject LastCard { get; private set; }
         public List<GameObject> CardsOfFirstPlayers { get; private set; }
 
+        public List<string> CardsOfFirstPlayersList { get; set; }
         public List<GameObject> CardsOfSecondPlayers { get; private set; }
-
+        public List<string> CardsOfSecondPlayersList { get; set; }
         public List<GameObject> CardsOfThirdPlayers { get; private set; }
 
+        public List<string> CardsOfThirdPlayersList { get; set; }
         public List<GameObject> CardsOfFourthPlayers { get; private set; }
+
+        public List<string> CardsOfFourthPlayersList { get; set; }
 
         private readonly Random _random;
 
-        public List<Card> ListOfCardsOfFirstPlayers { get; private set; }
-
-        public List<Card> ListOfCardsOfSecondPlayers { get; private set; }
-
-        public List<Card> ListOfCardsOfThirdPlayers { get; private set; }
-
-        public List<Card> ListOfCardsOfFourthPlayers { get; private set; }
+       
 
         public ZingDealer(string vv)
         {
@@ -66,13 +66,13 @@ namespace Assets.Scripts.UI.Game.CheckCards
             // Load all Card prefabs
             // NOTE: All prefabs must be in Resources folder. In this case cards are in Assets/Resources/Prefabs/CardPrefabs.
             //var prefabs = Resources.LoadAll("Prefabs/CardPrefabs");
-            var prefabs = Resources.LoadAll("Prefabs/CardPrefabsStartSVG");
+            var prefabs = Resources.LoadAll("Prefabs/CardPrefabsSvg");
             foreach (var prefab in prefabs)
             {
                 var go = prefab as GameObject;
-                go.transform.position = new Vector3(0f,0f);
+                go.transform.position = new Vector3(0f, 0f);
                 go.transform.localPosition = new Vector3(0f, 0f);
-               // go.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+                // go.transform.localScale = new Vector3(0.789f, 0.789f, 0);
                 // Init all cards
                 VisualCard visualCard = go.GetComponent<VisualCard>() as VisualCard;
                 Card card = new Card(visualCard.CardSignType, visualCard.CardValueType, go);
@@ -86,17 +86,19 @@ namespace Assets.Scripts.UI.Game.CheckCards
             var mix = ShuffleCard.Shuffle<GameObject>(RemainingCards, rand);
 
             RemainingCards = mix.ToList<GameObject>();
+            RemainingCardsList = new List<string>();
+            foreach (var prefab in RemainingCards)
+            {
 
-            //foreach (var prefab in RemainingCards)
-            //{
-            //    Debug.Log(prefab.name);
-               // var go = prefab as GameObject;
+                RemainingCardsList.Add(prefab.name);
+                //    Debug.Log(prefab.name);
+                // var go = prefab as GameObject;
 
-            //    // Init all cards
-            //    VisualCard visualCard = go.GetComponent<VisualCard>() as VisualCard;
-            //    Card card = new Card(visualCard.CardSignType, visualCard.CardValueType, go);
-            //    visualCard.BaseCard = card;
-            //}
+                //    // Init all cards
+                //    VisualCard visualCard = go.GetComponent<VisualCard>() as VisualCard;
+                //    Card card = new Card(visualCard.CardSignType, visualCard.CardValueType, go);
+                //    visualCard.BaseCard = card;
+            }
         }
 
         private void InitLastCard()
@@ -142,11 +144,12 @@ namespace Assets.Scripts.UI.Game.CheckCards
             CardsOfSecondPlayers = new List<GameObject>();
             CardsOfThirdPlayers = new List<GameObject>();
             CardsOfFourthPlayers = new List<GameObject>();
-           
-           
+
+
 
             CardsOfSecondPlayers.Add(RemainingCards.ToArray().GetValue(0) as GameObject);
             CardsOfSecondPlayers.Add(RemainingCards.ToArray().GetValue(1) as GameObject);
+
             CardsOfSecondPlayers.Add(RemainingCards.ToArray().GetValue(2) as GameObject);
             CardsOfSecondPlayers.Add(RemainingCards.ToArray().GetValue(3) as GameObject);
 
@@ -180,15 +183,7 @@ namespace Assets.Scripts.UI.Game.CheckCards
             cardsThird.Clear();
             cardsFourth.Clear();
 
-            ListOfCardsOfFirstPlayers = new List<Card>();
-            ListOfCardsOfSecondPlayers = new List<Card>();
-            ListOfCardsOfThirdPlayers = new List<Card>();
-            ListOfCardsOfFourthPlayers = new List<Card>();
-
-            ListOfCardsOfFirstPlayers.Clear();
-            ListOfCardsOfSecondPlayers.Clear();
-            ListOfCardsOfThirdPlayers.Clear();
-            ListOfCardsOfFourthPlayers.Clear();
+           
 
             foreach (var go1 in CardsOfFirstPlayers)
             {
@@ -231,26 +226,26 @@ namespace Assets.Scripts.UI.Game.CheckCards
             foreach (var card in cardsFirst)
             {
                 CardsOfFirstPlayers.Add(card.Owner);
-                ListOfCardsOfFirstPlayers.Add(card);
+               
             }
 
 
             foreach (var card in cardsSecond)
             {
                 CardsOfSecondPlayers.Add(card.Owner);
-                ListOfCardsOfSecondPlayers.Add(card);
+                
             }
 
             foreach (var card in cardsThird)
             {
                 CardsOfThirdPlayers.Add(card.Owner);
-                ListOfCardsOfThirdPlayers.Add(card);
+                
             }
 
             foreach (var card in cardsFourth)
             {
                 CardsOfFourthPlayers.Add(card.Owner);
-                ListOfCardsOfFourthPlayers.Add(card);
+               
             }
 
             //Debug.Log("vv:" + ListOfCardsOfPlayers.Count);
@@ -258,20 +253,20 @@ namespace Assets.Scripts.UI.Game.CheckCards
 
         public void DeleteSecondPlayerCard()
         {
-           // Debug.Log("ukupno karata:" + RemainingCards.Count);
+            // Debug.Log("ukupno karata:" + RemainingCards.Count);
             //RemainingCards.RemoveAt(0);
             //RemainingCards.RemoveAt(1);
 
             //RemainingCards.RemoveAt(2);
             //RemainingCards.RemoveAt(3);
-            
+
             //RemainingCards.RemoveAt(4);
             //RemainingCards.RemoveAt(5);
 
             //RemainingCards.RemoveAt(6);
             //RemainingCards.RemoveAt(7);
             RemainingCards.RemoveRange(0, 8);
-         //   Debug.Log("ukupno karata:" + RemainingCards.Count);
+            //   Debug.Log("ukupno karata:" + RemainingCards.Count);
 
         }
 
@@ -287,15 +282,15 @@ namespace Assets.Scripts.UI.Game.CheckCards
         public void InterationOverRemaingCards()
         {
 
-            for(int i = 0; i < 15; i++)
+            for (int i = 0; i < 15; i++)
             {
                 var value = RemainingCards.ToArray().GetValue(i) as GameObject;
                 Debug.Log(value.name);
             }
             //foreach (var prefab in RemainingCards)
             //{
-              //  Debug.Log(prefab.name);
-                
+            //  Debug.Log(prefab.name);
+
             //}
         }
 
@@ -357,15 +352,7 @@ namespace Assets.Scripts.UI.Game.CheckCards
             cardsThird.Clear();
             cardsFourth.Clear();
 
-            ListOfCardsOfFirstPlayers = new List<Card>();
-            ListOfCardsOfSecondPlayers = new List<Card>();
-            ListOfCardsOfThirdPlayers = new List<Card>();
-            ListOfCardsOfFourthPlayers = new List<Card>();
-
-            ListOfCardsOfFirstPlayers.Clear();
-            ListOfCardsOfSecondPlayers.Clear();
-            ListOfCardsOfThirdPlayers.Clear();
-            ListOfCardsOfFourthPlayers.Clear();
+           
 
             foreach (var go1 in CardsOfFirstPlayers)
             {
@@ -408,26 +395,207 @@ namespace Assets.Scripts.UI.Game.CheckCards
             foreach (var card in cardsFirst)
             {
                 CardsOfFirstPlayers.Add(card.Owner);
-                ListOfCardsOfFirstPlayers.Add(card);
+                
             }
 
 
             foreach (var card in cardsSecond)
             {
                 CardsOfSecondPlayers.Add(card.Owner);
-                ListOfCardsOfSecondPlayers.Add(card);
+                
             }
 
             foreach (var card in cardsThird)
             {
                 CardsOfThirdPlayers.Add(card.Owner);
-                ListOfCardsOfThirdPlayers.Add(card);
+                
             }
 
             foreach (var card in cardsFourth)
             {
                 CardsOfFourthPlayers.Add(card.Owner);
-                ListOfCardsOfFourthPlayers.Add(card);
+                
+            }
+        }
+
+        public void DealCardsToPlayersFirstSecondAI()
+        {
+
+            CardsOfFirstPlayersList = new List<string>();
+
+            CardsOfSecondPlayersList = new List<string>();
+            CardsOfThirdPlayersList = new List<string>();
+            CardsOfFourthPlayersList = new List<string>();
+
+
+
+            CardsOfSecondPlayersList.Add(RemainingCardsList.ToArray().GetValue(0) as string);
+            CardsOfSecondPlayersList.Add(RemainingCardsList.ToArray().GetValue(1) as string);
+            CardsOfSecondPlayersList.Add(RemainingCardsList.ToArray().GetValue(2) as string);
+            CardsOfSecondPlayersList.Add(RemainingCardsList.ToArray().GetValue(3) as string);
+
+            CardsOfThirdPlayersList.Add(RemainingCardsList.ToArray().GetValue(4) as string);
+            CardsOfThirdPlayersList.Add(RemainingCardsList.ToArray().GetValue(5) as string);
+
+            CardsOfThirdPlayersList.Add(RemainingCardsList.ToArray().GetValue(6) as string);
+            CardsOfThirdPlayersList.Add(RemainingCardsList.ToArray().GetValue(7) as string);
+
+
+            CardsOfFourthPlayersList.Add(RemainingCardsList.ToArray().GetValue(8) as string);
+            CardsOfFourthPlayersList.Add(RemainingCardsList.ToArray().GetValue(9) as string);
+
+            CardsOfFourthPlayersList.Add(RemainingCardsList.ToArray().GetValue(10) as string);
+            CardsOfFourthPlayersList.Add(RemainingCardsList.ToArray().GetValue(11) as string);
+
+
+            CardsOfFirstPlayersList.Add(RemainingCardsList.ToArray().GetValue(12) as string);
+            CardsOfFirstPlayersList.Add(RemainingCardsList.ToArray().GetValue(13) as string);
+
+            CardsOfFirstPlayersList.Add(RemainingCardsList.ToArray().GetValue(14) as string);
+            CardsOfFirstPlayersList.Add(RemainingCardsList.ToArray().GetValue(15) as string);
+
+            foreach(var value  in CardsOfSecondPlayersList)
+            {
+                var prefab = Resources.Load("Prefabs/CardPrefabsSvg" + value);
+               
+                    var go = prefab as GameObject;
+                    go.transform.position = new Vector3(0f, 0f);
+                    go.transform.localPosition = new Vector3(0f, 0f);
+                    // go.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+                    // Init all cards
+                    VisualCard visualCard = go.GetComponent<VisualCard>() as VisualCard;
+                    Card card = new Card(visualCard.CardSignType, visualCard.CardValueType, go);
+                    visualCard.BaseCard = card;
+
+                    CardsOfSecondPlayers.Add(go);
+                
+            }
+
+            foreach (var value in CardsOfThirdPlayersList)
+            {
+                var prefab = Resources.Load("Prefabs/CardPrefabsSvg" + value);
+
+                var go = prefab as GameObject;
+                go.transform.position = new Vector3(0f, 0f);
+                go.transform.localPosition = new Vector3(0f, 0f);
+                // go.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+                // Init all cards
+                VisualCard visualCard = go.GetComponent<VisualCard>() as VisualCard;
+                Card card = new Card(visualCard.CardSignType, visualCard.CardValueType, go);
+                visualCard.BaseCard = card;
+
+                CardsOfThirdPlayers.Add(go);
+
+            }
+
+            foreach (var value in CardsOfFourthPlayersList)
+            {
+                var prefab = Resources.Load("Prefabs/CardPrefabsSvg" + value);
+
+                var go = prefab as GameObject;
+                go.transform.position = new Vector3(0f, 0f);
+                go.transform.localPosition = new Vector3(0f, 0f);
+                // go.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+                // Init all cards
+                VisualCard visualCard = go.GetComponent<VisualCard>() as VisualCard;
+                Card card = new Card(visualCard.CardSignType, visualCard.CardValueType, go);
+                visualCard.BaseCard = card;
+
+                CardsOfFourthPlayers.Add(go);
+
+            }
+
+            foreach (var value in CardsOfFirstPlayersList)
+            {
+                var prefab = Resources.Load("Prefabs/CardPrefabsSvg" + value);
+
+                var go = prefab as GameObject;
+                go.transform.position = new Vector3(0f, 0f);
+                go.transform.localPosition = new Vector3(0f, 0f);
+                // go.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+                // Init all cards
+                VisualCard visualCard = go.GetComponent<VisualCard>() as VisualCard;
+                Card card = new Card(visualCard.CardSignType, visualCard.CardValueType, go);
+                visualCard.BaseCard = card;
+
+                CardsOfFirstPlayers.Add(go);
+
+            }
+
+
+            List<Card> cardsFirst = new List<Card>();
+            List<Card> cardsSecond = new List<Card>();
+            List<Card> cardsThird = new List<Card>();
+            List<Card> cardsFourth = new List<Card>();
+
+            cardsFirst.Clear();
+            cardsSecond.Clear();
+            cardsThird.Clear();
+            cardsFourth.Clear();
+
+           
+
+            foreach (var go1 in CardsOfFirstPlayers)
+            {
+                cardsFirst.Add((go1.GetComponent<VisualCard>() as VisualCard).BaseCard);
+
+            }
+
+            foreach (var go in CardsOfSecondPlayers)
+            {
+                cardsSecond.Add((go.GetComponent<VisualCard>() as VisualCard).BaseCard);
+
+            }
+
+            foreach (var go in CardsOfThirdPlayers)
+            {
+                cardsThird.Add((go.GetComponent<VisualCard>() as VisualCard).BaseCard);
+
+            }
+
+            foreach (var go in CardsOfFourthPlayers)
+            {
+                cardsFourth.Add((go.GetComponent<VisualCard>() as VisualCard).BaseCard);
+
+            }
+
+            cardsFirst = CardsSorter.SortCards(cardsFirst);
+
+            cardsSecond = CardsSorter.SortCards(cardsSecond);
+
+
+            cardsThird = CardsSorter.SortCards(cardsThird);
+
+            cardsFourth = CardsSorter.SortCards(cardsFourth);
+
+            CardsOfSecondPlayers = new List<GameObject>();
+            CardsOfFirstPlayers = new List<GameObject>();
+            CardsOfThirdPlayers = new List<GameObject>();
+            CardsOfFourthPlayers = new List<GameObject>();
+
+            foreach (var card in cardsFirst)
+            {
+                CardsOfFirstPlayers.Add(card.Owner);
+                
+            }
+
+
+            foreach (var card in cardsSecond)
+            {
+                CardsOfSecondPlayers.Add(card.Owner);
+                
+            }
+
+            foreach (var card in cardsThird)
+            {
+                CardsOfThirdPlayers.Add(card.Owner);
+                
+            }
+
+            foreach (var card in cardsFourth)
+            {
+                CardsOfFourthPlayers.Add(card.Owner);
+               
             }
         }
     }
