@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7150408707464927873}
   - component: {fileID: 5569117341236894319}
   - component: {fileID: 2139352571991661169}
+  - component: {fileID: 4283725259403328094}
   m_Layer: 0
   m_Name: 2_DIAMOND
   m_TagString: Untagged
@@ -68,3 +69,17 @@ MonoBehaviour:
   m_Type: 0
   m_PreserveAspect: 0
   m_UsePivot: 0
+--- !u!114 &4283725259403328094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5271298839740603852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71f056b5883794143ae349c27f74002f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSignType: 2
+  CardValueType: 1

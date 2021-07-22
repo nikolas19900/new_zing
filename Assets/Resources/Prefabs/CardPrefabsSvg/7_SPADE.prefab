@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8389210454373075289}
   - component: {fileID: 6375555571025480766}
   - component: {fileID: 6301808575030911604}
+  - component: {fileID: 1696542571778687959}
   m_Layer: 0
   m_Name: 7_SPADE
   m_TagString: Untagged
@@ -68,3 +69,17 @@ MonoBehaviour:
   m_Type: 0
   m_PreserveAspect: 0
   m_UsePivot: 0
+--- !u!114 &1696542571778687959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6551205845464885117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71f056b5883794143ae349c27f74002f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSignType: 3
+  CardValueType: 6
