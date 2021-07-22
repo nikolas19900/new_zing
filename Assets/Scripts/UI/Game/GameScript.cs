@@ -1978,6 +1978,8 @@ public class GameScript : MonoBehaviourPunCallbacks
                     cardsOfThirdPlayer.ToArray(),cardsOfFourthPlayer.ToArray(),RemainingCardsList.ToArray());
                 if(tempValue == 2)
                 {
+                    SideOfTeam.MoveInstance = 2;
+                    _currentPhotonView.RPC("SetMoveInstancesOnOthersPlayers", RpcTarget.Others, SideOfTeam.MoveInstance);
                     _currentPhotonView.RPC("SetNextPlayerToPlay", temp.Value);
                 }
                 tempValue++;
@@ -1992,6 +1994,12 @@ public class GameScript : MonoBehaviourPunCallbacks
     {
         TimeOfMove.active = true;
         isAviableToMove = true;
+    }
+
+    [PunRPC]
+    public void SetMoveInstancesOnOthersPlayers(int value)
+    {
+        SideOfTeam.MoveInstance = value;
     }
 
     [PunRPC]
