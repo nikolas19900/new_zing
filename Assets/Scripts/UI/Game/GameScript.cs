@@ -424,6 +424,45 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                 list.Remove(val);
                 SetCardsOfFirstPlayer(list);
+
+                if (list.Count == 0)
+                {
+                    if (SideOfTeam.CurrentPlayerSide == 1)
+                    {
+                        photonView.RPC("DeleteRemainingCards", RpcTarget.All);
+                        _zingDealer.DeleteRemainingCards();
+                        if (RemainingCardsList.Count > 0)
+                        {
+                            _zingDealer.DealCardsToPlayersFirstSecond();
+                            _cardsOfFirstPlayer.Clear();
+                            foreach (var obj in _zingDealer.CardsOfFirstPlayers)
+                            {
+                                _cardsOfFirstPlayer.Add(obj.name);
+                            }
+
+                            _cardsOfSecondPlayer.Clear();
+                            foreach (var obj in _zingDealer.CardsOfSecondPlayers)
+                            {
+                                _cardsOfSecondPlayer.Add(obj.name);
+                            }
+                            _cardsOfThirdPlayer.Clear();
+                            foreach (var obj in _zingDealer.CardsOfThirdPlayers)
+                            {
+                                _cardsOfThirdPlayer.Add(obj.name);
+                            }
+                            _cardsOfFourthPlayer.Clear();
+                            foreach (var obj in _zingDealer.CardsOfFourthPlayers)
+                            {
+                                _cardsOfFourthPlayer.Add(obj.name);
+                            }
+                            Debug.Log("ukupno preostalo karata:" + RemainingCardsList.ToArray().Length);
+                            photonView.RPC("SetCardsToPlayers", RpcTarget.All, _cardsOfFirstPlayer.ToArray(),
+                                _cardsOfSecondPlayer.ToArray(), _cardsOfThirdPlayer.ToArray(),
+                                _cardsOfFourthPlayer.ToArray(), RemainingCardsList.ToArray());
+
+                        }
+                    }
+                }
                 SideOfTeam.MoveInstance = 2;
 
                
@@ -462,76 +501,6 @@ public class GameScript : MonoBehaviourPunCallbacks
 
 
 
-            }else
-            {
-                Debug.Log("lista je prazna ai");
-                if(SideOfTeam.CurrentPlayerSide == 1)
-                {
-                    photonView.RPC("DeleteRemainingCards", RpcTarget.All);
-                   _zingDealer.DeleteRemainingCards();
-                    if (RemainingCardsList.Count > 0)
-                    {
-                       _zingDealer.DealCardsToPlayersFirstSecond();
-                        _cardsOfFirstPlayer.Clear();
-                        foreach (var obj in _zingDealer.CardsOfFirstPlayers)
-                        {
-                            _cardsOfFirstPlayer.Add(obj.name);
-                        }
-
-                        _cardsOfSecondPlayer.Clear();
-                        foreach (var obj in _zingDealer.CardsOfSecondPlayers)
-                        {
-                            _cardsOfSecondPlayer.Add(obj.name);
-                        }
-                        _cardsOfThirdPlayer.Clear();
-                        foreach (var obj in _zingDealer.CardsOfThirdPlayers)
-                        {
-                            _cardsOfThirdPlayer.Add(obj.name);
-                        }
-                        _cardsOfFourthPlayer.Clear();
-                        foreach (var obj in _zingDealer.CardsOfFourthPlayers)
-                        {
-                            _cardsOfFourthPlayer.Add(obj.name);
-                        }
-                        Debug.Log("ukupno preostalo karata:" + RemainingCardsList.ToArray().Length);
-                        photonView.RPC("SetCardsToPlayers", RpcTarget.All, _cardsOfFirstPlayer.ToArray(),
-                            _cardsOfSecondPlayer.ToArray(), _cardsOfThirdPlayer.ToArray(),
-                            _cardsOfFourthPlayer.ToArray(), RemainingCardsList.ToArray());
-
-                        SideOfTeam.MoveInstance = 2;
-
-
-
-                        var players = PhotonNetwork.CurrentRoom.Players;
-                        if (players.Count == 1)
-                        {
-                            photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.All, 1);
-                        }
-                        else
-                        {
-                            int i = 0;
-                            foreach (var current in players)
-                            {
-
-
-                                if (players[current.Key].CustomProperties["State"].Equals("inactive"))
-                                {
-                                    i++;
-                                }
-                            }
-                            if (i == 0)
-                            {
-                                photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 1);
-                            }
-                            else
-                            {
-                                photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.All, 1);
-                            }
-
-
-                        }
-                    }
-                }
             }
             
            
