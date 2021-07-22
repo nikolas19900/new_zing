@@ -464,6 +464,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
             }else
             {
+                Debug.Log("lista je prazna ai");
                 if(SideOfTeam.CurrentPlayerSide == 1)
                 {
                     photonView.RPC("DeleteRemainingCards", RpcTarget.All);
