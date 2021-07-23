@@ -427,7 +427,10 @@ namespace Assets.Scripts.UI.Game.CheckCards
             CardsOfThirdPlayersList = new List<string>();
             CardsOfFourthPlayersList = new List<string>();
 
-
+            CardsOfSecondPlayers = new List<GameObject>();
+            CardsOfFirstPlayers = new List<GameObject>();
+            CardsOfThirdPlayers = new List<GameObject>();
+            CardsOfFourthPlayers = new List<GameObject>();
 
             CardsOfSecondPlayersList.Add(RemainingCardsList.ToArray().GetValue(0) as string);
             CardsOfSecondPlayersList.Add(RemainingCardsList.ToArray().GetValue(1) as string);
@@ -459,9 +462,10 @@ namespace Assets.Scripts.UI.Game.CheckCards
                 var prefab = Resources.Load("Prefabs/CardPrefabsSvg/" + value);
                
                     var go = prefab as GameObject;
-                   
-                    // go.transform.localScale = new Vector3(0.789f, 0.789f, 0);
-                    // Init all cards
+                    go.transform.position = new Vector3(0f, 0f);
+                    go.transform.localPosition = new Vector3(0f, 0f);
+                // go.transform.localScale = new Vector3(0.789f, 0.789f, 0);
+                // Init all cards
                     VisualCard visualCard = go.GetComponent<VisualCard>() as VisualCard;
                     Card card = new Card(visualCard.CardSignType, visualCard.CardValueType, go);
                     visualCard.BaseCard = card;
@@ -475,7 +479,8 @@ namespace Assets.Scripts.UI.Game.CheckCards
                 var prefab = Resources.Load("Prefabs/CardPrefabsSvg/" + value);
 
                 var go = prefab as GameObject;
-               
+                go.transform.position = new Vector3(0f, 0f);
+                go.transform.localPosition = new Vector3(0f, 0f);
                 // go.transform.localScale = new Vector3(0.789f, 0.789f, 0);
                 // Init all cards
                 VisualCard visualCard = go.GetComponent<VisualCard>() as VisualCard;
@@ -491,7 +496,8 @@ namespace Assets.Scripts.UI.Game.CheckCards
                 var prefab = Resources.Load("Prefabs/CardPrefabsSvg/" + value);
 
                 var go = prefab as GameObject;
-               
+                go.transform.position = new Vector3(0f, 0f);
+                go.transform.localPosition = new Vector3(0f, 0f);
                 // go.transform.localScale = new Vector3(0.789f, 0.789f, 0);
                 // Init all cards
                 VisualCard visualCard = go.GetComponent<VisualCard>() as VisualCard;
@@ -507,7 +513,8 @@ namespace Assets.Scripts.UI.Game.CheckCards
                 var prefab = Resources.Load("Prefabs/CardPrefabsSvg/" + value);
 
                 var go = prefab as GameObject;
-               
+                go.transform.position = new Vector3(0f, 0f);
+                go.transform.localPosition = new Vector3(0f, 0f);
                 // go.transform.localScale = new Vector3(0.789f, 0.789f, 0);
                 // Init all cards
                 VisualCard visualCard = go.GetComponent<VisualCard>() as VisualCard;

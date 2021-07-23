@@ -435,13 +435,14 @@ public class GameScript : MonoBehaviourPunCallbacks
                         List<PlayerInfoValue> listOfPlayers = new List<PlayerInfoValue>();
                         foreach (var current in tempPlayers)
                         {
-
-                            int hh = int.Parse(PhotonNetwork.CurrentRoom.Players[current.Key].CustomProperties["Instance"] + "");
-                            temp.Add(hh);
-                            PlayerInfoValue pi = new PlayerInfoValue();
-                            pi._player = current.Value;
-                            pi._instance = hh;
-                            listOfPlayers.Add(pi);
+                            if (tempPlayers[current.Key].CustomProperties["State"].Equals("active")) { 
+                                int hh = int.Parse(PhotonNetwork.CurrentRoom.Players[current.Key].CustomProperties["Instance"] + "");
+                                temp.Add(hh);
+                                PlayerInfoValue pi = new PlayerInfoValue();
+                                pi._player = current.Value;
+                                pi._instance = hh;
+                                listOfPlayers.Add(pi);
+                            }
 
                         }
 
