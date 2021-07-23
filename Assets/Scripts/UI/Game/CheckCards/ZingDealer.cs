@@ -456,7 +456,7 @@ namespace Assets.Scripts.UI.Game.CheckCards
 
             foreach(var value  in CardsOfSecondPlayersList)
             {
-                var prefab = Resources.Load("Prefabs/CardPrefabsSvg" + value);
+                var prefab = Resources.Load("Prefabs/CardPrefabsSvg/" + value);
                
                     var go = prefab as GameObject;
                    
@@ -472,7 +472,7 @@ namespace Assets.Scripts.UI.Game.CheckCards
 
             foreach (var value in CardsOfThirdPlayersList)
             {
-                var prefab = Resources.Load("Prefabs/CardPrefabsSvg" + value);
+                var prefab = Resources.Load("Prefabs/CardPrefabsSvg/" + value);
 
                 var go = prefab as GameObject;
                
@@ -488,7 +488,7 @@ namespace Assets.Scripts.UI.Game.CheckCards
 
             foreach (var value in CardsOfFourthPlayersList)
             {
-                var prefab = Resources.Load("Prefabs/CardPrefabsSvg" + value);
+                var prefab = Resources.Load("Prefabs/CardPrefabsSvg/" + value);
 
                 var go = prefab as GameObject;
                
@@ -504,7 +504,7 @@ namespace Assets.Scripts.UI.Game.CheckCards
 
             foreach (var value in CardsOfFirstPlayersList)
             {
-                var prefab = Resources.Load("Prefabs/CardPrefabsSvg" + value);
+                var prefab = Resources.Load("Prefabs/CardPrefabsSvg/" + value);
 
                 var go = prefab as GameObject;
                
