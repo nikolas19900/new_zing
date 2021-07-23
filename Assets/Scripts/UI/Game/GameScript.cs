@@ -436,7 +436,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                         foreach (var current in tempPlayers)
                         {
                             if (tempPlayers[current.Key].CustomProperties["State"].Equals("active")) { 
-                                int hh = int.Parse(PhotonNetwork.CurrentRoom.Players[current.Key].CustomProperties["Instance"] + "");
+                                int hh = int.Parse(tempPlayers[current.Key].CustomProperties["Instance"] + "");
                                 temp.Add(hh);
                                 PlayerInfoValue pi = new PlayerInfoValue();
                                 pi._player = current.Value;
