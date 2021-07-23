@@ -14,6 +14,7 @@ using Assets.Scripts.UI.Game.CheckCards;
 using Assets.Scripts.Infastructure.PARSER;
 using System.Linq;
 using UnityEngine.EventSystems;
+using Assets.Scripts.UI.Game.Utils;
 
 public class GameScript : MonoBehaviourPunCallbacks
 {
@@ -429,42 +430,35 @@ public class GameScript : MonoBehaviourPunCallbacks
                 {
                     if (SideOfTeam.CurrentPlayerSide == 1)
                     {
-                        photonView.RPC("DeleteRemainingCards", RpcTarget.All);
-                        _zingDealer = new ZingDealer();
-                         _zingDealer.RemainingCardsList = RemainingCardsList;
-                       
-                      
-                        
-                        if (RemainingCardsList.Count > 0)
+                        var tempPlayers = PhotonNetwork.CurrentRoom.Players;
+                        List<int> temp = new List<int>();
+                        List<PlayerInfoValue> listOfPlayers = new List<PlayerInfoValue>();
+                        foreach (var current in tempPlayers)
                         {
-                            _zingDealer.DealCardsToPlayersFirstSecondAI();
-                            _cardsOfFirstPlayer.Clear();
-                            foreach (var obj in _zingDealer.CardsOfFirstPlayers)
-                            {
-                                _cardsOfFirstPlayer.Add(obj.name);
-                            }
 
-                            _cardsOfSecondPlayer.Clear();
-                            foreach (var obj in _zingDealer.CardsOfSecondPlayers)
-                            {
-                                _cardsOfSecondPlayer.Add(obj.name);
-                            }
-                            _cardsOfThirdPlayer.Clear();
-                            foreach (var obj in _zingDealer.CardsOfThirdPlayers)
-                            {
-                                _cardsOfThirdPlayer.Add(obj.name);
-                            }
-                            _cardsOfFourthPlayer.Clear();
-                            foreach (var obj in _zingDealer.CardsOfFourthPlayers)
-                            {
-                                _cardsOfFourthPlayer.Add(obj.name);
-                            }
-                            Debug.Log("ukupno preostalo karata:" + RemainingCardsList.ToArray().Length);
-                            photonView.RPC("SetCardsToPlayers", RpcTarget.All, _cardsOfFirstPlayer.ToArray(),
-                                _cardsOfSecondPlayer.ToArray(), _cardsOfThirdPlayer.ToArray(),
-                                _cardsOfFourthPlayer.ToArray(), RemainingCardsList.ToArray());
+                            int hh = int.Parse(PhotonNetwork.CurrentRoom.Players[current.Key].CustomProperties["Instance"] + "");
+                            temp.Add(hh);
+                            PlayerInfoValue pi = new PlayerInfoValue();
+                            pi._player = current.Value;
+                            pi._instance = hh;
+                            listOfPlayers.Add(pi);
 
                         }
+
+                        foreach(var tempValue in listOfPlayers)
+                        {
+                            if(tempValue._instance == 2)
+                            {
+                                photonView.RPC("InitDealingTheCards", tempValue._player);
+                            }else if(tempValue._instance == 3)
+                            {
+                                photonView.RPC("InitDealingTheCards", tempValue._player);
+                            }else if(tempValue._instance == 4)
+                            {
+                                photonView.RPC("InitDealingTheCards", tempValue._player);
+                            }
+                        }                       
+                        
                     }
                 }
                 SideOfTeam.MoveInstance = 2;
@@ -777,6 +771,47 @@ public class GameScript : MonoBehaviourPunCallbacks
 
         }
         
+    }
+
+    [PunRPC]
+    public void InitDealingTheCards()
+    {
+        photonView.RPC("DeleteRemainingCards", RpcTarget.All);
+        _zingDealer = new ZingDealer();
+        _zingDealer.RemainingCardsList = RemainingCardsList;
+
+
+
+        if (RemainingCardsList.Count > 0)
+        {
+            _zingDealer.DealCardsToPlayersFirstSecondAI();
+            _cardsOfFirstPlayer.Clear();
+            foreach (var obj in _zingDealer.CardsOfFirstPlayers)
+            {
+                _cardsOfFirstPlayer.Add(obj.name);
+            }
+
+            _cardsOfSecondPlayer.Clear();
+            foreach (var obj in _zingDealer.CardsOfSecondPlayers)
+            {
+                _cardsOfSecondPlayer.Add(obj.name);
+            }
+            _cardsOfThirdPlayer.Clear();
+            foreach (var obj in _zingDealer.CardsOfThirdPlayers)
+            {
+                _cardsOfThirdPlayer.Add(obj.name);
+            }
+            _cardsOfFourthPlayer.Clear();
+            foreach (var obj in _zingDealer.CardsOfFourthPlayers)
+            {
+                _cardsOfFourthPlayer.Add(obj.name);
+            }
+            Debug.Log("ukupno preostalo karata:" + RemainingCardsList.ToArray().Length);
+            photonView.RPC("SetCardsToPlayers", RpcTarget.All, _cardsOfFirstPlayer.ToArray(),
+                _cardsOfSecondPlayer.ToArray(), _cardsOfThirdPlayer.ToArray(),
+                _cardsOfFourthPlayer.ToArray(), RemainingCardsList.ToArray());
+
+        }
     }
 
 
