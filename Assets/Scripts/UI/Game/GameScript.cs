@@ -450,12 +450,15 @@ public class GameScript : MonoBehaviourPunCallbacks
                         {
                             if(tempValue._instance == 2)
                             {
+                                Debug.Log("izvsava se instanca 2");
                                 photonView.RPC("InitDealingTheCards", tempValue._player);
                             }else if(tempValue._instance == 3)
                             {
+                                Debug.Log("izvsava se instanca 3");
                                 photonView.RPC("InitDealingTheCards", tempValue._player);
                             }else if(tempValue._instance == 4)
                             {
+                                Debug.Log("izvsava se instanca 4");
                                 photonView.RPC("InitDealingTheCards", tempValue._player);
                             }
                         }                       
