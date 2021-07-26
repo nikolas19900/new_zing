@@ -836,7 +836,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                     _cardsOfFourthPlayer.Add(obj.name);
                 }
                 
-                photonView.RPC("SetCardsToPlayers", RpcTarget.Others, _cardsOfFirstPlayer.ToArray(),
+                photonView.RPC("SetCardsToPlayers", RpcTarget.All, _cardsOfFirstPlayer.ToArray(),
                     _cardsOfSecondPlayer.ToArray(), _cardsOfThirdPlayer.ToArray(),
                     _cardsOfFourthPlayer.ToArray(), RemainingCardsList.ToArray());
 
