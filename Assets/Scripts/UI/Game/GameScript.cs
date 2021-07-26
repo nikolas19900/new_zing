@@ -335,6 +335,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                 if (!temp.Contains(1) && SideOfTeam.MoveInstance == 1)
                 {
+                    Debug.Log("velicina prvog igraca:" + GetCardsOfFirstPlayer().Count);
                     Invoke("FirstDropCard", 1f);
                     
                 }
@@ -389,7 +390,7 @@ public class GameScript : MonoBehaviourPunCallbacks
             Vector2 _endPoint = Vector2.zero;
 
            
-            Debug.Log("usao sam 1");
+           
             var list = GetCardsOfFirstPlayer();
             if (list.Count > 0)
             {
@@ -452,20 +453,20 @@ public class GameScript : MonoBehaviourPunCallbacks
                             {
                                 if (tempValue._instance == 2)
                                 {
-                                    Debug.Log("izvsava se instanca 2");
+                                    
                                     photonView.RPC("InitDealingTheCards", tempValue._player);
                                 }
                             }
                         }
                         else if (temp.Contains(3))
                         {
-                            Debug.Log("izvsava se instanca 3");
+                            
 
                             foreach (var tempValue in listOfPlayers)
                             {
                                 if (tempValue._instance == 3)
                                 {
-                                    Debug.Log("izvsava se instanca 3");
+                                   
                                     photonView.RPC("InitDealingTheCards", tempValue._player);
                                 }
                             }
@@ -476,7 +477,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                             {
                                 if (tempValue._instance == 4)
                                 {
-                                    Debug.Log("izvsava se instanca 4");
+                                   
                                     photonView.RPC("InitDealingTheCards", tempValue._player);
                                 }
                             }
@@ -803,7 +804,7 @@ public class GameScript : MonoBehaviourPunCallbacks
        
         if (!isFirstRunDealingCards)
         {
-            Debug.Log("izvrsio sam InitDealingTheCards");
+           
             photonView.RPC("DeleteRemainingCards", RpcTarget.All);
             _zingDealer = new ZingDealer();
             _zingDealer.RemainingCardsList = RemainingCardsList;
@@ -834,8 +835,8 @@ public class GameScript : MonoBehaviourPunCallbacks
                 {
                     _cardsOfFourthPlayer.Add(obj.name);
                 }
-                Debug.Log("ukupno preostalo karata:" + RemainingCardsList.ToArray().Length);
-                photonView.RPC("SetCardsToPlayers", RpcTarget.All, _cardsOfFirstPlayer.ToArray(),
+                
+                photonView.RPC("SetCardsToPlayers", RpcTarget.Others, _cardsOfFirstPlayer.ToArray(),
                     _cardsOfSecondPlayer.ToArray(), _cardsOfThirdPlayer.ToArray(),
                     _cardsOfFourthPlayer.ToArray(), RemainingCardsList.ToArray());
 
