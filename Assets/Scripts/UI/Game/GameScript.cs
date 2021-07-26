@@ -842,8 +842,9 @@ public class GameScript : MonoBehaviourPunCallbacks
                     _cardsOfFourthPlayer.ToArray(), RemainingCardsList.ToArray());
 
             }
+            isFirstRunDealingCards = true;
         }
-        isFirstRunDealingCards = true;
+        
     }
 
 
