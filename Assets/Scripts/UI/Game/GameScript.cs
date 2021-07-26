@@ -349,7 +349,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                     Invoke("ThirdDropCard", 1f);
                    
                 }
-                Debug.Log("move:" + SideOfTeam.MoveInstance);
+                
                  if (!temp.Contains(4) && SideOfTeam.MoveInstance == 4)
                 {
                     Debug.Log("sad sam pokrenuo ai na 4 instanci");
