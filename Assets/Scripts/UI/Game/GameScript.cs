@@ -445,23 +445,34 @@ public class GameScript : MonoBehaviourPunCallbacks
                             }
 
                         }
-
-                        foreach(var tempValue in listOfPlayers)
+                        if (temp.Contains(2))
                         {
-                            if(tempValue._instance == 2)
-                            {
-                                Debug.Log("izvsava se instanca 2");
-                                photonView.RPC("InitDealingTheCards", tempValue._player);
-                            }else if(tempValue._instance == 3)
-                            {
-                                Debug.Log("izvsava se instanca 3");
-                                photonView.RPC("InitDealingTheCards", tempValue._player);
-                            }else if(tempValue._instance == 4)
-                            {
-                                Debug.Log("izvsava se instanca 4");
-                                photonView.RPC("InitDealingTheCards", tempValue._player);
-                            }
-                        }                       
+                            Debug.Log("izvsava se instanca 2");
+                        }
+                        else if (temp.Contains(3))
+                        {
+                            Debug.Log("izvsava se instanca 3");
+                        }
+                        else if (temp.Contains(4))
+                        {
+                            Debug.Log("izvsava se instanca 4");
+                        }
+                        //foreach(var tempValue in listOfPlayers)
+                        //{
+                        //    if(tempValue._instance == 2)
+                        //    {
+                        //        Debug.Log("izvsava se instanca 2");
+                        //        photonView.RPC("InitDealingTheCards", tempValue._player);
+                        //    }else if(tempValue._instance == 3)
+                        //    {
+                        //        Debug.Log("izvsava se instanca 3");
+                        //        photonView.RPC("InitDealingTheCards", tempValue._player);
+                        //    }else if(tempValue._instance == 4)
+                        //    {
+                        //        Debug.Log("izvsava se instanca 4");
+                        //        photonView.RPC("InitDealingTheCards", tempValue._player);
+                        //    }
+                        //}                       
                         
                     }
                 }
