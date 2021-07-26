@@ -1655,11 +1655,15 @@ public class GameScript : MonoBehaviourPunCallbacks
     public void SetCardsToPlayers( string[] cardsOfFirstPlayer,
        string[] cardsOfSecondPlayer, string[] cardsOfThirdPlayer, string[] cardsOfFourthPlayer, string[] RemaingCards)
     {
-       
-        RemainingCardsList = RemaingCards.ToList();
+        RemainingCardsList.Clear();
+         RemainingCardsList = RemaingCards.ToList();
+        _cardsOfFirstPlayer.Clear();
         _cardsOfFirstPlayer = cardsOfFirstPlayer.ToList();
+        _cardsOfSecondPlayer.Clear();
         _cardsOfSecondPlayer = cardsOfSecondPlayer.ToList();
+        _cardsOfThirdPlayer.Clear();
         _cardsOfThirdPlayer = cardsOfThirdPlayer.ToList();
+        _cardsOfFourthPlayer.Clear();
         _cardsOfFourthPlayer = cardsOfFourthPlayer.ToList();
         if (GetCurrentInstance() == 1)
         {
