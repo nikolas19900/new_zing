@@ -447,6 +447,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                             }
 
                         }
+                        isFirstRunDealingCards = false;
                         if (temp.Contains(2))
                         {
                             foreach (var tempValue in listOfPlayers)
@@ -801,7 +802,7 @@ public class GameScript : MonoBehaviourPunCallbacks
     [PunRPC]
     public void InitDealingTheCards()
     {
-       
+        
         if (!isFirstRunDealingCards)
         {
            
