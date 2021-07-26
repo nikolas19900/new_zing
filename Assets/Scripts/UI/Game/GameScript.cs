@@ -335,7 +335,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                 if (!temp.Contains(1) && SideOfTeam.MoveInstance == 1)
                 {
-                    Debug.Log("velicina prvog igraca:" + GetCardsOfFirstPlayer().Count);
+                    
                     Invoke("FirstDropCard", 1f);
                     
                 }
@@ -394,10 +394,10 @@ public class GameScript : MonoBehaviourPunCallbacks
             var list = GetCardsOfFirstPlayer();
             if (list.Count > 0)
             {
-
-
+                Debug.Log("velicina lista prvog igraca:" + list.Count);
+                
                 var val = list[0];
-
+                Debug.Log("val:" + val);
                 var tt = Resources.Load("Prefabs/CardPrefabsSvg/" + val);
 
                 GameObject card = (GameObject)tt;

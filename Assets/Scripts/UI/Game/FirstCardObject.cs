@@ -247,10 +247,10 @@ public  class FirstCardObject : MonoBehaviour
         // Debug.Log("first card object:" + tv.transform.childCount);
 
         myBrick.transform.SetParent(SizeOfCanvas.transform);
-        Debug.Log("karta:" + transform.gameObject.name);
+        
         Destroy(transform.gameObject);
         var tv = (Canvas)GameScript.player.GetCurrentPlayerCanvas();
-        Debug.Log("value:" + SideOfTeam.MoveInstance + "velicina:" + tv.transform.childCount);
+        
         if (tv.transform.childCount == 1 && SideOfTeam.CurrentPlayerSide == 1 && SideOfTeam.MoveInstance == 1)
         {
             GameScript.player.photonView.RPC("DeleteRemainingCards", RpcTarget.All);
