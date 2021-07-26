@@ -167,6 +167,7 @@ public class GameScript : MonoBehaviourPunCallbacks
     private bool runOnceSecond = false;
     private bool runOnceThird = false;
     private bool runOnceFourth = false;
+    private bool isFirstRunDealingCards = false;
 
     void Awake()
     {
@@ -447,32 +448,40 @@ public class GameScript : MonoBehaviourPunCallbacks
                         }
                         if (temp.Contains(2))
                         {
-                            Debug.Log("izvsava se instanca 2");
+                            foreach (var tempValue in listOfPlayers)
+                            {
+                                if (tempValue._instance == 2)
+                                {
+                                    Debug.Log("izvsava se instanca 2");
+                                    photonView.RPC("InitDealingTheCards", tempValue._player);
+                                }
+                            }
                         }
                         else if (temp.Contains(3))
                         {
                             Debug.Log("izvsava se instanca 3");
+
+                            foreach (var tempValue in listOfPlayers)
+                            {
+                                if (tempValue._instance == 3)
+                                {
+                                    Debug.Log("izvsava se instanca 3");
+                                    photonView.RPC("InitDealingTheCards", tempValue._player);
+                                }
+                            }
                         }
                         else if (temp.Contains(4))
                         {
-                            Debug.Log("izvsava se instanca 4");
+                            foreach (var tempValue in listOfPlayers)
+                            {
+                                if (tempValue._instance == 4)
+                                {
+                                    Debug.Log("izvsava se instanca 4");
+                                    photonView.RPC("InitDealingTheCards", tempValue._player);
+                                }
+                            }
                         }
-                        //foreach(var tempValue in listOfPlayers)
-                        //{
-                        //    if(tempValue._instance == 2)
-                        //    {
-                        //        Debug.Log("izvsava se instanca 2");
-                        //        photonView.RPC("InitDealingTheCards", tempValue._player);
-                        //    }else if(tempValue._instance == 3)
-                        //    {
-                        //        Debug.Log("izvsava se instanca 3");
-                        //        photonView.RPC("InitDealingTheCards", tempValue._player);
-                        //    }else if(tempValue._instance == 4)
-                        //    {
-                        //        Debug.Log("izvsava se instanca 4");
-                        //        photonView.RPC("InitDealingTheCards", tempValue._player);
-                        //    }
-                        //}                       
+                                         
                         
                     }
                 }
@@ -791,42 +800,48 @@ public class GameScript : MonoBehaviourPunCallbacks
     [PunRPC]
     public void InitDealingTheCards()
     {
-        photonView.RPC("DeleteRemainingCards", RpcTarget.All);
-        _zingDealer = new ZingDealer();
-        _zingDealer.RemainingCardsList = RemainingCardsList;
-
-
-
-        if (RemainingCardsList.Count > 0)
+       
+        if (!isFirstRunDealingCards)
         {
-            _zingDealer.DealCardsToPlayersFirstSecondAI();
-            _cardsOfFirstPlayer.Clear();
-            foreach (var obj in _zingDealer.CardsOfFirstPlayers)
-            {
-                _cardsOfFirstPlayer.Add(obj.name);
-            }
+            Debug.Log("izvrsio sam InitDealingTheCards");
+            photonView.RPC("DeleteRemainingCards", RpcTarget.All);
+            _zingDealer = new ZingDealer();
+            _zingDealer.RemainingCardsList = RemainingCardsList;
 
-            _cardsOfSecondPlayer.Clear();
-            foreach (var obj in _zingDealer.CardsOfSecondPlayers)
-            {
-                _cardsOfSecondPlayer.Add(obj.name);
-            }
-            _cardsOfThirdPlayer.Clear();
-            foreach (var obj in _zingDealer.CardsOfThirdPlayers)
-            {
-                _cardsOfThirdPlayer.Add(obj.name);
-            }
-            _cardsOfFourthPlayer.Clear();
-            foreach (var obj in _zingDealer.CardsOfFourthPlayers)
-            {
-                _cardsOfFourthPlayer.Add(obj.name);
-            }
-            Debug.Log("ukupno preostalo karata:" + RemainingCardsList.ToArray().Length);
-            photonView.RPC("SetCardsToPlayers", RpcTarget.All, _cardsOfFirstPlayer.ToArray(),
-                _cardsOfSecondPlayer.ToArray(), _cardsOfThirdPlayer.ToArray(),
-                _cardsOfFourthPlayer.ToArray(), RemainingCardsList.ToArray());
 
+
+            if (RemainingCardsList.Count > 0)
+            {
+                _zingDealer.DealCardsToPlayersFirstSecondAI();
+                _cardsOfFirstPlayer.Clear();
+                foreach (var obj in _zingDealer.CardsOfFirstPlayers)
+                {
+                    _cardsOfFirstPlayer.Add(obj.name);
+                }
+
+                _cardsOfSecondPlayer.Clear();
+                foreach (var obj in _zingDealer.CardsOfSecondPlayers)
+                {
+                    _cardsOfSecondPlayer.Add(obj.name);
+                }
+                _cardsOfThirdPlayer.Clear();
+                foreach (var obj in _zingDealer.CardsOfThirdPlayers)
+                {
+                    _cardsOfThirdPlayer.Add(obj.name);
+                }
+                _cardsOfFourthPlayer.Clear();
+                foreach (var obj in _zingDealer.CardsOfFourthPlayers)
+                {
+                    _cardsOfFourthPlayer.Add(obj.name);
+                }
+                Debug.Log("ukupno preostalo karata:" + RemainingCardsList.ToArray().Length);
+                photonView.RPC("SetCardsToPlayers", RpcTarget.All, _cardsOfFirstPlayer.ToArray(),
+                    _cardsOfSecondPlayer.ToArray(), _cardsOfThirdPlayer.ToArray(),
+                    _cardsOfFourthPlayer.ToArray(), RemainingCardsList.ToArray());
+
+            }
         }
+        isFirstRunDealingCards = true;
     }
 
 
