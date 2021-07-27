@@ -18,6 +18,7 @@ public class RoomListingMenu :  MonoBehaviourPunCallbacks, IMatchmakingCallbacks
 
     private List<RoomListing> _listings = new List<RoomListing>();
 
+
     public static RoomListingMenu instance;
 
     public static RoomListingMenu Instance
@@ -49,19 +50,19 @@ public  override void OnRoomListUpdate(List<RoomInfo> roomList)
             //else
             //{
 
-                //int index = _listings.FindIndex(x => x.RoomInfo.Name == info.Name);
+            //int index = _listings.FindIndex(x => x.RoomInfo.Name == info.Name);
 
-                //if (index == -1)
-                //{
+            //if (index == -1)
+            //{
 
-                //    RoomListing listing = Instantiate(_roomListing, _content);
-                //    if (listing != null)
-                //    {
-                //        listing.SetRoomInfo(info);
-                //        _listings.Add(listing);
-                //    }
-                //}
-
+            //    RoomListing listing = Instantiate(_roomListing, _content);
+            //    if (listing != null)
+            //    {
+            //        listing.SetRoomInfo(info);
+            //        _listings.Add(listing);
+            //    }
+            //}
+           
                 RoomListing listing = Instantiate(_roomListing, _content);
                 if (listing != null)
                 {

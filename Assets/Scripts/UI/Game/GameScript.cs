@@ -1319,7 +1319,24 @@ public class GameScript : MonoBehaviourPunCallbacks
             FirstPlayerBorder.sprite = Resources.Load<Sprite>("game_page/PictureBlueBorderSmall");
             SecondPlayerBorder.sprite = Resources.Load<Sprite>("game_page/PictureBlueBorderSmall");
         }
-        
+
+        int i = 0;
+        foreach (var vv in value)
+        {
+            if (PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Team"].Equals("Blue"))
+            {
+                i++;
+                if (i == 3)
+                {
+                    PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Team"] = "Red";
+                    PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Instance"] = 2;
+                    
+                }
+            }
+        }
+       
+
+
         foreach (var vv in value)
         {
 
@@ -1511,6 +1528,22 @@ public class GameScript : MonoBehaviourPunCallbacks
         Dictionary<int, Player> value = PhotonNetwork.CurrentRoom.Players;
         BluePlayerNameValue.text = "";
         RedPlayerNameValue.text = "";
+        int i = 0;
+        foreach (var vv in value)
+        {
+            if (PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Team"].Equals("Blue"))
+            {
+                i++;
+                if (i == 3)
+                {
+                    PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Team"] = "Red";
+                    PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Instance"] = 2;
+
+                }
+            }
+        }
+
+
         foreach (var vv in value)
         {
 
