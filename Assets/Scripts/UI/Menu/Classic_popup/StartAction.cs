@@ -179,7 +179,23 @@ public class StartAction : MonoBehaviourPunCallbacks
         }
         else if (size == 2)
         {
-            hash.Add("Instance", 3);
+            var list = PhotonNetwork.CurrentRoom.Players;
+            int i = 0;
+            foreach(var player in list)
+            {
+               if(list[player.Key].CustomProperties["Team"].Equals("Blue"))
+                {
+                    i++;
+                }
+            }
+            if(i == 2)
+            {
+                hash.Add("Instance", 2);
+            }
+            else
+            {
+                hash.Add("Instance", 3);
+            }
         }
         else if (size == 3)
         {
