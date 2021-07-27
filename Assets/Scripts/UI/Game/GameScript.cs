@@ -1321,20 +1321,26 @@ public class GameScript : MonoBehaviourPunCallbacks
         }
 
         int i = 0;
+        List<int> keys = new List<int>();
         foreach (var vv in value)
         {
-            if (PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Team"].Equals("Blue"))
+            if (PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Team"].Equals("Blue") &&
+                PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Instance"].Equals(3))
             {
-                i++;
-                if (i == 3)
-                {
-                    PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Team"] = "Red";
-                    PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Instance"] = 2;
-                    
-                }
+                keys.Add(vv.Key);
             }
         }
-       
+        if (keys[0] > keys[1])
+        {
+            PhotonNetwork.CurrentRoom.GetPlayer(keys[0]).CustomProperties["Team"] = "Red";
+            PhotonNetwork.CurrentRoom.GetPlayer(keys[0]).CustomProperties["Instance"] = 2;
+        }
+        else if (keys[0] < keys[1])
+        {
+            PhotonNetwork.CurrentRoom.GetPlayer(keys[1]).CustomProperties["Team"] = "Red";
+            PhotonNetwork.CurrentRoom.GetPlayer(keys[1]).CustomProperties["Instance"] = 2;
+        }
+
 
 
         foreach (var vv in value)
@@ -1529,18 +1535,23 @@ public class GameScript : MonoBehaviourPunCallbacks
         BluePlayerNameValue.text = "";
         RedPlayerNameValue.text = "";
         int i = 0;
+        List<int> keys = new List<int>();
         foreach (var vv in value)
         {
-            if (PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Team"].Equals("Blue"))
+            if (PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Team"].Equals("Blue") && 
+                PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Instance"].Equals(3))
             {
-                i++;
-                if (i == 3)
-                {
-                    PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Team"] = "Red";
-                    PhotonNetwork.CurrentRoom.GetPlayer(vv.Key).CustomProperties["Instance"] = 2;
-
-                }
+                keys.Add(vv.Key);
             }
+        }
+        if(keys[0] > keys[1])
+        {
+            PhotonNetwork.CurrentRoom.GetPlayer(keys[0]).CustomProperties["Team"] = "Red";
+            PhotonNetwork.CurrentRoom.GetPlayer(keys[0]).CustomProperties["Instance"] = 2;
+        }else if(keys[0] < keys[1])
+        {
+            PhotonNetwork.CurrentRoom.GetPlayer(keys[1]).CustomProperties["Team"] = "Red";
+            PhotonNetwork.CurrentRoom.GetPlayer(keys[1]).CustomProperties["Instance"] = 2;
         }
 
 

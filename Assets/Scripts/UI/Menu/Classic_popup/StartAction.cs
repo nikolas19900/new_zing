@@ -97,6 +97,7 @@ public class StartAction : MonoBehaviourPunCallbacks
                 RoomOptions roomOptions = new RoomOptions();
                 roomOptions.MaxPlayers = 4;
                 roomOptions.PublishUserId = true;
+                
                 AssignTeam(0);
                 PhotonNetwork.CreateRoom(nameOfRoom, roomOptions, TypedLobby.Default);
                 
@@ -119,7 +120,7 @@ public class StartAction : MonoBehaviourPunCallbacks
 
                         if (room.RoomInfo.PlayerCount < 4)
                         {
-                            AssignTeam(room.RoomInfo.PlayerCount,room.RoomInfo);
+                            AssignTeam(room.RoomInfo.PlayerCount);
 
                             
                             PhotonNetwork.JoinRoom(room.RoomInfo.Name);
@@ -132,8 +133,8 @@ public class StartAction : MonoBehaviourPunCallbacks
                             RoomOptions roomOptions = new RoomOptions();
                             roomOptions.MaxPlayers = 4;
                             roomOptions.PublishUserId = true;
-
-                            AssignTeam(0, room.RoomInfo);
+                            
+                            AssignTeam(0);
                             PhotonNetwork.CreateRoom(nameOfRoom, roomOptions, TypedLobby.Default);
                             
                             Debug.Log("kreiranje zadnje");
@@ -148,7 +149,7 @@ public class StartAction : MonoBehaviourPunCallbacks
     }
 
 
-    void AssignTeam(int size,RoomInfo room)
+    void AssignTeam(int size)
     {
         ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
         // int size = PhotonNetwork.PlayerList.GetLength(0);
@@ -182,92 +183,8 @@ public class StartAction : MonoBehaviourPunCallbacks
         }
         else if (size == 2)
         {
-            //Room vv = new Room("",new RoomOptions());
-            hash.Add("Instance", 3);
-            Debug.Log("radi:"+ room.CustomProperties["Team"]);
-            //var list = PhotonNetwork.CurrentRoom.Players;
-
-            //int i = 0;
-            //foreach(var player in list)
-            //{
-            //   if(list[player.Key].CustomProperties["Team"].Equals("Blue"))
-            //    {
-            //        i++;
-            //    }
-            //}
-            //if(i == 2)
-            //{
-            //    hash.Add("Instance", 2);
-            //}
-            //else
-            //{
-            //    hash.Add("Instance", 3);
-            //}
-        }
-        else if (size == 3)
-        {
-            hash.Add("Instance", 4);
-        }
-
-        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-    }
-
-    void AssignTeam(int size)
-    {
-        ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
-        // int size = PhotonNetwork.PlayerList.GetLength(0);
-        //int size = PhotonNetwork.CurrentRoom.PlayerCount;
-
-
-        if (size % 2 == 0)
-        {
-
-            hash.Add("Team", "Blue");
-
-        }
-        else
-        {
-            // hash.Add("Team", 1);
-            hash.Add("Team", "Red");
-
-        }
-        hash.Add("Picture", MasterManager.GameSettings.PlayerImage);
-        hash.Add("Cards", 0);
-        hash.Add("Points", 0);
-        hash.Add("Zing", 0);
-        hash.Add("Total", 0);
-        hash.Add("State", "active");
-        if (size == 0)
-        {
-            hash.Add("Instance", 1);
-        }
-        else if (size == 1)
-        {
-            hash.Add("Instance", 2);
-        }
-        else if (size == 2)
-        {
-            //Room vv = new Room("",new RoomOptions());
-            hash.Add("Instance", 3);
             
-            //var list = PhotonNetwork.CurrentRoom.Players;
-
-            //int i = 0;
-            //foreach(var player in list)
-            //{
-            //   if(list[player.Key].CustomProperties["Team"].Equals("Blue"))
-            //    {
-            //        i++;
-            //    }
-            //}
-            //if(i == 2)
-            //{
-            //    hash.Add("Instance", 2);
-            //}
-            //else
-            //{
-            //    hash.Add("Instance", 3);
-            //}
+            hash.Add("Instance", 3);
         }
         else if (size == 3)
         {
@@ -276,6 +193,8 @@ public class StartAction : MonoBehaviourPunCallbacks
 
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
     }
+
+   
 
     public override void OnCreatedRoom()
     {
