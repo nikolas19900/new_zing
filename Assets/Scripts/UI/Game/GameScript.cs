@@ -1330,7 +1330,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                 keys.Add(vv.Key);
             }
         }
-        if (keys.Count > 0)
+        if (keys.Count == 2)
         {
             if (keys[0] > keys[1])
             {
@@ -1546,7 +1546,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                 keys.Add(vv.Key);
             }
         }
-        if(keys.Count > 0) { 
+        if(keys.Count == 2) { 
         if(keys[0] > keys[1])
         {
             PhotonNetwork.CurrentRoom.GetPlayer(keys[0]).CustomProperties["Team"] = "Red";
