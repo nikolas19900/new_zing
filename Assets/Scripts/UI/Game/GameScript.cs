@@ -1330,17 +1330,19 @@ public class GameScript : MonoBehaviourPunCallbacks
                 keys.Add(vv.Key);
             }
         }
-        if (keys[0] > keys[1])
+        if (keys.Count > 0)
         {
-            PhotonNetwork.CurrentRoom.GetPlayer(keys[0]).CustomProperties["Team"] = "Red";
-            PhotonNetwork.CurrentRoom.GetPlayer(keys[0]).CustomProperties["Instance"] = 2;
+            if (keys[0] > keys[1])
+            {
+                PhotonNetwork.CurrentRoom.GetPlayer(keys[0]).CustomProperties["Team"] = "Red";
+                PhotonNetwork.CurrentRoom.GetPlayer(keys[0]).CustomProperties["Instance"] = 2;
+            }
+            else if (keys[0] < keys[1])
+            {
+                PhotonNetwork.CurrentRoom.GetPlayer(keys[1]).CustomProperties["Team"] = "Red";
+                PhotonNetwork.CurrentRoom.GetPlayer(keys[1]).CustomProperties["Instance"] = 2;
+            }
         }
-        else if (keys[0] < keys[1])
-        {
-            PhotonNetwork.CurrentRoom.GetPlayer(keys[1]).CustomProperties["Team"] = "Red";
-            PhotonNetwork.CurrentRoom.GetPlayer(keys[1]).CustomProperties["Instance"] = 2;
-        }
-
 
 
         foreach (var vv in value)
@@ -1544,6 +1546,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                 keys.Add(vv.Key);
             }
         }
+        if(keys.Count > 0) { 
         if(keys[0] > keys[1])
         {
             PhotonNetwork.CurrentRoom.GetPlayer(keys[0]).CustomProperties["Team"] = "Red";
@@ -1552,6 +1555,7 @@ public class GameScript : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.CurrentRoom.GetPlayer(keys[1]).CustomProperties["Team"] = "Red";
             PhotonNetwork.CurrentRoom.GetPlayer(keys[1]).CustomProperties["Instance"] = 2;
+        }
         }
 
 
