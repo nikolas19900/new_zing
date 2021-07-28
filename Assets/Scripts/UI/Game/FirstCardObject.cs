@@ -278,10 +278,15 @@ public  class FirstCardObject : MonoBehaviour
             {
                 GameScript.player.GetCardsOfFourthPlayer().Add(obj.name);
             }
-            Debug.Log("ukupno preostalo karata:" + GameScript.player.GetRemainingCardsList().ToArray().Length);
+            
             GameScript.player.photonView.RPC("SetCardsToPlayers", RpcTarget.All, GameScript.player.GetCardsOfFirstPlayer().ToArray(), 
                 GameScript.player.GetCardsOfSecondPlayer().ToArray(), GameScript.player.GetCardsOfThirdPlayer().ToArray(),
                 GameScript.player.GetCardsOfFourthPlayer().ToArray(), GameScript.player.GetRemainingCardsList().ToArray());
+            }else if(GameScript.player.GetRemainingCardsList().Count == 0)
+            {
+                SideOfTeam.CurrentPlayerSide = 2;
+                GameScript.player.photonView.RPC("ChangeCurrentPlayerInstance", RpcTarget.Others);
+                
             }
         }
 
