@@ -285,7 +285,7 @@ public  class FirstCardObject : MonoBehaviour
             }else if(GameScript.player.GetRemainingCardsList().Count == 0)
             {
                 SideOfTeam.CurrentPlayerSide = 2;
-                GameScript.player.photonView.RPC("ChangeCurrentPlayerInstance", RpcTarget.Others);
+                GameScript.player.photonView.RPC("ChangeCurrentPlayerInstance", RpcTarget.Others, SideOfTeam.CurrentPlayerSide);
                 
             }
         }
