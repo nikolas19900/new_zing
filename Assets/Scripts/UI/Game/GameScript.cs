@@ -2352,26 +2352,9 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                     SideOfTeam.MoveInstance = 3;
                     _currentPhotonView.RPC("SetMoveInstancesOnOthersPlayers", RpcTarget.Others, SideOfTeam.MoveInstance);
-                    foreach (var temp in players)
-                    {
-                        if (players[temp.Key].CustomProperties["Instance"].Equals(3))
-                        {
-                            _currentPhotonView.RPC("SetNextPlayerToPlay", temp.Value);
-                        }
-                        else if (players[temp.Key].CustomProperties["Instance"].Equals(4))
-                        {
-                            _currentPhotonView.RPC("SetNextPlayerToPlay", temp.Value);
-                        }
-                        else if (players[temp.Key].CustomProperties["Instance"].Equals(1))
-                        {
-                            _currentPhotonView.RPC("SetNextPlayerToPlay", temp.Value);
-                        }
-                        else if (players[temp.Key].CustomProperties["Instance"].Equals(2))
-                        {
-                            _currentPhotonView.RPC("SetNextPlayerToPlay", temp.Value);
-                        }
 
-                    }
+                    _currentPhotonView.RPC("ActivatePlayerToPlay", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName);
+                    
                 }
                 
             }
@@ -2595,27 +2578,9 @@ public class GameScript : MonoBehaviourPunCallbacks
                         
                         SideOfTeam.MoveInstance = 3;
                         _currentPhotonView.RPC("SetMoveInstancesOnOthersPlayers", RpcTarget.Others, SideOfTeam.MoveInstance);
-                    foreach(var temp in players)
-                    {
-                        if (players[temp.Key].CustomProperties["Instance"].Equals(3))
-                        {
-                            _currentPhotonView.RPC("SetNextPlayerToPlay", temp.Value);
-                        }else if (players[temp.Key].CustomProperties["Instance"].Equals(4))
-                        {
-                            _currentPhotonView.RPC("SetNextPlayerToPlay", temp.Value);
-                        }else if (players[temp.Key].CustomProperties["Instance"].Equals(1))
-                        {
-                            _currentPhotonView.RPC("SetNextPlayerToPlay", temp.Value);
-                        }else if (players[temp.Key].CustomProperties["Instance"].Equals(2))
-                        {
-                            _currentPhotonView.RPC("SetNextPlayerToPlay", temp.Value);
-                        }
-                        
-                    }
-                        
-                        
-
+                    _currentPhotonView.RPC("ActivatePlayerToPlay", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName);
                     
+
                 }
 
             }
