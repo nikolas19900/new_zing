@@ -2160,15 +2160,18 @@ public class GameScript : MonoBehaviourPunCallbacks
     {
         if (FirstPlayerName.text.Equals(NickName))
         {
-            ActivateTimeOfMove();
-            GameScript.isAviableToMove = true;
-            TimeOfMove.active = true;
-
-            
-
             var tv = (Canvas)canvacesOfCurrentPlayer;
+            if(tv.transform.childCount > 0) { 
+                ActivateTimeOfMove();
 
-            if(tv.transform.childCount == 0)
+                GameScript.isAviableToMove = true;
+                TimeOfMove.active = true;
+
+            }
+
+
+
+            if (tv.transform.childCount == 0)
             {
                 if(SideOfTeam.CurrentPlayerSide == 2)
                 {
@@ -2394,15 +2397,20 @@ public class GameScript : MonoBehaviourPunCallbacks
         //Debug.Log("v:" + tempInst);
         if (FirstPlayerInstance.text.Equals(""+tempInst))
         {
-            
-
-            ActivateTimeOfMove();
-            GameScript.isAviableToMove = true;
-            TimeOfMove.active = true;
-
-           
 
             var tv = (Canvas)canvacesOfCurrentPlayer;
+            if (tv.transform.childCount > 0)
+            {
+                ActivateTimeOfMove();
+
+                GameScript.isAviableToMove = true;
+                TimeOfMove.active = true;
+
+            }
+
+
+
+           
 
             if (tv.transform.childCount == 0)
             {
