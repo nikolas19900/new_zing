@@ -360,7 +360,8 @@ public  class FirstCardObject : MonoBehaviour
         bool isPickedUp = GameScript.player.PickUpCardsFromDeck();
         if (isPickedUp)
         {
-            GameScript.player.photonView.RPC("CleanDesk", RpcTarget.Others);
+            SideOfTeam.LastPick = GameScript.player.GetCurrentInstance();
+            GameScript.player.photonView.RPC("CleanDesk", RpcTarget.Others, SideOfTeam.LastPick);
         }
         GameScript.player.photonView.RPC("ActivatePlayerToPlay", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName);
 

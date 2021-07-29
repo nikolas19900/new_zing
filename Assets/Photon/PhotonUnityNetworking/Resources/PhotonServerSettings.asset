@@ -109,6 +109,14 @@ MonoBehaviour:
   - SetMoveInstancesOnOthersPlayers
   - InitDealingTheCards
   - ChangeCurrentPlayerInstance
+  - TakeRestOfCardsFirst
+  - TakeRestOfCardsFirstAI
+  - TakeRestOfCardsSecond
+  - TakeRestOfCardsFourth
+  - TakeRestOfCardsFourthAI
+  - TakeRestOfCardsSecondAI
+  - TakeRestOfCardsThird
+  - TakeRestOfCardsThirdAI
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

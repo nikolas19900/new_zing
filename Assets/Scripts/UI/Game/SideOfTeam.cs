@@ -13,5 +13,7 @@ namespace Assets.Scripts.UI.Game
         public static int CurrentPlayerSide = 1;
 
         public static int MoveInstance = 1;
+
+        public static int LastPick = 1;
     }
 }
