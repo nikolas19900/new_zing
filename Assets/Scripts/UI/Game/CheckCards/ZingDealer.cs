@@ -46,6 +46,39 @@ namespace Assets.Scripts.UI.Game.CheckCards
             InitCardsForPlayers();
         }
 
+        public ZingDealer(string v,string vv)
+        {
+            _random = new Random();
+
+
+            InitAllCards();
+            InitTalon();
+            InitLastCard();
+            InitCardsForPlayersTwo();
+        }
+
+        public ZingDealer(string v, string vv,string vvv)
+        {
+            _random = new Random();
+
+
+            InitAllCards();
+            InitTalon();
+            InitLastCard();
+            InitCardsForPlayersThree();
+        }
+
+        public ZingDealer(string v, string vv, string vvv,string vvvv)
+        {
+            _random = new Random();
+
+
+            InitAllCards();
+            InitTalon();
+            InitLastCard();
+            InitCardsForPlayersFourth();
+        }
+
         public ZingDealer()
         {
 
@@ -251,6 +284,345 @@ namespace Assets.Scripts.UI.Game.CheckCards
             //Debug.Log("vv:" + ListOfCardsOfPlayers.Count);
         }
 
+        public void InitCardsForPlayersTwo()
+        {
+            CardsOfFirstPlayers = new List<GameObject>();
+
+            CardsOfSecondPlayers = new List<GameObject>();
+            CardsOfThirdPlayers = new List<GameObject>();
+            CardsOfFourthPlayers = new List<GameObject>();
+
+
+            CardsOfThirdPlayers.Add(RemainingCards.ToArray().GetValue(0) as GameObject);
+            CardsOfThirdPlayers.Add(RemainingCards.ToArray().GetValue(1) as GameObject);
+
+            CardsOfThirdPlayers.Add(RemainingCards.ToArray().GetValue(2) as GameObject);
+            CardsOfThirdPlayers.Add(RemainingCards.ToArray().GetValue(3) as GameObject);
+
+
+            CardsOfFourthPlayers.Add(RemainingCards.ToArray().GetValue(4) as GameObject);
+            CardsOfFourthPlayers.Add(RemainingCards.ToArray().GetValue(5) as GameObject);
+
+            CardsOfFourthPlayers.Add(RemainingCards.ToArray().GetValue(6) as GameObject);
+            CardsOfFourthPlayers.Add(RemainingCards.ToArray().GetValue(7) as GameObject);
+
+
+            CardsOfFirstPlayers.Add(RemainingCards.ToArray().GetValue(8) as GameObject);
+            CardsOfFirstPlayers.Add(RemainingCards.ToArray().GetValue(9) as GameObject);
+
+            CardsOfFirstPlayers.Add(RemainingCards.ToArray().GetValue(10) as GameObject);
+            CardsOfFirstPlayers.Add(RemainingCards.ToArray().GetValue(11) as GameObject);
+
+            CardsOfSecondPlayers.Add(RemainingCards.ToArray().GetValue(12) as GameObject);
+            CardsOfSecondPlayers.Add(RemainingCards.ToArray().GetValue(13) as GameObject);
+
+            CardsOfSecondPlayers.Add(RemainingCards.ToArray().GetValue(14) as GameObject);
+            CardsOfSecondPlayers.Add(RemainingCards.ToArray().GetValue(15) as GameObject);
+
+            List<Card> cardsFirst = new List<Card>();
+            List<Card> cardsSecond = new List<Card>();
+            List<Card> cardsThird = new List<Card>();
+            List<Card> cardsFourth = new List<Card>();
+
+            cardsFirst.Clear();
+            cardsSecond.Clear();
+            cardsThird.Clear();
+            cardsFourth.Clear();
+
+
+
+            foreach (var go1 in CardsOfFirstPlayers)
+            {
+                cardsFirst.Add((go1.GetComponent<VisualCard>() as VisualCard).BaseCard);
+
+            }
+
+            foreach (var go in CardsOfSecondPlayers)
+            {
+                cardsSecond.Add((go.GetComponent<VisualCard>() as VisualCard).BaseCard);
+
+            }
+
+            foreach (var go in CardsOfThirdPlayers)
+            {
+                cardsThird.Add((go.GetComponent<VisualCard>() as VisualCard).BaseCard);
+
+            }
+
+            foreach (var go in CardsOfFourthPlayers)
+            {
+                cardsFourth.Add((go.GetComponent<VisualCard>() as VisualCard).BaseCard);
+
+            }
+
+            cardsFirst = CardsSorter.SortCards(cardsFirst);
+
+            cardsSecond = CardsSorter.SortCards(cardsSecond);
+
+
+            cardsThird = CardsSorter.SortCards(cardsThird);
+
+            cardsFourth = CardsSorter.SortCards(cardsFourth);
+
+            CardsOfSecondPlayers = new List<GameObject>();
+            CardsOfFirstPlayers = new List<GameObject>();
+            CardsOfThirdPlayers = new List<GameObject>();
+            CardsOfFourthPlayers = new List<GameObject>();
+
+            foreach (var card in cardsFirst)
+            {
+                CardsOfFirstPlayers.Add(card.Owner);
+
+            }
+
+
+            foreach (var card in cardsSecond)
+            {
+                CardsOfSecondPlayers.Add(card.Owner);
+
+            }
+
+            foreach (var card in cardsThird)
+            {
+                CardsOfThirdPlayers.Add(card.Owner);
+
+            }
+
+            foreach (var card in cardsFourth)
+            {
+                CardsOfFourthPlayers.Add(card.Owner);
+
+            }
+
+            //Debug.Log("vv:" + ListOfCardsOfPlayers.Count);
+        }
+
+
+        public void InitCardsForPlayersThree()
+        {
+            CardsOfFirstPlayers = new List<GameObject>();
+
+            CardsOfSecondPlayers = new List<GameObject>();
+            CardsOfThirdPlayers = new List<GameObject>();
+            CardsOfFourthPlayers = new List<GameObject>();
+
+
+           
+            CardsOfFourthPlayers.Add(RemainingCards.ToArray().GetValue(0) as GameObject);
+            CardsOfFourthPlayers.Add(RemainingCards.ToArray().GetValue(1) as GameObject);
+
+            CardsOfFourthPlayers.Add(RemainingCards.ToArray().GetValue(2) as GameObject);
+            CardsOfFourthPlayers.Add(RemainingCards.ToArray().GetValue(3) as GameObject);
+
+
+            CardsOfFirstPlayers.Add(RemainingCards.ToArray().GetValue(4) as GameObject);
+            CardsOfFirstPlayers.Add(RemainingCards.ToArray().GetValue(5) as GameObject);
+
+            CardsOfFirstPlayers.Add(RemainingCards.ToArray().GetValue(6) as GameObject);
+            CardsOfFirstPlayers.Add(RemainingCards.ToArray().GetValue(7) as GameObject);
+
+            CardsOfSecondPlayers.Add(RemainingCards.ToArray().GetValue(8) as GameObject);
+            CardsOfSecondPlayers.Add(RemainingCards.ToArray().GetValue(9) as GameObject);
+
+            CardsOfSecondPlayers.Add(RemainingCards.ToArray().GetValue(10) as GameObject);
+            CardsOfSecondPlayers.Add(RemainingCards.ToArray().GetValue(11) as GameObject);
+
+            CardsOfThirdPlayers.Add(RemainingCards.ToArray().GetValue(12) as GameObject);
+            CardsOfThirdPlayers.Add(RemainingCards.ToArray().GetValue(13) as GameObject);
+
+            CardsOfThirdPlayers.Add(RemainingCards.ToArray().GetValue(14) as GameObject);
+            CardsOfThirdPlayers.Add(RemainingCards.ToArray().GetValue(15) as GameObject);
+
+            List<Card> cardsFirst = new List<Card>();
+            List<Card> cardsSecond = new List<Card>();
+            List<Card> cardsThird = new List<Card>();
+            List<Card> cardsFourth = new List<Card>();
+
+            cardsFirst.Clear();
+            cardsSecond.Clear();
+            cardsThird.Clear();
+            cardsFourth.Clear();
+
+
+
+            foreach (var go1 in CardsOfFirstPlayers)
+            {
+                cardsFirst.Add((go1.GetComponent<VisualCard>() as VisualCard).BaseCard);
+
+            }
+
+            foreach (var go in CardsOfSecondPlayers)
+            {
+                cardsSecond.Add((go.GetComponent<VisualCard>() as VisualCard).BaseCard);
+
+            }
+
+            foreach (var go in CardsOfThirdPlayers)
+            {
+                cardsThird.Add((go.GetComponent<VisualCard>() as VisualCard).BaseCard);
+
+            }
+
+            foreach (var go in CardsOfFourthPlayers)
+            {
+                cardsFourth.Add((go.GetComponent<VisualCard>() as VisualCard).BaseCard);
+
+            }
+
+            cardsFirst = CardsSorter.SortCards(cardsFirst);
+
+            cardsSecond = CardsSorter.SortCards(cardsSecond);
+
+
+            cardsThird = CardsSorter.SortCards(cardsThird);
+
+            cardsFourth = CardsSorter.SortCards(cardsFourth);
+
+            CardsOfSecondPlayers = new List<GameObject>();
+            CardsOfFirstPlayers = new List<GameObject>();
+            CardsOfThirdPlayers = new List<GameObject>();
+            CardsOfFourthPlayers = new List<GameObject>();
+
+            foreach (var card in cardsFirst)
+            {
+                CardsOfFirstPlayers.Add(card.Owner);
+
+            }
+
+
+            foreach (var card in cardsSecond)
+            {
+                CardsOfSecondPlayers.Add(card.Owner);
+
+            }
+
+            foreach (var card in cardsThird)
+            {
+                CardsOfThirdPlayers.Add(card.Owner);
+
+            }
+
+            foreach (var card in cardsFourth)
+            {
+                CardsOfFourthPlayers.Add(card.Owner);
+
+            }
+
+            //Debug.Log("vv:" + ListOfCardsOfPlayers.Count);
+        }
+
+        public void InitCardsForPlayersFourth()
+        {
+            CardsOfFirstPlayers = new List<GameObject>();
+
+            CardsOfSecondPlayers = new List<GameObject>();
+            CardsOfThirdPlayers = new List<GameObject>();
+            CardsOfFourthPlayers = new List<GameObject>();
+            
+
+            CardsOfFirstPlayers.Add(RemainingCards.ToArray().GetValue(0) as GameObject);
+            CardsOfFirstPlayers.Add(RemainingCards.ToArray().GetValue(1) as GameObject);
+
+            CardsOfFirstPlayers.Add(RemainingCards.ToArray().GetValue(2) as GameObject);
+            CardsOfFirstPlayers.Add(RemainingCards.ToArray().GetValue(3) as GameObject);
+
+            CardsOfSecondPlayers.Add(RemainingCards.ToArray().GetValue(4) as GameObject);
+            CardsOfSecondPlayers.Add(RemainingCards.ToArray().GetValue(5) as GameObject);
+
+            CardsOfSecondPlayers.Add(RemainingCards.ToArray().GetValue(6) as GameObject);
+            CardsOfSecondPlayers.Add(RemainingCards.ToArray().GetValue(7) as GameObject);
+
+            CardsOfThirdPlayers.Add(RemainingCards.ToArray().GetValue(8) as GameObject);
+            CardsOfThirdPlayers.Add(RemainingCards.ToArray().GetValue(9) as GameObject);
+
+            CardsOfThirdPlayers.Add(RemainingCards.ToArray().GetValue(10) as GameObject);
+            CardsOfThirdPlayers.Add(RemainingCards.ToArray().GetValue(11) as GameObject);
+
+            CardsOfFourthPlayers.Add(RemainingCards.ToArray().GetValue(12) as GameObject);
+            CardsOfFourthPlayers.Add(RemainingCards.ToArray().GetValue(13) as GameObject);
+
+            CardsOfFourthPlayers.Add(RemainingCards.ToArray().GetValue(14) as GameObject);
+            CardsOfFourthPlayers.Add(RemainingCards.ToArray().GetValue(15) as GameObject);
+
+            List<Card> cardsFirst = new List<Card>();
+            List<Card> cardsSecond = new List<Card>();
+            List<Card> cardsThird = new List<Card>();
+            List<Card> cardsFourth = new List<Card>();
+
+            cardsFirst.Clear();
+            cardsSecond.Clear();
+            cardsThird.Clear();
+            cardsFourth.Clear();
+
+
+
+            foreach (var go1 in CardsOfFirstPlayers)
+            {
+                cardsFirst.Add((go1.GetComponent<VisualCard>() as VisualCard).BaseCard);
+
+            }
+
+            foreach (var go in CardsOfSecondPlayers)
+            {
+                cardsSecond.Add((go.GetComponent<VisualCard>() as VisualCard).BaseCard);
+
+            }
+
+            foreach (var go in CardsOfThirdPlayers)
+            {
+                cardsThird.Add((go.GetComponent<VisualCard>() as VisualCard).BaseCard);
+
+            }
+
+            foreach (var go in CardsOfFourthPlayers)
+            {
+                cardsFourth.Add((go.GetComponent<VisualCard>() as VisualCard).BaseCard);
+
+            }
+
+            cardsFirst = CardsSorter.SortCards(cardsFirst);
+
+            cardsSecond = CardsSorter.SortCards(cardsSecond);
+
+
+            cardsThird = CardsSorter.SortCards(cardsThird);
+
+            cardsFourth = CardsSorter.SortCards(cardsFourth);
+
+            CardsOfSecondPlayers = new List<GameObject>();
+            CardsOfFirstPlayers = new List<GameObject>();
+            CardsOfThirdPlayers = new List<GameObject>();
+            CardsOfFourthPlayers = new List<GameObject>();
+
+            foreach (var card in cardsFirst)
+            {
+                CardsOfFirstPlayers.Add(card.Owner);
+
+            }
+
+
+            foreach (var card in cardsSecond)
+            {
+                CardsOfSecondPlayers.Add(card.Owner);
+
+            }
+
+            foreach (var card in cardsThird)
+            {
+                CardsOfThirdPlayers.Add(card.Owner);
+
+            }
+
+            foreach (var card in cardsFourth)
+            {
+                CardsOfFourthPlayers.Add(card.Owner);
+
+            }
+
+            
+        }
+
+
         public void DeleteSecondPlayerCard()
         {
             // Debug.Log("ukupno karata:" + RemainingCards.Count);
@@ -415,6 +787,119 @@ namespace Assets.Scripts.UI.Game.CheckCards
             {
                 CardsOfFourthPlayers.Add(card.Owner);
                 
+            }
+        }
+
+
+        public void DealCardsToPlayersSecondThird()
+        {
+            CardsOfFirstPlayers = new List<GameObject>();
+
+            CardsOfSecondPlayers = new List<GameObject>();
+            CardsOfThirdPlayers = new List<GameObject>();
+            CardsOfFourthPlayers = new List<GameObject>();
+
+
+
+            CardsOfThirdPlayers.Add(RemainingCards.ToArray().GetValue(0) as GameObject);
+            CardsOfThirdPlayers.Add(RemainingCards.ToArray().GetValue(1) as GameObject);
+
+            CardsOfThirdPlayers.Add(RemainingCards.ToArray().GetValue(2) as GameObject);
+            CardsOfThirdPlayers.Add(RemainingCards.ToArray().GetValue(3) as GameObject);
+
+
+            CardsOfFourthPlayers.Add(RemainingCards.ToArray().GetValue(4) as GameObject);
+            CardsOfFourthPlayers.Add(RemainingCards.ToArray().GetValue(5) as GameObject);
+
+            CardsOfFourthPlayers.Add(RemainingCards.ToArray().GetValue(6) as GameObject);
+            CardsOfFourthPlayers.Add(RemainingCards.ToArray().GetValue(7) as GameObject);
+
+
+            CardsOfFirstPlayers.Add(RemainingCards.ToArray().GetValue(8) as GameObject);
+            CardsOfFirstPlayers.Add(RemainingCards.ToArray().GetValue(9) as GameObject);
+
+            CardsOfFirstPlayers.Add(RemainingCards.ToArray().GetValue(10) as GameObject);
+            CardsOfFirstPlayers.Add(RemainingCards.ToArray().GetValue(11) as GameObject);
+
+            CardsOfSecondPlayers.Add(RemainingCards.ToArray().GetValue(12) as GameObject);
+            CardsOfSecondPlayers.Add(RemainingCards.ToArray().GetValue(13) as GameObject);
+
+            CardsOfSecondPlayers.Add(RemainingCards.ToArray().GetValue(14) as GameObject);
+            CardsOfSecondPlayers.Add(RemainingCards.ToArray().GetValue(15) as GameObject);
+
+            List<Card> cardsFirst = new List<Card>();
+            List<Card> cardsSecond = new List<Card>();
+            List<Card> cardsThird = new List<Card>();
+            List<Card> cardsFourth = new List<Card>();
+
+            cardsFirst.Clear();
+            cardsSecond.Clear();
+            cardsThird.Clear();
+            cardsFourth.Clear();
+
+
+
+            foreach (var go1 in CardsOfFirstPlayers)
+            {
+                cardsFirst.Add((go1.GetComponent<VisualCard>() as VisualCard).BaseCard);
+
+            }
+
+            foreach (var go in CardsOfSecondPlayers)
+            {
+                cardsSecond.Add((go.GetComponent<VisualCard>() as VisualCard).BaseCard);
+
+            }
+
+            foreach (var go in CardsOfThirdPlayers)
+            {
+                cardsThird.Add((go.GetComponent<VisualCard>() as VisualCard).BaseCard);
+
+            }
+
+            foreach (var go in CardsOfFourthPlayers)
+            {
+                cardsFourth.Add((go.GetComponent<VisualCard>() as VisualCard).BaseCard);
+
+            }
+
+            cardsFirst = CardsSorter.SortCards(cardsFirst);
+
+            cardsSecond = CardsSorter.SortCards(cardsSecond);
+
+
+            cardsThird = CardsSorter.SortCards(cardsThird);
+
+            cardsFourth = CardsSorter.SortCards(cardsFourth);
+
+            CardsOfSecondPlayers = new List<GameObject>();
+            CardsOfFirstPlayers = new List<GameObject>();
+            CardsOfThirdPlayers = new List<GameObject>();
+            CardsOfFourthPlayers = new List<GameObject>();
+
+            foreach (var card in cardsFirst)
+            {
+                CardsOfFirstPlayers.Add(card.Owner);
+
+            }
+
+
+            foreach (var card in cardsSecond)
+            {
+                CardsOfSecondPlayers.Add(card.Owner);
+
+            }
+
+            foreach (var card in cardsThird)
+            {
+                CardsOfThirdPlayers.Add(card.Owner);
+
+            }
+
+            foreach (var card in cardsFourth)
+            {
+                CardsOfFourthPlayers.Add(card.Owner);
+
             }
         }
 
