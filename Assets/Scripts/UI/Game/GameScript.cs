@@ -2213,6 +2213,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                 if (SideOfTeam.CurrentPlayerSide == 2)
                 {
                     //pocetak za novog djelioca 
+                    Debug.Log("nula");
                     _zingDealer = new ZingDealer("start", "two");
                     string[] remaingCardArray = new string[_zingDealer.RemainingCards.Count];
                     int intValue = 0;
