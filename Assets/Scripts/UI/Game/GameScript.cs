@@ -2207,6 +2207,8 @@ public class GameScript : MonoBehaviourPunCallbacks
                         Destroy(transform.gameObject);
                     }
 
+                     _currentPhotonView.RPC("CleanDesk", RpcTarget.Others, SideOfTeam.LastPick);
+
 
                     if (SideOfTeam.LastPick == 1)
                     {
