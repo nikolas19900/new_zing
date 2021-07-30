@@ -175,20 +175,51 @@ namespace Assets.Scripts.UI.Game
         public void TakeRestOfCardsFirst(string[] listArray)
         {
             int pointsValue = 0;
-            int newPoints = 0;
+            
             CalculatePoints points = new CalculatePoints(listArray.ToList());
             pointsValue = points.GetPoints();
 
             int tempCards = int.Parse(_cardsValue.text) + listArray.Length;
-            _cardsValue.text = "" + tempCards;
+           
+            int tempAditionalPoints = 0;
+            if (tempCards > 26)
+            {
+                tempAditionalPoints = 3;
+            }
 
-            int pointsBlueValue = int.Parse(_pointsValue.text) + pointsValue;
+            int tempCardsRed = int.Parse(_cardsRedValue.text);
+            int tempAditionalPointsRed = 0;
+            if(tempCardsRed > 26)
+            {
+                tempAditionalPointsRed = 3;
+            }
+            tempCards = 0;
+            tempCardsRed = 0;
+            _cardsValue.text = "" + tempCards;
+            _cardsRedValue.text = "" + tempCardsRed;
+
+            int pointsBlueValue = 0;
 
             _pointsValue.text = "" + pointsBlueValue;
 
-            int totalBluePoints = int.Parse(_totalPointsValue.text) + pointsValue;
+            int pointsRedValue = 0;
+
+            _pointsRedValue.text = "" + pointsRedValue;
+
+            int zingBlueValue = 0;
+            _zingsValue.text = "" + zingBlueValue;
+           
+
+            int zingRedValue = 0;
+            _zingsRedValue.text = "" + zingRedValue;
+
+            int totalBluePoints = int.Parse(_totalPointsValue.text) + pointsValue+ tempAditionalPoints;
 
             _totalPointsValue.text = "" + totalBluePoints;
+
+            int totalRedPoints = int.Parse(_totalPointsRedValue.text)  + tempAditionalPointsRed;
+
+            _totalPointsRedValue.text = "" + totalRedPoints;
 
             Dictionary<int, Player> values = PhotonNetwork.CurrentRoom.Players;
 
@@ -199,10 +230,11 @@ namespace Assets.Scripts.UI.Game
                 {
                     
                         ExitGames.Client.Photon.Hashtable hash = PhotonNetwork.CurrentRoom.Players[vv.Key].CustomProperties;
-                        hash["Cards"] = int.Parse(_cardsValue.text);
-                        hash["Points"] = int.Parse(_pointsValue.text);
-                        hash["Zing"] = int.Parse(_zingsValue.text);
-                        hash["Total"] = int.Parse(_totalPointsValue.text);
+                        string gg = hash["Points"].ToString();
+                        Debug.Log("igrac je sakupio poena:" + gg);
+                        int pointsPlayer = int.Parse(gg) + pointsValue; 
+                        hash["Points"] = pointsPlayer;
+                        
                         PhotonNetwork.CurrentRoom.Players[vv.Key].SetCustomProperties(hash);
                     
                 }
@@ -214,22 +246,54 @@ namespace Assets.Scripts.UI.Game
         public void TakeRestOfCardsFirstAI(string[] listArray)
         {
             int pointsValue = 0;
-            int newPoints = 0;
+            
             CalculatePoints points = new CalculatePoints(listArray.ToList());
             pointsValue = points.GetPoints();
 
+
             int tempCards = int.Parse(_cardsValue.text) + listArray.Length;
+
+            int tempAditionalPoints = 0;
+            if (tempCards > 26)
+            {
+                tempAditionalPoints = 3;
+            }
+
+            int tempCardsRed = int.Parse(_cardsRedValue.text);
+            int tempAditionalPointsRed = 0;
+            if (tempCardsRed > 26)
+            {
+                tempAditionalPointsRed = 3;
+            }
+            tempCards = 0;
+            tempCardsRed = 0;
             _cardsValue.text = "" + tempCards;
+            _cardsRedValue.text = "" + tempCardsRed;
 
-            int pointsBlueValue = int.Parse(_pointsValue.text) + pointsValue;
 
+            int pointsBlueValue = 0;
             _pointsValue.text = "" + pointsBlueValue;
 
-            int totalBluePoints = int.Parse(_totalPointsValue.text) + pointsValue;
+            int pointsRedValue = 0;
+            _pointsRedValue.text = "" + pointsRedValue;
+
+            int zingBlueValue = 0;
+            _zingsValue.text = "" + zingBlueValue;
+           
+            int zingRedValue = 0;
+            _zingsRedValue.text = "" + zingRedValue;
+
+            
+
+            int totalBluePoints = int.Parse(_totalPointsValue.text) + pointsValue + tempAditionalPoints;
 
             _totalPointsValue.text = "" + totalBluePoints;
 
-            
+            int totalRedPoints = int.Parse(_totalPointsRedValue.text) + tempAditionalPointsRed;
+
+            _totalPointsRedValue.text = "" + totalRedPoints;
+
+
 
         }
 
@@ -237,19 +301,50 @@ namespace Assets.Scripts.UI.Game
         public void TakeRestOfCardsSecond(string[] listArray)
         {
             int pointsValue = 0;
-            int newPoints = 0;
+            
             CalculatePoints points = new CalculatePoints(listArray.ToList());
             pointsValue = points.GetPoints();
 
+
             int tempCards = int.Parse(_cardsRedValue.text) + listArray.Length;
+            
+
+            int tempAditionalPoints = 0;
+            if (tempCards > 26)
+            {
+                tempAditionalPoints = 3;
+            }
+
+            int tempCardsBlue = int.Parse(_cardsValue.text);
+            int tempAditionalPointsBlue = 0;
+            if (tempCardsBlue > 26)
+            {
+                tempAditionalPointsBlue = 3;
+            }
+            tempCards = 0;
+            tempCardsBlue = 0;
+            _cardsValue.text = "" + tempCardsBlue;
             _cardsRedValue.text = "" + tempCards;
 
-
-            int pointsRedValue = int.Parse(_pointsRedValue.text) + pointsValue;
+            int pointsBlueValue = 0;
+            int pointsRedValue =0;
 
             _pointsRedValue.text = "" + pointsRedValue;
 
-            int totalRedPoints = int.Parse(_totalPointsRedValue.text) + pointsValue;
+            _pointsValue.text = "" + pointsBlueValue;
+
+            int zingBlueValue = 0;
+            _zingsValue.text = "" + zingBlueValue;
+
+
+            int zingRedValue = 0;
+            _zingsRedValue.text = "" + zingRedValue;
+
+            int totalBluePoints = int.Parse(_totalPointsValue.text)  + tempAditionalPointsBlue;
+
+            _totalPointsValue.text = "" + totalBluePoints;
+
+            int totalRedPoints = int.Parse(_totalPointsRedValue.text) + pointsValue + tempAditionalPoints;
 
             _totalPointsRedValue.text = "" + totalRedPoints;
 
@@ -262,10 +357,11 @@ namespace Assets.Scripts.UI.Game
                 {
 
                     ExitGames.Client.Photon.Hashtable hash = PhotonNetwork.CurrentRoom.Players[vv.Key].CustomProperties;
-                    hash["Cards"] = int.Parse(_cardsValue.text);
-                    hash["Points"] = int.Parse(_pointsValue.text);
-                    hash["Zing"] = int.Parse(_zingsValue.text);
-                    hash["Total"] = int.Parse(_totalPointsValue.text);
+                    string gg = hash["Points"].ToString();
+                    Debug.Log("igrac je sakupio poena 2:" + gg);
+                    int pointsPlayer = int.Parse(gg) + pointsValue;
+                    hash["Points"] = pointsPlayer;
+                    
                     PhotonNetwork.CurrentRoom.Players[vv.Key].SetCustomProperties(hash);
 
                 }
@@ -277,19 +373,49 @@ namespace Assets.Scripts.UI.Game
         public void TakeRestOfCardsSecondAI(string[] listArray)
         {
             int pointsValue = 0;
-            int newPoints = 0;
+            
             CalculatePoints points = new CalculatePoints(listArray.ToList());
             pointsValue = points.GetPoints();
 
             int tempCards = int.Parse(_cardsRedValue.text) + listArray.Length;
+            
+
+            int tempAditionalPoints = 0;
+            if (tempCards > 26)
+            {
+                tempAditionalPoints = 3;
+            }
+
+            int tempCardsBlue = int.Parse(_cardsValue.text);
+            int tempAditionalPointsBlue = 0;
+            if (tempCardsBlue > 26)
+            {
+                tempAditionalPointsBlue = 3;
+            }
+            tempCards = 0;
+            tempCardsBlue = 0;
+            _cardsValue.text = "" + tempCardsBlue;
             _cardsRedValue.text = "" + tempCards;
 
-
-            int pointsRedValue = int.Parse(_pointsRedValue.text) + pointsValue;
+            int pointsBlueValue = 0;
+            int pointsRedValue = 0;
 
             _pointsRedValue.text = "" + pointsRedValue;
 
-            int totalRedPoints = int.Parse(_totalPointsRedValue.text) + pointsValue;
+            _pointsValue.text = "" + pointsBlueValue;
+
+            int zingBlueValue = 0;
+            _zingsValue.text = "" + zingBlueValue;
+
+
+            int zingRedValue = 0;
+            _zingsRedValue.text = "" + zingRedValue;
+
+            int totalBluePoints = int.Parse(_totalPointsValue.text) + tempAditionalPointsBlue;
+
+            _totalPointsValue.text = "" + totalBluePoints;
+
+            int totalRedPoints = int.Parse(_totalPointsRedValue.text) + pointsValue + tempAditionalPoints;
 
             _totalPointsRedValue.text = "" + totalRedPoints;
 
@@ -300,20 +426,51 @@ namespace Assets.Scripts.UI.Game
         public void TakeRestOfCardsThird(string[] listArray)
         {
             int pointsValue = 0;
-            int newPoints = 0;
+            
             CalculatePoints points = new CalculatePoints(listArray.ToList());
             pointsValue = points.GetPoints();
 
             int tempCards = int.Parse(_cardsValue.text) + listArray.Length;
+
+            int tempAditionalPoints = 0;
+            if (tempCards > 26)
+            {
+                tempAditionalPoints = 3;
+            }
+
+            int tempCardsRed = int.Parse(_cardsRedValue.text);
+            int tempAditionalPointsRed = 0;
+            if (tempCardsRed > 26)
+            {
+                tempAditionalPointsRed = 3;
+            }
+            tempCards = 0;
+            tempCardsRed = 0;
             _cardsValue.text = "" + tempCards;
+            _cardsRedValue.text = "" + tempCardsRed;
 
-            int pointsBlueValue = int.Parse(_pointsValue.text) + pointsValue;
-
+            int pointsBlueValue = 0;
+            
             _pointsValue.text = "" + pointsBlueValue;
+            int pointsRedValue = 0;
 
-            int totalBluePoints = int.Parse(_totalPointsValue.text) + pointsValue;
+            _pointsRedValue.text = "" + pointsRedValue;
+
+
+            int zingBlueValue = 0;
+            _zingsValue.text = "" + zingBlueValue;
+            
+
+            int zingRedValue = 0;
+            _zingsRedValue.text = "" + zingRedValue;
+
+            int totalBluePoints = int.Parse(_totalPointsValue.text) + pointsValue + tempAditionalPoints;
 
             _totalPointsValue.text = "" + totalBluePoints;
+
+            int totalRedPoints = int.Parse(_totalPointsRedValue.text) + tempAditionalPointsRed;
+
+            _totalPointsRedValue.text = "" + totalRedPoints;
 
             Dictionary<int, Player> values = PhotonNetwork.CurrentRoom.Players;
 
@@ -324,10 +481,10 @@ namespace Assets.Scripts.UI.Game
                 {
 
                     ExitGames.Client.Photon.Hashtable hash = PhotonNetwork.CurrentRoom.Players[vv.Key].CustomProperties;
-                    hash["Cards"] = int.Parse(_cardsValue.text);
-                    hash["Points"] = int.Parse(_pointsValue.text);
-                    hash["Zing"] = int.Parse(_zingsValue.text);
-                    hash["Total"] = int.Parse(_totalPointsValue.text);
+                     string gg = hash["Points"].ToString();
+                    Debug.Log("igrac je sakupio poena 3:" + gg);
+                    int pointsPlayer = int.Parse(gg) + pointsValue;
+                    hash["Points"] = pointsPlayer;
                     PhotonNetwork.CurrentRoom.Players[vv.Key].SetCustomProperties(hash);
 
                 }
@@ -339,40 +496,102 @@ namespace Assets.Scripts.UI.Game
         public void TakeRestOfCardsThirdAI(string[] listArray)
         {
             int pointsValue = 0;
-            int newPoints = 0;
+            
             CalculatePoints points = new CalculatePoints(listArray.ToList());
             pointsValue = points.GetPoints();
 
             int tempCards = int.Parse(_cardsValue.text) + listArray.Length;
-            _cardsValue.text = "" + tempCards;
 
-            int pointsBlueValue = int.Parse(_pointsValue.text) + pointsValue;
+            int tempAditionalPoints = 0;
+            if (tempCards > 26)
+            {
+                tempAditionalPoints = 3;
+            }
+
+            int tempCardsRed = int.Parse(_cardsRedValue.text);
+            int tempAditionalPointsRed = 0;
+            if (tempCardsRed > 26)
+            {
+                tempAditionalPointsRed = 3;
+            }
+            tempCards = 0;
+            tempCardsRed = 0;
+            _cardsValue.text = "" + tempCards;
+            _cardsRedValue.text = "" + tempCardsRed;
+
+            int pointsBlueValue = 0;
 
             _pointsValue.text = "" + pointsBlueValue;
+            int pointsRedValue = 0;
 
-            int totalBluePoints = int.Parse(_totalPointsValue.text) + pointsValue;
+            _pointsRedValue.text = "" + pointsRedValue;
+
+            int zingBlueValue = 0;
+            _zingsValue.text = "" + zingBlueValue;
+
+
+            int zingRedValue = 0;
+            _zingsRedValue.text = "" + zingRedValue;
+
+
+            int totalBluePoints = int.Parse(_totalPointsValue.text) + pointsValue + tempAditionalPoints;
 
             _totalPointsValue.text = "" + totalBluePoints;
-            
+
+            int totalRedPoints = int.Parse(_totalPointsRedValue.text) + tempAditionalPointsRed;
+
+            _totalPointsRedValue.text = "" + totalRedPoints;
+
         }
 
         [PunRPC]
         public void TakeRestOfCardsFourth(string[] listArray)
         {
             int pointsValue = 0;
-            int newPoints = 0;
+            
             CalculatePoints points = new CalculatePoints(listArray.ToList());
             pointsValue = points.GetPoints();
 
             int tempCards = int.Parse(_cardsRedValue.text) + listArray.Length;
+
+            int tempAditionalPoints = 0;
+            if (tempCards > 26)
+            {
+                tempAditionalPoints = 3;
+            }
+
+            int tempCardsBlue = int.Parse(_cardsValue.text);
+            int tempAditionalPointsBlue = 0;
+            if (tempCardsBlue > 26)
+            {
+                tempAditionalPointsBlue = 3;
+            }
+            tempCards = 0;
+            tempCardsBlue = 0;
+            _cardsValue.text = "" + tempCardsBlue;
             _cardsRedValue.text = "" + tempCards;
 
 
-            int pointsRedValue = int.Parse(_pointsRedValue.text) + pointsValue;
+            int pointsBlueValue = 0;
+            int pointsRedValue = 0;
 
             _pointsRedValue.text = "" + pointsRedValue;
 
-            int totalRedPoints = int.Parse(_totalPointsRedValue.text) + pointsValue;
+            _pointsValue.text = "" + pointsBlueValue;
+
+            int zingBlueValue = 0;
+            _zingsValue.text = "" + zingBlueValue;
+
+
+            int zingRedValue = 0;
+            _zingsRedValue.text = "" + zingRedValue;
+
+    
+            int totalBluePoints = int.Parse(_totalPointsValue.text) + tempAditionalPointsBlue;
+
+            _totalPointsValue.text = "" + totalBluePoints;
+
+            int totalRedPoints = int.Parse(_totalPointsRedValue.text) + pointsValue + tempAditionalPoints;
 
             _totalPointsRedValue.text = "" + totalRedPoints;
 
@@ -385,10 +604,10 @@ namespace Assets.Scripts.UI.Game
                 {
 
                     ExitGames.Client.Photon.Hashtable hash = PhotonNetwork.CurrentRoom.Players[vv.Key].CustomProperties;
-                    hash["Cards"] = int.Parse(_cardsValue.text);
-                    hash["Points"] = int.Parse(_pointsValue.text);
-                    hash["Zing"] = int.Parse(_zingsValue.text);
-                    hash["Total"] = int.Parse(_totalPointsValue.text);
+                    string gg = hash["Points"].ToString();
+                    Debug.Log("igrac je sakupio poena 4:" + gg);
+                    int pointsPlayer = int.Parse(gg) + pointsValue;
+                    hash["Points"] = pointsPlayer;
                     PhotonNetwork.CurrentRoom.Players[vv.Key].SetCustomProperties(hash);
 
                 }
@@ -405,17 +624,46 @@ namespace Assets.Scripts.UI.Game
             pointsValue = points.GetPoints();
 
             int tempCards = int.Parse(_cardsRedValue.text) + listArray.Length;
+
+            int tempAditionalPoints = 0;
+            if (tempCards > 26)
+            {
+                tempAditionalPoints = 3;
+            }
+
+            int tempCardsBlue = int.Parse(_cardsValue.text);
+            int tempAditionalPointsBlue = 0;
+            if (tempCardsBlue > 26)
+            {
+                tempAditionalPointsBlue = 3;
+            }
+            tempCards = 0;
+            tempCardsBlue = 0;
+            _cardsValue.text = "" + tempCardsBlue;
             _cardsRedValue.text = "" + tempCards;
 
-
-            int pointsRedValue = int.Parse(_pointsRedValue.text) + pointsValue;
+            int pointsBlueValue = 0;
+            int pointsRedValue = 0;
 
             _pointsRedValue.text = "" + pointsRedValue;
 
-            int totalRedPoints = int.Parse(_totalPointsRedValue.text) + pointsValue;
+            _pointsValue.text = "" + pointsBlueValue;
+
+            int zingBlueValue = 0;
+            _zingsValue.text = "" + zingBlueValue;
+
+            int zingRedValue = 0;
+            _zingsRedValue.text = "" + zingRedValue;
+
+            int totalBluePoints = int.Parse(_totalPointsValue.text) + tempAditionalPointsBlue;
+
+            _totalPointsValue.text = "" + totalBluePoints;
+
+            int totalRedPoints = int.Parse(_totalPointsRedValue.text) + pointsValue + tempAditionalPoints;
 
             _totalPointsRedValue.text = "" + totalRedPoints;
 
+            
             
 
         }
@@ -442,7 +690,7 @@ namespace Assets.Scripts.UI.Game
             //}
             // Debug.Log("velicina liste talon posle:" + BeginningOfGame.ListOfAllTakenCards.Count);
             int pointsValue = 0;
-            int newPoints = 0;
+            
 
             if (PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Blue"))
             {

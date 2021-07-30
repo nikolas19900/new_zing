@@ -2543,6 +2543,99 @@ public class GameScript : MonoBehaviourPunCallbacks
                     }
 
                     _currentPhotonView.RPC("CleanDesk", RpcTarget.Others, SideOfTeam.LastPick);
+
+                    if (SideOfTeam.LastPick == 1)
+                    {
+                        Dictionary<int, Player> values = PhotonNetwork.CurrentRoom.Players;
+                        bool IsFirstPlayerAI = false;
+                        foreach (var temp in values)
+                        {
+                            if (values[temp.Key].CustomProperties["Instance"].Equals(1))
+                            {
+                                if (values[temp.Key].CustomProperties["State"].Equals("active"))
+                                {
+                                    IsFirstPlayerAI = true;
+                                    string[] array = listTemp.ToArray();
+                                    RecordBoard._instance.photonView.RPC("TakeRestOfCardsFirst", RpcTarget.All, array);
+
+                                }
+                            }
+                        }
+                        if (!IsFirstPlayerAI)
+                        {
+                            string[] array = listTemp.ToArray();
+                            RecordBoard._instance.photonView.RPC("TakeRestOfCardsFirstAI", RpcTarget.All, array);
+                        }
+                    }
+                    else if (SideOfTeam.LastPick == 2)
+                    {
+                        Dictionary<int, Player> values = PhotonNetwork.CurrentRoom.Players;
+                        bool IsSecondPlayerAI = false;
+                        foreach (var temp in values)
+                        {
+                            if (values[temp.Key].CustomProperties["Instance"].Equals(2))
+                            {
+                                if (values[temp.Key].CustomProperties["State"].Equals("active"))
+                                {
+                                    IsSecondPlayerAI = true;
+                                    string[] array = listTemp.ToArray();
+                                    RecordBoard._instance.photonView.RPC("TakeRestOfCardsSecond", RpcTarget.All, array);
+
+                                }
+                            }
+                        }
+                        if (!IsSecondPlayerAI)
+                        {
+                            string[] array = listTemp.ToArray();
+                            RecordBoard._instance.photonView.RPC("TakeRestOfCardsSecondAI", RpcTarget.All, array);
+                        }
+                    }
+                    else if (SideOfTeam.LastPick == 3)
+                    {
+                        Dictionary<int, Player> values = PhotonNetwork.CurrentRoom.Players;
+                        bool IsThirdPlayerAI = false;
+                        foreach (var temp in values)
+                        {
+                            if (values[temp.Key].CustomProperties["Instance"].Equals(3))
+                            {
+                                if (values[temp.Key].CustomProperties["State"].Equals("active"))
+                                {
+                                    IsThirdPlayerAI = true;
+                                    string[] array = listTemp.ToArray();
+                                    RecordBoard._instance.photonView.RPC("TakeRestOfCardsThird", RpcTarget.All, array);
+
+                                }
+                            }
+                        }
+                        if (!IsThirdPlayerAI)
+                        {
+                            string[] array = listTemp.ToArray();
+                            RecordBoard._instance.photonView.RPC("TakeRestOfCardsThirdAI", RpcTarget.All, array);
+                        }
+                    }
+                    else if (SideOfTeam.LastPick == 4)
+                    {
+                        Dictionary<int, Player> values = PhotonNetwork.CurrentRoom.Players;
+                        bool IsFourthPlayerAI = false;
+                        foreach (var temp in values)
+                        {
+                            if (values[temp.Key].CustomProperties["Instance"].Equals(4))
+                            {
+                                if (values[temp.Key].CustomProperties["State"].Equals("active"))
+                                {
+                                    IsFourthPlayerAI = true;
+                                    string[] array = listTemp.ToArray();
+                                    RecordBoard._instance.photonView.RPC("TakeRestOfCardsFourth", RpcTarget.All, array);
+
+                                }
+                            }
+                        }
+                        if (!IsFourthPlayerAI)
+                        {
+                            string[] array = listTemp.ToArray();
+                            RecordBoard._instance.photonView.RPC("TakeRestOfCardsFourthAI", RpcTarget.All, array);
+                        }
+                    }
                     //pocetak za novog djelioca 
 
                     //_zingDealer = new ZingDealer("start", "two");
