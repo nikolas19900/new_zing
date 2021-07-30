@@ -2231,14 +2231,16 @@ public class GameScript : MonoBehaviourPunCallbacks
                                 if (values[temp.Key].CustomProperties["State"].Equals("active"))
                                 {
                                     IsFirstPlayerAI = true;
-                                    RecordBoard._instance.photonView.RPC("TakeRestOfCardsFirst", RpcTarget.All, listTemp.ToArray());
+                                    string[] array = listTemp.ToArray();
+                                    RecordBoard._instance.photonView.RPC("TakeRestOfCardsFirst", RpcTarget.All, array);
 
                                 }
                             }
                         }
                         if (!IsFirstPlayerAI)
                         {
-                            RecordBoard._instance.photonView.RPC("TakeRestOfCardsFirstAI", RpcTarget.All, listTemp.ToArray());
+                            string[] array = listTemp.ToArray();
+                            RecordBoard._instance.photonView.RPC("TakeRestOfCardsFirstAI", RpcTarget.All, array);
                         }
                     }
                     else if(SideOfTeam.LastPick == 2)
@@ -2252,14 +2254,16 @@ public class GameScript : MonoBehaviourPunCallbacks
                                 if (values[temp.Key].CustomProperties["State"].Equals("active"))
                                 {
                                     IsSecondPlayerAI = true;
-                                    RecordBoard._instance.photonView.RPC("TakeRestOfCardsSecond", RpcTarget.All, listTemp.ToArray());
+                                    string[] array = listTemp.ToArray();
+                                    RecordBoard._instance.photonView.RPC("TakeRestOfCardsSecond", RpcTarget.All, array);
 
                                 }
                             }
                         }
                         if (!IsSecondPlayerAI)
                         {
-                            RecordBoard._instance.photonView.RPC("TakeRestOfCardsSecondAI", RpcTarget.All, listTemp.ToArray());
+                            string[] array = listTemp.ToArray();
+                            RecordBoard._instance.photonView.RPC("TakeRestOfCardsSecondAI", RpcTarget.All,array);
                         }
                     }
                     else if(SideOfTeam.LastPick == 3)
@@ -2273,14 +2277,16 @@ public class GameScript : MonoBehaviourPunCallbacks
                                 if (values[temp.Key].CustomProperties["State"].Equals("active"))
                                 {
                                     IsThirdPlayerAI = true;
-                                    RecordBoard._instance.photonView.RPC("TakeRestOfCardsThird", RpcTarget.All, listTemp.ToArray());
+                                    string[] array = listTemp.ToArray();
+                                    RecordBoard._instance.photonView.RPC("TakeRestOfCardsThird", RpcTarget.All, array);
 
                                 }
                             }
                         }
                         if (!IsThirdPlayerAI)
                         {
-                            RecordBoard._instance.photonView.RPC("TakeRestOfCardsThirdAI", RpcTarget.All, listTemp.ToArray());
+                            string[] array = listTemp.ToArray();
+                            RecordBoard._instance.photonView.RPC("TakeRestOfCardsThirdAI", RpcTarget.All, array);
                         }
                     }
                     else if(SideOfTeam.LastPick == 4)
@@ -2294,14 +2300,16 @@ public class GameScript : MonoBehaviourPunCallbacks
                                 if (values[temp.Key].CustomProperties["State"].Equals("active"))
                                 {
                                     IsFourthPlayerAI = true;
-                                    RecordBoard._instance.photonView.RPC("TakeRestOfCardsFourth", RpcTarget.All, listTemp.ToArray());
+                                    string[] array = listTemp.ToArray();
+                                    RecordBoard._instance.photonView.RPC("TakeRestOfCardsFourth", RpcTarget.All, array );
 
                                 }
                             }
                         }
                         if (!IsFourthPlayerAI)
                         {
-                            RecordBoard._instance.photonView.RPC("TakeRestOfCardsFourthAI", RpcTarget.All, listTemp.ToArray());
+                            string[] array = listTemp.ToArray();
+                            RecordBoard._instance.photonView.RPC("TakeRestOfCardsFourthAI", RpcTarget.All, array);
                         }
                     }
                     //_zingDealer = new ZingDealer("start", "two");
@@ -2741,7 +2749,8 @@ public class GameScript : MonoBehaviourPunCallbacks
         SideOfTeam.LastPick = value;
         foreach (Transform tt in canvacesOfFirstDeck.transform)
         {
-            Destroy(tt);
+            
+            Destroy(tt.gameObject);
         }
     }
 
