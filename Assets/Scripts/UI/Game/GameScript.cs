@@ -2186,6 +2186,16 @@ public class GameScript : MonoBehaviourPunCallbacks
                 GameScript.isAviableToMove = true;
                 TimeOfMove.active = true;
 
+
+                foreach (Transform element in tv.transform)
+                {
+
+                    element.GetComponent<EventTrigger>().enabled = true;
+
+                    //    //var firstCard = element.Find("FirstCardSelected").gameObject;
+                    //    //firstCard.active = false;
+
+                }
             }
 
 
@@ -2294,199 +2304,191 @@ public class GameScript : MonoBehaviourPunCallbacks
                             RecordBoard._instance.photonView.RPC("TakeRestOfCardsFourthAI", RpcTarget.All, listTemp.ToArray());
                         }
                     }
-                    _zingDealer = new ZingDealer("start", "two");
-                    string[] remaingCardArray = new string[_zingDealer.RemainingCards.Count];
-                    int intValue = 0;
-                    RemainingCardsList = new List<string>();
-                    foreach (var obj in _zingDealer.RemainingCards)
-                    {
+                    //_zingDealer = new ZingDealer("start", "two");
+                    //string[] remaingCardArray = new string[_zingDealer.RemainingCards.Count];
+                    //int intValue = 0;
+                    //RemainingCardsList = new List<string>();
+                    //foreach (var obj in _zingDealer.RemainingCards)
+                    //{
 
-                        remaingCardArray[intValue] = obj.name;
-                        ///Debug.Log("a:" + obj.name);
-                        RemainingCardsList.Add(obj.name);
-                        intValue++;
-                    }
+                    //    remaingCardArray[intValue] = obj.name;
+                    //    ///Debug.Log("a:" + obj.name);
+                    //    RemainingCardsList.Add(obj.name);
+                    //    intValue++;
+                    //}
 
-                    string[] array = new string[_zingDealer.TalonCards.Count];
-                    int i = 0;
-                    listTalon = new List<string>();
-                    _listOfCards = new List<string>();
-                    foreach (var obj in _zingDealer.TalonCards)
-                    {
+                    //string[] array = new string[_zingDealer.TalonCards.Count];
+                    //int i = 0;
+                    //listTalon = new List<string>();
+                    //_listOfCards = new List<string>();
+                    //foreach (var obj in _zingDealer.TalonCards)
+                    //{
 
-                        array[i] = obj.name;
-                        listTalon.Add(obj.name);
-                        _listOfCards.Add(obj.name);
-                        i++;
-                    }
+                    //    array[i] = obj.name;
+                    //    listTalon.Add(obj.name);
+                    //    _listOfCards.Add(obj.name);
+                    //    i++;
+                    //}
 
-                    talonArray = listTalon.ToArray();
+                    //talonArray = listTalon.ToArray();
 
-                    var objLastCard = _zingDealer.LastCard as GameObject;
+                    //var objLastCard = _zingDealer.LastCard as GameObject;
 
-                    _cardsOfFirstPlayer = new List<string>();
-                    foreach (var obj in _zingDealer.CardsOfFirstPlayers)
-                    {
-                        _cardsOfFirstPlayer.Add(obj.name);
-                    }
+                    //_cardsOfFirstPlayer = new List<string>();
+                    //foreach (var obj in _zingDealer.CardsOfFirstPlayers)
+                    //{
+                    //    _cardsOfFirstPlayer.Add(obj.name);
+                    //}
 
-                    string[] cardsOfSecondPlayer = new string[_zingDealer.CardsOfSecondPlayers.Count];
+                    //string[] cardsOfSecondPlayer = new string[_zingDealer.CardsOfSecondPlayers.Count];
 
-                    int count = 0;
-                    foreach (var obj in _zingDealer.CardsOfSecondPlayers)
-                    {
+                    //int count = 0;
+                    //foreach (var obj in _zingDealer.CardsOfSecondPlayers)
+                    //{
 
-                        cardsOfSecondPlayer[count] = obj.name;
-                        count++;
-                    }
+                    //    cardsOfSecondPlayer[count] = obj.name;
+                    //    count++;
+                    //}
 
-                    string[] cardsOfThirdPlayer = new string[_zingDealer.CardsOfThirdPlayers.Count];
+                    //string[] cardsOfThirdPlayer = new string[_zingDealer.CardsOfThirdPlayers.Count];
 
-                    int countThird = 0;
-                    foreach (var obj in _zingDealer.CardsOfThirdPlayers)
-                    {
+                    //int countThird = 0;
+                    //foreach (var obj in _zingDealer.CardsOfThirdPlayers)
+                    //{
 
-                        cardsOfThirdPlayer[countThird] = obj.name;
-                        countThird++;
-                    }
+                    //    cardsOfThirdPlayer[countThird] = obj.name;
+                    //    countThird++;
+                    //}
 
-                    string[] cardsOfFourthPlayer = new string[_zingDealer.CardsOfFourthPlayers.Count];
+                    //string[] cardsOfFourthPlayer = new string[_zingDealer.CardsOfFourthPlayers.Count];
 
-                    int countFourth = 0;
-                    foreach (var obj in _zingDealer.CardsOfFourthPlayers)
-                    {
+                    //int countFourth = 0;
+                    //foreach (var obj in _zingDealer.CardsOfFourthPlayers)
+                    //{
 
-                        cardsOfFourthPlayer[countFourth] = obj.name;
-                        countFourth++;
-                    }
-
-
-                    string ttt = objLastCard.name.Split('_')[1];
-                    //Debug.Log("value2:" + ttt);
-
-                    var components = CardImageValueLastCard.GetComponents<Component>();
-                    foreach (var com in components)
-                    {
-                        //Debug.Log("komponente");
-                        var vv = com.GetType();
-                        if (typeof(SVGImporter.SVGImage).IsAssignableFrom(vv))
-                        {
-
-                            var image2 = (SVGImporter.SVGImage)com;
-                            image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/CARDS_" + ttt + "/" + objLastCard.name);
-                        }
-                    }
-                    string strana = "";
-                    if (PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Red"))
-                    {
-                        var component = TeamImageLastCard.GetComponents<Component>();
-                        foreach (var com in component)
-                        {
-                            //Debug.Log("komponente");
-                            var vv = com.GetType();
-                            if (typeof(SVGImporter.SVGImage).IsAssignableFrom(vv))
-                            {
-
-                                var image2 = (SVGImporter.SVGImage)com;
-                                image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/BACK_SIDE/BackREDSide");
-                            }
-                        }
-
-                        var componentsDealerBoard = DealerBoard.GetComponents<Component>();
-
-                        //var image = gameObject.GetComponent<SVGImage>();
-                        // Debug.Log("fff");
-                        foreach (var com in componentsDealerBoard)
-                        {
-                            var vv = com.GetType();
-                            if (typeof(Image).IsAssignableFrom(vv))
-                            {
-                                var image2 = (Image)com;
-                                image2.sprite = Resources.Load<Sprite>("game_page/PictureRedBorderSmall");
-                            }
-                        }
-
-                        strana = "Red";
-
-                    }
-                    else
-                    {
-                        var component = TeamImageLastCard.GetComponents<Component>();
-                        foreach (var com in component)
-                        {
-                            //Debug.Log("komponente");
-                            var vv = com.GetType();
-                            if (typeof(SVGImporter.SVGImage).IsAssignableFrom(vv))
-                            {
-
-                                var image2 = (SVGImporter.SVGImage)com;
-                                image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/BACK_SIDE/BackBlueSide");
-                            }
-                        }
-
-                        var componentsDealerBoard = DealerBoard.GetComponents<Component>();
-
-                        //var image = gameObject.GetComponent<SVGImage>();
-                        // Debug.Log("fff");
-                        foreach (var com in componentsDealerBoard)
-                        {
-                            var vv = com.GetType();
-                            if (typeof(Image).IsAssignableFrom(vv))
-                            {
-                                var image2 = (Image)com;
-                                image2.sprite = Resources.Load<Sprite>("game_page/PictureBlueBorderSmall");
-                            }
-                        }
+                    //    cardsOfFourthPlayer[countFourth] = obj.name;
+                    //    countFourth++;
+                    //}
 
 
-                        strana = "Blue";
-                    }
-                    _currentPhotonView.RPC("SetInitDealerConfig", RpcTarget.Others, objLastCard.name, strana);
-                    _cardsOfFirstPlayer = new List<string>();
-                    foreach (var obj in _zingDealer.CardsOfFirstPlayers)
-                    {
-                        _cardsOfFirstPlayer.Add(obj.name);
-                    }
+                    //string ttt = objLastCard.name.Split('_')[1];
+                    ////Debug.Log("value2:" + ttt);
+
+                    //var components = CardImageValueLastCard.GetComponents<Component>();
+                    //foreach (var com in components)
+                    //{
+                    //    //Debug.Log("komponente");
+                    //    var vv = com.GetType();
+                    //    if (typeof(SVGImporter.SVGImage).IsAssignableFrom(vv))
+                    //    {
+
+                    //        var image2 = (SVGImporter.SVGImage)com;
+                    //        image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/CARDS_" + ttt + "/" + objLastCard.name);
+                    //    }
+                    //}
+                    //string strana = "";
+                    //if (PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Red"))
+                    //{
+                    //    var component = TeamImageLastCard.GetComponents<Component>();
+                    //    foreach (var com in component)
+                    //    {
+                    //        //Debug.Log("komponente");
+                    //        var vv = com.GetType();
+                    //        if (typeof(SVGImporter.SVGImage).IsAssignableFrom(vv))
+                    //        {
+
+                    //            var image2 = (SVGImporter.SVGImage)com;
+                    //            image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/BACK_SIDE/BackREDSide");
+                    //        }
+                    //    }
+
+                    //    var componentsDealerBoard = DealerBoard.GetComponents<Component>();
+
+                    //    //var image = gameObject.GetComponent<SVGImage>();
+                    //    // Debug.Log("fff");
+                    //    foreach (var com in componentsDealerBoard)
+                    //    {
+                    //        var vv = com.GetType();
+                    //        if (typeof(Image).IsAssignableFrom(vv))
+                    //        {
+                    //            var image2 = (Image)com;
+                    //            image2.sprite = Resources.Load<Sprite>("game_page/PictureRedBorderSmall");
+                    //        }
+                    //    }
+
+                    //    strana = "Red";
+
+                    //}
+                    //else
+                    //{
+                    //    var component = TeamImageLastCard.GetComponents<Component>();
+                    //    foreach (var com in component)
+                    //    {
+                    //        //Debug.Log("komponente");
+                    //        var vv = com.GetType();
+                    //        if (typeof(SVGImporter.SVGImage).IsAssignableFrom(vv))
+                    //        {
+
+                    //            var image2 = (SVGImporter.SVGImage)com;
+                    //            image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/BACK_SIDE/BackBlueSide");
+                    //        }
+                    //    }
+
+                    //    var componentsDealerBoard = DealerBoard.GetComponents<Component>();
+
+                    //    //var image = gameObject.GetComponent<SVGImage>();
+                    //    // Debug.Log("fff");
+                    //    foreach (var com in componentsDealerBoard)
+                    //    {
+                    //        var vv = com.GetType();
+                    //        if (typeof(Image).IsAssignableFrom(vv))
+                    //        {
+                    //            var image2 = (Image)com;
+                    //            image2.sprite = Resources.Load<Sprite>("game_page/PictureBlueBorderSmall");
+                    //        }
+                    //    }
 
 
-                    _random = new System.Random();
+                    //    strana = "Blue";
+                    //}
+                    //_currentPhotonView.RPC("SetInitDealerConfig", RpcTarget.Others, objLastCard.name, strana);
+                    //_cardsOfFirstPlayer = new List<string>();
+                    //foreach (var obj in _zingDealer.CardsOfFirstPlayers)
+                    //{
+                    //    _cardsOfFirstPlayer.Add(obj.name);
+                    //}
 
-                    _tolerances = new List<float>();
 
-                    for (int j = 0; j < 4; j++)
-                    {
-                        //float tol = (float)  _random.Next(1, 2) * _positionTolerance;
-                        float tol = (float)_random.NextDouble() * _positionTolerance;
-                        _tolerances.Add(tol);
-                    }
-                    InitTalonCards();
-                    DeleteLastFourTalonCards();
-                    _zingDealer.DeleteLastFourTalonCards();
-                    //TimeOfMove.active = true;
-                    //isAviableToMove = true;
-                    var players = PhotonNetwork.CurrentRoom.Players;
+                    //_random = new System.Random();
 
-                    _currentPhotonView.RPC("SetCardsToPlayers", RpcTarget.Others, _cardsOfFirstPlayer.ToArray(), cardsOfSecondPlayer.ToArray(),
-                        cardsOfThirdPlayer.ToArray(), cardsOfFourthPlayer.ToArray(), RemainingCardsList.ToArray());
+                    //_tolerances = new List<float>();
 
-                    SideOfTeam.MoveInstance = 3;
-                    _currentPhotonView.RPC("SetMoveInstancesOnOthersPlayers", RpcTarget.Others, SideOfTeam.MoveInstance);
+                    //for (int j = 0; j < 4; j++)
+                    //{
+                    //    //float tol = (float)  _random.Next(1, 2) * _positionTolerance;
+                    //    float tol = (float)_random.NextDouble() * _positionTolerance;
+                    //    _tolerances.Add(tol);
+                    //}
+                    //InitTalonCards();
+                    //DeleteLastFourTalonCards();
+                    //_zingDealer.DeleteLastFourTalonCards();
+                    ////TimeOfMove.active = true;
+                    ////isAviableToMove = true;
+                    //var players = PhotonNetwork.CurrentRoom.Players;
 
-                    _currentPhotonView.RPC("ActivatePlayerToPlay", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName);
+                    //_currentPhotonView.RPC("SetCardsToPlayers", RpcTarget.Others, _cardsOfFirstPlayer.ToArray(), cardsOfSecondPlayer.ToArray(),
+                    //    cardsOfThirdPlayer.ToArray(), cardsOfFourthPlayer.ToArray(), RemainingCardsList.ToArray());
+
+                    //SideOfTeam.MoveInstance = 3;
+                    //_currentPhotonView.RPC("SetMoveInstancesOnOthersPlayers", RpcTarget.Others, SideOfTeam.MoveInstance);
+
+                    //_currentPhotonView.RPC("ActivatePlayerToPlay", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName);
                     
                 }
                 
             }
             
-            foreach (Transform element in tv.transform)
-            {
-                
-                element.GetComponent<EventTrigger>().enabled = true;
-                
-                //    //var firstCard = element.Find("FirstCardSelected").gameObject;
-                //    //firstCard.active = false;
-
-            }
+           
 
 
         }
@@ -2518,187 +2520,202 @@ public class GameScript : MonoBehaviourPunCallbacks
             {
                 if (SideOfTeam.CurrentPlayerSide == 2)
                 {
+
+                    List<string> listTemp = new List<string>();
+                    foreach (Transform transform in canvacesOfFirstDeck.transform)
+                    {
+
+                        GameObject tempGameObject = transform.gameObject;
+                        string name = tempGameObject.name;
+                        var index = name.IndexOf("(");
+                        string CardName = name.Substring(0, index);
+                        listTemp.Add(CardName);
+
+                        Destroy(transform.gameObject);
+                    }
+
+                    _currentPhotonView.RPC("CleanDesk", RpcTarget.Others, SideOfTeam.LastPick);
                     //pocetak za novog djelioca 
-                    
-                    _zingDealer = new ZingDealer("start", "two");
-                    string[] remaingCardArray = new string[_zingDealer.RemainingCards.Count];
-                    int intValue = 0;
-                    RemainingCardsList = new List<string>();
-                    foreach (var obj in _zingDealer.RemainingCards)
-                    {
 
-                        remaingCardArray[intValue] = obj.name;
-                        ///Debug.Log("a:" + obj.name);
-                        RemainingCardsList.Add(obj.name);
-                        intValue++;
-                    }
+                    //_zingDealer = new ZingDealer("start", "two");
+                    //string[] remaingCardArray = new string[_zingDealer.RemainingCards.Count];
+                    //int intValue = 0;
+                    //RemainingCardsList = new List<string>();
+                    //foreach (var obj in _zingDealer.RemainingCards)
+                    //{
 
-                    string[] array = new string[_zingDealer.TalonCards.Count];
-                    int i = 0;
-                    listTalon = new List<string>();
-                    _listOfCards = new List<string>();
-                    foreach (var obj in _zingDealer.TalonCards)
-                    {
+                    //    remaingCardArray[intValue] = obj.name;
+                    //    ///Debug.Log("a:" + obj.name);
+                    //    RemainingCardsList.Add(obj.name);
+                    //    intValue++;
+                    //}
 
-                        array[i] = obj.name;
-                        listTalon.Add(obj.name);
-                        _listOfCards.Add(obj.name);
-                        i++;
-                    }
+                    //string[] array = new string[_zingDealer.TalonCards.Count];
+                    //int i = 0;
+                    //listTalon = new List<string>();
+                    //_listOfCards = new List<string>();
+                    //foreach (var obj in _zingDealer.TalonCards)
+                    //{
 
-                    talonArray = listTalon.ToArray();
+                    //    array[i] = obj.name;
+                    //    listTalon.Add(obj.name);
+                    //    _listOfCards.Add(obj.name);
+                    //    i++;
+                    //}
 
-                    var objLastCard = _zingDealer.LastCard as GameObject;
+                    //talonArray = listTalon.ToArray();
 
-                    _cardsOfFirstPlayer = new List<string>();
-                    foreach (var obj in _zingDealer.CardsOfFirstPlayers)
-                    {
-                        _cardsOfFirstPlayer.Add(obj.name);
-                    }
+                    //var objLastCard = _zingDealer.LastCard as GameObject;
 
-                    string[] cardsOfSecondPlayer = new string[_zingDealer.CardsOfSecondPlayers.Count];
+                    //_cardsOfFirstPlayer = new List<string>();
+                    //foreach (var obj in _zingDealer.CardsOfFirstPlayers)
+                    //{
+                    //    _cardsOfFirstPlayer.Add(obj.name);
+                    //}
 
-                    int count = 0;
-                    foreach (var obj in _zingDealer.CardsOfSecondPlayers)
-                    {
+                    //string[] cardsOfSecondPlayer = new string[_zingDealer.CardsOfSecondPlayers.Count];
 
-                        cardsOfSecondPlayer[count] = obj.name;
-                        count++;
-                    }
+                    //int count = 0;
+                    //foreach (var obj in _zingDealer.CardsOfSecondPlayers)
+                    //{
 
-                    string[] cardsOfThirdPlayer = new string[_zingDealer.CardsOfThirdPlayers.Count];
+                    //    cardsOfSecondPlayer[count] = obj.name;
+                    //    count++;
+                    //}
 
-                    int countThird = 0;
-                    foreach (var obj in _zingDealer.CardsOfThirdPlayers)
-                    {
+                    //string[] cardsOfThirdPlayer = new string[_zingDealer.CardsOfThirdPlayers.Count];
 
-                        cardsOfThirdPlayer[countThird] = obj.name;
-                        countThird++;
-                    }
+                    //int countThird = 0;
+                    //foreach (var obj in _zingDealer.CardsOfThirdPlayers)
+                    //{
 
-                    string[] cardsOfFourthPlayer = new string[_zingDealer.CardsOfFourthPlayers.Count];
+                    //    cardsOfThirdPlayer[countThird] = obj.name;
+                    //    countThird++;
+                    //}
 
-                    int countFourth = 0;
-                    foreach (var obj in _zingDealer.CardsOfFourthPlayers)
-                    {
+                    //string[] cardsOfFourthPlayer = new string[_zingDealer.CardsOfFourthPlayers.Count];
 
-                        cardsOfFourthPlayer[countFourth] = obj.name;
-                        countFourth++;
-                    }
+                    //int countFourth = 0;
+                    //foreach (var obj in _zingDealer.CardsOfFourthPlayers)
+                    //{
 
-
-                    string ttt = objLastCard.name.Split('_')[1];
-                    //Debug.Log("value2:" + ttt);
-
-                    var components = CardImageValueLastCard.GetComponents<Component>();
-                    foreach (var com in components)
-                    {
-                        //Debug.Log("komponente");
-                        var vv = com.GetType();
-                        if (typeof(SVGImporter.SVGImage).IsAssignableFrom(vv))
-                        {
-
-                            var image2 = (SVGImporter.SVGImage)com;
-                            image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/CARDS_" + ttt + "/" + objLastCard.name);
-                        }
-                    }
-                    string strana = "";
-                    if (PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Red"))
-                    {
-                        var component = TeamImageLastCard.GetComponents<Component>();
-                        foreach (var com in component)
-                        {
-                            //Debug.Log("komponente");
-                            var vv = com.GetType();
-                            if (typeof(SVGImporter.SVGImage).IsAssignableFrom(vv))
-                            {
-
-                                var image2 = (SVGImporter.SVGImage)com;
-                                image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/BACK_SIDE/BackREDSide");
-                            }
-                        }
-
-                        var componentsDealerBoard = DealerBoard.GetComponents<Component>();
-
-                        //var image = gameObject.GetComponent<SVGImage>();
-                        // Debug.Log("fff");
-                        foreach (var com in componentsDealerBoard)
-                        {
-                            var vv = com.GetType();
-                            if (typeof(Image).IsAssignableFrom(vv))
-                            {
-                                var image2 = (Image)com;
-                                image2.sprite = Resources.Load<Sprite>("game_page/PictureRedBorderSmall");
-                            }
-                        }
-
-                        strana = "Red";
-
-                    }
-                    else
-                    {
-                        var component = TeamImageLastCard.GetComponents<Component>();
-                        foreach (var com in component)
-                        {
-                            //Debug.Log("komponente");
-                            var vv = com.GetType();
-                            if (typeof(SVGImporter.SVGImage).IsAssignableFrom(vv))
-                            {
-
-                                var image2 = (SVGImporter.SVGImage)com;
-                                image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/BACK_SIDE/BackBlueSide");
-                            }
-                        }
-
-                        var componentsDealerBoard = DealerBoard.GetComponents<Component>();
-
-                        //var image = gameObject.GetComponent<SVGImage>();
-                        // Debug.Log("fff");
-                        foreach (var com in componentsDealerBoard)
-                        {
-                            var vv = com.GetType();
-                            if (typeof(Image).IsAssignableFrom(vv))
-                            {
-                                var image2 = (Image)com;
-                                image2.sprite = Resources.Load<Sprite>("game_page/PictureBlueBorderSmall");
-                            }
-                        }
+                    //    cardsOfFourthPlayer[countFourth] = obj.name;
+                    //    countFourth++;
+                    //}
 
 
-                        strana = "Blue";
-                    }
-                    _currentPhotonView.RPC("SetInitDealerConfig", RpcTarget.Others, objLastCard.name, strana);
-                    _cardsOfFirstPlayer = new List<string>();
-                    foreach (var obj in _zingDealer.CardsOfFirstPlayers)
-                    {
-                        _cardsOfFirstPlayer.Add(obj.name);
-                    }
+                    //string ttt = objLastCard.name.Split('_')[1];
+                    ////Debug.Log("value2:" + ttt);
+
+                    //var components = CardImageValueLastCard.GetComponents<Component>();
+                    //foreach (var com in components)
+                    //{
+                    //    //Debug.Log("komponente");
+                    //    var vv = com.GetType();
+                    //    if (typeof(SVGImporter.SVGImage).IsAssignableFrom(vv))
+                    //    {
+
+                    //        var image2 = (SVGImporter.SVGImage)com;
+                    //        image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/CARDS_" + ttt + "/" + objLastCard.name);
+                    //    }
+                    //}
+                    //string strana = "";
+                    //if (PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("Red"))
+                    //{
+                    //    var component = TeamImageLastCard.GetComponents<Component>();
+                    //    foreach (var com in component)
+                    //    {
+                    //        //Debug.Log("komponente");
+                    //        var vv = com.GetType();
+                    //        if (typeof(SVGImporter.SVGImage).IsAssignableFrom(vv))
+                    //        {
+
+                    //            var image2 = (SVGImporter.SVGImage)com;
+                    //            image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/BACK_SIDE/BackREDSide");
+                    //        }
+                    //    }
+
+                    //    var componentsDealerBoard = DealerBoard.GetComponents<Component>();
+
+                    //    //var image = gameObject.GetComponent<SVGImage>();
+                    //    // Debug.Log("fff");
+                    //    foreach (var com in componentsDealerBoard)
+                    //    {
+                    //        var vv = com.GetType();
+                    //        if (typeof(Image).IsAssignableFrom(vv))
+                    //        {
+                    //            var image2 = (Image)com;
+                    //            image2.sprite = Resources.Load<Sprite>("game_page/PictureRedBorderSmall");
+                    //        }
+                    //    }
+
+                    //    strana = "Red";
+
+                    //}
+                    //else
+                    //{
+                    //    var component = TeamImageLastCard.GetComponents<Component>();
+                    //    foreach (var com in component)
+                    //    {
+                    //        //Debug.Log("komponente");
+                    //        var vv = com.GetType();
+                    //        if (typeof(SVGImporter.SVGImage).IsAssignableFrom(vv))
+                    //        {
+
+                    //            var image2 = (SVGImporter.SVGImage)com;
+                    //            image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/BACK_SIDE/BackBlueSide");
+                    //        }
+                    //    }
+
+                    //    var componentsDealerBoard = DealerBoard.GetComponents<Component>();
+
+                    //    //var image = gameObject.GetComponent<SVGImage>();
+                    //    // Debug.Log("fff");
+                    //    foreach (var com in componentsDealerBoard)
+                    //    {
+                    //        var vv = com.GetType();
+                    //        if (typeof(Image).IsAssignableFrom(vv))
+                    //        {
+                    //            var image2 = (Image)com;
+                    //            image2.sprite = Resources.Load<Sprite>("game_page/PictureBlueBorderSmall");
+                    //        }
+                    //    }
 
 
-                    _random = new System.Random();
+                    //    strana = "Blue";
+                    //}
+                    //_currentPhotonView.RPC("SetInitDealerConfig", RpcTarget.Others, objLastCard.name, strana);
+                    //_cardsOfFirstPlayer = new List<string>();
+                    //foreach (var obj in _zingDealer.CardsOfFirstPlayers)
+                    //{
+                    //    _cardsOfFirstPlayer.Add(obj.name);
+                    //}
 
-                    _tolerances = new List<float>();
 
-                    for (int j = 0; j < 4; j++)
-                    {
-                        //float tol = (float)  _random.Next(1, 2) * _positionTolerance;
-                        float tol = (float)_random.NextDouble() * _positionTolerance;
-                        _tolerances.Add(tol);
-                    }
-                    InitTalonCards();
-                    DeleteLastFourTalonCards();
-                    _zingDealer.DeleteLastFourTalonCards();
-                    //TimeOfMove.active = true;
-                    //isAviableToMove = true;
-                    var players = PhotonNetwork.CurrentRoom.Players;
-                   
-                        _currentPhotonView.RPC("SetCardsToPlayers", RpcTarget.Others, _cardsOfFirstPlayer.ToArray(), cardsOfSecondPlayer.ToArray(),
-                            cardsOfThirdPlayer.ToArray(), cardsOfFourthPlayer.ToArray(), RemainingCardsList.ToArray());
-                        
-                        SideOfTeam.MoveInstance = 3;
-                        _currentPhotonView.RPC("SetMoveInstancesOnOthersPlayers", RpcTarget.Others, SideOfTeam.MoveInstance);
-                    _currentPhotonView.RPC("ActivatePlayerToPlay", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName);
-                    
+                    //_random = new System.Random();
+
+                    //_tolerances = new List<float>();
+
+                    //for (int j = 0; j < 4; j++)
+                    //{
+                    //    //float tol = (float)  _random.Next(1, 2) * _positionTolerance;
+                    //    float tol = (float)_random.NextDouble() * _positionTolerance;
+                    //    _tolerances.Add(tol);
+                    //}
+                    //InitTalonCards();
+                    //DeleteLastFourTalonCards();
+                    //_zingDealer.DeleteLastFourTalonCards();
+                    ////TimeOfMove.active = true;
+                    ////isAviableToMove = true;
+                    //var players = PhotonNetwork.CurrentRoom.Players;
+
+                    //    _currentPhotonView.RPC("SetCardsToPlayers", RpcTarget.Others, _cardsOfFirstPlayer.ToArray(), cardsOfSecondPlayer.ToArray(),
+                    //        cardsOfThirdPlayer.ToArray(), cardsOfFourthPlayer.ToArray(), RemainingCardsList.ToArray());
+
+                    //    SideOfTeam.MoveInstance = 3;
+                    //    _currentPhotonView.RPC("SetMoveInstancesOnOthersPlayers", RpcTarget.Others, SideOfTeam.MoveInstance);
+                    //_currentPhotonView.RPC("ActivatePlayerToPlay", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName);
+
 
                 }
 
