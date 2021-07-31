@@ -718,11 +718,12 @@ namespace Assets.Scripts.UI.Game
                     if (PhotonNetwork.CurrentRoom.GetPlayer(vv.Key) == PhotonNetwork.LocalPlayer)
                     {
                         ExitGames.Client.Photon.Hashtable hash = PhotonNetwork.CurrentRoom.Players[vv.Key].CustomProperties;
-                        hash["Cards"] = int.Parse(_cardsValue.text);
-                        hash["Points"] = int.Parse(_pointsValue.text);
-                        hash["Zing"] = int.Parse(_zingsValue.text);
-                        hash["Total"] = int.Parse(_totalPointsValue.text);
+                        string gg = hash["Points"].ToString();
+                        Debug.Log("igrac je sakupio poena talon:" + gg);
+                        int pointsPlayer = int.Parse(gg) + pointsValue;
+                        hash["Points"] = pointsPlayer;
                         PhotonNetwork.CurrentRoom.Players[vv.Key].SetCustomProperties(hash);
+                        
                     }
                 }
 
@@ -755,10 +756,10 @@ namespace Assets.Scripts.UI.Game
                     if (PhotonNetwork.CurrentRoom.GetPlayer(vv.Key) == PhotonNetwork.LocalPlayer)
                     {
                         ExitGames.Client.Photon.Hashtable hash = PhotonNetwork.CurrentRoom.Players[vv.Key].CustomProperties;
-                        hash["Cards"] = int.Parse(_cardsRedValue.text);
-                        hash["Points"] = int.Parse(_pointsRedValue.text);
-                        hash["Zing"] = int.Parse(_zingsRedValue.text);
-                        hash["Total"] = int.Parse(_totalPointsRedValue.text);
+                        string gg = hash["Points"].ToString();
+                        Debug.Log("igrac je sakupio poena talon 2:" + gg);
+                        int pointsPlayer = int.Parse(gg) + pointsValue;
+                        hash["Points"] = pointsPlayer;
                         PhotonNetwork.CurrentRoom.Players[vv.Key].SetCustomProperties(hash);
                     }
                 }
@@ -1028,10 +1029,10 @@ namespace Assets.Scripts.UI.Game
                     if (PhotonNetwork.CurrentRoom.GetPlayer(vv.Key) == PhotonNetwork.LocalPlayer)
                     {
                         ExitGames.Client.Photon.Hashtable hash = PhotonNetwork.CurrentRoom.Players[vv.Key].CustomProperties;
-                        hash["Cards"] = int.Parse(_cardsValue.text);
-                        hash["Points"] = int.Parse(_pointsValue.text);
-                        hash["Zing"] = int.Parse(_zingsValue.text);
-                        hash["Total"] = int.Parse(_totalPointsValue.text);
+                        string gg = hash["Zing"].ToString();
+                        Debug.Log("igrac je sakupio poena sa zingom:" + gg);
+                        int pointsPlayer = int.Parse(gg) + newPointsZing;
+                        hash["Zing"] = pointsPlayer;
                         PhotonNetwork.CurrentRoom.Players[vv.Key].SetCustomProperties(hash);
                     }
                 }
