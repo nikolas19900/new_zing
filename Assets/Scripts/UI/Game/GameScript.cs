@@ -630,7 +630,7 @@ public class GameScript : MonoBehaviourPunCallbacks
             {
                 if (SideOfTeam.CurrentPlayerSide == 2)
                 {
-                    Debug.Log("usao sam na 2 AI koji kupi karte sa stola");
+                    
                     List<string> listTemp = new List<string>();
                     foreach (Transform transform in canvacesOfFirstDeck.transform)
                     {
@@ -660,7 +660,8 @@ public class GameScript : MonoBehaviourPunCallbacks
                                     IsFirstPlayerAI = true;
                                     string[] array = listTemp.ToArray();
                                     RecordBoard._instance.TakeRestOfCardsFirstAI(array);
-                                    if(currentInstance == 1)
+                                    Debug.Log("usao sam na 2 AI koji kupi karte sa stola:"+ values[temp.Key].CustomProperties["Instance"]);
+                                    if (currentInstance == 1)
                                     {
                                         int pointsValue = 0;
 
@@ -706,7 +707,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                                     IsSecondPlayerAI = true;
                                     string[] array = listTemp.ToArray();
                                     RecordBoard._instance.TakeRestOfCardsSecondAI(array);
-
+                                    Debug.Log("usao sam na 2 AI koji kupi karte sa stola:" + values[temp.Key].CustomProperties["Instance"]);
                                     if (currentInstance == 2)
                                     {
                                         int pointsValue = 0;
@@ -754,7 +755,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                                     IsThirdPlayerAI = true;
                                     string[] array = listTemp.ToArray();
                                     RecordBoard._instance.TakeRestOfCardsThirdAI(array);
-
+                                    Debug.Log("usao sam na 2 AI koji kupi karte sa stola:" + values[temp.Key].CustomProperties["Instance"]);
                                     if (currentInstance == 3)
                                     {
                                         int pointsValue = 0;
@@ -802,7 +803,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                                     IsFourthPlayerAI = true;
                                     string[] array = listTemp.ToArray();
                                     RecordBoard._instance.TakeRestOfCardsFourthAI(array);
-
+                                    Debug.Log("usao sam na 2 AI koji kupi karte sa stola:" + values[temp.Key].CustomProperties["Instance"]);
                                     if (currentInstance == 4)
                                     {
                                         int pointsValue = 0;
