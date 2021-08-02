@@ -660,7 +660,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                                     IsFirstPlayerAI = true;
                                     string[] array = listTemp.ToArray();
                                     RecordBoard._instance.TakeRestOfCardsFirstAI(array);
-                                    Debug.Log("usao sam na 2 AI koji kupi karte sa stola:"+ values[temp.Key].CustomProperties["Instance"]);
+                                    
                                     if (currentInstance == 1)
                                     {
                                         int pointsValue = 0;
@@ -679,7 +679,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                                                 string gg = hash["Points"].ToString();
                                                 int pointsPlayer = int.Parse(gg) + pointsValue;
                                                 hash["Points"] = pointsPlayer;
-
+                                                Debug.Log("usao sam na 2 AI koji kupi karte sa stola 1:" + pointsPlayer);
                                                 PhotonNetwork.CurrentRoom.Players[vv.Key].SetCustomProperties(hash);
 
                                             }
@@ -707,7 +707,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                                     IsSecondPlayerAI = true;
                                     string[] array = listTemp.ToArray();
                                     RecordBoard._instance.TakeRestOfCardsSecondAI(array);
-                                    Debug.Log("usao sam na 2 AI koji kupi karte sa stola:" + values[temp.Key].CustomProperties["Instance"]);
+                                    
                                     if (currentInstance == 2)
                                     {
                                         int pointsValue = 0;
@@ -726,7 +726,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                                                 string gg = hash["Points"].ToString();
                                                 int pointsPlayer = int.Parse(gg) + pointsValue;
                                                 hash["Points"] = pointsPlayer;
-
+                                                 Debug.Log("usao sam na 2 AI koji kupi karte sa stola 2:" + pointsPlayer);
                                                 PhotonNetwork.CurrentRoom.Players[vv.Key].SetCustomProperties(hash);
 
                                             }
@@ -755,7 +755,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                                     IsThirdPlayerAI = true;
                                     string[] array = listTemp.ToArray();
                                     RecordBoard._instance.TakeRestOfCardsThirdAI(array);
-                                    Debug.Log("usao sam na 2 AI koji kupi karte sa stola:" + values[temp.Key].CustomProperties["Instance"]);
+                                    
                                     if (currentInstance == 3)
                                     {
                                         int pointsValue = 0;
@@ -774,7 +774,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                                                 string gg = hash["Points"].ToString();
                                                 int pointsPlayer = int.Parse(gg) + pointsValue;
                                                 hash["Points"] = pointsPlayer;
-
+                                                Debug.Log("usao sam na 2 AI koji kupi karte sa stola 3:" + pointsPlayer);
                                                 PhotonNetwork.CurrentRoom.Players[vv.Key].SetCustomProperties(hash);
 
                                             }
@@ -803,7 +803,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                                     IsFourthPlayerAI = true;
                                     string[] array = listTemp.ToArray();
                                     RecordBoard._instance.TakeRestOfCardsFourthAI(array);
-                                    Debug.Log("usao sam na 2 AI koji kupi karte sa stola:" + values[temp.Key].CustomProperties["Instance"]);
+                                    
                                     if (currentInstance == 4)
                                     {
                                         int pointsValue = 0;
@@ -822,7 +822,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                                                 string gg = hash["Points"].ToString();
                                                 int pointsPlayer = int.Parse(gg) + pointsValue;
                                                 hash["Points"] = pointsPlayer;
-
+                                                Debug.Log("usao sam na 2 AI koji kupi karte sa stola 4:" + pointsPlayer);
                                                 PhotonNetwork.CurrentRoom.Players[vv.Key].SetCustomProperties(hash);
 
                                             }
