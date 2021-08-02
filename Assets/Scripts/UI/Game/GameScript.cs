@@ -842,8 +842,6 @@ public class GameScript : MonoBehaviourPunCallbacks
             }
 
             runOnceSecond = true;
-
-
         }
     }
 
