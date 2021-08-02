@@ -168,6 +168,7 @@ public class GameScript : MonoBehaviourPunCallbacks
     private bool runOnceThird = false;
     private bool runOnceFourth = false;
     private bool isFirstRunDealingCards = false;
+    private bool SecondDealerAI = false;
 
     void Awake()
     {
@@ -432,6 +433,10 @@ public class GameScript : MonoBehaviourPunCallbacks
                 {
                     if (SideOfTeam.CurrentPlayerSide == 1)
                     {
+                        if(GetRemainingCardsList().Count > 0)
+                        {
+
+                        
                         var tempPlayers = PhotonNetwork.CurrentRoom.Players;
                         List<int> temp = new List<int>();
                         List<PlayerInfoValue> listOfPlayers = new List<PlayerInfoValue>();
@@ -483,8 +488,11 @@ public class GameScript : MonoBehaviourPunCallbacks
                                 }
                             }
                         }
-                                         
-                        
+
+                        }else
+                        {
+                            SideOfTeam.CurrentPlayerSide = 2;
+                        }
                     }
                 }
                 SideOfTeam.MoveInstance = 2;
@@ -630,364 +638,234 @@ public class GameScript : MonoBehaviourPunCallbacks
             {
                 if (SideOfTeam.CurrentPlayerSide == 2)
                 {
-                    
-                    List<string> listTemp = new List<string>();
-                    foreach (Transform transform in canvacesOfFirstDeck.transform)
+                    if (GetRemainingCardsList().Count == 0)
                     {
 
-                        GameObject tempGameObject = transform.gameObject;
-                        string name = tempGameObject.name;
-                        var index = name.IndexOf("(");
-                        string CardName = name.Substring(0, index);
-                        listTemp.Add(CardName);
 
-                        Destroy(transform.gameObject);
-                    }
-
-                    
-
-
-                    if (SideOfTeam.LastPick == 1)
-                    {
-                        Dictionary<int, Player> values = PhotonNetwork.CurrentRoom.Players;
-                        bool IsFirstPlayerAI = false;
-                        foreach (var temp in values)
+                        List<string> listTemp = new List<string>();
+                        foreach (Transform transform in canvacesOfFirstDeck.transform)
                         {
-                            if (values[temp.Key].CustomProperties["Instance"].Equals(1))
+
+                            GameObject tempGameObject = transform.gameObject;
+                            string name = tempGameObject.name;
+                            var index = name.IndexOf("(");
+                            string CardName = name.Substring(0, index);
+                            listTemp.Add(CardName);
+
+                            Destroy(transform.gameObject);
+                        }
+
+
+
+
+                        if (SideOfTeam.LastPick == 1)
+                        {
+                            Dictionary<int, Player> values = PhotonNetwork.CurrentRoom.Players;
+                            bool IsFirstPlayerAI = false;
+                            foreach (var tempPla in values)
                             {
-                                if (values[temp.Key].CustomProperties["State"].Equals("active"))
+                                if (values[tempPla.Key].CustomProperties["Instance"].Equals(1))
                                 {
-                                    IsFirstPlayerAI = true;
-                                    string[] arrayTemp = listTemp.ToArray();
-                                    RecordBoard._instance.TakeRestOfCardsFirstAI(arrayTemp);
-                                    
-                                    if (currentInstance == 1)
+                                    if (values[tempPla.Key].CustomProperties["State"].Equals("active"))
                                     {
-                                        int pointsValue = 0;
+                                        IsFirstPlayerAI = true;
+                                        string[] arrayTemp = listTemp.ToArray();
+                                        RecordBoard._instance.TakeRestOfCardsFirstAI(arrayTemp);
 
-                                        CalculatePoints points = new CalculatePoints(listTemp);
-                                        pointsValue = points.GetPoints();
-                                        Dictionary<int, Player> valuesPlayers = PhotonNetwork.CurrentRoom.Players;
-
-                                        foreach (var vv in valuesPlayers)
+                                        if (currentInstance == 1)
                                         {
+                                            int pointsValue = 0;
 
-                                            if (valuesPlayers[vv.Key].CustomProperties["Instance"].Equals(1))
+                                            CalculatePoints points = new CalculatePoints(listTemp);
+                                            pointsValue = points.GetPoints();
+                                            Dictionary<int, Player> valuesPlayers = PhotonNetwork.CurrentRoom.Players;
+
+                                            foreach (var vv in valuesPlayers)
                                             {
 
-                                                ExitGames.Client.Photon.Hashtable hash = PhotonNetwork.CurrentRoom.Players[vv.Key].CustomProperties;
-                                                string gg = hash["Points"].ToString();
-                                                int pointsPlayer = int.Parse(gg) + pointsValue;
-                                                hash["Points"] = pointsPlayer;
-                                               
-                                                PhotonNetwork.CurrentRoom.Players[vv.Key].SetCustomProperties(hash);
+                                                if (valuesPlayers[vv.Key].CustomProperties["Instance"].Equals(1))
+                                                {
 
+                                                    ExitGames.Client.Photon.Hashtable hash = PhotonNetwork.CurrentRoom.Players[vv.Key].CustomProperties;
+                                                    string gg = hash["Points"].ToString();
+                                                    int pointsPlayer = int.Parse(gg) + pointsValue;
+                                                    hash["Points"] = pointsPlayer;
+
+                                                    PhotonNetwork.CurrentRoom.Players[vv.Key].SetCustomProperties(hash);
+
+                                                }
                                             }
                                         }
                                     }
                                 }
                             }
-                        }
-                        if (!IsFirstPlayerAI)
-                        {
-                            string[] arrayTemp = listTemp.ToArray();
-                            RecordBoard._instance.TakeRestOfCardsFirstAI(arrayTemp);
-                        }
-                    }
-                    else if (SideOfTeam.LastPick == 2)
-                    {
-                        Dictionary<int, Player> values = PhotonNetwork.CurrentRoom.Players;
-                        bool IsSecondPlayerAI = false;
-                        foreach (var temp in values)
-                        {
-                            if (values[temp.Key].CustomProperties["Instance"].Equals(2))
+                            if (!IsFirstPlayerAI)
                             {
-                                if (values[temp.Key].CustomProperties["State"].Equals("active"))
-                                {
-                                    IsSecondPlayerAI = true;
-                                    string[] arrayTemp = listTemp.ToArray();
-                                    RecordBoard._instance.TakeRestOfCardsSecondAI(arrayTemp);
-                                    
-                                    if (currentInstance == 2)
-                                    {
-                                        int pointsValue = 0;
-
-                                        CalculatePoints points = new CalculatePoints(listTemp);
-                                        pointsValue = points.GetPoints();
-                                        Dictionary<int, Player> valuesPlayers = PhotonNetwork.CurrentRoom.Players;
-
-                                        foreach (var vv in valuesPlayers)
-                                        {
-
-                                            if (valuesPlayers[vv.Key].CustomProperties["Instance"].Equals(2))
-                                            {
-
-                                                ExitGames.Client.Photon.Hashtable hash = PhotonNetwork.CurrentRoom.Players[vv.Key].CustomProperties;
-                                                string gg = hash["Points"].ToString();
-                                                int pointsPlayer = int.Parse(gg) + pointsValue;
-                                                hash["Points"] = pointsPlayer;
-                                                
-                                                PhotonNetwork.CurrentRoom.Players[vv.Key].SetCustomProperties(hash);
-
-                                            }
-                                        }
-                                    }
-                                        
-                                 }
+                                string[] arrayTemp = listTemp.ToArray();
+                                RecordBoard._instance.TakeRestOfCardsFirstAI(arrayTemp);
                             }
                         }
-                        if (!IsSecondPlayerAI)
+                        else if (SideOfTeam.LastPick == 2)
                         {
-                            string[] arrayTemp = listTemp.ToArray();
-                            RecordBoard._instance.TakeRestOfCardsSecondAI(arrayTemp);
-                        }
-                    }
-                    else if (SideOfTeam.LastPick == 3)
-                    {
-                        Dictionary<int, Player> values = PhotonNetwork.CurrentRoom.Players;
-                        bool IsThirdPlayerAI = false;
-                        foreach (var temp in values)
-                        {
-                            if (values[temp.Key].CustomProperties["Instance"].Equals(3))
+                            Dictionary<int, Player> values = PhotonNetwork.CurrentRoom.Players;
+                            bool IsSecondPlayerAI = false;
+                            foreach (var tempPla in values)
                             {
-                                if (values[temp.Key].CustomProperties["State"].Equals("active"))
+                                if (values[tempPla.Key].CustomProperties["Instance"].Equals(2))
                                 {
-                                    IsThirdPlayerAI = true;
-                                    string[] arrayTemp = listTemp.ToArray();
-                                    RecordBoard._instance.TakeRestOfCardsThirdAI(arrayTemp);
-                                    
-                                    if (currentInstance == 3)
+                                    if (values[tempPla.Key].CustomProperties["State"].Equals("active"))
                                     {
-                                        int pointsValue = 0;
+                                        IsSecondPlayerAI = true;
+                                        string[] arrayTemp = listTemp.ToArray();
+                                        RecordBoard._instance.TakeRestOfCardsSecondAI(arrayTemp);
 
-                                        CalculatePoints points = new CalculatePoints(listTemp);
-                                        pointsValue = points.GetPoints();
-                                        Dictionary<int, Player> valuesPlayers = PhotonNetwork.CurrentRoom.Players;
-
-                                        foreach (var vv in valuesPlayers)
+                                        if (currentInstance == 2)
                                         {
+                                            int pointsValue = 0;
 
-                                            if (valuesPlayers[vv.Key].CustomProperties["Instance"].Equals(3))
+                                            CalculatePoints points = new CalculatePoints(listTemp);
+                                            pointsValue = points.GetPoints();
+                                            Dictionary<int, Player> valuesPlayers = PhotonNetwork.CurrentRoom.Players;
+
+                                            foreach (var vv in valuesPlayers)
                                             {
 
-                                                ExitGames.Client.Photon.Hashtable hash = PhotonNetwork.CurrentRoom.Players[vv.Key].CustomProperties;
-                                                string gg = hash["Points"].ToString();
-                                                int pointsPlayer = int.Parse(gg) + pointsValue;
-                                                hash["Points"] = pointsPlayer;
-                                                
-                                                PhotonNetwork.CurrentRoom.Players[vv.Key].SetCustomProperties(hash);
+                                                if (valuesPlayers[vv.Key].CustomProperties["Instance"].Equals(2))
+                                                {
 
+                                                    ExitGames.Client.Photon.Hashtable hash = PhotonNetwork.CurrentRoom.Players[vv.Key].CustomProperties;
+                                                    string gg = hash["Points"].ToString();
+                                                    int pointsPlayer = int.Parse(gg) + pointsValue;
+                                                    hash["Points"] = pointsPlayer;
+
+                                                    PhotonNetwork.CurrentRoom.Players[vv.Key].SetCustomProperties(hash);
+
+                                                }
                                             }
                                         }
-                                    }
 
+                                    }
                                 }
                             }
-                        }
-                        if (!IsThirdPlayerAI)
-                        {
-                            string[] arrayTemp = listTemp.ToArray();
-                            RecordBoard._instance.TakeRestOfCardsThirdAI(arrayTemp);
-                        }
-                    }
-                    else if (SideOfTeam.LastPick == 4)
-                    {
-                        Dictionary<int, Player> values = PhotonNetwork.CurrentRoom.Players;
-                        bool IsFourthPlayerAI = false;
-                        foreach (var temp in values)
-                        {
-                            if (values[temp.Key].CustomProperties["Instance"].Equals(4))
+                            if (!IsSecondPlayerAI)
                             {
-                                if (values[temp.Key].CustomProperties["State"].Equals("active"))
-                                {
-                                    IsFourthPlayerAI = true;
-                                    string[] arrayTemp = listTemp.ToArray();
-                                    RecordBoard._instance.TakeRestOfCardsFourthAI(arrayTemp);
-                                    
-                                    if (currentInstance == 4)
-                                    {
-                                        int pointsValue = 0;
-
-                                        CalculatePoints points = new CalculatePoints(listTemp);
-                                        pointsValue = points.GetPoints();
-                                        Dictionary<int, Player> valuesPlayers = PhotonNetwork.CurrentRoom.Players;
-
-                                        foreach (var vv in valuesPlayers)
-                                        {
-
-                                            if (valuesPlayers[vv.Key].CustomProperties["Instance"].Equals(4))
-                                            {
-
-                                                ExitGames.Client.Photon.Hashtable hash = PhotonNetwork.CurrentRoom.Players[vv.Key].CustomProperties;
-                                                string gg = hash["Points"].ToString();
-                                                int pointsPlayer = int.Parse(gg) + pointsValue;
-                                                hash["Points"] = pointsPlayer;
-                                                
-                                                PhotonNetwork.CurrentRoom.Players[vv.Key].SetCustomProperties(hash);
-
-                                            }
-                                        }
-                                    }
-
-                                }
+                                string[] arrayTemp = listTemp.ToArray();
+                                RecordBoard._instance.TakeRestOfCardsSecondAI(arrayTemp);
                             }
                         }
-                        if (!IsFourthPlayerAI)
+                        else if (SideOfTeam.LastPick == 3)
                         {
-                            string[] arrayTemp = listTemp.ToArray();
-                            RecordBoard._instance.TakeRestOfCardsFourthAI(arrayTemp);
+                            Dictionary<int, Player> values = PhotonNetwork.CurrentRoom.Players;
+                            bool IsThirdPlayerAI = false;
+                            foreach (var tempPla in values)
+                            {
+                                if (values[tempPla.Key].CustomProperties["Instance"].Equals(3))
+                                {
+                                    if (values[tempPla.Key].CustomProperties["State"].Equals("active"))
+                                    {
+                                        IsThirdPlayerAI = true;
+                                        string[] arrayTemp = listTemp.ToArray();
+                                        RecordBoard._instance.TakeRestOfCardsThirdAI(arrayTemp);
+
+                                        if (currentInstance == 3)
+                                        {
+                                            int pointsValue = 0;
+
+                                            CalculatePoints points = new CalculatePoints(listTemp);
+                                            pointsValue = points.GetPoints();
+                                            Dictionary<int, Player> valuesPlayers = PhotonNetwork.CurrentRoom.Players;
+
+                                            foreach (var vv in valuesPlayers)
+                                            {
+
+                                                if (valuesPlayers[vv.Key].CustomProperties["Instance"].Equals(3))
+                                                {
+
+                                                    ExitGames.Client.Photon.Hashtable hash = PhotonNetwork.CurrentRoom.Players[vv.Key].CustomProperties;
+                                                    string gg = hash["Points"].ToString();
+                                                    int pointsPlayer = int.Parse(gg) + pointsValue;
+                                                    hash["Points"] = pointsPlayer;
+
+                                                    PhotonNetwork.CurrentRoom.Players[vv.Key].SetCustomProperties(hash);
+
+                                                }
+                                            }
+                                        }
+
+                                    }
+                                }
+                            }
+                            if (!IsThirdPlayerAI)
+                            {
+                                string[] arrayTemp = listTemp.ToArray();
+                                RecordBoard._instance.TakeRestOfCardsThirdAI(arrayTemp);
+                            }
+                        }
+                        else if (SideOfTeam.LastPick == 4)
+                        {
+                            Dictionary<int, Player> values = PhotonNetwork.CurrentRoom.Players;
+                            bool IsFourthPlayerAI = false;
+                            foreach (var tempPla in values)
+                            {
+                                if (values[tempPla.Key].CustomProperties["Instance"].Equals(4))
+                                {
+                                    if (values[tempPla.Key].CustomProperties["State"].Equals("active"))
+                                    {
+                                        IsFourthPlayerAI = true;
+                                        string[] arrayTemp = listTemp.ToArray();
+                                        RecordBoard._instance.TakeRestOfCardsFourthAI(arrayTemp);
+
+                                        if (currentInstance == 4)
+                                        {
+                                            int pointsValue = 0;
+
+                                            CalculatePoints points = new CalculatePoints(listTemp);
+                                            pointsValue = points.GetPoints();
+                                            Dictionary<int, Player> valuesPlayers = PhotonNetwork.CurrentRoom.Players;
+
+                                            foreach (var vv in valuesPlayers)
+                                            {
+
+                                                if (valuesPlayers[vv.Key].CustomProperties["Instance"].Equals(4))
+                                                {
+
+                                                    ExitGames.Client.Photon.Hashtable hash = PhotonNetwork.CurrentRoom.Players[vv.Key].CustomProperties;
+                                                    string gg = hash["Points"].ToString();
+                                                    int pointsPlayer = int.Parse(gg) + pointsValue;
+                                                    hash["Points"] = pointsPlayer;
+
+                                                    PhotonNetwork.CurrentRoom.Players[vv.Key].SetCustomProperties(hash);
+
+                                                }
+                                            }
+                                        }
+
+                                    }
+                                }
+                            }
+                            if (!IsFourthPlayerAI)
+                            {
+                                string[] arrayTemp = listTemp.ToArray();
+                                RecordBoard._instance.TakeRestOfCardsFourthAI(arrayTemp);
+                            }
+                        }
+
+                        var playersTemp = PhotonNetwork.CurrentRoom.Players;
+                        //novo dijeljenje karata ai
+                        List<int> tempListOfInstance = new List<int>();
+
+                        foreach (var current in playersTemp)
+                        {
+
+                            int hh = int.Parse(PhotonNetwork.CurrentRoom.Players[current.Key].CustomProperties["Instance"] + "");
+                            tempListOfInstance.Add(hh);
+
+                        }
+                        if (!tempListOfInstance.Contains(3))
+                        {
+
                         }
                     }
-
-                    //novo dijeljenje karata ai
-                    _zingDealer = new ZingDealer("start", "two");
-                    string[] remaingCardArray = new string[_zingDealer.RemainingCards.Count];
-                    int intValue = 0;
-                    RemainingCardsList = new List<string>();
-                    foreach (var obj in _zingDealer.RemainingCards)
-                    {
-
-                        remaingCardArray[intValue] = obj.name;
-                        ///Debug.Log("a:" + obj.name);
-                        RemainingCardsList.Add(obj.name);
-                        intValue++;
-                    }
-
-                    string[] array = new string[_zingDealer.TalonCards.Count];
-                    int i = 0;
-                    listTalon = new List<string>();
-                    _listOfCards = new List<string>();
-                    foreach (var obj in _zingDealer.TalonCards)
-                    {
-
-                        array[i] = obj.name;
-                        listTalon.Add(obj.name);
-                        _listOfCards.Add(obj.name);
-                        i++;
-                    }
-
-                    talonArray = listTalon.ToArray();
-
-                    var objLastCard = _zingDealer.LastCard as GameObject;
-
-                    _cardsOfFirstPlayer = new List<string>();
-                    foreach (var obj in _zingDealer.CardsOfFirstPlayers)
-                    {
-                        _cardsOfFirstPlayer.Add(obj.name);
-                    }
-
-                    string[] cardsOfSecondPlayer = new string[_zingDealer.CardsOfSecondPlayers.Count];
-
-                    int count = 0;
-                    foreach (var obj in _zingDealer.CardsOfSecondPlayers)
-                    {
-
-                        cardsOfSecondPlayer[count] = obj.name;
-                        count++;
-                    }
-
-                    string[] cardsOfThirdPlayer = new string[_zingDealer.CardsOfThirdPlayers.Count];
-
-                    int countThird = 0;
-                    foreach (var obj in _zingDealer.CardsOfThirdPlayers)
-                    {
-
-                        cardsOfThirdPlayer[countThird] = obj.name;
-                        countThird++;
-                    }
-
-                    string[] cardsOfFourthPlayer = new string[_zingDealer.CardsOfFourthPlayers.Count];
-
-                    int countFourth = 0;
-                    foreach (var obj in _zingDealer.CardsOfFourthPlayers)
-                    {
-
-                        cardsOfFourthPlayer[countFourth] = obj.name;
-                        countFourth++;
-                    }
-
-
-                    string ttt = objLastCard.name.Split('_')[1];
-                    //Debug.Log("value2:" + ttt);
-
-                    var components = CardImageValueLastCard.GetComponents<Component>();
-                    foreach (var com in components)
-                    {
-                        //Debug.Log("komponente");
-                        var vv = com.GetType();
-                        if (typeof(SVGImporter.SVGImage).IsAssignableFrom(vv))
-                        {
-
-                            var image2 = (SVGImporter.SVGImage)com;
-                            image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/CARDS_" + ttt + "/" + objLastCard.name);
-                        }
-                    }
-                    string strana = "";
-
-                    var component = TeamImageLastCard.GetComponents<Component>();
-                    foreach (var com in component)
-                    {
-                        //Debug.Log("komponente");
-                        var vv = com.GetType();
-                        if (typeof(SVGImporter.SVGImage).IsAssignableFrom(vv))
-                        {
-
-                            var image2 = (SVGImporter.SVGImage)com;
-                            image2.vectorGraphics = Resources.Load<SVGImporter.SVGAsset>("SVG_Cards/BACK_SIDE/BackREDSide");
-                        }
-                    }
-
-                    var componentsDealerBoard = DealerBoard.GetComponents<Component>();
-
-                    //var image = gameObject.GetComponent<SVGImage>();
-                    // Debug.Log("fff");
-                    foreach (var com in componentsDealerBoard)
-                    {
-                        var vv = com.GetType();
-                        if (typeof(Image).IsAssignableFrom(vv))
-                        {
-                            var image2 = (Image)com;
-                            image2.sprite = Resources.Load<Sprite>("game_page/PictureRedBorderSmall");
-                        }
-                    }
-
-                    strana = "Red";
-
-
-
-                    _currentPhotonView.RPC("SetInitDealerConfig", RpcTarget.Others, objLastCard.name, strana);
-                    _cardsOfFirstPlayer = new List<string>();
-                    foreach (var obj in _zingDealer.CardsOfFirstPlayers)
-                    {
-                        _cardsOfFirstPlayer.Add(obj.name);
-                    }
-
-
-                    _random = new System.Random();
-
-                    _tolerances = new List<float>();
-
-                    for (int j = 0; j < 4; j++)
-                    {
-                        //float tol = (float)  _random.Next(1, 2) * _positionTolerance;
-                        float tol = (float)_random.NextDouble() * _positionTolerance;
-                        _tolerances.Add(tol);
-                    }
-                    InitTalonCards();
-                    DeleteLastFourTalonCards();
-                    _zingDealer.DeleteLastFourTalonCards();
-                    //TimeOfMove.active = true;
-                    //isAviableToMove = true;
-                    var players = PhotonNetwork.CurrentRoom.Players;
-
-                    _currentPhotonView.RPC("SetCardsToPlayers", RpcTarget.All, _cardsOfFirstPlayer.ToArray(), cardsOfSecondPlayer.ToArray(),
-                        cardsOfThirdPlayer.ToArray(), cardsOfFourthPlayer.ToArray(), RemainingCardsList.ToArray());
-
-                    SideOfTeam.MoveInstance = 3;
-                    _currentPhotonView.RPC("SetMoveInstancesOnOthersPlayers", RpcTarget.Others, SideOfTeam.MoveInstance);
-                    _currentPhotonView.RPC("ActivatePlayerToPlay", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName);
-
-
 
                 }
             }
@@ -2881,9 +2759,6 @@ public class GameScript : MonoBehaviourPunCallbacks
 
             }
 
-
-
-           
 
             if (tv.transform.childCount == 0)
             {
