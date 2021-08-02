@@ -1198,11 +1198,11 @@ public class GameScript : MonoBehaviourPunCallbacks
         int i = 0;
         if (listTalon == null)
         {
-            listTalon = arrayTalon.ToList();
+          
         }
 
+        listTalon = arrayTalon.ToList();
 
-        
 
         foreach (var val in listTalon)
         {
