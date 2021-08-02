@@ -1196,10 +1196,10 @@ public class GameScript : MonoBehaviourPunCallbacks
 
 
         int i = 0;
-        if (listTalon == null)
-        {
+        //if (listTalon == null)
+        //{
           
-        }
+        //}
 
         listTalon = arrayTalon.ToList();
 
@@ -2694,7 +2694,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                     //isAviableToMove = true;
                     var players = PhotonNetwork.CurrentRoom.Players;
 
-                    _currentPhotonView.RPC("SetCardsToPlayers", RpcTarget.Others, _cardsOfFirstPlayer.ToArray(), cardsOfSecondPlayer.ToArray(),
+                    _currentPhotonView.RPC("SetCardsToPlayers", RpcTarget.All, _cardsOfFirstPlayer.ToArray(), cardsOfSecondPlayer.ToArray(),
                         cardsOfThirdPlayer.ToArray(), cardsOfFourthPlayer.ToArray(), RemainingCardsList.ToArray());
 
                     SideOfTeam.MoveInstance = 3;
@@ -3020,7 +3020,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                     //isAviableToMove = true;
                     var players = PhotonNetwork.CurrentRoom.Players;
 
-                    _currentPhotonView.RPC("SetCardsToPlayers", RpcTarget.Others, _cardsOfFirstPlayer.ToArray(), cardsOfSecondPlayer.ToArray(),
+                    _currentPhotonView.RPC("SetCardsToPlayers", RpcTarget.All, _cardsOfFirstPlayer.ToArray(), cardsOfSecondPlayer.ToArray(),
                         cardsOfThirdPlayer.ToArray(), cardsOfFourthPlayer.ToArray(), RemainingCardsList.ToArray());
 
                     SideOfTeam.MoveInstance = 3;
