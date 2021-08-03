@@ -433,8 +433,8 @@ public class GameScript : MonoBehaviourPunCallbacks
                 {
                     if (SideOfTeam.CurrentPlayerSide == 1)
                     {
-                        if(GetRemainingCardsList().Count > 0)
-                        {
+                        //if(GetRemainingCardsList().Count > 0)
+                        //{
 
                         
                         var tempPlayers = PhotonNetwork.CurrentRoom.Players;
@@ -489,10 +489,10 @@ public class GameScript : MonoBehaviourPunCallbacks
                             }
                         }
 
-                        }else
-                        {
-                            SideOfTeam.CurrentPlayerSide = 2;
-                        }
+                        //}else
+                        //{
+                        //    SideOfTeam.CurrentPlayerSide = 2;
+                        //}
                     }
                 }
                 SideOfTeam.MoveInstance = 2;
@@ -1063,7 +1063,7 @@ public class GameScript : MonoBehaviourPunCallbacks
         
         if (!isFirstRunDealingCards)
         {
-           
+            isFirstRunDealingCards = true;
             photonView.RPC("DeleteRemainingCards", RpcTarget.All);
             _zingDealer = new ZingDealer();
             _zingDealer.RemainingCardsList = RemainingCardsList;
@@ -1100,7 +1100,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                     _cardsOfFourthPlayer.ToArray(), RemainingCardsList.ToArray());
 
             }
-            isFirstRunDealingCards = true;
+            
         }
         
     }
