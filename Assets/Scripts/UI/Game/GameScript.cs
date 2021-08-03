@@ -2768,10 +2768,11 @@ public class GameScript : MonoBehaviourPunCallbacks
 
             if (tv.transform.childCount == 0)
             {
+                RemaingCardQuery _remainCard = new RemaingCardQuery(GetRemainingCardsList().Count);
+                _remainCard.InsertValue();
                 if (SideOfTeam.CurrentPlayerSide == 2)
                 {
-                    RemaingCardQuery _remainCard = new RemaingCardQuery(GetRemainingCardsList().Count);
-                    _remainCard.InsertValue();
+                   
                     if (GetRemainingCardsList().Count == 0)
                     {
                         List<string> listTemp = new List<string>();
