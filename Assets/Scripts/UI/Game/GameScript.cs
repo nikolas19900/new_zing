@@ -436,7 +436,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                         if (GetRemainingCardsList().Count > 0)
                         {
 
-
+                            DeleteRemainingCards();
                             var tempPlayers = PhotonNetwork.CurrentRoom.Players;
                         List<int> temp = new List<int>();
                         List<PlayerInfoValue> listOfPlayers = new List<PlayerInfoValue>();
@@ -1069,7 +1069,8 @@ public class GameScript : MonoBehaviourPunCallbacks
         if (!isFirstRunDealingCards)
         {
             isFirstRunDealingCards = true;
-            photonView.RPC("DeleteRemainingCards", RpcTarget.All);
+            //  photonView.RPC("DeleteRemainingCards", RpcTarget.All);
+            GameScript.player.GetZingDealer().DeleteRemainingCards();
             _zingDealer = new ZingDealer();
             _zingDealer.RemainingCardsList = RemainingCardsList;
 
@@ -2770,6 +2771,9 @@ public class GameScript : MonoBehaviourPunCallbacks
             {
                 RemaingCardQuery _remainCard = new RemaingCardQuery(GetRemainingCardsList().Count);
                 _remainCard.InsertValue();
+
+                CurrentPlayerSideQuery _currentPlayer = new CurrentPlayerSideQuery(SideOfTeam.CurrentPlayerSide);
+                _currentPlayer.InsertValue();
                 if (SideOfTeam.CurrentPlayerSide == 2)
                 {
                    
