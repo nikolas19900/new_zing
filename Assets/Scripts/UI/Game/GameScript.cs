@@ -386,7 +386,7 @@ public class GameScript : MonoBehaviourPunCallbacks
     {
         if (!runOnceFirst)
         {
-
+            runOnceFirst = true;
             float _landingToleranceRadius = 0.3f;
             Vector2 _endPoint = Vector2.zero;
 
@@ -542,7 +542,7 @@ public class GameScript : MonoBehaviourPunCallbacks
             
            
            
-            runOnceFirst = true;
+            
 
 
         }
