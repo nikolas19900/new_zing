@@ -466,25 +466,29 @@ public class GameScript : MonoBehaviourPunCallbacks
                         }
                         else if (temp.Contains(3))
                         {
-                            
+                            if (!temp.Contains(2)) { 
 
-                            foreach (var tempValue in listOfPlayers)
-                            {
-                                if (tempValue._instance == 3)
+                                foreach (var tempValue in listOfPlayers)
                                 {
+                                    if (tempValue._instance == 3)
+                                    {
                                    
-                                    photonView.RPC("InitDealingTheCards", tempValue._player);
+                                        photonView.RPC("InitDealingTheCards", tempValue._player);
+                                    }
                                 }
                             }
                         }
                         else if (temp.Contains(4))
                         {
-                            foreach (var tempValue in listOfPlayers)
+                            if (!temp.Contains(2) && !temp.Contains(3))
                             {
-                                if (tempValue._instance == 4)
+                                foreach (var tempValue in listOfPlayers)
                                 {
-                                   
-                                    photonView.RPC("InitDealingTheCards", tempValue._player);
+                                    if (tempValue._instance == 4)
+                                    {
+
+                                        photonView.RPC("InitDealingTheCards", tempValue._player);
+                                    }
                                 }
                             }
                         }
@@ -3581,8 +3585,6 @@ public class GameScript : MonoBehaviourPunCallbacks
     public void DeleteRemainingCards()
     {
         RemainingCardsList.RemoveRange(0, 16);
-
-        
     }
 
     public void DeleteLastFourTalonCards()
