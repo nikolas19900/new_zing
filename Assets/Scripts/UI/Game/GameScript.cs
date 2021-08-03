@@ -433,11 +433,11 @@ public class GameScript : MonoBehaviourPunCallbacks
                 {
                     if (SideOfTeam.CurrentPlayerSide == 1)
                     {
-                        //if(GetRemainingCardsList().Count > 0)
-                        //{
+                        if (GetRemainingCardsList().Count > 0)
+                        {
 
-                        
-                        var tempPlayers = PhotonNetwork.CurrentRoom.Players;
+
+                            var tempPlayers = PhotonNetwork.CurrentRoom.Players;
                         List<int> temp = new List<int>();
                         List<PlayerInfoValue> listOfPlayers = new List<PlayerInfoValue>();
                         foreach (var current in tempPlayers)
@@ -493,10 +493,11 @@ public class GameScript : MonoBehaviourPunCallbacks
                             }
                         }
 
-                        //}else
-                        //{
-                        //    SideOfTeam.CurrentPlayerSide = 2;
-                        //}
+                        }
+                        else
+                        {
+                            SideOfTeam.CurrentPlayerSide = 2;
+                        }
                     }
                 }
                 SideOfTeam.MoveInstance = 2;
