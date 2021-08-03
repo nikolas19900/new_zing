@@ -1070,7 +1070,7 @@ public class GameScript : MonoBehaviourPunCallbacks
         {
             isFirstRunDealingCards = true;
             //  photonView.RPC("DeleteRemainingCards", RpcTarget.All);
-            GameScript.player.GetZingDealer().DeleteRemainingCards();
+            
             _zingDealer = new ZingDealer();
             _zingDealer.RemainingCardsList = RemainingCardsList;
 
