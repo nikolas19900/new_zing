@@ -393,7 +393,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
            
            
-            var list = GetCardsOfFirstPlayer();
+            var list = player.GetCardsOfFirstPlayer();
             if (list.Count > 0)
             {
                 Debug.Log("velicina lista prvog igraca:" + list.Count);
@@ -428,16 +428,16 @@ public class GameScript : MonoBehaviourPunCallbacks
 
 
                 list.Remove(val);
-                SetCardsOfFirstPlayer(list);
+                player.SetCardsOfFirstPlayer(list);
 
                 if (list.Count == 0)
                 {
                     if (SideOfTeam.CurrentPlayerSide == 1)
                     {
-                        if (GetRemainingCardsList().Count > 0)
+                        if (player.GetRemainingCardsList().Count > 0)
                         {
 
-                            DeleteRemainingCards();
+                            player.DeleteRemainingCards();
                             var tempPlayers = PhotonNetwork.CurrentRoom.Players;
                         List<int> temp = new List<int>();
                         List<PlayerInfoValue> listOfPlayers = new List<PlayerInfoValue>();
@@ -1088,6 +1088,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                 {
                     _cardsOfFirstPlayer.Add(obj.name);
                 }
+
 
                 _cardsOfSecondPlayer.Clear();
                 foreach (var obj in _zingDealer.CardsOfSecondPlayers)
@@ -1988,12 +1989,16 @@ public class GameScript : MonoBehaviourPunCallbacks
          RemainingCardsList = RemaingCards.ToList();
         _cardsOfFirstPlayer.Clear();
         _cardsOfFirstPlayer = cardsOfFirstPlayer.ToList();
+        player.SetCardsOfFirstPlayer(_cardsOfFirstPlayer);
         _cardsOfSecondPlayer.Clear();
         _cardsOfSecondPlayer = cardsOfSecondPlayer.ToList();
+        player.SetCardsOfSecondPlayer(_cardsOfSecondPlayer);
         _cardsOfThirdPlayer.Clear();
         _cardsOfThirdPlayer = cardsOfThirdPlayer.ToList();
+        player.SetCardsOfThirdPlayer(_cardsOfThirdPlayer);
         _cardsOfFourthPlayer.Clear();
         _cardsOfFourthPlayer = cardsOfFourthPlayer.ToList();
+        player.SetCardsOfFourthPlayer(_cardsOfFourthPlayer);
         if (GetCurrentInstance() == 1)
         {
 
