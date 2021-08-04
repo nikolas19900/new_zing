@@ -22,7 +22,7 @@ namespace Assets.Scripts.Managers.Test
             var client = new MongoClient(MasterManager.GameSettings.DatabaseConnectionString);
             var database = client.GetDatabase("zing");
 
-            var _RemaingCard = database.GetCollection<InitCardsCollection>("RemaingCardListCollection");
+            var _RemaingCard = database.GetCollection<InitCardsCollection>("InitCardsCollection");
 
             InitCardsCollection temp = new InitCardsCollection()
             {
