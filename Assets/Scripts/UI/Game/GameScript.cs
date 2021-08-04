@@ -2770,11 +2770,11 @@ public class GameScript : MonoBehaviourPunCallbacks
 
         if (!isFirstActivatePlayerInstance)
         {
-            isFirstActivatePlayerInstance = true;
+            
 
             if (FirstPlayerInstance.text.Equals("" + tempInst))
             {
-
+                isFirstActivatePlayerInstance = true;
                 var tv = (Canvas)canvacesOfCurrentPlayer;
                 if (tv.transform.childCount > 0)
                 {
