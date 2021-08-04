@@ -15,6 +15,7 @@ using Assets.Scripts.Infastructure.PARSER;
 using System.Linq;
 using UnityEngine.EventSystems;
 using Assets.Scripts.UI.Game.Utils;
+using Assets.Scripts.Managers.Test;
 
 public class GameScript : MonoBehaviourPunCallbacks
 {
@@ -1068,9 +1069,12 @@ public class GameScript : MonoBehaviourPunCallbacks
         
         if (!isFirstRunDealingCards)
         {
+           
             isFirstRunDealingCards = true;
+            InitCardsQuery icq = new InitCardsQuery(0);
+            icq.InsertValue();
             //  photonView.RPC("DeleteRemainingCards", RpcTarget.All);
-            
+
             _zingDealer = new ZingDealer();
             _zingDealer.RemainingCardsList = RemainingCardsList;
 
