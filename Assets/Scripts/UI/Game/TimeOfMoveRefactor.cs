@@ -120,44 +120,16 @@ public class TimeOfMoveRefactor : MonoBehaviour
         if (GameScript.player.GetCurrentInstance() == 1)
         {
             //treba kod projveriti da li radi dobro
-            
+
             var list = GameScript.player.GetCardsOfFirstPlayer();
-           if(list.Contains(CardName))
-            list.Remove(CardName);
+            if (list.Contains(CardName))
+                list.Remove(CardName);
             GameScript.player.SetCardsOfFirstPlayer(list);
             SideOfTeam.MoveInstance = 2;
             //saljem trenutnu instancu i svima kojima je jedan azuriram listu. i tako isto sa ostalim listama.
             GameScript.player.photonView.RPC("SetListForRequiredPlayerFirst", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
-           
 
-        }
-        else if (GameScript.player.GetCurrentInstance() == 2)
-        {
-            var list = GameScript.player.GetCardsOfSecondPlayer();
-            if (list.Contains(CardName))
-                list.Remove(CardName);
-            GameScript.player.SetCardsOfSecondPlayer(list);
-            SideOfTeam.MoveInstance = 3;
-            GameScript.player.photonView.RPC("SetListForRequiredPlayerSecond", RpcTarget.Others,  list.ToArray(), SideOfTeam.MoveInstance);
-        }
-        else if (GameScript.player.GetCurrentInstance() == 3)
-        {
-            var list = GameScript.player.GetCardsOfThirdPlayer();
-            if (list.Contains(CardName))
-                list.Remove(CardName);
-            GameScript.player.SetCardsOfThirdPlayer(list);
-            SideOfTeam.MoveInstance = 4;
 
-            GameScript.player.photonView.RPC("SetListForRequiredPlayerThird", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
-        }
-        else if (GameScript.player.GetCurrentInstance() == 4)
-        {
-            var list = GameScript.player.GetCardsOfFourthPlayer();
-            if (list.Contains(CardName))
-                list.Remove(CardName);
-            GameScript.player.SetCardsOfFourthPlayer(list);
-            SideOfTeam.MoveInstance = 1;
-            GameScript.player.photonView.RPC("SetListForRequiredPlayerFourth", RpcTarget.Others,  list.ToArray(), SideOfTeam.MoveInstance);
         }
 
 
@@ -185,6 +157,39 @@ public class TimeOfMoveRefactor : MonoBehaviour
             SideOfTeam.LastPick = GameScript.player.GetCurrentInstance();
             GameScript.player.photonView.RPC("CleanDesk", RpcTarget.Others,SideOfTeam.LastPick);
         }
+
+
+       
+        if (GameScript.player.GetCurrentInstance() == 2)
+        {
+            var list = GameScript.player.GetCardsOfSecondPlayer();
+            if (list.Contains(CardName))
+                list.Remove(CardName);
+            GameScript.player.SetCardsOfSecondPlayer(list);
+            SideOfTeam.MoveInstance = 3;
+            GameScript.player.photonView.RPC("SetListForRequiredPlayerSecond", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
+        }
+        else if (GameScript.player.GetCurrentInstance() == 3)
+        {
+            var list = GameScript.player.GetCardsOfThirdPlayer();
+            if (list.Contains(CardName))
+                list.Remove(CardName);
+            GameScript.player.SetCardsOfThirdPlayer(list);
+            SideOfTeam.MoveInstance = 4;
+
+            GameScript.player.photonView.RPC("SetListForRequiredPlayerThird", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
+        }
+        else if (GameScript.player.GetCurrentInstance() == 4)
+        {
+            var list = GameScript.player.GetCardsOfFourthPlayer();
+            if (list.Contains(CardName))
+                list.Remove(CardName);
+            GameScript.player.SetCardsOfFourthPlayer(list);
+            SideOfTeam.MoveInstance = 1;
+            GameScript.player.photonView.RPC("SetListForRequiredPlayerFourth", RpcTarget.Others, list.ToArray(), SideOfTeam.MoveInstance);
+        }
+
+
         GameScript.player.photonView.RPC("ActivatePlayerToPlay", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName);
 
       //  countOfClick++;
