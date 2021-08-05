@@ -2770,10 +2770,11 @@ public class GameScript : MonoBehaviourPunCallbacks
 
         if (!isFirstActivatePlayerInstance)
         {
-            
 
-            if (FirstPlayerInstance.text.Equals("" + tempInst))
+            int qq = int.Parse(FirstPlayerInstance.text);
+            if (qq.Equals(tempInst))
             {
+                Debug.Log("pokrenuo sam metodu");
                 isFirstActivatePlayerInstance = true;
                 var tv = (Canvas)canvacesOfCurrentPlayer;
                 if (tv.transform.childCount > 0)
