@@ -170,6 +170,7 @@ public class GameScript : MonoBehaviourPunCallbacks
     private bool runOnceFourth = false;
     private bool isFirstRunDealingCards = false;
     private bool isFirstActivatePlayerInstance = false;
+    private bool isFirstExecuteDealingCards = false;
 
     void Awake()
     {
@@ -430,77 +431,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                 list.Remove(val);
                 player.SetCardsOfFirstPlayer(list);
 
-                if (list.Count == 0)
-                {
-                    if (SideOfTeam.CurrentPlayerSide == 1)
-                    {
-                        if (player.GetRemainingCardsList().Count > 0)
-                        {
-
-                            player.DeleteRemainingCards();
-                            var tempPlayers = PhotonNetwork.CurrentRoom.Players;
-                        List<int> temp = new List<int>();
-                        List<PlayerInfoValue> listOfPlayers = new List<PlayerInfoValue>();
-                        foreach (var current in tempPlayers)
-                        {
-                            if (tempPlayers[current.Key].CustomProperties["State"].Equals("active")) { 
-                                int hh = int.Parse(tempPlayers[current.Key].CustomProperties["Instance"] + "");
-                                temp.Add(hh);
-                                PlayerInfoValue pi = new PlayerInfoValue();
-                                pi._player = current.Value;
-                                pi._instance = hh;
-                                listOfPlayers.Add(pi);
-                            }
-
-                        }
-                        isFirstRunDealingCards = false;
-                        if (temp.Contains(2))
-                        {
-                            foreach (var tempValue in listOfPlayers)
-                            {
-                                if (tempValue._instance == 2)
-                                {
-                                    
-                                    photonView.RPC("InitDealingTheCards", tempValue._player);
-                                }
-                            }
-                        }
-                        else if (temp.Contains(3))
-                        {
-                            if (!temp.Contains(2)) { 
-
-                                foreach (var tempValue in listOfPlayers)
-                                {
-                                    if (tempValue._instance == 3)
-                                    {
-                                   
-                                        photonView.RPC("InitDealingTheCards", tempValue._player);
-                                    }
-                                }
-                            }
-                        }
-                        else if (temp.Contains(4))
-                        {
-                            if (!temp.Contains(2) && !temp.Contains(3))
-                            {
-                                foreach (var tempValue in listOfPlayers)
-                                {
-                                    if (tempValue._instance == 4)
-                                    {
-
-                                        photonView.RPC("InitDealingTheCards", tempValue._player);
-                                    }
-                                }
-                            }
-                        }
-
-                        }
-                        else
-                        {
-                            SideOfTeam.CurrentPlayerSide = 2;
-                        }
-                    }
-                }
+               
                 SideOfTeam.MoveInstance = 2;
 
                
@@ -514,11 +445,11 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                 var players = PhotonNetwork.CurrentRoom.Players;
                 isFirstActivatePlayerInstance = false;
-
-                if(players.Count == 1)
+                isFirstExecuteDealingCards = false;
+                if (players.Count == 1)
                 {
-                   
-                    photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.All, 1);
+                    photonView.RPC("ExecuteDealingCards", RpcTarget.All, 1);
+                    //photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.All, 1);
                 }
                 else
                 {
@@ -536,17 +467,21 @@ public class GameScript : MonoBehaviourPunCallbacks
                     {
                         if(currentInstance == 2)
                         {
-                            ActivatePlayerToPlayInstance(1);
+                            ExecuteDealingCards(1);
+                           // ActivatePlayerToPlayInstance(1);
                         }
                         else
                         {
-                            photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 1);
+                            photonView.RPC("ExecuteDealingCards", RpcTarget.Others, 1);
+                           // photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 1);
                         }
                         
                     }
                     else
                     {
-                        photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.All, 1);
+
+                        photonView.RPC("ExecuteDealingCards", RpcTarget.All, 1);
+                        //photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.All, 1);
                     }
 
                     
@@ -2771,6 +2706,95 @@ public class GameScript : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
+    public void ExecuteDealingCards(int tempInst)
+    {
+        if (!isFirstExecuteDealingCards)
+        {
+            int qq = int.Parse(FirstPlayerInstance.text);
+            if (qq.Equals(tempInst))
+            {
+                isFirstExecuteDealingCards = true;
+
+                if (player.GetCardsOfFirstPlayer().Count == 0)
+                {
+                    if (SideOfTeam.CurrentPlayerSide == 1)
+                    {
+                        if (player.GetRemainingCardsList().Count > 0)
+                        {
+                            photonView.RPC("DeleteRemainingCards", RpcTarget.All);
+                            //player.DeleteRemainingCards();
+                            var tempPlayers = PhotonNetwork.CurrentRoom.Players;
+                            List<int> temp = new List<int>();
+                            List<PlayerInfoValue> listOfPlayers = new List<PlayerInfoValue>();
+                            foreach (var current in tempPlayers)
+                            {
+                                if (tempPlayers[current.Key].CustomProperties["State"].Equals("active"))
+                                {
+                                    int hh = int.Parse(tempPlayers[current.Key].CustomProperties["Instance"] + "");
+                                    temp.Add(hh);
+                                    PlayerInfoValue pi = new PlayerInfoValue();
+                                    pi._player = current.Value;
+                                    pi._instance = hh;
+                                    listOfPlayers.Add(pi);
+                                }
+
+                            }
+                            isFirstRunDealingCards = false;
+                            if (temp.Contains(2))
+                            {
+                                foreach (var tempValue in listOfPlayers)
+                                {
+                                    if (tempValue._instance == 2)
+                                    {
+
+                                        photonView.RPC("InitDealingTheCards", tempValue._player);
+                                    }
+                                }
+                            }
+                            else if (temp.Contains(3))
+                            {
+                                if (!temp.Contains(2))
+                                {
+
+                                    foreach (var tempValue in listOfPlayers)
+                                    {
+                                        if (tempValue._instance == 3)
+                                        {
+
+                                            photonView.RPC("InitDealingTheCards", tempValue._player);
+                                        }
+                                    }
+                                }
+                            }
+                            else if (temp.Contains(4))
+                            {
+                                if (!temp.Contains(2) && !temp.Contains(3))
+                                {
+                                    foreach (var tempValue in listOfPlayers)
+                                    {
+                                        if (tempValue._instance == 4)
+                                        {
+
+                                            photonView.RPC("InitDealingTheCards", tempValue._player);
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                        else
+                        {
+                            SideOfTeam.CurrentPlayerSide = 2;
+                        }
+                    }
+                }
+
+                ActivatePlayerToPlayInstance(tempInst);
+            }
+        }
+    }
+
+    [PunRPC]
     public void ActivatePlayerToPlayInstance(int tempInst)
     {
         //Debug.Log("vri:" + FirstPlayerInstance.text);
@@ -2784,6 +2808,11 @@ public class GameScript : MonoBehaviourPunCallbacks
             {
                 Debug.Log("pokrenuo sam metodu");
                 isFirstActivatePlayerInstance = true;
+
+                
+
+
+
                 var tv = (Canvas)canvacesOfCurrentPlayer;
                 if (tv.transform.childCount > 0)
                 {
