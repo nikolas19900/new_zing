@@ -534,7 +534,15 @@ public class GameScript : MonoBehaviourPunCallbacks
                     }
                     if( i == 0)
                     {
-                        photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 1);
+                        if(currentInstance == 2)
+                        {
+                            ActivatePlayerToPlayInstance(1);
+                        }
+                        else
+                        {
+                            photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 1);
+                        }
+                        
                     }
                     else
                     {
