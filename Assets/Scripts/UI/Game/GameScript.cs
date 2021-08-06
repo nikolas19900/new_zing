@@ -465,17 +465,70 @@ public class GameScript : MonoBehaviourPunCallbacks
                     }
                     if( i == 0)
                     {
-                        if(currentInstance == 2)
+                        //if(currentInstance == 2)
+                        //{
+                        //    ExecuteDealingCards(1);
+                        //   // ActivatePlayerToPlayInstance(1);
+                        //}
+                        //else 
+                        //{
+                        //    photonView.RPC("ExecuteDealingCards", RpcTarget.Others, 1);
+                        //   // photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 1);
+                        //}
+                        var tempPlayers = PhotonNetwork.CurrentRoom.Players;
+                        List<int> temp = new List<int>();
+                        List<PlayerInfoValue> listOfPlayers = new List<PlayerInfoValue>();
+                        foreach (var current in tempPlayers)
                         {
-                            ExecuteDealingCards(1);
-                           // ActivatePlayerToPlayInstance(1);
+                            if (tempPlayers[current.Key].CustomProperties["State"].Equals("active"))
+                            {
+                                int hh = int.Parse(tempPlayers[current.Key].CustomProperties["Instance"] + "");
+                                temp.Add(hh);
+                                PlayerInfoValue pi = new PlayerInfoValue();
+                                pi._player = current.Value;
+                                pi._instance = hh;
+                                listOfPlayers.Add(pi);
+                            }
+
                         }
-                        else 
+
+                        if (temp.Contains(2))
                         {
-                            photonView.RPC("ExecuteDealingCards", RpcTarget.Others, 1);
-                           // photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 1);
-                        }
+                            if (currentInstance == 2)
+                            { 
+
+                                ExecuteDealingCards(1);
+                                    
+                            }
                         
+                        
+                        }
+                        else if (temp.Contains(3))
+                        {
+                            if (!temp.Contains(2))
+                            {
+
+                                if (currentInstance == 3)
+                                {
+
+                                    ExecuteDealingCards(1);
+
+                                }
+                            }
+                        }
+                        else if (temp.Contains(4))
+                        {
+                            if (!temp.Contains(2) && !temp.Contains(3))
+                            {
+                                if (currentInstance == 4)
+                                {
+                                    ExecuteDealingCards(1);
+                                }
+                                    
+                                
+                            }
+                        }
+
                     }
                     else
                     {
