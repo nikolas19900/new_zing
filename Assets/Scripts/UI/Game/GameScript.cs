@@ -470,7 +470,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                             ExecuteDealingCards(1);
                            // ActivatePlayerToPlayInstance(1);
                         }
-                        else
+                        else 
                         {
                             photonView.RPC("ExecuteDealingCards", RpcTarget.Others, 1);
                            // photonView.RPC("ActivatePlayerToPlayInstance", RpcTarget.Others, 1);
@@ -2715,11 +2715,11 @@ public class GameScript : MonoBehaviourPunCallbacks
             if (qq.Equals(tempInst))
             {
                 isFirstExecuteDealingCards = true;
-
-                if (player.GetCardsOfFirstPlayer().Count == 0)
+                if (SideOfTeam.CurrentPlayerSide == 1)
                 {
-                    if (SideOfTeam.CurrentPlayerSide == 1)
+                    if (player.GetCardsOfFirstPlayer().Count == 0)
                     {
+                   
                         if (player.GetRemainingCardsList().Count > 0)
                         {
                             photonView.RPC("DeleteRemainingCards", RpcTarget.All);
@@ -2796,7 +2796,7 @@ public class GameScript : MonoBehaviourPunCallbacks
     public void ActivatePlayerToPlayInstance(int tempInst)
     {
         //Debug.Log("vri:" + FirstPlayerInstance.text);
-        //Debug.Log("v:" + tempInst);
+        Debug.Log("v:" + tempInst+" val:"+isFirstActivatePlayerInstance);
 
         if (!isFirstActivatePlayerInstance)
         {
