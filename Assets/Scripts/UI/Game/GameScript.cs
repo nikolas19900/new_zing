@@ -168,7 +168,7 @@ public class GameScript : MonoBehaviourPunCallbacks
     private bool runOnceSecond = false;
     private bool runOnceThird = false;
     private bool runOnceFourth = false;
-    private bool isFirstRunDealingCards = false;
+    
     private bool isFirstActivatePlayerInstance = false;
     private bool isFirstExecuteDealingCards = false;
 
@@ -1015,10 +1015,7 @@ public class GameScript : MonoBehaviourPunCallbacks
     public void InitDealingTheCards()
     {
         
-        if (!isFirstRunDealingCards)
-        {
-           
-            isFirstRunDealingCards = true;
+      
             InitCardsQuery icq = new InitCardsQuery(0);
             icq.InsertValue();
             //  photonView.RPC("DeleteRemainingCards", RpcTarget.All);
@@ -1058,9 +1055,13 @@ public class GameScript : MonoBehaviourPunCallbacks
                     _cardsOfSecondPlayer.ToArray(), _cardsOfThirdPlayer.ToArray(),
                     _cardsOfFourthPlayer.ToArray(), RemainingCardsList.ToArray());
 
-            }
-            
+            }else
+            {
+                SideOfTeam.CurrentPlayerSide = 2;
+                photonView.RPC("ChangeCurrentPlayerInstance", RpcTarget.Others, SideOfTeam.CurrentPlayerSide);
         }
+            
+        
         
     }
 
@@ -2739,7 +2740,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                                 }
 
                             }
-                            isFirstRunDealingCards = false;
+                           
                             if (temp.Contains(2))
                             {
                                 foreach (var tempValue in listOfPlayers)
@@ -2782,10 +2783,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                             }
 
                         }
-                        else
-                        {
-                            SideOfTeam.CurrentPlayerSide = 2;
-                        }
+                        
                     }
                 }
 
