@@ -1059,7 +1059,7 @@ public class GameScript : MonoBehaviourPunCallbacks
             {
                 SideOfTeam.CurrentPlayerSide = 2;
                 photonView.RPC("ChangeCurrentPlayerInstance", RpcTarget.Others, SideOfTeam.CurrentPlayerSide);
-        }
+             }
             
         
         
@@ -2819,17 +2819,27 @@ public class GameScript : MonoBehaviourPunCallbacks
                     GameScript.isAviableToMove = true;
                     TimeOfMove.active = true;
 
+                    foreach (Transform element in tv.transform)
+                    {
+
+                        element.GetComponent<EventTrigger>().enabled = true;
+
+                        //    //var firstCard = element.Find("FirstCardSelected").gameObject;
+                        //    //firstCard.active = false;
+
+                    }
+
                 }
 
 
                 if (tv.transform.childCount == 0)
                 {
-                    RemaingCardQuery _remainCard = new RemaingCardQuery(GetRemainingCardsList().Count);
-                    _remainCard.InsertValue();
+                    //RemaingCardQuery _remainCard = new RemaingCardQuery(GetRemainingCardsList().Count);
+                    //_remainCard.InsertValue();
 
-                    CurrentPlayerSideQuery _currentPlayer = new CurrentPlayerSideQuery(SideOfTeam.CurrentPlayerSide);
-                    _currentPlayer.InsertValue();
-                    if (SideOfTeam.CurrentPlayerSide == 2)
+                    //CurrentPlayerSideQuery _currentPlayer = new CurrentPlayerSideQuery(SideOfTeam.CurrentPlayerSide);
+                    //_currentPlayer.InsertValue();
+                    if (SideOfTeam.CurrentPlayerSide == 2 && SideOfTeam.MoveInstance == 2)
                     {
 
                         if (GetRemainingCardsList().Count == 0)
@@ -3096,15 +3106,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
                 }
 
-                foreach (Transform element in tv.transform)
-                {
 
-                    element.GetComponent<EventTrigger>().enabled = true;
-
-                    //    //var firstCard = element.Find("FirstCardSelected").gameObject;
-                    //    //firstCard.active = false;
-
-                }
 
 
             }

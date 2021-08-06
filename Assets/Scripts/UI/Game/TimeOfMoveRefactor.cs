@@ -109,6 +109,46 @@ public class TimeOfMoveRefactor : MonoBehaviour
 
             }
         }
+        else if (tv.transform.childCount == 1 && SideOfTeam.CurrentPlayerSide == 2 && SideOfTeam.MoveInstance == 2)
+        {
+            GameScript.player.photonView.RPC("DeleteRemainingCards", RpcTarget.All);
+            GameScript.player.GetZingDealer().DeleteRemainingCards();
+            if (GameScript.player.GetRemainingCardsList().Count > 0)
+            {
+                GameScript.player.GetZingDealer().DealCardsToPlayersSecondThird();
+                GameScript.player.GetCardsOfFirstPlayer().Clear();
+                foreach (var obj in GameScript.player.GetZingDealer().CardsOfFirstPlayers)
+                {
+                    GameScript.player.GetCardsOfFirstPlayer().Add(obj.name);
+                }
+
+                GameScript.player.GetCardsOfSecondPlayer().Clear();
+                foreach (var obj in GameScript.player.GetZingDealer().CardsOfSecondPlayers)
+                {
+                    GameScript.player.GetCardsOfSecondPlayer().Add(obj.name);
+                }
+                GameScript.player.GetCardsOfThirdPlayer().Clear();
+                foreach (var obj in GameScript.player.GetZingDealer().CardsOfThirdPlayers)
+                {
+                    GameScript.player.GetCardsOfThirdPlayer().Add(obj.name);
+                }
+                GameScript.player.GetCardsOfFourthPlayer().Clear();
+                foreach (var obj in GameScript.player.GetZingDealer().CardsOfFourthPlayers)
+                {
+                    GameScript.player.GetCardsOfFourthPlayer().Add(obj.name);
+                }
+
+                GameScript.player.photonView.RPC("SetCardsToPlayers", RpcTarget.All, GameScript.player.GetCardsOfFirstPlayer().ToArray(),
+                    GameScript.player.GetCardsOfSecondPlayer().ToArray(), GameScript.player.GetCardsOfThirdPlayer().ToArray(),
+                    GameScript.player.GetCardsOfFourthPlayer().ToArray(), GameScript.player.GetRemainingCardsList().ToArray());
+            }
+            else if (GameScript.player.GetRemainingCardsList().Count == 0)
+            {
+                SideOfTeam.CurrentPlayerSide = 3;
+                GameScript.player.photonView.RPC("ChangeCurrentPlayerInstance", RpcTarget.Others, SideOfTeam.CurrentPlayerSide);
+
+            }
+        }
 
 
 
@@ -201,13 +241,6 @@ public class TimeOfMoveRefactor : MonoBehaviour
         // GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, CardName, _currentCard.transform.position, countOfClick);
         // GameScript.player.photonView.RPC("ChangeMoveDropedCard", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName, PhotonNetwork.LocalPlayer.CustomProperties["Picture"]);
         
-
-       
-
-        
-
-      
-
     }
 
 }
