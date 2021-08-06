@@ -2405,7 +2405,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
             if (tv.transform.childCount == 0)
             {
-                if(SideOfTeam.CurrentPlayerSide == 2)
+                if(SideOfTeam.CurrentPlayerSide == 2 && SideOfTeam.MoveInstance == 2)
                 {
                     if(GetRemainingCardsList().Count == 0) { 
                     List<string> listTemp = new List<string>();
@@ -2808,9 +2808,6 @@ public class GameScript : MonoBehaviourPunCallbacks
                 isFirstActivatePlayerInstance = true;
 
                 
-
-
-
                 var tv = (Canvas)canvacesOfCurrentPlayer;
                 if (tv.transform.childCount > 0)
                 {
