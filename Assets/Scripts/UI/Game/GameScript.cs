@@ -386,6 +386,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
     public void FirstDropCard()
     {
+        Debug.Log("testing runonceFirst:");
         if (!runOnceFirst)
         {
             runOnceFirst = true;
