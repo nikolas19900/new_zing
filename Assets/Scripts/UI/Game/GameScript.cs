@@ -386,7 +386,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
     public void FirstDropCard()
     {
-        Debug.Log("testing runonceFirst:");
+       
         if (!runOnceFirst)
         {
             runOnceFirst = true;
@@ -3004,7 +3004,10 @@ public class GameScript : MonoBehaviourPunCallbacks
                                 }
                             }
                             //pocetak za novog djelioca 
-
+                            runOnceFirst = false;
+                            runOnceSecond = false;
+                            runOnceThird = false;
+                            runOnceFourth = false;
                             _zingDealer = new ZingDealer("start", "two");
                             string[] remaingCardArray = new string[_zingDealer.RemainingCards.Count];
                             int intValue = 0;
