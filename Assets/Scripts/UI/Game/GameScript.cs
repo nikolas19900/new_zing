@@ -396,7 +396,7 @@ public class GameScript : MonoBehaviourPunCallbacks
            
            
             var list = player.GetCardsOfFirstPlayer();
-            Debug.Log("velicina lista prvog igraca:" + list.Count);
+            Debug.Log("velicina lista prvog igraca:" + list.Count+",side of move:"+SideOfTeam.MoveInstance);
             if (list.Count > 0)
             {
 
