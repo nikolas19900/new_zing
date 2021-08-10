@@ -186,7 +186,7 @@ public class GameScript : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        runOnceThird = false;
+        
         RemainingCardsList = new List<string>();
 
         ParseJson json = new ParseJson();
@@ -1200,8 +1200,6 @@ public class GameScript : MonoBehaviourPunCallbacks
                     Time.deltaTime * (-card.transform.position.y + (float)_tolerances.ToArray().GetValue(i)) * 0.25f);
 
                 card.transform.position += position;
-               
-
                
 
                 arrayVectors[i] = position;
@@ -2437,10 +2435,11 @@ public class GameScript : MonoBehaviourPunCallbacks
     {
         if (FirstPlayerName.text.Equals(NickName))
         {
+            Debug.Log("ime igraca:" + NickName+", instanca:"+GetCurrentInstance());
             var tv = (Canvas)canvacesOfCurrentPlayer;
             if(tv.transform.childCount > 0) { 
                 ActivateTimeOfMove();
-
+                Debug.Log("ime igraca:" + NickName + ", instanca:" + GetCurrentInstance());
                 GameScript.isAviableToMove = true;
                 TimeOfMove.active = true;
 
@@ -2490,6 +2489,10 @@ public class GameScript : MonoBehaviourPunCallbacks
                                 if (values[temp.Key].CustomProperties["State"].Equals("active"))
                                 {
                                     IsFirstPlayerAI = true;
+                                    if(listTemp.Count == 1)
+                                    {
+                                            listTemp.Add("last");
+                                    }
                                     string[] arrayTemp = listTemp.ToArray();
                                     RecordBoard._instance.photonView.RPC("TakeRestOfCardsFirst", RpcTarget.All, arrayTemp as string[]);
 
@@ -2498,7 +2501,11 @@ public class GameScript : MonoBehaviourPunCallbacks
                         }
                         if (!IsFirstPlayerAI)
                         {
-                            string[] arrayTemp = listTemp.ToArray();
+                                if (listTemp.Count == 1)
+                                {
+                                    listTemp.Add("last");
+                                }
+                                string[] arrayTemp = listTemp.ToArray();
                             RecordBoard._instance.photonView.RPC("TakeRestOfCardsFirstAI", RpcTarget.All, arrayTemp as string[]);
                         }
                     }
@@ -2513,7 +2520,11 @@ public class GameScript : MonoBehaviourPunCallbacks
                                 if (values[temp.Key].CustomProperties["State"].Equals("active"))
                                 {
                                     IsSecondPlayerAI = true;
-                                    string[] arrayTemp = listTemp.ToArray();
+                                    if (listTemp.Count == 1)
+                                    {
+                                        listTemp.Add("last");
+                                    }
+                                        string[] arrayTemp = listTemp.ToArray();
                                     RecordBoard._instance.photonView.RPC("TakeRestOfCardsSecond", RpcTarget.All, arrayTemp as string[]);
 
                                 }
@@ -2521,6 +2532,10 @@ public class GameScript : MonoBehaviourPunCallbacks
                         }
                         if (!IsSecondPlayerAI)
                         {
+                            if(listTemp.Count == 1)
+                            {
+                                listTemp.Add("last");
+                            }
                             string[] arrayTemp = listTemp.ToArray();
                             RecordBoard._instance.photonView.RPC("TakeRestOfCardsSecondAI", RpcTarget.All, arrayTemp as string[]);
                         }
@@ -2536,6 +2551,10 @@ public class GameScript : MonoBehaviourPunCallbacks
                                 if (values[temp.Key].CustomProperties["State"].Equals("active"))
                                 {
                                     IsThirdPlayerAI = true;
+                                    if (listTemp.Count == 1)
+                                    {
+                                       listTemp.Add("last");
+                                    }
                                     string[] arrayTemp = listTemp.ToArray();
                                     RecordBoard._instance.photonView.RPC("TakeRestOfCardsThird", RpcTarget.All, arrayTemp as string[]);
 
@@ -2544,6 +2563,10 @@ public class GameScript : MonoBehaviourPunCallbacks
                         }
                         if (!IsThirdPlayerAI)
                         {
+                            if (listTemp.Count == 1)
+                            {
+                                 listTemp.Add("last");
+                            }
                             string[] arrayTemp = listTemp.ToArray();
                             RecordBoard._instance.photonView.RPC("TakeRestOfCardsThirdAI", RpcTarget.All, arrayTemp as string[]);
                         }
@@ -2559,7 +2582,11 @@ public class GameScript : MonoBehaviourPunCallbacks
                                 if (values[temp.Key].CustomProperties["State"].Equals("active"))
                                 {
                                     IsFourthPlayerAI = true;
-                                    string[] arrayTemp = listTemp.ToArray();
+                                        if (listTemp.Count == 1)
+                                        {
+                                            listTemp.Add("last");
+                                        }
+                                        string[] arrayTemp = listTemp.ToArray();
                                     RecordBoard._instance.photonView.RPC("TakeRestOfCardsFourth", RpcTarget.All, arrayTemp as string[]);
 
                                 }
@@ -2567,11 +2594,18 @@ public class GameScript : MonoBehaviourPunCallbacks
                         }
                         if (!IsFourthPlayerAI)
                         {
-                            string[] arrayTemp = listTemp.ToArray();
+                                if (listTemp.Count == 1)
+                                {
+                                    listTemp.Add("last");
+                                }
+                                string[] arrayTemp = listTemp.ToArray();
                             RecordBoard._instance.photonView.RPC("TakeRestOfCardsFourthAI", RpcTarget.All, arrayTemp as string[]);
                         }
                     }
-                    _zingDealer = new ZingDealer("start", "two");
+
+                   SideOfTeam.MoveInstance = 3;
+                   _currentPhotonView.RPC("SetMoveInstancesOnOthersPlayers", RpcTarget.Others, SideOfTeam.MoveInstance);
+                        _zingDealer = new ZingDealer("start", "two");
                     string[] remaingCardArray = new string[_zingDealer.RemainingCards.Count];
                     int intValue = 0;
                     RemainingCardsList = new List<string>();
@@ -2746,8 +2780,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                     _currentPhotonView.RPC("SetCardsToPlayers", RpcTarget.All, _cardsOfFirstPlayer.ToArray(), cardsOfSecondPlayer.ToArray(),
                         cardsOfThirdPlayer.ToArray(), cardsOfFourthPlayer.ToArray(), RemainingCardsList.ToArray());
 
-                    SideOfTeam.MoveInstance = 3;
-                    _currentPhotonView.RPC("SetMoveInstancesOnOthersPlayers", RpcTarget.Others, SideOfTeam.MoveInstance);
+                    
 
                     _currentPhotonView.RPC("ActivatePlayerToPlay", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName);
                 }
@@ -2923,6 +2956,10 @@ public class GameScript : MonoBehaviourPunCallbacks
                                         if (values[temp.Key].CustomProperties["State"].Equals("active"))
                                         {
                                             IsFirstPlayerAI = true;
+                                            if (listTemp.Count == 1)
+                                            {
+                                                listTemp.Add("last");
+                                            }
                                             string[] arrayTemp = listTemp.ToArray();
                                             RecordBoard._instance.photonView.RPC("TakeRestOfCardsFirst", RpcTarget.All, arrayTemp as string[]);
 
@@ -2931,6 +2968,10 @@ public class GameScript : MonoBehaviourPunCallbacks
                                 }
                                 if (!IsFirstPlayerAI)
                                 {
+                                    if (listTemp.Count == 1)
+                                    {
+                                        listTemp.Add("last");
+                                    }
                                     string[] arrayTemp = listTemp.ToArray();
                                     RecordBoard._instance.photonView.RPC("TakeRestOfCardsFirstAI", RpcTarget.All, arrayTemp as string[]);
                                 }
@@ -2946,6 +2987,10 @@ public class GameScript : MonoBehaviourPunCallbacks
                                         if (values[temp.Key].CustomProperties["State"].Equals("active"))
                                         {
                                             IsSecondPlayerAI = true;
+                                            if (listTemp.Count == 1)
+                                            {
+                                                listTemp.Add("last");
+                                            }
                                             string[] arrayTemp = listTemp.ToArray();
                                             RecordBoard._instance.photonView.RPC("TakeRestOfCardsSecond", RpcTarget.All, arrayTemp as string[]);
 
@@ -2954,6 +2999,10 @@ public class GameScript : MonoBehaviourPunCallbacks
                                 }
                                 if (!IsSecondPlayerAI)
                                 {
+                                    if (listTemp.Count == 1)
+                                    {
+                                        listTemp.Add("last");
+                                    }
                                     string[] arrayTemp = listTemp.ToArray();
                                     RecordBoard._instance.photonView.RPC("TakeRestOfCardsSecondAI", RpcTarget.All, arrayTemp as string[]);
                                 }
@@ -2969,6 +3018,10 @@ public class GameScript : MonoBehaviourPunCallbacks
                                         if (values[temp.Key].CustomProperties["State"].Equals("active"))
                                         {
                                             IsThirdPlayerAI = true;
+                                            if (listTemp.Count == 1)
+                                            {
+                                                listTemp.Add("last");
+                                            }
                                             string[] arrayTemp = listTemp.ToArray();
                                             RecordBoard._instance.photonView.RPC("TakeRestOfCardsThird", RpcTarget.All, arrayTemp as string[]);
 
@@ -2977,6 +3030,10 @@ public class GameScript : MonoBehaviourPunCallbacks
                                 }
                                 if (!IsThirdPlayerAI)
                                 {
+                                    if (listTemp.Count == 1)
+                                    {
+                                        listTemp.Add("last");
+                                    }
                                     string[] arrayTemp = listTemp.ToArray();
                                     RecordBoard._instance.photonView.RPC("TakeRestOfCardsThirdAI", RpcTarget.All, arrayTemp as string[]);
                                 }
@@ -2992,6 +3049,10 @@ public class GameScript : MonoBehaviourPunCallbacks
                                         if (values[temp.Key].CustomProperties["State"].Equals("active"))
                                         {
                                             IsFourthPlayerAI = true;
+                                            if (listTemp.Count == 1)
+                                            {
+                                                listTemp.Add("last");
+                                            }
                                             string[] arrayTemp = listTemp.ToArray();
                                             RecordBoard._instance.photonView.RPC("TakeRestOfCardsFourth", RpcTarget.All, arrayTemp as string[]);
 
@@ -3000,6 +3061,10 @@ public class GameScript : MonoBehaviourPunCallbacks
                                 }
                                 if (!IsFourthPlayerAI)
                                 {
+                                    if (listTemp.Count == 1)
+                                    {
+                                        listTemp.Add("last");
+                                    }
                                     string[] arrayTemp = listTemp.ToArray();
                                     RecordBoard._instance.photonView.RPC("TakeRestOfCardsFourthAI", RpcTarget.All, arrayTemp as string[]);
                                 }

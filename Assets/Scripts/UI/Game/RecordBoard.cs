@@ -175,8 +175,13 @@ namespace Assets.Scripts.UI.Game
         public void TakeRestOfCardsFirst(string[] listArray)
         {
             int pointsValue = 0;
-            
-            CalculatePoints points = new CalculatePoints(listArray.ToList());
+
+            var tempList = listArray.ToList();
+            if (tempList.Contains("last"))
+            {
+                tempList.Remove("last");
+            }
+            CalculatePoints points = new CalculatePoints(tempList);
             pointsValue = points.GetPoints();
 
             int tempCards = int.Parse(_cardsValue.text) + listArray.Length;
@@ -246,8 +251,13 @@ namespace Assets.Scripts.UI.Game
         public void TakeRestOfCardsFirstAI(string[] listArray)
         {
             int pointsValue = 0;
-            
-            CalculatePoints points = new CalculatePoints(listArray.ToList());
+
+            var tempList = listArray.ToList();
+            if (tempList.Contains("last"))
+            {
+                tempList.Remove("last");
+            }
+            CalculatePoints points = new CalculatePoints(tempList);
             pointsValue = points.GetPoints();
 
 
@@ -301,8 +311,13 @@ namespace Assets.Scripts.UI.Game
         public void TakeRestOfCardsSecond(string[] listArray)
         {
             int pointsValue = 0;
-            
-            CalculatePoints points = new CalculatePoints(listArray.ToList());
+
+            var tempList = listArray.ToList();
+            if (tempList.Contains("last"))
+            {
+                tempList.Remove("last");
+            }
+            CalculatePoints points = new CalculatePoints(tempList);
             pointsValue = points.GetPoints();
 
 
@@ -373,8 +388,13 @@ namespace Assets.Scripts.UI.Game
         public void TakeRestOfCardsSecondAI(string[] listArray)
         {
             int pointsValue = 0;
-            
-            CalculatePoints points = new CalculatePoints(listArray.ToList());
+
+            var tempList = listArray.ToList();
+            if (tempList.Contains("last"))
+            {
+                tempList.Remove("last");
+            }
+            CalculatePoints points = new CalculatePoints(tempList);
             pointsValue = points.GetPoints();
 
             int tempCards = int.Parse(_cardsRedValue.text) + listArray.Length;
@@ -426,8 +446,13 @@ namespace Assets.Scripts.UI.Game
         public void TakeRestOfCardsThird(string[] listArray)
         {
             int pointsValue = 0;
-            
-            CalculatePoints points = new CalculatePoints(listArray.ToList());
+
+            var tempList = listArray.ToList();
+            if (tempList.Contains("last"))
+            {
+                tempList.Remove("last");
+            }
+            CalculatePoints points = new CalculatePoints(tempList);
             pointsValue = points.GetPoints();
 
             int tempCards = int.Parse(_cardsValue.text) + listArray.Length;
@@ -496,8 +521,13 @@ namespace Assets.Scripts.UI.Game
         public void TakeRestOfCardsThirdAI(string[] listArray)
         {
             int pointsValue = 0;
-            
-            CalculatePoints points = new CalculatePoints(listArray.ToList());
+
+            var tempList = listArray.ToList();
+            if (tempList.Contains("last"))
+            {
+                tempList.Remove("last");
+            }
+            CalculatePoints points = new CalculatePoints(tempList);
             pointsValue = points.GetPoints();
 
             int tempCards = int.Parse(_cardsValue.text) + listArray.Length;
@@ -548,8 +578,13 @@ namespace Assets.Scripts.UI.Game
         public void TakeRestOfCardsFourth(string[] listArray)
         {
             int pointsValue = 0;
-            
-            CalculatePoints points = new CalculatePoints(listArray.ToList());
+
+            var tempList = listArray.ToList();
+            if (tempList.Contains("last"))
+            {
+                tempList.Remove("last");
+            }
+            CalculatePoints points = new CalculatePoints(tempList);
             pointsValue = points.GetPoints();
 
             int tempCards = int.Parse(_cardsRedValue.text) + listArray.Length;
@@ -620,7 +655,12 @@ namespace Assets.Scripts.UI.Game
         {
             int pointsValue = 0;
             int newPoints = 0;
-            CalculatePoints points = new CalculatePoints(listArray.ToList());
+            var tempList = listArray.ToList();
+            if (tempList.Contains("last"))
+            {
+                tempList.Remove("last");
+            }
+            CalculatePoints points = new CalculatePoints(tempList);
             pointsValue = points.GetPoints();
 
             int tempCards = int.Parse(_cardsRedValue.text) + listArray.Length;
