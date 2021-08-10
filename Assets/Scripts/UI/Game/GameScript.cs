@@ -2859,11 +2859,12 @@ public class GameScript : MonoBehaviourPunCallbacks
             int qq = int.Parse(FirstPlayerInstance.text);
             if (qq.Equals(tempInst))
             {
-                Debug.Log("pokrenuo sam metodu");
+                
                 isFirstActivatePlayerInstance = true;
 
                 
                 var tv = (Canvas)canvacesOfCurrentPlayer;
+                Debug.Log("pokrenuo sam metodu:"+tv.transform.childCount);
                 if (tv.transform.childCount > 0)
                 {
                     ActivateTimeOfMove();
@@ -3124,11 +3125,7 @@ public class GameScript : MonoBehaviourPunCallbacks
 
 
                             _currentPhotonView.RPC("SetInitDealerConfig", RpcTarget.Others, objLastCard.name, strana);
-                            _cardsOfFirstPlayer = new List<string>();
-                            foreach (var obj in _zingDealer.CardsOfFirstPlayers)
-                            {
-                                _cardsOfFirstPlayer.Add(obj.name);
-                            }
+                           
 
 
                             _random = new System.Random();
