@@ -1071,7 +1071,7 @@ public class GameScript : MonoBehaviourPunCallbacks
     {
         
       
-            InitCardsQuery icq = new InitCardsQuery(0);
+            InitCardsQuery icq = new InitCardsQuery(RemainingCardsList.Count);
             icq.InsertValue();
             //  photonView.RPC("DeleteRemainingCards", RpcTarget.All);
 
