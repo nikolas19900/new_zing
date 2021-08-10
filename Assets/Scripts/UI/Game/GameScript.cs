@@ -3072,10 +3072,7 @@ public class GameScript : MonoBehaviourPunCallbacks
                             //pocetak za novog djelioca 
                             SideOfTeam.MoveInstance = 3;
                             _currentPhotonView.RPC("SetMoveInstancesOnOthersPlayers", RpcTarget.Others, SideOfTeam.MoveInstance);
-                            runOnceFirst = false;
-                            runOnceSecond = false;
-                            runOnceThird = false;
-                            runOnceFourth = false;
+                            
                             
                             
                             _zingDealer = new ZingDealer("start", "two");
