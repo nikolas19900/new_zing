@@ -2435,11 +2435,11 @@ public class GameScript : MonoBehaviourPunCallbacks
     {
         if (FirstPlayerName.text.Equals(NickName))
         {
-            Debug.Log("ime igraca:" + NickName+", instanca:"+GetCurrentInstance());
+            
             var tv = (Canvas)canvacesOfCurrentPlayer;
             if(tv.transform.childCount > 0) { 
                 ActivateTimeOfMove();
-                Debug.Log("ime igraca:" + NickName + ", instanca:" + GetCurrentInstance());
+                
                 GameScript.isAviableToMove = true;
                 TimeOfMove.active = true;
 
@@ -3070,12 +3070,14 @@ public class GameScript : MonoBehaviourPunCallbacks
                                 }
                             }
                             //pocetak za novog djelioca 
+                            SideOfTeam.MoveInstance = 3;
+                            _currentPhotonView.RPC("SetMoveInstancesOnOthersPlayers", RpcTarget.Others, SideOfTeam.MoveInstance);
                             runOnceFirst = false;
                             runOnceSecond = false;
                             runOnceThird = false;
                             runOnceFourth = false;
-                            SideOfTeam.MoveInstance = 3;
-                            _currentPhotonView.RPC("SetMoveInstancesOnOthersPlayers", RpcTarget.Others, SideOfTeam.MoveInstance);
+                            
+                            
                             _zingDealer = new ZingDealer("start", "two");
                             string[] remaingCardArray = new string[_zingDealer.RemainingCards.Count];
                             int intValue = 0;
@@ -3112,34 +3114,27 @@ public class GameScript : MonoBehaviourPunCallbacks
                                 _cardsOfFirstPlayer.Add(obj.name);
                             }
 
-                            string[] cardsOfSecondPlayer = new string[_zingDealer.CardsOfSecondPlayers.Count];
-
-                            int count = 0;
+                           
+                            _cardsOfSecondPlayer = new List<string>();
+                           
                             foreach (var obj in _zingDealer.CardsOfSecondPlayers)
                             {
 
-                                cardsOfSecondPlayer[count] = obj.name;
-                                count++;
+                                _cardsOfSecondPlayer.Add(obj.name);
                             }
 
-                            string[] cardsOfThirdPlayer = new string[_zingDealer.CardsOfThirdPlayers.Count];
-
-                            int countThird = 0;
+                            _cardsOfThirdPlayer = new List<string>();
                             foreach (var obj in _zingDealer.CardsOfThirdPlayers)
                             {
-
-                                cardsOfThirdPlayer[countThird] = obj.name;
-                                countThird++;
+                                _cardsOfThirdPlayer.Add(obj.name);
+                                
                             }
 
-                            string[] cardsOfFourthPlayer = new string[_zingDealer.CardsOfFourthPlayers.Count];
-
-                            int countFourth = 0;
+                            _cardsOfFourthPlayer = new List<string>();
                             foreach (var obj in _zingDealer.CardsOfFourthPlayers)
                             {
 
-                                cardsOfFourthPlayer[countFourth] = obj.name;
-                                countFourth++;
+                                _cardsOfFourthPlayer.Add(obj.name);
                             }
 
 
@@ -3212,8 +3207,9 @@ public class GameScript : MonoBehaviourPunCallbacks
                             //isAviableToMove = true;
                             var players = PhotonNetwork.CurrentRoom.Players;
 
-                            _currentPhotonView.RPC("SetCardsToPlayers", RpcTarget.All, _cardsOfFirstPlayer.ToArray(), cardsOfSecondPlayer.ToArray(),
-                                cardsOfThirdPlayer.ToArray(), cardsOfFourthPlayer.ToArray(), RemainingCardsList.ToArray());
+                            _currentPhotonView.RPC("SetCardsToPlayers", RpcTarget.All, _cardsOfFirstPlayer.ToArray(), 
+                                _cardsOfSecondPlayer.ToArray(),
+                                _cardsOfThirdPlayer.ToArray(), _cardsOfFourthPlayer.ToArray(), RemainingCardsList.ToArray());
 
                             
                             
