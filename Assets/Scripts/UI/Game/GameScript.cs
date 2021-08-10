@@ -3009,6 +3009,8 @@ public class GameScript : MonoBehaviourPunCallbacks
                             runOnceSecond = false;
                             runOnceThird = false;
                             runOnceFourth = false;
+                            SideOfTeam.MoveInstance = 3;
+                            _currentPhotonView.RPC("SetMoveInstancesOnOthersPlayers", RpcTarget.Others, SideOfTeam.MoveInstance);
                             _zingDealer = new ZingDealer("start", "two");
                             string[] remaingCardArray = new string[_zingDealer.RemainingCards.Count];
                             int intValue = 0;
@@ -3148,8 +3150,8 @@ public class GameScript : MonoBehaviourPunCallbacks
                             _currentPhotonView.RPC("SetCardsToPlayers", RpcTarget.All, _cardsOfFirstPlayer.ToArray(), cardsOfSecondPlayer.ToArray(),
                                 cardsOfThirdPlayer.ToArray(), cardsOfFourthPlayer.ToArray(), RemainingCardsList.ToArray());
 
-                            SideOfTeam.MoveInstance = 3;
-                            _currentPhotonView.RPC("SetMoveInstancesOnOthersPlayers", RpcTarget.Others, SideOfTeam.MoveInstance);
+                            
+                            
                             _currentPhotonView.RPC("ActivatePlayerToPlay", RpcTarget.Others, PhotonNetwork.LocalPlayer.NickName);
 
                         }
